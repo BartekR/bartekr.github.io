@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on BartekR</title>
+    <link>http://blog.bartekr.net/post/</link>
+    <description>Recent content in Posts on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://blog.bartekr.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the system OAuth token in Azure DevOps</title>
+      <link>http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
+      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
+      <description>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</description>
+    </item>
+    
+    <item>
+      <title>Have problems with Docker Desktop for Windows Home? Yeah, me too!</title>
+      <link>http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</guid>
+      <description>Last week finally came that day: &amp;ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&amp;rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.
+Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional.</description>
+    </item>
+    
+    <item>
+      <title>Adding a new task in TFS/Azure DevOps using Excel</title>
+      <link>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/</link>
+      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/</guid>
+      <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
+First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
+    </item>
+    
+    <item>
+      <title>Adding a new Task in TFS using C#</title>
+      <link>http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</guid>
+      <description>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours.
+The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).
+Work item type
+Title
+Activity
+Area Path
+Assigned To
+Description
+Original Estimate
+Completed Work
+Task
+Title1
+Requirements
+Proj1\Team1
+P Name1
+Description 1</description>
+    </item>
+    
+    <item>
+      <title>Draw the SSIS Package using SVG - part III</title>
+      <link>http://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
+      <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
+Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a simple PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
+    </item>
+    
+    <item>
+      <title>Draw the SSIS Package using SVG - part II</title>
+      <link>http://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</link>
+      <pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
+      <description>The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.
+ 
+The sequence problem The main issue is with the alignment of the elements in the Sequence object (no matter if it&amp;rsquo;s the default one, the ForEachLoop or the ForLoop).</description>
+    </item>
+    
+    <item>
+      <title>Draw the SSIS package using SVG - part I</title>
+      <link>http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</link>
+      <pubDate>Mon, 08 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
+      <description>For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>Working with properties in ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</link>
+      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
+      <description>One of the ssisUnit commands is a PropertyCommand. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).
+How do you use it?
+
+The command is simple. You can get or set the property using the value for given property path.</description>
+    </item>
+    
+    <item>
+      <title>What&#39;s new in ssisUnit?</title>
+      <link>http://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/</link>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/</guid>
+      <description>ssisUnit has a stable version for SSIS 2005 - 2014. It didn&amp;rsquo;t change much since August 2014, until August 2017. Then my Pull Request was merged, and it added some new functionality for ssisUnit.
+First - it works with SSIS 2017. You can probably use it with SSIS 2016 packages, but I didn&amp;rsquo;t test it yet. Although - you can&amp;rsquo;t check everything - there are problems when you want to use Control Flow Templates in your packages.</description>
+    </item>
+    
+    <item>
+      <title>Writing ssisUnit test using API</title>
+      <link>http://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/</link>
+      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/</guid>
+      <description>In the post about using MSTest framework to execute ssisUnit tests, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.
+Why MSTest? Because I don&amp;rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not.</description>
+    </item>
+    
+    <item>
+      <title>Testing the loops in ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</link>
+      <pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
+      <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
+ &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
+I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
+    </item>
+    
+    <item>
+      <title>Setting package references in ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</link>
+      <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
+      <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
+ Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
+    </item>
+    
+    <item>
+      <title>Executing ssisUnit tests in MSTest framework</title>
+      <link>http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
+      <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
+      <description>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</description>
+    </item>
+    
+    <item>
+      <title>Using cached datasets in ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/</link>
+      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/</guid>
+      <description>In the previous post, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&amp;rsquo;s result in the test file. In this post, I will show you how you can use it.
+First - why would you want to store the datasets within the test file?</description>
+    </item>
+    
+    <item>
+      <title>Using Connections and Datasets in ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
+      <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
+
+The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
+ Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI)  You can find all of the attributes in the SsisUnit.</description>
+    </item>
+    
+    <item>
+      <title>Testing database connections with ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/</link>
+      <pubDate>Fri, 13 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/</guid>
+      <description>Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&amp;rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&amp;rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.</description>
+    </item>
+    
+    <item>
+      <title>Writing first tests with ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/</link>
+      <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/</guid>
+      <description>Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&amp;rsquo;t write your first tests for the most complicated part of the package.
+Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:</description>
+    </item>
+    
+    <item>
+      <title>Testing SSIS Projects with ssisUnit</title>
+      <link>http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
+      <description>During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&amp;rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects - part III</title>
+      <link>http://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</link>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
+      <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
+The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );
+ the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects, part II</title>
+      <link>http://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
+      <description>The problem I want to solve is automation of the SSIS project upgrade. Previously I wrote about the options to use Application.Upgrade() or Application.SaveAndUpdateVersionToXml() methods. This post is about the first of those options.
+If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: https://msdn.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects, part I</title>
+      <link>http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</link>
+      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
+      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like “The package was migrated from version 6 to version 8. It must be saved to retain migration changes.”
+
+This information is written to the log no matter which logging level we choose (also with None).</description>
+    </item>
+    
+    <item>
+      <title>T-SQL Tuesday #96: Folks Who Have Made a Difference</title>
+      <link>http://blog.bartekr.net/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/</link>
+      <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/</guid>
+      <description>This post is a part of T-SQL Tuesday series started by Adam Machanic in 2009.
+Ewald Cress (b | t) asked to give a shout-out to people (well-known or otherwise) who have made a meaningful contribution to your life in the world of data.
+As I was thinking about the people that had the most impact on my career I have to give the biggest kudos to my friend, Leszek Kwaśniewski (t).</description>
+    </item>
+    
+    <item>
+      <title>So, you want to migrate SSIS(DB)?</title>
+      <link>http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
+The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
+    </item>
+    
+    <item>
+      <title>Learning something new: getting information from SSIS packages with PowerShell</title>
+      <link>http://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</guid>
+      <description>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down.
+#I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools</description>
+    </item>
+    
+    <item>
+      <title>Connect to SQL Server on Ubuntu Linux VirtualBox machine</title>
+      <link>http://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
+      <description>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.
+I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?</description>
+    </item>
+    
+    <item>
+      <title>Learning something new: connections in SSIS package</title>
+      <link>http://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/</link>
+      <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/</guid>
+      <description>Starting to learn something new - first step. Let&amp;rsquo;s analyse the code of SSIS package. How does it store the information about the element connections? How can I get that data as graph&amp;rsquo;s edges and nodes? Step by step - building the packages from empty one to more complex I will find how they are stored.
+To achieve this I will prepare the new SSIS Project and call it SSIS_Graph. It will get new packages each time I will want to check something new.</description>
+    </item>
+    
+    <item>
+      <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
+      <link>http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</guid>
+      <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&#39; relations using graphs and Power BI?
+Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</description>
+    </item>
+    
+    <item>
+      <title>Get the passwords from SSIS Environment variables</title>
+      <link>http://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/</link>
+      <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
+      <description>SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&amp;rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.
+But what if you need to do the configuration on another server? Or you&amp;rsquo;re just curious how to decode encrypted data?</description>
+    </item>
+    
+    <item>
+      <title>What happens during SSIS deployments?</title>
+      <link>http://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/</guid>
+      <description>When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&amp;rsquo;s skip SMO and stuff). Both mean the same: IsDeploymentWizard.exe. I was curious what happens during deployment and why mode/Silent finishes deployment very quickly, so I started digging.
+First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6 project parameters and no connection managers (who needs them anyway?). Each package contained empty Data Flow Task - so you see that all just to compile something more than a single package.</description>
+    </item>
+    
+    <item>
+      <title>SQLBits 2017</title>
+      <link>http://blog.bartekr.net/2017/04/16/sqlbits-2017/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.bartekr.net/2017/04/16/sqlbits-2017/</guid>
+      <description>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.
+ First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
+    </item>
+    
+  </channel>
+</rss>

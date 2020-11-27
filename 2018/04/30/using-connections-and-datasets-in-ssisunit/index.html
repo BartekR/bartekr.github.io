@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Using Connections and Datasets in ssisUnit - BartekR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="generator" content="Hugo 0.76.5" /><meta property="og:site_name" content="BartekR">
+  <meta property="og:title" content="Using Connections and Datasets in ssisUnit">
+  <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="og:url" content="http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/">
+  <meta property="og:type" content="article">
+  
+    <meta property="og:image" content="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
+  
+  <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
+</head>
+
+  <body>
+    
+
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/" class="nav">
+        
+          BartekR blog
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu menu">
+      
+        
+          
+          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
+        
+      
+        
+          
+          <a href="/brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
+        
+      
+        
+          
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
+          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
+        
+      
+        
+          
+          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+      
+      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
+    </menu>
+    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    
+    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
+  <menu id="lang-menu" class="flyout-menu menu">
+  <a href="#" lang="en" class="nav link active"> (en)</a>
+  
+    
+      
+    
+  
+</menu>
+
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro" class="hidden-single-column">
+  <a href="/"><img src="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
+  <header>
+    <h1>BartekR</h1>
+  </header>
+  <main>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 daughter.3 dogs. 9 cats.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        
+  <article class="post">
+    <header>
+  <div class="title">
+    
+      <h2><a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/">Using Connections and Datasets in ssisUnit</a></h2>
+    
+    
+  </div>
+  <div class="meta">
+    <time datetime="2018-04-30 00:00:00 &#43;0000 UTC">April 30, 2018</time>
+    
+    
+  </div>
+</header>
+
+    <div id="socnet-share">
+      
+
+
+
+
+
+    </div>
+    <div class="content">
+      
+      <p>One of the elements you can define in ssisUnit is a Dataset. In this post of the <a href="http://blog.bartekr.net/series/">ssisUnit series</a>, I will show you how to prepare and use it later in a test.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Dataset.png"><img src="images/Dataset-300x40.png" alt=""></a></p>
+<h1 id="the-dataset">The Dataset</h1>
+<p>As you can see in the image above, <strong>the dataset is a named result that contains data</strong>. It has five attributes (although you can see just four of them in the GUI):</p>
+<ul>
+<li><em>Name</em> (required) - the name of the dataset, used for referencing the dataset in a test</li>
+<li><em>IsResultsStored</em> (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false)</li>
+<li><em>Connection</em> (required) - the connection reference for the dataset retrieval</li>
+<li><em>Query</em> (optional) - the query for the dataset definition</li>
+<li><em>Results</em> (optional) - the cached dataset (not available in the GUI)</li>
+</ul>
+<p>You can find all of the attributes in the <code>SsisUnit.xsd</code> file in the source code.</p>
+<p>Why would you use the dataset? Verifying the numbers is almost always enough, but I have the cases I have to check the actual data after the processing. Like testing the SCD1 or SCD2 attributes, verifying the <code>MERGE</code> statements, checking <code>UPDATE</code>s on the data. I prepare a small reference data and compare it using <code>DataCompareCommand</code>.</p>
+<p>[caption id=&ldquo;attachment_318&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;300&rdquo;]<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Datasets.png"><img src="images/Datasets-300x107.png" alt=""></a> The goal: compare data in the table (actual data) with the reference data (expected data)[/caption]</p>
+<h1 id="the-scenario">The scenario</h1>
+<p>I will test loading users data from the staging table to the destination table. I have the <code>stg.Users</code> table with the information from the source system, and I want to transfer it to the <code>dbo.Users</code> table using the rules:</p>
+<ul>
+<li>the natural key in <code>dbo.Users</code> is (<code>SourceId, SourceSystemId</code>)</li>
+<li>the natural key in <code>stg.Users is (`Id, SourceSystemId`)</code></li>
+<li>if the record from <code>stg.Users</code> is not in <code>dbo.Users</code>, then add it</li>
+<li>if the record exists in <code>dbo.Users</code> and has different data than the record in <code>stg.Users</code>, then update it</li>
+<li>if the record exists in <code>dbo.Users</code> and doesn&rsquo;t exist in <code>stg.Users</code> - mark it as deleted (<code>IsDeleted</code> = 1)</li>
+<li>when the new record is inserted, the columns <code>InsertedAuditId</code> and <code>UpdatedAuditId</code> have the same value</li>
+<li>when the record is updated, the column <code>UpdateAuditId</code> is updated, and <code>UpdateAuditId</code> &gt; <code>InsertedAuditId</code></li>
+<li>only the records with the changed attributes get an update</li>
+</ul>
+<p>I will use the <code>MERGE</code> statement for the data loading process. In the package I will also use two _SQL Task_s for auditing. I have <code>meta.Audit</code> table for tracking the executions of the packages and I use <code>meta.uspPackageStart</code> and <code>meta.uspPackageFinish</code> stored procedures to insert and update the audit data. The package looks like in the picture below.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/15_Users_Dataset.png"><img src="images/15_Users_Dataset-220x300.png" alt=""></a></p>
+<p>I will define the tests to run later in the post.</p>
+<h1 id="defining-the-ssisunit-connections">Defining the ssisUnit connections</h1>
+<p>One of the dataset&rsquo;s attributes is a <em>Connection</em>. It&rsquo;s not any of the connections defined within the SSIS package or the project. It&rsquo;s the connection defined in the ssisUnit test suite.</p>
+<p>[caption id=&ldquo;attachment_310&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;300&rdquo;]<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Connection.png"><img src="images/Connection-300x36.png" alt="ssisUnit connection"></a> ssisUnit connection[/caption]</p>
+<p>The connection has four attributes:</p>
+<ul>
+<li><em>Connection string</em> - the connection string to the external source</li>
+<li><em>Connection type</em> - the type of the connection (supported types: <em>ConnectionString</em> and <em>Ado.Net</em>)</li>
+<li><em>Invariant type</em> - the type of the <em>Ado.Net</em> provider (when used)</li>
+<li>Reference <em>name</em> - the name of the connection to use in <code>SqlCommand</code> or <code>DatasetCommand</code></li>
+</ul>
+<p>I use a Connection string for the database communication. When you add a new connection, you have only the text box for entering the connection string, or you can pick the provider to enter all the data.<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/DefineConnectionString.png"><img src="images/DefineConnectionString-300x136.png" alt=""></a></p>
+<p>After you fill the connection information, the wizard detects the type and displays them in the proper format.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/ConnectionString_OleDbProvider.png"><img src="images/ConnectionString_OleDbProvider-300x281.png" alt=""></a></p>
+<p>The connection reference should be ready to use. But when you try to use it in the <code>SqlCommand</code> right after creating it you will see the error:</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/ConnectionRefError.png"><img src="images/ConnectionRefError-300x107.png" alt=""></a></p>
+<p>It&rsquo;s not a ssisUnit problem, but the GUI problem - it has some issues with refreshing the object information. Just save the test, open it again, and everything will work fine.</p>
+<h1 id="the-test-the-setup-the-teardown">The test, the setup, the teardown</h1>
+<p>Now you can use SQL commands to query the database about the data. You can also prepare and destroy data before and after the test during the setup and teardown phases. But first - the test itself. Create a new test <em>SQL MERGE Users: Empty table</em> using the <em>SQL MERGE Users</em> task. Now create the <code>SqlCommand</code> in the <em>TestSetup</em> node using right-click, and add the following code to setup <code>stg.Users</code> data:</p>
+<p>WITH stgUsers AS (
+SELECT *
+FROM (
+VALUES
+(&lsquo;Name 1&rsquo;, &lsquo;Login 1&rsquo;, 1, 1, 2, -1),
+(&lsquo;Name 2&rsquo;, &lsquo;Login 2&rsquo;, 1, 2, 2, -1),
+(&lsquo;Name 3&rsquo;, &lsquo;Login 3&rsquo;, 0, 3, 2, -1)
+)x (Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId)
+)
+INSERT INTO stg.Users (
+Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+)
+SELECT
+Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+FROM stgUsers
+;</p>
+<p>You should have something like in the picture below:</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/TestSetupSqlCommand.png"><img src="images/TestSetupSqlCommand-300x56.png" alt=""></a></p>
+<p>As you can see - the GUI has a feature of not displaying the name of the command in the test tree on the left.</p>
+<p>As there is a code to set up the test I also have the code to tidy up after. I use two <code>TRUNCATE TABLE</code> commands to clean up the <code>stg.Users</code> and <code>dbo.Users</code> tables.</p>
+<p><!-- raw HTML omitted -->TRUNCATE TABLE stg.Users;<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->TRUNCATE TABLE dbo.Users;<!-- raw HTML omitted --></p>
+<h1 id="the-test-cases">The test cases</h1>
+<p>There are a few test cases I want to run for the scenario mentioned above. I will cover them in this and following posts:</p>
+<ul>
+<li>the <code>stg.Users</code> table contains the data, and the <code>dbo.Users</code> table is empty</li>
+<li>the <code>stg.Users</code> table has the data, that does not exist in the <code>dbo.Users</code> table and <code>dbo.Users</code> table is not empty</li>
+<li>the <code>stg.Users</code> table is not empty but lacks some records from the <code>dbo.Users</code> table</li>
+<li>the <code>stg.Users</code> table is empty and the dbo.Users table is not empty</li>
+</ul>
+<p>Within those test cases I want to check:</p>
+<ul>
+<li>the number of records loaded to <code>dbo.Users</code></li>
+<li>if the attributes are same in <code>stg.Users</code> and <code>dbo.Users</code></li>
+<li>if <code>InsertedAuditId</code> is equal to <code>UpdatedAuditId</code> or greater when appropriate</li>
+<li>if every required record marked with <code>IsDeleted</code> = 1</li>
+</ul>
+<p>This time I will not use the variables to hold the results. I will run separate SQL statements to verify the count of the records in the table and write expected and actual datasets code to verify if they match. I will focus on the dataset part.</p>
+<p>I will load three records to the <code>stg.Users</code> table (with the T-SQL code above) and process them with the package. Then I will check if these records are loaded to the <code>dbo.Users</code> table and if they have the same values (excluding audits and the <code>Id</code> column). To verify I will use just the <code>SELECT</code> statement from the code above as the reference data and compare it to the <code>SELECT</code> statement on <code>dbo.Users</code> table.</p>
+<h1 id="creating-and-using-the-datasets-finally">Creating and using the datasets (finally!)</h1>
+<p>To create the dataset go to the <em>Datasets</em> node, right-click, and select <em>Add Dataset</em>. Prepare two datasets: <em>Empty table test: expected dataset</em> and <em>Empty table test: actual dataset</em>. At the beginning try to be very descriptive, it helps with getting familiar with the terminology and the process.</p>
+<p>For the expected dataset use the T-SQL code above changing <code>InsertAuditId</code> = -1  column to <code>IsDeleted</code> = 0, set the <em>ssisUnitLearningDB</em> connection prepared in the previous steps and leave <em>IsResultsStored</em> flag as <em>false</em>. For the actual dataset use a <code>SELECT</code> query on the <code>dbo.Users</code> table. You should get the code similar to this one:</p>
+<!-- raw HTML omitted -->
+<p>To use the dataset in the test use <em>Add Command / DatasetCommand</em> on the right-click menu on the Assert node. Use the created expected and actual datasets and leave <em>TaskResult</em> as Success.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Datasets.png"><img src="images/Datasets-300x107.png" alt=""></a></p>
+<p>The whole test looks like this:</p>
+<!-- raw HTML omitted -->
+<p>Save the test and hit the <em>Run</em> button.</p>
+<p>The test failed</p>
+<p><em>The actual result (False) did not match the expected result (True).</em> <em>3 rows differ between the expected &ldquo;Empty table test: expected dataset&rdquo; and actual &ldquo;Empty table test: actual dataset&rdquo; datasets.</em></p>
+<h1 id="tuning-the-test">Tuning the test</h1>
+<p>There are few things to have in mind when preparing the datasets:</p>
+<ul>
+<li>the dataset compare checks the data AND the data types</li>
+<li>if you don&rsquo;t specify ORDER BY, most of the times you don&rsquo;t get the required order</li>
+</ul>
+<p>When you check the datatypes of the expected and actual datasets you will see the difference:</p>
+<p>EXEC sp_describe_first_result_set N'
+SELECT *
+FROM (
+VALUES
+(&lsquo;&lsquo;Name 1&rsquo;&rsquo;, &lsquo;&lsquo;Login 1&rsquo;&rsquo;, 1, 1, 2, 0),
+(&lsquo;&lsquo;Name 2&rsquo;&rsquo;, &lsquo;&lsquo;Login 2&rsquo;&rsquo;, 1, 2, 2, 0),
+(&lsquo;&lsquo;Name 3&rsquo;&rsquo;, &lsquo;&lsquo;Login 3&rsquo;&rsquo;, 0, 3, 2, 0)
+)x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
+&lsquo;;</p>
+<p>EXEC sp_describe_first_result_set N&rsquo;
+SELECT
+Name,
+Login,
+IsActive,
+SourceId,
+SourceSystemId,
+IsDeleted
+FROM dbo.Users;
+&lsquo;;</p>
+<p>Column</p>
+<p>Type (expected)</p>
+<p>Type (actual)</p>
+<p>Name</p>
+<p>VARCHAR(6)</p>
+<p>VARCHAR(50)</p>
+<p>Login</p>
+<p>VARCHAR(7)</p>
+<p>CHAR(12)</p>
+<p>IsActive</p>
+<p>INT</p>
+<p>BIT</p>
+<p>SourceId</p>
+<p>INT</p>
+<p>INT</p>
+<p>SourceSystemId</p>
+<p>INT</p>
+<p>TINYINT</p>
+<p>IsDeleted</p>
+<p>INT</p>
+<p>BIT</p>
+<p>Change the expected dataset to match the data types:</p>
+<p>SELECT *
+FROM (
+VALUES
+(CAST(&lsquo;Name 1&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 1&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(1 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
+(CAST(&lsquo;Name 2&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 2&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(2 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
+(CAST(&lsquo;Name 3&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 3&rsquo; AS CHAR(12)), CAST(0 AS BIT), CAST(3 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT))
+)x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
+ORDER BY Id;</p>
+<p>And add an <code>ORDER BY</code> clause to the actual dataset:</p>
+<p>SELECT
+Name,
+Login,
+IsActive,
+SourceId,
+SourceSystemId,
+IsDeleted
+FROM dbo.Users
+ORDER BY SourceId;</p>
+<p>Now the test should pass.</p>
+<p>So, when using datasets:</p>
+<ul>
+<li>create the connections to the database</li>
+<li>prepare expected and actual datasets with some T-SQL code</li>
+<li>make sure the data types in expected and actual sets match (use CAST and CONVERT if necessary)</li>
+<li>use ORDER BY</li>
+<li>make sure that the expected and actual datasets have the same number of rows</li>
+</ul>
+<p>In the next post, I will show you how to persist the datasets in the test file and use the <code>IsResultStored</code> flag.</p>
+
+    </div>
+    <footer>
+      <div class="stats">
+  
+    <ul class="categories">
+      <li>None</li>
+    </ul>
+  
+  
+    <ul class="tags">
+      <li>None</li>
+    </ul>
+  
+</div>
+
+    </footer>
+  </article>
+  
+    
+
+  
+  <div class="pagination">
+    
+      <a href="/2018/05/31/using-cached-datasets-in-ssisunit/" class="button left"><span>Using cached datasets in ssisUnit</span></a>
+    
+    
+      <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="button right"><span>Testing database connections with ssisUnit</span></a>
+    
+  </div>
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent Posts</h1>
+      </header>
+      
+      <article class="mini-post">
+          <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
+    <img src="http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a></h2>
+          <time class="published" datetime="2020-09-24 00:00:00 &#43;0000 UTC">September 24, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
+    <img src="http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">Have problems with Docker Desktop for Windows Home? Yeah, me too!</a></h2>
+          <time class="published" datetime="2020-09-01 00:00:00 &#43;0000 UTC">September 1, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/">Adding a new task in TFS/Azure DevOps using Excel</a></h2>
+          <time class="published" datetime="2020-05-19 00:00:00 &#43;0000 UTC">May 19, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">Adding a new Task in TFS using C#</a></h2>
+          <time class="published" datetime="2020-05-04 00:00:00 &#43;0000 UTC">May 4, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
+          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
+        </header>
+      </article>
+      
+      
+        <footer>
+          <a href="/blog" class="button">See More</a>
+        </footer>
+      
+    </section>
+  
+
+  
+    
+
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  
+    <section id="mini-bio">
+      <header>
+        <h1>About</h1>
+      </header>
+      <p>Bartekr 01</p>
+      <footer>
+        <a href="/about" class="button">Learn More</a>
+      </footer>
+    </section>
+  
+</section>
+
+      <footer id="site-footer">
+  
+  <p class="copyright">
+    © 2020 BartekR
+      <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.76.5' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      <script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="/js/add-on.js"></script>
+    </div>
+  </body>
+</html>

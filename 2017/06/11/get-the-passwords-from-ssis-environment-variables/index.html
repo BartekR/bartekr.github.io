@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Get the passwords from SSIS Environment variables - BartekR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="generator" content="Hugo 0.76.5" /><meta property="og:site_name" content="BartekR">
+  <meta property="og:title" content="Get the passwords from SSIS Environment variables">
+  <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="og:url" content="http://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/">
+  <meta property="og:type" content="article">
+  
+    <meta property="og:image" content="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
+  
+  <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
+</head>
+
+  <body>
+    
+
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/" class="nav">
+        
+          BartekR blog
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu menu">
+      
+        
+          
+          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
+        
+      
+        
+          
+          <a href="/brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
+        
+      
+        
+          
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
+          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
+        
+      
+        
+          
+          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+      
+      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
+    </menu>
+    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    
+    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
+  <menu id="lang-menu" class="flyout-menu menu">
+  <a href="#" lang="en" class="nav link active"> (en)</a>
+  
+    
+      
+    
+  
+</menu>
+
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro" class="hidden-single-column">
+  <a href="/"><img src="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
+  <header>
+    <h1>BartekR</h1>
+  </header>
+  <main>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 daughter.3 dogs. 9 cats.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        
+  <article class="post">
+    <header>
+  <div class="title">
+    
+      <h2><a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/">Get the passwords from SSIS Environment variables</a></h2>
+    
+    
+  </div>
+  <div class="meta">
+    <time datetime="2017-06-11 00:00:00 &#43;0000 UTC">June 11, 2017</time>
+    
+    
+  </div>
+</header>
+
+    <div id="socnet-share">
+      
+
+
+
+
+
+    </div>
+    <div class="content">
+      
+      <p>SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.</p>
+<p>But what if you need to do the configuration on another server? Or you&rsquo;re just curious how to decode encrypted data? SSIS has to do it somehow, right?</p>
+<p>If you&rsquo;re not curious what happens under the hood then scroll down to see that you can get all the information in few lines of T-SQL code (max 3 if you know the environment&rsquo;s ID and compress <code>SELECT</code> statement). If you want to know more - let&rsquo;s start with investigating environment creation with SQL Profiler. I will create environment <em>ENV1</em> in folder <em>DWH_ETL</em>.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/06/CreateEnvironment.png"><img src="images/CreateEnvironment.png" alt=""></a></p>
+<p>SSIS makes few standard calls before each operation (take a look at <a href="http://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/">deployment details</a>), but the most important thing is this part:</p>
+<p>EXEC [SSISDB].[catalog].[create_environment]
+@environment_name=N&rsquo;ENV1',
+@environment_description=N'',
+@folder_name=N&rsquo;DWH_ETL'</p>
+<p>Nothing surprising. But have you seen the <code>catalog.create_environment</code>&rsquo;s body? Yeah, me too. So - we have to go deeper. Scrolling down 120 lines of code (user validation, environment existence check) we get to the point. It starts slowly:</p>
+<p>INSERT INTO [internal].[environments]
+      VALUES (@environment_name, @folder_id, @environment_description, @caller_sid, @caller_name, SYSDATETIMEOFFSET())
+SET @environment_id = SCOPE_IDENTITY()</p>
+<p>But then gets interesting:</p>
+<p>SET @encryption_algorithm = (SELECT [internal].[get_encryption_algorithm]())
+&ndash; &hellip; skip some code &hellip;       </p>
+<p>SET @key_name = &lsquo;MS_Enckey_Env_'+CONVERT(varchar,@environment_id)
+SET @certificate_name = &lsquo;MS_Cert_Env_'+CONVERT(varchar,@environment_id)</p>
+<p>SET @sqlString = &lsquo;CREATE CERTIFICATE ' + @certificate_name</p>
+<ul>
+<li>' WITH SUBJECT = &lsquo;&lsquo;ISServerCertificate&rsquo;&rsquo;&rsquo;</li>
+</ul>
+<p>IF  NOT EXISTS (SELECT [name] FROM [sys].[certificates] WHERE [name] = @certificate_name)
+    EXECUTE sp_executesql @sqlString</p>
+<p>SET @sqlString = &lsquo;CREATE SYMMETRIC KEY ' + @key_name +&rsquo; WITH ALGORITHM = '
+                    + @encryption_algorithm + ' ENCRYPTION BY CERTIFICATE ' + @certificate_name</p>
+<p>IF  NOT EXISTS (SELECT [name] FROM [sys].[symmetric_keys] WHERE [name] = @key_name)
+    EXECUTE sp_executesql @sqlString</p>
+<p>Aha! So, it&rsquo;s creating the certificate and the symmetric key for the environment. Ergo - all encryption within the environment uses dedicated symmetric key encrypted using dedicated certificate.</p>
+<p>Great - the second step - add a sensitive variable to this environment (using SSMS, let&rsquo;s skip the screenshot). I&rsquo;ll call it <em><code>VAR1</code></em>, type - <code>string</code>, value: <code>123</code>. Dot excluded. SQL Profiler still running - we get this piece of code (of course there&rsquo;s more, but I cut down to the interesting part):</p>
+<p>DECLARE @var sql_variant = N'123&rsquo;
+EXEC [SSISDB].[catalog].[create_environment_variable]
+@variable_name=N&rsquo;VAR1&rsquo;,
+@sensitive=True,
+@description=N'',
+@environment_name=N&rsquo;ENV1',
+@folder_name=N&rsquo;DWH_ETL',
+@value=@var,
+@data_type=N&rsquo;String'</p>
+<p>First conclusion - the value provided has no strong type. It&rsquo;s <code>sql_variant</code>. The <em>String</em> type is just an attribute to this value. It has its consequences later, but for now, it&rsquo;s not that important. As earlier - we have to go deeper - how does <code>catalog.create_environment_variable</code> work?</p>
+<p>Again - when we take a look inside of the procedure we see user validation, data type validation, environment and folder validation, permission checking and so on. And then we get to this piece of code for encrypted values (I formatted a bit the source code and <strong>highlighted</strong> the key phrases):</p>
+<p>IF (@sensitive = 1)
+    BEGIN
+        SET @key_name = &lsquo;MS_Enckey_Env_'+CONVERT(varchar,@environment_id)
+        SET @certificate_name = &lsquo;MS_Cert_Env_'+CONVERT(varchar,@environment_id)
+        
+        <strong>SET @sqlString = &lsquo;OPEN SYMMETRIC KEY ' + @key_name
+                            + ' DECRYPTION BY CERTIFICATE ' + @certificate_name</strong>  
+        EXECUTE sp_executesql @sqlString
+        
+        IF @data_type = &lsquo;datetime&rsquo;
+        BEGIN
+            SET @binary_value = <strong>EncryptByKey</strong>(KEY_GUID(@key_name),CONVERT(varbinary(4000),CONVERT(datetime2,@value)))
+        END
+        
+        ELSE IF @data_type = &lsquo;single&rsquo; OR @data_type = &lsquo;double&rsquo; OR @data_type = &lsquo;decimal&rsquo;
+        BEGIN
+            SET @binary_value = <strong>EncryptByKey</strong>(KEY_GUID(@key_name),CONVERT(varbinary(4000),CONVERT(decimal(38,18),@value)))
+        END
+                    
+        ELSE
+        BEGIN
+            SET @binary_value = <strong>EncryptByKey</strong>(KEY_GUID(@key_name),CONVERT(varbinary(4000),@value))   
+        END
+        
+        <strong>SET @sqlString = &lsquo;CLOSE SYMMETRIC KEY &lsquo;+ @key_name</strong>
+        EXECUTE sp_executesql @sqlString    
+        
+        <strong>INSERT INTO  [internal].[environment_variables] ([environment_id], [name], [description], [type], [sensitive], [value], [sensitive_value], [base_data_type])      
+            VALUES (@environment_id, @variable_name, @description, @data_type, @sensitive, null, @binary_value, @variable_type)
+    END</strong>
+    
+    ELSE    
+    BEGIN
+        INSERT INTO  [internal].[environment_variables] ([environment_id], [name], [description], [type], [sensitive], [value], [sensitive_value], [base_data_type])      
+            VALUES (@environment_id, @variable_name, @description, @data_type, @sensitive, @value, null, @variable_type)            
+    END</p>
+<p>The sensitive variable is encrypted by symmetric key created during the environment creation. The value is converted to <code>varbinary(4000)</code> and encrypted using the <code>EncryptByKey()</code> function, but with three different paths, according to the type:</p>
+<ul>
+<li><em>datetime</em> - converts the value to <code>datetime2</code>, and then to <code>varbinary(4000)</code></li>
+<li><em>number</em> - converts the value to <code>decimal(38, 18)</code>, and then to <code>varbinary(4000)</code></li>
+<li><em>other</em> - converts straight to <code>varbinary(4000)</code></li>
+</ul>
+<p>At the end, the key is closed and the value is inserted into the <code>internal.environment_variables</code> table to the <code>sensitive_variable</code> column.</p>
+<blockquote>
+<p>A side note: SMO returns variables for environment from the <code>catalog.environment_variables</code> view, not the <code>internal.environment_variables</code> table. The view does not provide sensitive data.</p>
+</blockquote>
+<p>Looks easy - to decrypt the variable we need to do almost the same thing as with encryption, but instead of the <code>EncryptByKey()</code> function we have to use <code>DecryptByKey()</code>. Also - as with encryption - we have to consider different paths for data decryption - we&rsquo;ll see why in a moment.</p>
+<p>To simplify the code I&rsquo;m assuming that my <code>environment_id = 10</code>. Then my encryption key and certificate have <em>_10</em> suffix. First try: convert all to <code>NVARCHAR(1000)</code></p>
+<p>OPEN SYMMETRIC KEY MS_Enckey_Env_10
+DECRYPTION BY CERTIFICATE MS_Cert_Env_10;</p>
+<p>SELECT
+*,
+val = CONVERT(NVARCHAR(1000), DECRYPTBYKEY(sensitive_value))
+FROM SSISDB.internal.environment_variables
+WHERE
+environment_id = 10</p>
+<p>CLOSE SYMMETRIC KEY MS_Enckey_Env_10;</p>
+<p>Easy. But - it&rsquo;s only one simple string variable. What happens when we have sensitive data of type - let&rsquo;s say - int? Or float? Because - why not? Sensitive is an attribute of all types of data. Then we have to convert to the proper type. Let&rsquo;s say we have an environment with lots of encrypted variables:</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/06/EncrypteVariablesInEnvironment.png"><img src="images/EncrypteVariablesInEnvironment.png" alt=""></a></p>
+<p>If we try to do something like this:</p>
+<p>OPEN SYMMETRIC KEY MS_Enckey_Env_10
+DECRYPTION BY CERTIFICATE MS_Cert_Env_10;</p>
+<p>SELECT
+*,
+value    = CASE base_data_type
+        WHEN &lsquo;nvarchar&rsquo; THEN CONVERT(NVARCHAR(MAX), DECRYPTBYKEY(sensitive_value))
+        WHEN &lsquo;bit&rsquo; THEN CONVERT(bit, DECRYPTBYKEY(sensitive_value))
+        WHEN &lsquo;datetime&rsquo; THEN CONVERT(datetime2(0), DECRYPTBYKEY(sensitive_value))
+&ndash; some data types skipped
+    END
+FROM SSISDB.internal.environment_variables
+WHERE
+environment_id = 10</p>
+<p>CLOSE SYMMETRIC KEY MS_Enckey_Env_10;</p>
+<p>we get the errors of operand clash:</p>
+<p>Msg 206, Level 16, State 2, Line 2
+Operand type clash: bit is incompatible with datetime2</p>
+<p>It&rsquo;s because we try to put more than one type in one column (value). We have to do one more conversion to common type. Let&rsquo;s use <code>NVARCHAR(MAX)</code>:</p>
+<p>OPEN SYMMETRIC KEY MS_Enckey_Env_10
+DECRYPTION BY CERTIFICATE MS_Cert_Env_10;</p>
+<p>SELECT
+*,
+value    = CASE base_data_type
+        WHEN &lsquo;nvarchar&rsquo; THEN CONVERT(NVARCHAR(MAX), DECRYPTBYKEY(sensitive_value))
+        WHEN &lsquo;bit&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(bit, DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;datetime&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(datetime2(0), DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;single&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(DECIMAL(38, 18), DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;float&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(DECIMAL(38, 18), DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;decimal&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(DECIMAL(38, 18), DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;tinyint&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(tinyint, DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;smallint&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(smallint, DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;int&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(INT, DECRYPTBYKEY(sensitive_value)))
+        WHEN &lsquo;bigint&rsquo; THEN CONVERT(NVARCHAR(MAX), CONVERT(bigint, DECRYPTBYKEY(sensitive_value)))
+    END,
+FROM SSISDB.internal.environment_variables
+WHERE
+environment_id = 10</p>
+<p>CLOSE SYMMETRIC KEY MS_Enckey_Env_10;</p>
+<p>I used only 10 types of variables, but we all know there is more of the types. But - when I checked the base data type for each variable I used (and every type was used there) I got only these 10 types. So I&rsquo;ll stick with them.</p>
+<p>Bottomline: to decrypt environment variable you need to:</p>
+<ol>
+<li>know your environment&rsquo;s Id</li>
+<li>open symmetric key decrypted by a certificate - for this environment</li>
+<li>use <code>DecryptByKey()</code> function and cast variable to proper type</li>
+<li>close symmetric key (tidy up)</li>
+</ol>
+<p>The last thing: if you are sysadmin you can do it all without thinking about the permissions. But if you&rsquo;re not - these are minimal privileges to decrypt data (tested on SQL Server 2014):</p>
+<ul>
+<li><code>VIEW DEFINITION</code> on <code>SYMMETRIC KEY</code></li>
+<li><code>CONTROL</code> on <code>CERTIFICATE</code></li>
+<li><code>SELECT</code> on <code>internal.environment_variables</code></li>
+</ul>
+
+    </div>
+    <footer>
+      <div class="stats">
+  
+    <ul class="categories">
+      <li>None</li>
+    </ul>
+  
+  
+    <ul class="tags">
+      <li>None</li>
+    </ul>
+  
+</div>
+
+    </footer>
+  </article>
+  
+    
+
+  
+  <div class="pagination">
+    
+      <a href="/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/" class="button left"><span>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</span></a>
+    
+    
+      <a href="/2017/05/03/what-happens-during-ssis-deployments/" class="button right"><span>What happens during SSIS deployments?</span></a>
+    
+  </div>
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent Posts</h1>
+      </header>
+      
+      <article class="mini-post">
+          <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
+    <img src="http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a></h2>
+          <time class="published" datetime="2020-09-24 00:00:00 &#43;0000 UTC">September 24, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
+    <img src="http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">Have problems with Docker Desktop for Windows Home? Yeah, me too!</a></h2>
+          <time class="published" datetime="2020-09-01 00:00:00 &#43;0000 UTC">September 1, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/">Adding a new task in TFS/Azure DevOps using Excel</a></h2>
+          <time class="published" datetime="2020-05-19 00:00:00 &#43;0000 UTC">May 19, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">Adding a new Task in TFS using C#</a></h2>
+          <time class="published" datetime="2020-05-04 00:00:00 &#43;0000 UTC">May 4, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
+          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
+        </header>
+      </article>
+      
+      
+        <footer>
+          <a href="/blog" class="button">See More</a>
+        </footer>
+      
+    </section>
+  
+
+  
+    
+
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  
+    <section id="mini-bio">
+      <header>
+        <h1>About</h1>
+      </header>
+      <p>Bartekr 01</p>
+      <footer>
+        <a href="/about" class="button">Learn More</a>
+      </footer>
+    </section>
+  
+</section>
+
+      <footer id="site-footer">
+  
+  <p class="copyright">
+    © 2020 BartekR
+      <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.76.5' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      <script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="/js/add-on.js"></script>
+    </div>
+  </body>
+</html>

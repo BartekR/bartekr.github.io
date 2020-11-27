@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Upgrading SSIS projects, part II - BartekR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="generator" content="Hugo 0.76.5" /><meta property="og:site_name" content="BartekR">
+  <meta property="og:title" content="Upgrading SSIS projects, part II">
+  <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
+  <meta property="og:url" content="http://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/">
+  <meta property="og:type" content="article">
+  
+    <meta property="og:image" content="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
+  
+  <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
+</head>
+
+  <body>
+    
+
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/" class="nav">
+        
+          BartekR blog
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu menu">
+      
+        
+          
+          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
+        
+      
+        
+          
+          <a href="/brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
+        
+      
+        
+          
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
+          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
+        
+      
+        
+          
+          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+      
+      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
+    </menu>
+    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    
+    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
+  <menu id="lang-menu" class="flyout-menu menu">
+  <a href="#" lang="en" class="nav link active"> (en)</a>
+  
+    
+      
+    
+  
+</menu>
+
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro" class="hidden-single-column">
+  <a href="/"><img src="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
+  <header>
+    <h1>BartekR</h1>
+  </header>
+  <main>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 daughter.3 dogs. 9 cats.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        
+  <article class="post">
+    <header>
+  <div class="title">
+    
+      <h2><a href="/2018/02/04/upgrading-ssis-projects-part-ii/">Upgrading SSIS projects, part II</a></h2>
+    
+    
+  </div>
+  <div class="meta">
+    <time datetime="2018-02-04 00:00:00 &#43;0000 UTC">February 4, 2018</time>
+    
+    
+  </div>
+</header>
+
+    <div id="socnet-share">
+      
+
+
+
+
+
+    </div>
+    <div class="content">
+      
+      <p>The problem I want to solve is automation of the SSIS project upgrade. <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">Previously</a> I wrote about the options to use <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. This post is about the first of those options.</p>
+<p>If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx">https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx</a> with the example of upgrading the packages stored in the filesystem. If the page disappears, I have a <a href="https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976">backup copy on my</a> GitHub:</p>
+<p><a href="https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976">https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976</a></p>
+<p>Great! So, we just copy the example, change the filenames and folders to reflect our project location, and that&rsquo;s it!</p>
+<p>No, it isn’t. It doesn&rsquo;t work.</p>
+<p><em>Failed to backup the old package: The given path&rsquo;s format is not supported.</em></p>
+<p>The method works, but we need to tweak it a bit. Let&rsquo;s dig a bit more into the API and the example.</p>
+<p>I will use a sample migration project with one package, that creates a table, generates some numbers and inserts them into the created table and at the end, it drops the table. It uses one project connection manager to the <code>tempdb</code> database. The link to the download is at the end of the post.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/01/Package.png"><img src="images/Package-300x144.png" alt=""></a></p>
+<p>Side note: when I test the following code I set up the breakpoint on the <code>app.Upgrade()</code> line and analyse the output object, mostly looking at the Failures collection.</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/01/Debugging.png"><img src="images/Debugging-300x120.png" alt=""></a></p>
+<p>Also – when you set up the reference to the <code>Microsoft.SqlServerManagedDTS.dll</code> (located in <code>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.SqlServer.ManagedDTS</code>) be sure to check the version you are planning to use. For example – if you check the version 14.0 (<code>v4.0_14.0.0.0__89845dcd8080cc91</code> subfolder) you will be able to migrate ONLY to SQL Server 2017. If you want to migrate to SQL Server 2016 use version 13.0 (<code>v4.0_13.0.0.0__89845dcd8080cc91</code> subfolder). The library version is important as it sets up the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.componentstorepath.aspx">Application.ComponentStorePath</a> property – the folder to tasks and components of SSIS (e.g. <code>C:\Program Files (x86)\Microsoft SQL Server\140\DTS</code> for SQL Server 2017)</p>
+<h1 id="applicationupgrade">Application.Upgrade()</h1>
+<p>First things first: take a look at the Application.Upgrade() at the end of the script. What are the parameters of the Upgrade() method:</p>
+<p>public Microsoft.SqlServer.Dts.Runtime.UpgradeResult Upgrade (
+    System.Collections.Generic.IEnumerable&lt;Microsoft.SqlServer.Dts.Runtime.UpgradePackageInfo&gt; packages,
+    Microsoft.SqlServer.Dts.Runtime.StorageInfo source,
+    Microsoft.SqlServer.Dts.Runtime.StorageInfo destination,
+    Microsoft.SqlServer.Dts.Runtime.BatchUpgradeOptions options,
+    Microsoft.SqlServer.Dts.Runtime.IDTSEvents events
+);</p>
+<ul>
+<li>the packages we want to upgrade (packages)</li>
+<li>location of these packages (source)</li>
+<li>where we want to save the upgraded packages (destination)</li>
+<li>some options for the upgrading process (options)</li>
+<li>an object for the events that happened during the process (events)</li>
+</ul>
+<p>The method returns the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.upgraderesult?view=sqlserver-2017">UpgradeResult</a> object with the results of the upgrade for each package. The earlier parts of the script are preparing the Application object and all parameters for the <code>Upgrade()</code> method.</p>
+<p>Why the example doesn&rsquo;t want to work? The <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.upgradepackageinfo.-ctor?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_UpgradePackageInfo__ctor">UpgradePackageInfo()</a> method documentation - states that we provide the names and the full paths of the packages. The <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo?view=sqlserver-2017">StorageInfo</a> class documentation - the property <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo.rootfolder?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_StorageInfo_RootFolder">RootFolder</a> gets or sets the path to the folder where we back up the packages. When we set the <code>RootFolder</code> property it is prepended to the package path provided in the <code>UpgradePackageInfo()</code> – so we have an invalid path. So either we have to remove either RootFolder property or leave just the names of the packages in <code>UpgradePackageInfo()</code>. When you test both options you know, you have to use RootFolder property, otherwise you get an error:</p>
+<p><em>Failed to backup the old package: A source root folder is not specified.</em></p>
+<p>I change then the <code>UpgradePackageInfo()</code> and put just the file name. To make things consistent, I will also use the <code>RootFolder</code> for the target location:</p>
+<p>UpgradePackageInfo packinfo1 = new UpgradePackageInfo(&ldquo;Package.dtsx&rdquo;, &ldquo;Package.dtsx&rdquo;, null);</p>
+<p>StorageInfo storeinfoDest = StorageInfo.NewFileStorage();
+storeinfoDest.RootFolder = &ldquo;C:\\tmp\\MigrationSample&rdquo;;</p>
+<p>If you run the code, you still get an error, but this time it’s different. This time the Failures collection contains 5 error messages:</p>
+<ol>
+<li>&ldquo;The package format was migrated from version 6 to version 8. It must be saved to retain migration changes.\r\n&rdquo;</li>
+<li>&ldquo;The connection \&quot;{CE71E990-4590-4AB1-998B-E7AA9C87DE35}\&rdquo; is not found. This error is thrown by Connections collection when the specific connection element is not found.\r\n&quot;</li>
+<li>&ldquo;The connection \&quot;{CE71E990-4590-4AB1-998B-E7AA9C87DE35}\&rdquo; is not found. This error is thrown by Connections collection when the specific connection element is not found.\r\n&quot;</li>
+<li>&ldquo;Succeeded in upgrading the package.\r\n&rdquo;</li>
+<li>&ldquo;The loading of the package Package.dtsx has failed.&rdquo;</li>
+</ol>
+<p>It looks like the package was migrated from version 6 to 8 [1], the package was upgraded with success [4], but I had the problem with the connection [2], [3] and had some problems with loading the Package.dtsx (it’s about the source package name, not the target).</p>
+<p>So – did the package upgrade or not? Not. The source package is still the same – when you check the source of the package you see <code>&lt;DTS:Property DTS:Name=&quot;PackageFormatVersion&quot;&gt;6&lt;/DTS:Property&gt;</code>.</p>
+<p>The problem with the connection is because it uses connection manager at the project level, not the package level. How can we use the information stored in the project file? The BatchUpgradeOptions class has the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.batchupgradeoptions.projectpath.aspx"><code>ProjectPath</code></a> property where we can set (and get) the full path to the <code>.dtproj</code> file.</p>
+<p>upgradeOpts.ProjectPath = &ldquo;C:\\tmp\\MigrationSample\\MigrationSample.dtproj&rdquo;;</p>
+<p>Now the example works but gives a warning instead of success. The warning contains four messages:</p>
+<ul>
+<li>&ldquo;Failed to decrypt an encrypted XML node. Verify that the project was created by the same user. Project load will attempt to continue without the encrypted information.&rdquo;</li>
+<li>&ldquo;Failed to decrypt sensitive data in project with a user key. You may not be the user who encrypted this project, or you are not using the same machine that was used to save the project. If the sensitive data is a parameter value, the value may be required to run the package on the Integration Services server.&rdquo;</li>
+<li>&ldquo;The package format was migrated from version 6 to version 8. It must be saved to retain migration changes.\r\n&rdquo;</li>
+<li>&ldquo;Succeeded in upgrading the package.\r\n&rdquo;</li>
+</ul>
+<p>The source SSIS project was created with default protection level <code>EncryptSensitiveWithUserKey</code>. The user key is created for the user and the machine that package was created (or edited), so when we try to open the package on another machine, it has the problem with decryption of the sensitive data. This project has no sensitive data, so it’s just a standard behaviour of SSIS and we can ignore the warnings.</p>
+<h1 id="upgradeoptions">UpgradeOptions</h1>
+<p>To set some options for the upgrade process we used the <code>BatchUpgradeOptions</code> class. That’s why we have an additional SSISBackupFolder in our project’s location (we used <code>BackupOldPackages = true</code> so it creates backup copy of each package in the default subfolder). But we can also set the options for the packages using the <code>PackageUpgradeOptions</code> class.</p>
+<p>The <code>Application</code> class has the property <code>PackageUpgradeOptions</code> of type – you guessed right: <code>PackageUpgradeOptions</code>. We create new object of that class, set the properties and assign it to the <code>Application.PackageUpgradeOptions</code>:</p>
+<p>PackageUpgradeOptions pkgUpgradeOpts = new PackageUpgradeOptions
+{
+RegeneratePackageID = true,
+UpgradeConnectionProviders = true
+};</p>
+<p>app.PackageUpgradeOptions = pkgUpgradeOpts;</p>
+<p>All of the above can be set in the <code>SSISUpgrade.exe</code> in the configuration window:</p>
+<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/01/SSISUpgradeOptions.png"><img src="images/SSISUpgradeOptions-300x199.png" alt=""></a></p>
+<h1 id="summary">Summary</h1>
+<p>The <code>Application.Upgrade()</code> method works great. It&rsquo;s the same way that we do the upgrade using <code>SSISUpgrade.exe</code>, but we have set it up a bit different than stated in the documentation.</p>
+<p>One thing to watch - the package may be migrated with success, but the info about it can be stated in the Warnings section of the output.</p>
+<h1 id="additional-materials">Additional materials</h1>
+<p>All source files are available on <a href="https://github.com/BartekR/blog/tree/master/201802%20Upgrading%20SSIS%20Projects%20part%20II">GitHub</a>.</p>
+
+    </div>
+    <footer>
+      <div class="stats">
+  
+    <ul class="categories">
+      <li>None</li>
+    </ul>
+  
+  
+    <ul class="tags">
+      <li>None</li>
+    </ul>
+  
+</div>
+
+    </footer>
+  </article>
+  
+    
+
+  
+  <div class="pagination">
+    
+      <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="button left"><span>Upgrading SSIS projects - part III</span></a>
+    
+    
+      <a href="/2017/12/24/upgrading-ssis-projects-part-i/" class="button right"><span>Upgrading SSIS projects, part I</span></a>
+    
+  </div>
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent Posts</h1>
+      </header>
+      
+      <article class="mini-post">
+          <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
+    <img src="http://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a></h2>
+          <time class="published" datetime="2020-09-24 00:00:00 &#43;0000 UTC">September 24, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
+    <img src="http://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">Have problems with Docker Desktop for Windows Home? Yeah, me too!</a></h2>
+          <time class="published" datetime="2020-09-01 00:00:00 &#43;0000 UTC">September 1, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/">Adding a new task in TFS/Azure DevOps using Excel</a></h2>
+          <time class="published" datetime="2020-05-19 00:00:00 &#43;0000 UTC">May 19, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">Adding a new Task in TFS using C#</a></h2>
+          <time class="published" datetime="2020-05-04 00:00:00 &#43;0000 UTC">May 4, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          
+        <header>
+          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
+          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
+        </header>
+      </article>
+      
+      
+        <footer>
+          <a href="/blog" class="button">See More</a>
+        </footer>
+      
+    </section>
+  
+
+  
+    
+
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  
+    <section id="mini-bio">
+      <header>
+        <h1>About</h1>
+      </header>
+      <p>Bartekr 01</p>
+      <footer>
+        <a href="/about" class="button">Learn More</a>
+      </footer>
+    </section>
+  
+</section>
+
+      <footer id="site-footer">
+  
+  <p class="copyright">
+    © 2020 BartekR
+      <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.76.5' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      <script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="/js/add-on.js"></script>
+    </div>
+  </body>
+</html>
