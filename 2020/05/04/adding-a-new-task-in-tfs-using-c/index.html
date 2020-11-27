@@ -13,9 +13,14 @@
   <meta property="og:url" content="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png">
+      <meta property="og:image:alt" content="">
+    
   
-  <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
+  
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+          <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -165,184 +170,199 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png');">
+    <img src="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" alt="">
+  </a>
       <p>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. <a href="https://youtu.be/XlhihCd6qtw?t=23">You have three months from now</a>. Or a few hours.</p>
 <p>The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).</p>
-<p><strong>Work item type</strong></p>
-<p><strong>Title</strong></p>
-<p><strong>Activity</strong></p>
-<p><strong>Area Path</strong></p>
-<p><strong>Assigned To</strong></p>
-<p><strong>Description</strong></p>
-<p><strong>Original Estimate</strong></p>
-<p><strong>Completed Work</strong></p>
-<p>Task</p>
-<p>Title1</p>
-<p>Requirements</p>
-<p>Proj1\Team1</p>
-<p>P Name1</p>
-<p>Description 1</p>
-<p>10</p>
-<p>10</p>
-<p>Task</p>
-<p>Title2</p>
-<p>Maintenance</p>
-<p>Projt1\Team1</p>
-<p>P Name2</p>
-<p>Description 2</p>
-<p>5</p>
-<p>5</p>
+<table>
+<thead>
+<tr>
+<th>Work item type</th>
+<th>Title</th>
+<th>Activity</th>
+<th>Area Path</th>
+<th>Assigned To</th>
+<th>Description</th>
+<th>Original Estimate</th>
+<th>Completed Work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task</td>
+<td>Title1</td>
+<td>Requirements</td>
+<td>Proj1\Team1</td>
+<td>P Name1</td>
+<td>Description 1</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>Title2</td>
+<td>Maintenance</td>
+<td>Proj1\Team1</td>
+<td>P Name2</td>
+<td>Description 2</td>
+<td>5</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
 <p>Additionally, the tasks should be assigned to the designated User Story: <em>http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345</em> and the Sprint <em>&quot;\Current\Sprint 3&quot;</em>.</p>
 <p>In my project, we work with TFS Server 2015. To talk with it using C# I use the <a href="https://www.nuget.org/packages/Microsoft.TeamFoundationServer.ExtendedClient">Microsoft.TeamFoundationServer.ExtendedClient</a> package (stable version 16.153.0 at the time of writing). Not everything is possible to use for TFS 2015 (e.g. dashboard editing, as it was introduced for the later TFS API versions), but interacting with the WorkItems works.</p>
 <p>For the prototype, I will convert the data from the spreadsheet to the JSON format, and read it as a text in the application. Why JSON? Because I can! Also, because I&rsquo;m lazy and I will use <code>JsonConvert.Deserialize()</code> to prepare the <code>DataSet</code>. I like working with <code>DataSet</code>s. I will write a separate class with a method that adds all WorkItems from the file</p>
 <p>So, to begin with - <em>File &gt; New &gt; Project / Visual C# / Console App (.Net Framework)</em>. I use .NET 4.6.1. Then in the Solution Explorer: right-click on the project, select <em>Add &gt; Class &hellip;</em> and create a new file <code>Workitems.cs</code>. OK, I have two files in the project (<code>Program.cs</code> and <code>Workitems.cs</code>), both contain only the template stuff. First - in the <code>Main()</code> method, I will set the TFS server address - where I want to insert the data, and the location of the source file.</p>
 <p>To connect to the TFS server, I use the <code>TfsTeamProjectCollectionFactory.GetTeamProjectCollection()</code> method, where I provide only the <code>Uri</code> - address of the server, but with the collection name. The location of the file is a full path. So, the program itself is easy - the <code>Main()</code> method looks like below:</p>
-<p>using Microsoft.TeamFoundation.Client;
-using System;
-(&hellip;)
-static void Main(string[] args)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.TeamFoundation.Client;
+<span style="color:#66d9ef">using</span> System;
+(...)
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span><span style="color:#960050;background-color:#1e0010">\</span>[<span style="color:#960050;background-color:#1e0010">\</span>] args)
 {
-// TFS Server address, with the collection name
-Uri tfsServerUri = new Uri(&ldquo;http://tfsserveraddress/tfs/CollectionName&rdquo;);</p>
-<pre><code>// connect to TFS
-TfsTeamProjectCollection tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsServerUri);
+    <span style="color:#75715e">// TFS Server address, with the collection name
+</span><span style="color:#75715e"></span>    Uri tfsServerUri = <span style="color:#66d9ef">new</span> Uri(<span style="color:#e6db74">&#34;http://tfsserveraddress/tfs/CollectionName&#34;</span>);
 
-//AddWorkItems(tfs);
-string filePath = @&quot;C:\\tmp\\DataImport.json&quot;;
+    <span style="color:#75715e">// connect to TFS
+</span><span style="color:#75715e"></span>    TfsTeamProjectCollection tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsServerUri);
 
-Workitems mwi = new Workitems();
-mwi.AddFromFile(tfs, filePath);
-</code></pre>
-<p>}</p>
-<p>I use no authentication methods, as TFS is on-premises and uses domain authentication. When I run the program, my credentials are magically passed to the TFS server during execution of the <code>GetTeamProjectCollection()</code> method.</p>
+    <span style="color:#75715e">//AddWorkItems(tfs);
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> filePath = <span style="color:#e6db74">@&#34;C:\\tmp\\DataImport.json&#34;</span>;
+
+    Workitems mwi = <span style="color:#66d9ef">new</span> Workitems();
+    mwi.AddFromFile(tfs, filePath);
+}
+</code></pre></div><p>I use no authentication methods, as TFS is on-premises and uses domain authentication. When I run the program, my credentials are magically passed to the TFS server during execution of the <code>GetTeamProjectCollection()</code> method.</p>
 <p>The skeleton of the application is ready. Now, to the</p>
 <h2 id="tfs-workitem-interaction">TFS WorkItem interaction</h2>
 <p>TFS/Azure DevOps API is built around the REST API concept and uses clients to work with the different aspects of the ecosystem. A different client for the Builds, a different for the Releases, a different one for the WorkItems, and so on. For the WorkItems I will use <code>WorkItemTrackingHttpClient</code> (<code>tfs</code> is a previously acquired connection to the collection):</p>
-<p>WorkItemTrackingHttpClient witClient = tfs.GetClient<!-- raw HTML omitted -->();</p>
-<p>To create or update a WorkItem I have to use the <code>JsonPatchDocument()</code>, which contains one or more <code>JsonPatchOperation()</code> elements. Each of <code>JsonPatchOperation</code>s must contain at least three of four elements: <code>Operation</code>, <code>Value</code>, and <code>Path</code>. The fourth - optional - is <code>From</code>, but it&rsquo;s used for the move/copy operations.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">WorkItemTrackingHttpClient witClient = tfs.GetClient&lt;WorkItemTrackingHttpClient&gt;();
+</code></pre></div><p>To create or update a WorkItem I have to use the <code>JsonPatchDocument()</code>, which contains one or more <code>JsonPatchOperation()</code> elements. Each of <code>JsonPatchOperation</code>s must contain at least three of four elements: <code>Operation</code>, <code>Value</code>, and <code>Path</code>. The fourth - optional - is <code>From</code>, but it&rsquo;s used for the move/copy operations.</p>
 <p>There&rsquo;s a catch - in <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/work%20items/create?view=azure-devops-rest-5.1">lots</a> of the <a href="https://github.com/microsoft/azure-devops-dotnet-samples/blob/master/ClientLibrary/Samples/WorkItemTracking/WorkItemsSample.cs">examples</a> and tutorials I&rsquo;ve seen they show one <code>JsonPatchDocument</code> containing one <code>JsonPatchOperation</code> - like:</p>
-<p>JsonPatchDocument patchDocument = new JsonPatchDocument();
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">JsonPatchDocument patchDocument = <span style="color:#66d9ef">new</span> JsonPatchDocument();
 patchDocument.Add(
-new JsonPatchOperation()
-{
-Operation = Operation.Add,
-Path = &ldquo;/fields/System.Title&rdquo;,
-Value = title
-}
-);</p>
-<p>The WorkItem created using code like the above will contain only the title. If I want to add more information about the task, like iteration, who is assigned to the task, the number of hours planned and completed, etc. - I have to add the separate <code>JsonPatchOperation</code> for each one of them - like:</p>
-<p>JsonPatchDocument patchDocument = new JsonPatchDocument();
+    <span style="color:#66d9ef">new</span> JsonPatchOperation()
+    {
+        Operation = Operation.Add,
+        Path = <span style="color:#e6db74">&#34;/fields/System.Title&#34;</span>,
+        Value = title
+    }
+);
+</code></pre></div><p>The WorkItem created using code like the above will contain only the title. If I want to add more information about the task, like iteration, who is assigned to the task, the number of hours planned and completed, etc. - I have to add the separate <code>JsonPatchOperation</code> for each one of them - like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">JsonPatchDocument patchDocument = <span style="color:#66d9ef">new</span> JsonPatchDocument();
 patchDocument.Add(
-new JsonPatchOperation()
-{
-Operation = Operation.Add,
-Path = &ldquo;/fields/System.Title&rdquo;,
-Value = &ldquo;Title1&rdquo;
-}
+    <span style="color:#66d9ef">new</span> JsonPatchOperation()
+    {
+        Operation = Operation.Add,
+        Path = <span style="color:#e6db74">&#34;/fields/System.Title&#34;</span>,
+        Value = <span style="color:#e6db74">&#34;Title1&#34;</span>
+    }
 );
 patchDocument.Add(
-new JsonPatchOperation()
-{
-Operation = Operation.Add,
-Path = &ldquo;/fields/System.Description&rdquo;,
-Value = &ldquo;Description 1&rdquo;
-}
-);</p>
-<p>or in one go:</p>
-<p>JsonPatchDocument patchDocument = new JsonPatchDocument(
-new JsonPatchOperation()
-{
-Operation = Operation.Add,
-Path = &ldquo;/fields/System.Title&rdquo;,
-Value = &ldquo;Title1&rdquo;
-},
-new JsonPatchOperation()
-{
-Operation = Operation.Add,
-Path = &ldquo;/fields/System.Description&rdquo;,
-Value = &ldquo;Description 1&rdquo;
-}
-);</p>
-<p>Great, I have a pattern I can use. Just one small thing - how can I find the field names? The two above - <em>System.Description</em> and <em>System.Title</em> are taken from the examples, but how can I find the name for CompletedWork? I can use several sources:</p>
+    <span style="color:#66d9ef">new</span> JsonPatchOperation()
+    {
+        Operation = Operation.Add,
+        Path = <span style="color:#e6db74">&#34;/fields/System.Description&#34;</span>,
+        Value = <span style="color:#e6db74">&#34;Description 1&#34;</span>
+    }
+);
+</code></pre></div><p>or in one go:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">JsonPatchDocument patchDocument = <span style="color:#66d9ef">new</span> JsonPatchDocument(
+    <span style="color:#66d9ef">new</span> JsonPatchOperation()
+    {
+        Operation = Operation.Add,
+        Path = <span style="color:#e6db74">&#34;/fields/System.Title&#34;</span>,
+        Value = <span style="color:#e6db74">&#34;Title1&#34;</span>
+    },
+    <span style="color:#66d9ef">new</span> JsonPatchOperation()
+    {
+        Operation = Operation.Add,
+        Path = <span style="color:#e6db74">&#34;/fields/System.Description&#34;</span>,
+        Value = <span style="color:#e6db74">&#34;Description 1&#34;</span>
+    }
+);
+</code></pre></div><p>Great, I have a pattern I can use. Just one small thing - how can I find the field names? The two above - <em>System.Description</em> and <em>System.Title</em> are taken from the examples, but how can I find the name for CompletedWork? I can use several sources:</p>
 <ol>
-<li>TFS and Azure DevOps Server (only on-premises version) have an additional <strong>Warehouse</strong> mechanism - a database with dimensions and facts that has the data from all the collections on the server. The <code>dbo.DimWorkitem</code> table holds the columns with the names that correspond to the paths. The downside - not all the fields have to be in the warehouse. <a href="http://blog.bartekr.net/wp-content/uploads/2020/05/DimWorkItem.png"><img src="images/DimWorkItem-184x300.png" alt="TFS Warehouse dbo.DimWorkItem"></a></li>
-<li>In the <strong>collection&rsquo;s database</strong>, there is a table <code>dbo.tbl_Fields</code> with all the fields for the collection<a href="http://blog.bartekr.net/wp-content/uploads/2020/05/tbl_Field.png"><img src="images/tbl_Field-300x104.png" alt="TFS collection database tbl_Field"></a></li>
+<li>TFS and Azure DevOps Server (only on-premises version) have an additional <strong>Warehouse</strong> mechanism - a database with dimensions and facts that has the data from all the collections on the server. The <code>dbo.DimWorkitem</code> table holds the columns with the names that correspond to the paths. The downside - not all the fields have to be in the warehouse. <a href="images/DimWorkItem.png"><img src="images/DimWorkItem-184x300.png" alt="TFS Warehouse dbo.DimWorkItem"></a></li>
+<li>In the <strong>collection&rsquo;s database</strong>, there is a table <code>dbo.tbl_Fields</code> with all the fields for the collection<a href="images/tbl_Field.png"><img src="images/tbl_Field-300x104.png" alt="TFS collection database tbl_Field"></a></li>
 <li>I can use Azure DevOps and an <strong>API</strong> link, like <em>https://azuredevopsserver/Collection/_apis/wit/fields</em> or <em>https://azuredevopsserver/Collection/Project/_apis/wit/fields</em>, take a look at all the entries and use the <code>referenceName</code> value; the link does not work in TFS, I had to use Azure DevOps / Azure DevOps Server<a href="http://blog.bartekr.net/wp-content/uploads/2020/05/AzureDevOpsWorkItemFieldExample.png"><img src="images/AzureDevOpsWorkItemFieldExample-300x171.png" alt="Azure DevOps WorkItem field example"></a></li>
 <li>In the <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/work%20items/create?view=azure-devops-rest-5.1">documentation</a>, there&rsquo;s an example that shows the return value of the created WorkItem, and there&rsquo;s a whole list of field names.</li>
 </ol>
 <p>Having the names for the field path I can either modify the Excel file, so the header will contain the proper field names, or I can do some sort of mapping in the code (like <em>Title</em> -&gt; <em>System.Title</em>). As it&rsquo;s the prototype, I will use the former and change the file directly. Then I will save it as the CSV file - it&rsquo;s still a prototype, so I will prepare the input data as I see them fit.</p>
 <p>The <a href="https://github.com/BartekR/TFSImport/blob/master/Data0.csv">Data0.csv</a> file contains the source saved as the CSV file. After tweaking (column names as the field names) the source is saved as the <a href="https://github.com/BartekR/TFSImport/blob/master/Data1.csv">Data1.csv</a>. In Poland, CSV files have not a comma, but a semicolon as the separator. I use PowerShell to convert it to JSON:</p>
-<p>Import-Csv -Path C:\tmp\Data1.csv -Delimiter &ldquo;;&rdquo; | ConvertTo-Json | Set-Content C:\tmp\Data1.json</p>
-<p>The output looks like below (notice double backslash instead of one, as in the source):</p>
-<p>[
-{
-&ldquo;System.Title&rdquo;:  &ldquo;Title1&rdquo;,
-&ldquo;System.Activity&rdquo;:  &ldquo;Requirements&rdquo;,
-&ldquo;System.AreaPath&rdquo;:  &ldquo;Proj1\\Team1&rdquo;,
-&ldquo;System.AssignedTo&rdquo;:  &ldquo;P Name1&rdquo;,
-&ldquo;System.Description&rdquo;:  &ldquo;Description 1&rdquo;,
-&ldquo;Microsoft.VSTS.Scheduling.OriginalEstimate&rdquo;:  &ldquo;10&rdquo;,
-&ldquo;Microsoft.VSTS.Scheduling.CompletedWork&rdquo;:  &ldquo;10&rdquo;,
-&ldquo;IterationPath&rdquo;:  &ldquo;\\Current\\Sprint 3&rdquo;
-},
-{
-&ldquo;System.Title&rdquo;:  &ldquo;Title2&rdquo;,
-&ldquo;System.Activity&rdquo;:  &ldquo;Maintenance&rdquo;,
-&ldquo;System.AreaPath&rdquo;:  &ldquo;Projt1\\Team1&rdquo;,
-&ldquo;System.AssignedTo&rdquo;:  &ldquo;P Name2&rdquo;,
-&ldquo;System.Description&rdquo;:  &ldquo;Description 2&rdquo;,
-&ldquo;Microsoft.VSTS.Scheduling.OriginalEstimate&rdquo;:  &ldquo;5&rdquo;,
-&ldquo;Microsoft.VSTS.Scheduling.CompletedWork&rdquo;:  &ldquo;5&rdquo;,
-&ldquo;IterationPath&rdquo;:  &ldquo;\\Current\\Sprint 3&rdquo;
-}
-]</p>
-<p>The input is ready, now to</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Import-Csv -Path C:\\tmp\\Data1.csv -Delimiter <span style="color:#e6db74">&#34;;&#34;</span> | ConvertTo-Json | Set-Content C:\\tmp\\Data1.json
+</code></pre></div><p>The output looks like below (notice double backslash instead of one, as in the source):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+    {
+        <span style="color:#f92672">&#34;System.Title&#34;</span>:  <span style="color:#e6db74">&#34;Title1&#34;</span>,
+        <span style="color:#f92672">&#34;System.Activity&#34;</span>:  <span style="color:#e6db74">&#34;Requirements&#34;</span>,
+        <span style="color:#f92672">&#34;System.AreaPath&#34;</span>:  <span style="color:#e6db74">&#34;Proj1\\Team1&#34;</span>,
+        <span style="color:#f92672">&#34;System.AssignedTo&#34;</span>:  <span style="color:#e6db74">&#34;P Name1&#34;</span>,
+        <span style="color:#f92672">&#34;System.Description&#34;</span>:  <span style="color:#e6db74">&#34;Description 1&#34;</span>,
+        <span style="color:#f92672">&#34;Microsoft.VSTS.Scheduling.OriginalEstimate&#34;</span>:  <span style="color:#e6db74">&#34;10&#34;</span>,
+        <span style="color:#f92672">&#34;Microsoft.VSTS.Scheduling.CompletedWork&#34;</span>:  <span style="color:#e6db74">&#34;10&#34;</span>,
+        <span style="color:#f92672">&#34;IterationPath&#34;</span>:  <span style="color:#e6db74">&#34;\\Current\\Sprint 3&#34;</span>
+    },
+    {
+        <span style="color:#f92672">&#34;System.Title&#34;</span>:  <span style="color:#e6db74">&#34;Title2&#34;</span>,
+        <span style="color:#f92672">&#34;System.Activity&#34;</span>:  <span style="color:#e6db74">&#34;Maintenance&#34;</span>,
+        <span style="color:#f92672">&#34;System.AreaPath&#34;</span>:  <span style="color:#e6db74">&#34;Projt1\\Team1&#34;</span>,
+        <span style="color:#f92672">&#34;System.AssignedTo&#34;</span>:  <span style="color:#e6db74">&#34;P Name2&#34;</span>,
+        <span style="color:#f92672">&#34;System.Description&#34;</span>:  <span style="color:#e6db74">&#34;Description 2&#34;</span>,
+        <span style="color:#f92672">&#34;Microsoft.VSTS.Scheduling.OriginalEstimate&#34;</span>:  <span style="color:#e6db74">&#34;5&#34;</span>,
+        <span style="color:#f92672">&#34;Microsoft.VSTS.Scheduling.CompletedWork&#34;</span>:  <span style="color:#e6db74">&#34;5&#34;</span>,
+        <span style="color:#f92672">&#34;IterationPath&#34;</span>:  <span style="color:#e6db74">&#34;\\Current\\Sprint 3&#34;</span>
+    }
+]
+</code></pre></div><p>The input is ready, now to</p>
 <h2 id="the-workitems-creation">The WorkItems creation</h2>
 <p>I will write a method in the Workitems class:</p>
-<p>public void AddFromFile(TfsTeamProjectCollection tfs, string filePath)</p>
-<p>It will use the  <code>WorkItemTrackingHttpClient</code> mentioned above. I will also set some parameters as the variables</p>
-<p>WorkItemTrackingHttpClient witClient = tfs.GetClient<!-- raw HTML omitted -->();
-string witType = &ldquo;Task&rdquo;;
-string projectName = &ldquo;Project1&rdquo;;</p>
-<p>I also wrote I will use <code>JsonConvert.DeserializeObject()</code> to convert JSON data to the <code>DataSet</code>, so I read the <a href="https://github.com/BartekR/TFSImport/blob/master/Data1.json">Data1.json</a>. Also - I <a href="https://www.newtonsoft.com/json/help/html/DeserializeDataSet.htm">have to give a name to the dataset</a>, so I concatenate it with &lsquo;Tasks&rsquo; and prepare one JSON element with an array of the entries:</p>
-<p>string jsonTasksSrc = File.ReadAllText(filePath);
-string jsonTasks = &ldquo;{&lsquo;Tasks&rsquo; : &quot; + jsonTasksSrc + &ldquo;}&quot;;</p>
-<p>DataSet x = JsonConvert.DeserializeObject(jsonTasks);</p>
-<p>I have the <code>DataSet</code>, so I can read the <code>DataTable</code>, iterate over it, and prepare <code>JsonPathOperation</code>s with the fields - each <code>DataTable</code> column contains names and values.</p>
-<p>foreach (DataRow r in x.Tables[&ldquo;Tasks&rdquo;].Rows)
-{
-JsonPatchDocument wit = new JsonPatchDocument();</p>
-<pre><code>foreach (DataColumn c in r.Table.Columns)
-{
-    string sPath = &quot;/fields/&quot; + c.ColumnName;
-    string sValue = r\[c.ColumnName\].ToString();
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> AddFromFile(TfsTeamProjectCollection tfs, <span style="color:#66d9ef">string</span> filePath)
+</code></pre></div><p>It will use the  <code>WorkItemTrackingHttpClient</code> mentioned above. I will also set some parameters as the variables</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">WorkItemTrackingHttpClient witClient = tfs.GetClient&lt;WorkItemTrackingHttpClient&gt;();
+<span style="color:#66d9ef">string</span> witType = <span style="color:#e6db74">&#34;Task&#34;</span>;
+<span style="color:#66d9ef">string</span> projectName = <span style="color:#e6db74">&#34;Project1&#34;</span>;
+</code></pre></div><p>I also wrote I will use <code>JsonConvert.DeserializeObject()</code> to convert JSON data to the <code>DataSet</code>, so I read the <a href="https://github.com/BartekR/TFSImport/blob/master/Data1.json">Data1.json</a>. Also - I <a href="https://www.newtonsoft.com/json/help/html/DeserializeDataSet.htm">have to give a name to the dataset</a>, so I concatenate it with &lsquo;Tasks&rsquo; and prepare one JSON element with an array of the entries:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">string</span> jsonTasksSrc = File.ReadAllText(filePath);
+<span style="color:#66d9ef">string</span> jsonTasks = <span style="color:#e6db74">&#34;{&#39;Tasks&#39; : &#34;</span> + jsonTasksSrc + <span style="color:#e6db74">&#34;}&#34;</span>;
 
-    wit.Add(new JsonPatchOperation()
-    {
-        Path = sPath,
-        Operation = Operation.Add,
-        Value = sValue
-    });
-}
-</code></pre>
-<p>}</p>
-<p>The last thing - adding the parent User Story. I found the <a href="https://stackoverflow.com/questions/50518798/how-to-add-work-item-as-child-to-parent">answer by Marina</a> on StackOverflow - use <code>/relations/-</code> as the path with the relation defined as <code>Hierarchy-Reverse</code>:</p>
-<p>string relation = @&quot;{
-&lsquo;rel&rsquo; : &lsquo;System.LinkTypes.Hierarchy-Reverse&rsquo;,
-&lsquo;url&rsquo; : &lsquo;http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345&rsquo;
-}&quot;;</p>
-<p>In this case - as it&rsquo;s a JSON construct - the <code>Value</code> of the <code>JsonPathOperation</code> should be a <code>JToken</code> instead of just a <code>string</code>, so I have to cast it:</p>
-<p>wit.Add(new JsonPatchOperation()
+DataSet x = JsonConvert.DeserializeObject(jsonTasks);
+</code></pre></div><p>I have the <code>DataSet</code>, so I can read the <code>DataTable</code>, iterate over it, and prepare <code>JsonPathOperation</code>s with the fields - each <code>DataTable</code> column contains names and values.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">foreach</span> (DataRow r <span style="color:#66d9ef">in</span> x.Tables[<span style="color:#e6db74">&#34;Tasks&#34;</span>].Rows)
 {
-Path = &ldquo;/relations/-&rdquo;,
-Operation = Operation.Add,
-Value = JToken.Parse(relation)
-});</p>
-<p>Now I can create the WorkItem:</p>
-<p>WorkItem w = witClient.CreateWorkItemAsync(wit, projectName, witType).Result;</p>
-<p>The last thing - the WorkItem is created as <em>New</em>. I have to set it as closed because I report the finished tasks:</p>
-<p>_ = witClient.UpdateWorkItemAsync(p, w.Id.Value).Result;</p>
-<p>The underscore means that I&rsquo;m not interested in the result (during the debugging process I checked that it works) so I discard it.</p>
+    JsonPatchDocument wit = <span style="color:#66d9ef">new</span> JsonPatchDocument();
+
+    <span style="color:#66d9ef">foreach</span> (DataColumn c <span style="color:#66d9ef">in</span> r.Table.Columns)
+    {
+        <span style="color:#66d9ef">string</span> sPath = <span style="color:#e6db74">&#34;/fields/&#34;</span> + c.ColumnName;
+        <span style="color:#66d9ef">string</span> sValue = r[c.ColumnName].ToString();
+
+        wit.Add(<span style="color:#66d9ef">new</span> JsonPatchOperation()
+        {
+            Path = sPath,
+            Operation = Operation.Add,
+            Value = sValue
+        });
+    }
+}
+</code></pre></div><p>The last thing - adding the parent User Story. I found the <a href="https://stackoverflow.com/questions/50518798/how-to-add-work-item-as-child-to-parent">answer by Marina</a> on StackOverflow - use <code>/relations/-</code> as the path with the relation defined as <code>Hierarchy-Reverse</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">string</span> relation = <span style="color:#e6db74">@&#34;{
+</span><span style="color:#e6db74">    &#39;rel&#39; : &#39;System.LinkTypes.Hierarchy-Reverse&#39;,
+</span><span style="color:#e6db74">    &#39;url&#39; : &#39;http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345&#39;
+</span><span style="color:#e6db74">}&#34;</span>;
+</code></pre></div><p>In this case - as it&rsquo;s a JSON construct - the <code>Value</code> of the <code>JsonPathOperation</code> should be a <code>JToken</code> instead of just a <code>string</code>, so I have to cast it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">wit.Add(<span style="color:#66d9ef">new</span> JsonPatchOperation()
+{
+    Path = <span style="color:#e6db74">&#34;/relations/-&#34;</span>,
+    Operation = Operation.Add,
+    Value = JToken.Parse(relation)
+});
+</code></pre></div><p>Now I can create the WorkItem:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">WorkItem w = witClient.CreateWorkItemAsync(wit, projectName, witType).Result;
+</code></pre></div><p>The last thing - the WorkItem is created as <em>New</em>. I have to set it as closed because I report the finished tasks:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">_ = witClient.UpdateWorkItemAsync(p, w.Id.Value).Result;
+</code></pre></div><p>The underscore means that I&rsquo;m not interested in the result (during the debugging process I checked that it works) so I discard it.</p>
 <p>And that&rsquo;s it! It looks like it&rsquo;s working.</p>
 <p>The next steps - checking how it works with Azure DevOps in Azure and a bit more of parametrisation. Also, I have to verify if I have to pass a full URL for the parent WorkItem (User Story) and if it&rsquo;s possible to insert the task with the <em>Closed</em> status (not possible form the GUI - the only option is New). But that&rsquo;s a subject for a different blog post.</p>
 <p>The code is available <a href="https://github.com/BartekR/TFSImport">on GitHub</a>.</p>
@@ -370,7 +390,7 @@ Value = JToken.Parse(relation)
   
   <div class="pagination">
     
-      <a href="/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/" class="button left"><span>Adding a new task in TFS/Azure DevOps using Excel</span></a>
+      <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="button left"><span>Adding a new task in TFS (Azure DevOps) using Excel</span></a>
     
     
       <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="button right"><span>Draw the SSIS Package using SVG - part III</span></a>
@@ -406,15 +426,19 @@ Value = JToken.Parse(relation)
       </article>
       
       <article class="mini-post">
-          
+          <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png');">
+    <img src="http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png" alt="">
+  </a>
         <header>
-          <h2><a href="/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/">Adding a new task in TFS/Azure DevOps using Excel</a></h2>
+          <h2><a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/">Adding a new task in TFS (Azure DevOps) using Excel</a></h2>
           <time class="published" datetime="2020-05-19 00:00:00 &#43;0000 UTC">May 19, 2020</time>
         </header>
       </article>
       
       <article class="mini-post">
-          
+          <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png');">
+    <img src="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" alt="">
+  </a>
         <header>
           <h2><a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">Adding a new Task in TFS using C#</a></h2>
           <time class="published" datetime="2020-05-04 00:00:00 &#43;0000 UTC">May 4, 2020</time>
@@ -431,7 +455,7 @@ Value = JToken.Parse(relation)
       
       
         <footer>
-          <a href="/blog" class="button">See More</a>
+          <a href="/post/" class="button">See More</a>
         </footer>
       
     </section>
@@ -476,7 +500,9 @@ Value = JToken.Parse(relation)
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+      <script src="/js/highlight.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>

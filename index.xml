@@ -27,11 +27,11 @@ Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.0
     </item>
     
     <item>
-      <title>Adding a new task in TFS/Azure DevOps using Excel</title>
-      <link>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/</link>
+      <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
+      <link>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs/azure-devops-using-excel/</guid>
+      <guid>http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
       <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
 First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
     </item>
@@ -44,20 +44,7 @@ First things first - if you do not have Azure DevOps Office® Integration 2019 i
       <guid>http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</guid>
       <description>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours.
 The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).
-Work item type
-Title
-Activity
-Area Path
-Assigned To
-Description
-Original Estimate
-Completed Work
-Task
-Title1
-Requirements
-Proj1\Team1
-P Name1
-Description 1</description>
+   Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work     Task Title1 Requirements Proj1\Team1 P Name1 Description 1 10 10   Task Title2 Maintenance Proj1\Team1 P Name2 Description 2 5 5    Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &amp;quot;\Current\Sprint 3&amp;quot;.</description>
     </item>
     
     <item>

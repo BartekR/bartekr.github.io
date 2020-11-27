@@ -2,19 +2,19 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>SQLBits 2017 - BartekR</title>
+<title>Adding a new task in TFS (Azure DevOps) using Excel - BartekR</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <meta name="generator" content="Hugo 0.76.5" /><meta property="og:site_name" content="BartekR">
-  <meta property="og:title" content="SQLBits 2017">
+  <meta property="og:title" content="Adding a new task in TFS (Azure DevOps) using Excel">
   <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
   <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-  <meta property="og:url" content="http://blog.bartekr.net/2017/04/16/sqlbits-2017/">
+  <meta property="og:url" content="http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/">
   <meta property="og:type" content="article">
   
     
-      <meta property="og:image" content="http://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg">
+      <meta property="og:image" content="http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png">
       <meta property="og:image:alt" content="">
     
   
@@ -150,12 +150,12 @@
     <header>
   <div class="title">
     
-      <h2><a href="/2017/04/16/sqlbits-2017/">SQLBits 2017</a></h2>
+      <h2><a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/">Adding a new task in TFS (Azure DevOps) using Excel</a></h2>
     
     
   </div>
   <div class="meta">
-    <time datetime="2017-04-16 00:00:00 &#43;0000 UTC">April 16, 2017</time>
+    <time datetime="2020-05-19 00:00:00 &#43;0000 UTC">May 19, 2020</time>
     
     
   </div>
@@ -170,38 +170,37 @@
 
     </div>
     <div class="content">
-      <a href="/2017/04/16/sqlbits-2017/" class="image" style="--bg-image: url('http://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg');">
-    <img src="http://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg" alt="">
+      <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="image" style="--bg-image: url('http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png');">
+    <img src="http://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png" alt="">
   </a>
-      <p>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.</p>
-<figure class="noborder">
-    <img src="images/IMG_20170405_082113.png#center" width="60%"/> 
-</figure>
-
-<h2 id="first---the-content">First - the content</h2>
-<p>I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (<a href="https://tenbulls.co.uk/">b</a>|<a href="https://twitter.com/retracement">t</a>) about high availability with clusters and Always On Availability Groups. I did play with clusters before (using VirtualBox), this time we used Hyper-V and Windows Core servers what was new for me. Building from the ground up, configuring, fighting with internet connection, rebuilding machines (well, this was not in the workshop plan - I managed to destroy the virtual machine myself) - it was what I expected.</p>
-<p>On the second day I went to Matt Masson&rsquo;s all-day presentation about SSIS. I&rsquo;m working a lot with ETL packages so I was curious if there is a room to improve. And I was glad to find out we are using best practices already, but also to learn some new interesting patterns to use. One of them - cascade use of OLEDB Destinations with additional File Destination for error reporting or double use of Lookup transformations - one with Full cache, one with Partial cache. And you know what was surprising? The session had no demos at all. Only slides. And I was awake all the time!</p>
-<p>The next two days were full day presentations and I changed my mind few times before finally decided which session to go. Tough choice! Each time I&rsquo;ve learned something new and got some inspiration. Once I took the 400 level sessions that extended my knowledge of the subject, got to know about new things (like new query optimizer features) and sometimes I went for the things I know almost nothing about - like R language - or not interested that much - like new things in reporting. And I was not disappointed.</p>
-<p><img src="images/IMG_20170407_102128-1024x575.jpg" alt=""></p>
-<p>If I had to select one session, that made a biggest impact on me it would be <a href="http://sqlbits.com/Sessions/Event16/Normalization_Beyond_Third_Normal_Form">Normalization beyond the third normal form</a> by Hugo Kornellis (<a href="http://sqlblog.com/blogs/hugo_kornelis/">b</a>|<a href="https://twitter.com/Hugo_Kornelis">t</a>). Very deep session with great examples about data design. I never thought about data the way that Hugo presented and it was awesome. I encourage everyone to watch it once it will be published. Not the easiest material, but worth your time, I promise.</p>
-<h2 id="second---the-people">Second - the people</h2>
-<p>Next thing that gets me to the conferences is the people. I want to see again the folks I&rsquo;ve met on previous conferences, get to know new friends, colleagues. All of them are great, willing to help if you have a problem. You want to talk about the issue you are currently facing in your job? Great, lets do it. You want more details about the session? You&rsquo;re welcome. Party together? No problem! Want some beer? Here you go. Talks about presentations, work matters, problems solved for clients - everything is so enriching. Have you seen this hashtag <a href="https://twitter.com/hashtag/sqlfamily">#sqlfamily</a>? It really is a big, extraordinary family.</p>
-<h2 id="third---the-party">Third - the party</h2>
-<p>It&rsquo;s not the main reason to go for the conference, but an excelent excuse to get to know new people by a glass of beer or something stronger. But it was not just a meeting with alcohol - pub games for people gathered by the round tables was &ldquo;bulls eye&rdquo; for me. Sometimes I didn&rsquo;t understand the questions, some of them were too specific, but almost already someone clarified what was it about. And I was amazed by the things the people knew. Maiden name of Marge Simpson? Name all the girls from &ldquo;Sex ant the city&rdquo;? Know the name of the disco hit and the performer after just few seconds? Come on! The next day - party with &lsquo;70 - &lsquo;80 disco theme. Well, although I have not seen many people dancing - the party was very relaxing. And Redgate&rsquo;s photo booth was <a href="https://www.facebook.com/pg/SQLBits/photos/?tab=album&amp;album_id=1520956957915668">under the siege</a>.</p>
-<figure class="noborder">
-    <img src="images/IMG_20170407_214142.jpg#center"
-         alt="SQLDBA with a bear(d)" width="60%"/> <figcaption>
-            <p>SQLDBA with a bear(d)</p>
-        </figcaption>
-</figure>
-
-<h2 id="fourth---the-sponsors">Fourth - the sponsors</h2>
-<p>I always visit the sponsors. Of course, their gadgets are nice, but this time I had plenty of time to see their products. On another conferences I had about 15 minutes between sessions, so not that much time to get familiar with the product, This time was different. Longer breaks, regular sessions mixed with extended and suddenly I could see full demos and have a conversation about the products I was interested in. Also for the first time I took the folders to actually read it!</p>
-<h2 id="fifth---the-venue">Fifth - the venue</h2>
-<p>The only thing that didn&rsquo;t convince me were the Domes. Sometimes you could hear what is happening in another one. But the place in general was great Big rooms for the workshops, a lot of place for networking - what one could want more?</p>
-<h2 id="the-takeaway">The takeaway</h2>
-<p>Johann van den Brink <a href="https://twitter.com/JohanvdBrink/status/850780326725079040">asked me</a> what got me inspired during SQLBits. Few things. First - the tools that sponsors shown me are really useful. I will have to try SQLClone (by Redgate) and compare it to containers approach with Docker for testing purposes. Also LegiTest (by Pragmatic Works) looks promising for testing SSIS packages. Second - definitely will start using more Powershell tools. Andre Kamman (<a href="http://andrekamman.com/">b</a>|<a href="https://twitter.com/AndreKamman">t</a>) demonstrated how easy is to build full test lab using few lines of code with Autolab. It will be a great simplification of the proces that we went thoroughly with Mark Broadbent during the workshop. It&rsquo;s great to know how to build your cluster from scratch, but it&rsquo;s also great to simplify the proces. Also some of the SSIS design patterns I saw on Matt&rsquo;s presentation will start to use in development. What else? Some time ago I started to work more closely with testing, Hugo Kornelis inspired me to look closer at the design. So I would say it&rsquo;s like back to basics, revisited.</p>
-<p>To sum things up. I really ejoyed the whole conference. If possible, I will go again next year. I&rsquo;m already sure I won&rsquo;t be disappointed.</p>
+      <p><a href="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/">In the previous post</a>, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.</p>
+<p>First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to <a href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a> and pick it from the <em>Other Tools and Frameworks</em> section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.</p>
+<p><a href="images/AzureDevOps_TeamPlugin.png"><img src="images/AzureDevOps_TeamPlugin.png" alt=""></a></p>
+<p>This time I will use my Azure DevOps collection <a href="https://bartekr.visualstudio.com">bartekr</a> and the <em>AzureDevOps_APITests</em> project. It uses a <em>Basic</em> process, but I also tested the process on an <em>Agile</em> workflow. To add the elements click <em>New List</em> and connect to the project. If it&rsquo;s the first time you connect to Azure DevOps or TFS you will be prompted to set up the connection to the collection. After you connect pick the <em>Input list</em> from the options</p>
+<p><a href="images/ExcelNewList_InputList.png"><img src="images/ExcelNewList_InputList-300x185.png" alt=""></a></p>
+<p>Now you should see an empty list with information about the connection. The list is ready and you could start filling the columns Title, Work Item Type, State, Reason, Assigned To (ID is read-only).</p>
+<p><a href="images/ExcelEmptyList.png"><img src="images/ExcelEmptyList.png" alt=""></a></p>
+<p>But - we want to add not only the tasks but also the connection to a parent element. In this case, tasks should be connected to the Issue (in a <em>Basic</em> process) or the User Story (an <em>Agile</em> process). To do it we have to work with the tree, not a flat list (notice: List type: Flat on the right side of the yellow header). Click on the list and you should see an enabled <em>Add Tree Level</em> button. Click it.</p>
+<p><a href="images/ExcelAddTreeLevel.png"><img src="images/ExcelAddTreeLevel.png" alt=""></a></p>
+<p>In the <em>Convert to Tree List</em> select Parent-Child (the default option)</p>
+<p><a href="images/ExcelConvertToTreeList.png"><img src="images/ExcelConvertToTreeList.png" alt=""></a></p>
+<p>Now you should see the columns - <em>Title 1</em> and <em>Title 2</em> and the <em>List type: tree</em>. The first title is for the parent item, the second for the child.</p>
+<p><a href="images/ExcelEmptyWorkitemsTree-1.png"><img src="images/ExcelEmptyWorkitemsTree-1.png" alt=""></a></p>
+<p>Now - I want to add the new tasks for the Issue 2</p>
+<p><a href="images/AzureDevOps_BacklogBefore.png"><img src="images/AzureDevOps_BacklogBefore-600x256.png" alt=""></a></p>
+<p>In the <em>Team</em> toolbar click <em>Get Work Items</em>, find the <em>Issue 2</em> in the opened window, select it and click <em>OK</em>.</p>
+<p><a href="images/ExcelFindWorkItem.png"><img src="images/ExcelFindWorkItem.png" alt=""></a></p>
+<p>The spreadsheet looks like below:</p>
+<p><a href="images/ExcelIssue2Tree.png"><img src="images/ExcelIssue2Tree.png" alt=""></a></p>
+<p>Nothing unusual. Now - in the <em>Title 2</em> column add new tasks with Work Item Type == <em>Task</em> and push the button <em>Publish</em>. And that&rsquo;s it!</p>
+<p><a href="images/ExcelIssue2Tree_NewWorkItems.png"><img src="images/ExcelIssue2Tree_NewWorkItems.png" alt=""></a></p>
+<p>In Azure DevOps:</p>
+<p><a href="images/AzureDevOps_BacklogAfter.png"><img src="images/AzureDevOps_BacklogAfter.png" alt=""></a></p>
+<p>If I wanted to fill more columns (like Assigned To, Sprint, Estimated time and so on) - I click <em>Choose columns</em> button and add them to the list.</p>
+<p>One more small thing for the end. Let&rsquo;s say you have a lot of Tasks with one parent Issue / User Story. <strong>Do not delete them from the list</strong> <em>&ldquo;because you want to have a clean sheet with just the Issue / User Story&rdquo;</em>. Deleting the tasks from the list does not delete the tasks (of course), but it removes the Parent-Child hierarchy for the deleted elements.</p>
+<p>If you repeat the steps to get the tasks for Issue 2 and delete them, you will see they lost the connection:</p>
+<p><a href="images/AzureDevOps_WorkitemDeletedLink.png"><img src="images/AzureDevOps_WorkitemDeletedLink-300x285.png" alt=""></a></p>
+<p>In short: adding work items to TFS / Azure DevOps using Excel is easy. The trick is <del><a href="https://www.youtube.com/watch?v=GwKtszQ8Ejo">to keep breathing</a></del> to use the <em>Add Tree Level</em> button.</p>
 
     </div>
     <footer>
@@ -226,8 +225,10 @@
   
   <div class="pagination">
     
-      <a href="/2017/05/03/what-happens-during-ssis-deployments/" class="button left"><span>What happens during SSIS deployments?</span></a>
+      <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="button left"><span>Have problems with Docker Desktop for Windows Home? Yeah, me too!</span></a>
     
+    
+      <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="button right"><span>Adding a new Task in TFS using C#</span></a>
     
   </div>
 
