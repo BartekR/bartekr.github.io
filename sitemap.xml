@@ -3,7 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://bartekr.github.io/tags/azure-devops/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/oauth/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -13,12 +28,47 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/powershell/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/security/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/troubleshooting/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/docker/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/docker-desktop/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/wsl2/</loc>
     <lastmod>2020-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,12 +78,62 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/excel/</loc>
+    <lastmod>2020-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/tfs/</loc>
+    <lastmod>2020-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2020/05/04/adding-a-new-task-in-tfs-using-c/</loc>
     <lastmod>2020-05-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/c#/</loc>
+    <lastmod>2020-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/programming/</loc>
+    <lastmod>2020-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/learning/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/series/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/ssis/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/svg/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/xml/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/xslt/</loc>
     <lastmod>2019-08-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -170,14 +270,6 @@
   <url>
     <loc>http://bartekr.github.io/2017/04/16/sqlbits-2017/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/tags/</loc>
   </url>
   
 </urlset>

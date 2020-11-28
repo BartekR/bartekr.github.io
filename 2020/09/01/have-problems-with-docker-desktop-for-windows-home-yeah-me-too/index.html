@@ -44,7 +44,7 @@
       
         
           
-          <a href="/brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
+          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
         
       
         
@@ -186,12 +186,12 @@ DOCKER_HOST          tcp<span style="color:#960050;background-color:#1e0010">:</
 DOCKER_MACHINE_NAME  <span style="color:#66d9ef">default</span>
 DOCKER_TLS_VERIFY    1
 </code></pre></div><p>The correct value is <code>(...)\.docker\machine\certs</code>, so I changed to <code>C:\Users\BartekR\.docker\machine\certs</code>.</p>
-<p>Excellent. Again: <code>docker version</code>: <em>&ldquo;error during connect: Post <a href="http://localhost:2375/v1.39/containers/create">http://192.168.99.100:2376/v1.40/containers/create</a>: dial tcp [::1]:2376: connectex: No connection could be made because the target machine actively refused it&rdquo;</em></p>
+<p>Excellent. Again: <code>docker version</code>: <em>&ldquo;error during connect: Post <a href="http://192.168.99.100:2376/v1.40/containers/create">http://192.168.99.100:2376/v1.40/containers/create</a>: dial tcp [::1]:2376: connectex: No connection could be made because the target machine actively refused it&rdquo;</em></p>
 <p>Again - most probably - Docker Toolbox (see: <a href="https://docs.docker.com/toolbox/faqs/troubleshoot/">https://docs.docker.com/toolbox/faqs/troubleshoot/</a>) - it uses the <code>(...).100:2376</code> theme for the docker daemon. So I changed the <code>DOCKER_HOST</code> address to <code>tcp://localhost:2375</code> and now it should work.</p>
 <p>Should it?</p>
 <p><code>docker version</code>: <em>&ldquo;error during connect: Get https://localhost:2375/v1.40/containers/json: http: server gave HTTP response to HTTPS client&rdquo;</em></p>
 <p>What now? On Windows, you have to check the checkbox <em>&ldquo;Expose daemon on &lt;DOCKER_HOST&gt; without TLS&rdquo;</em></p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2020/08/DockerDesktopEnableTLSWithoutTLS.png"><img src="images/DockerDesktopEnableTLSWithoutTLS-600x92.png" alt=""></a></p>
+<p><a href="images/DockerDesktopEnableTLSWithoutTLS.png"><img src="images/DockerDesktopEnableTLSWithoutTLS-600x92.png" alt="Enable TLS"></a></p>
 <p>Yeah, that &ldquo;vulnerable to remote code execution attacks&rdquo; does not encourage to check it. After making the change you have to restart Docker Desktop.</p>
 <p>Now, is it all?</p>
 <p>No. One last thing *). If the switching does not help (and it did not in my case) the problem is in the <code>DOCKER_TLS_VERIFY</code> environment variable. I had it set to 1 (meaning: enabled), and I had to remove it.</p>
@@ -210,12 +210,24 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/troubleshooting/">Troubleshooting</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/docker/">docker</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/docker-desktop/">docker desktop</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/wsl2/">WSL2</a></li>
+        
+      
     </ul>
   
 </div>
@@ -284,7 +296,9 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
       </article>
       
       <article class="mini-post">
-          
+          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
+    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
+  </a>
         <header>
           <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
           <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
@@ -308,6 +322,18 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
         </header>
         <ul>
           
+          
+          <li>
+              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/learning/">learning<span class="count">1</span></a>
+          
+          <li>
+              <a href="/categories/programming/">programming<span class="count">1</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">1</span></a>
           
           </li>
         </ul>

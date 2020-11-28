@@ -5,6 +5,133 @@
     <link>http://bartekr.github.io/tags/</link>
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language><atom:link href="http://bartekr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Azure DevOps</title>
+      <link>http://bartekr.github.io/tags/azure-devops/</link>
+      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/azure-devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OAuth</title>
+      <link>http://bartekr.github.io/tags/oauth/</link>
+      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/oauth/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PowerShell</title>
+      <link>http://bartekr.github.io/tags/powershell/</link>
+      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/powershell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>http://bartekr.github.io/tags/security/</link>
+      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>http://bartekr.github.io/tags/docker/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker desktop</title>
+      <link>http://bartekr.github.io/tags/docker-desktop/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/docker-desktop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WSL2</title>
+      <link>http://bartekr.github.io/tags/wsl2/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/wsl2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Excel</title>
+      <link>http://bartekr.github.io/tags/excel/</link>
+      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/excel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TFS</title>
+      <link>http://bartekr.github.io/tags/tfs/</link>
+      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/tfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C#</title>
+      <link>http://bartekr.github.io/tags/c#/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/c#/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSIS</title>
+      <link>http://bartekr.github.io/tags/ssis/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/ssis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SVG</title>
+      <link>http://bartekr.github.io/tags/svg/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/svg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>XML</title>
+      <link>http://bartekr.github.io/tags/xml/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/xml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>XSLT</title>
+      <link>http://bartekr.github.io/tags/xslt/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/xslt/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
