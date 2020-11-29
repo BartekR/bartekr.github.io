@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conferences on BartekR</title>
+    <link>http://bartekr.github.io/categories/conferences/</link>
+    <description>Recent content in Conferences on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 16 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/conferences/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQLBits 2017</title>
+      <link>http://bartekr.github.io/2017/04/16/sqlbits-2017/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/04/16/sqlbits-2017/</guid>
+      <description>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.
+ First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
+    </item>
+    
+  </channel>
+</rss>

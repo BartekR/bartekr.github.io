@@ -133,5 +133,113 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Linux</title>
+      <link>http://bartekr.github.io/tags/linux/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>http://bartekr.github.io/tags/ubuntu/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VirtualBox</title>
+      <link>http://bartekr.github.io/tags/virtualbox/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/virtualbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VM</title>
+      <link>http://bartekr.github.io/tags/vm/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/vm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>internals</title>
+      <link>http://bartekr.github.io/tags/internals/</link>
+      <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/internals/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graph</title>
+      <link>http://bartekr.github.io/tags/graph/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Power BI</title>
+      <link>http://bartekr.github.io/tags/power-bi/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/power-bi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SQL Server 2017</title>
+      <link>http://bartekr.github.io/tags/sql-server-2017/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/sql-server-2017/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>encryption</title>
+      <link>http://bartekr.github.io/tags/encryption/</link>
+      <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/encryption/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IsDeploymentWizard</title>
+      <link>http://bartekr.github.io/tags/isdeploymentwizard/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/isdeploymentwizard/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ISServerExec</title>
+      <link>http://bartekr.github.io/tags/isserverexec/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/isserverexec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sqlbits</title>
+      <link>http://bartekr.github.io/tags/sqlbits/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/tags/sqlbits/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

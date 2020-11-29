@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,36 +170,42 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png');">
+    <img src="http://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png" alt="">
+  </a>
       <p>The post is a second part of the series. <a href="http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/">In the previous one</a>, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/SequencesExample.png"><img src="images/SequencesExample-300x120.png" alt=""></a> <a href="http://blog.bartekr.net/wp-content/uploads/2019/07/UnexpectedSample2.png"><img src="images/UnexpectedSample2-300x140.png" alt=""></a></p>
-<h1 id="the-sequence-problem">The sequence problem</h1>
+<p><a href="images/SequencesExample.png"><img src="images/SequencesExample.png#center" alt="Sequence example"></a>
+<a href="images/UnexpectedSample2.png"><img src="images/UnexpectedSample2.png#center" alt="Unexpected output"></a></p>
+<h2 id="the-sequence-problem">The sequence problem</h2>
 <p>The main issue is with the alignment of the elements in the <em>Sequence</em> object (no matter if it&rsquo;s the default one, the <em>ForEachLoop</em> or the <em>ForLoop</em>). Let&rsquo;s take a look at the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sequences.xml">Sequences.xml</a> file. Here are the first three <code>&lt;ContainerLayout&gt;</code> elements and the layout of the package:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/SequencesInSequences.png"><img src="images/SequencesInSequences-300x157.png" alt=""></a></p>
-<p>&lt;ContainerLayout
-HeaderHeight=&ldquo;43&rdquo;
-IsExpanded=&ldquo;True&rdquo;
-PanelSize=&ldquo;205,55&rdquo;
-Size=&ldquo;205,98&rdquo;
-Id=&ldquo;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&rdquo;
-<strong>TopLeft=&ldquo;5.5,5.5&rdquo;</strong>/&gt;</p>
-<p>&lt;ContainerLayout
-HeaderHeight=&ldquo;43&rdquo;
-IsExpanded=&ldquo;True&rdquo;
-PanelSize=&ldquo;216,158&rdquo;
-Size=&ldquo;216,202&rdquo;
-Id=&ldquo;Package\SEQC MAIN\SEQC 01\SEQC 011&rdquo;
-<strong>TopLeft=&ldquo;5.50000000000003,5.5&rdquo;</strong>/&gt;</p>
-<p>&lt;ContainerLayout
-HeaderHeight=&ldquo;43&rdquo;
-IsExpanded=&ldquo;True&rdquo;
-PanelSize=&ldquo;227,262&rdquo;
-Size=&ldquo;227,306&rdquo;
-Id=&ldquo;Package\SEQC MAIN\SEQC 01&rdquo;
-<strong>TopLeft=&ldquo;5.50000000000006,5.49999999999989&rdquo;</strong>/&gt;</p>
-<p>All of them have (almost) the same values of the <code>TopLeft</code> attribute - <code>5.5,5.5</code>. They cannot be drawn in the same place, so that means that each sequence object - or better, each container - starts its own coordinates system (with the <code>Package</code> being the outermost container). I need to know which elements belong to which container. Challenge accepted.</p>
-<h1 id="the-analysis">The analysis</h1>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/XMLElementsAlinment.png"><img src="images/XMLElementsAlinment-217x300.png" alt=""></a> To make things harder, the layout of the sequences and tasks is not some nested XML structure. All of the elements have the same parent - <code>&lt;GraphLayout&gt;</code>, meaning all of them are at the same tree level. Also - there is no attribute showing where a particular object belongs. Almost. In the example with the sequences, I see two regularities:</p>
+<p><a href="images/SequencesInSequences.png"><img src="images/SequencesInSequences.png#center" alt="Sequences in sequences"></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ContainerLayout</span>
+    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
+    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
+    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;205,55&#34;</span>
+    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;205,98&#34;</span>
+    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&#34;</span>
+    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.5,5.5&#34;</span><span style="color:#f92672">/&gt;</span>
+
+<span style="color:#f92672">&lt;ContainerLayout</span>
+    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
+    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
+    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;216,158&#34;</span>
+    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;216,202&#34;</span>
+    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011&#34;</span>
+    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span><span style="color:#f92672">/&gt;</span>
+
+<span style="color:#f92672">&lt;ContainerLayout</span>
+    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
+    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
+    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;227,262&#34;</span>
+    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;227,306&#34;</span>
+    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01&#34;</span>
+    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000006,5.49999999999989&#34;</span><span style="color:#f92672">/&gt;</span>
+</code></pre></div><p>All of them have (almost) the same values of the <code>TopLeft</code> attribute - <code>5.5,5.5</code>. They cannot be drawn in the same place, so that means that each sequence object - or better, each container - starts its own coordinates system (with the <code>Package</code> being the outermost container). I need to know which elements belong to which container. Challenge accepted.</p>
+<h2 id="the-analysis">The analysis</h2>
+<p><a href="images/XMLElementsAlinment.png"><img src="images/XMLElementsAlinment.png#center" alt="XML elements alignment"></a></p>
+<p>To make things harder, the layout of the sequences and tasks is not some nested XML structure. All of the elements have the same parent - <code>&lt;GraphLayout&gt;</code>, meaning all of them are at the same tree level. Also - there is no attribute showing where a particular object belongs. Almost. In the example with the sequences, I see two regularities:</p>
 <ul>
 <li>the outer container is placed later in the XML, than the inner container</li>
 <li>the <code>@Id</code> attributes show the nesting of the objects</li>
@@ -225,7 +234,7 @@ Id=&ldquo;Package\SEQC MAIN\SEQC 01&rdquo;
 </li>
 </ul>
 <p>Great. I know how it should look like using the paper, the pencil, and the head. Now I have to explain all of it to the computer.</p>
-<h1 id="find-all-the-outer-nodes">Find all the outer nodes</h1>
+<h2 id="find-all-the-outer-nodes">Find all the outer nodes</h2>
 <p>The biggest challenge for me was to find all the ancestor nodes, based on the <code>@Id</code> attribute of the current node. For example - when I work with the <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&quot;</code>, I need to find the nodes with:</p>
 <ul>
 <li><code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011&quot;</code></li>
@@ -233,105 +242,129 @@ Id=&ldquo;Package\SEQC MAIN\SEQC 01&rdquo;
 <li><code>Id=&quot;Package\SEQC MAIN&quot;</code></li>
 </ul>
 <p>Then I take the <code>@TopLeft</code> and <code>@HeaderHeight</code> attributes from all of them, to calculate the offset of the upper-left corner for the element I&rsquo;m currently working with. The trick is <a href="https://www.youtube.com/watch?v=GwKtszQ8Ejo">to keep breathing</a> to work with sequences. However, first - I have to add processing of the sequences to the XSLT file:</p>
-<p>&lt;xsl:template match=&ldquo;gl:GraphLayout&rdquo;&gt;
-<strong>&lt;xsl:apply-templates select=&ldquo;gl:ContainerLayout&rdquo; /&gt;</strong>
-&lt;xsl:apply-templates select=&ldquo;gl:NodeLayout&rdquo; /&gt;
-&lt;xsl:apply-templates select=&ldquo;gl:EdgeLayout&rdquo; /&gt;
-&lt;xsl:apply-templates select=&ldquo;gl:AnnotationLayout&rdquo; /&gt;
-&lt;/xsl:template&gt;</p>
-<p><strong>&lt;xsl:template match=&ldquo;gl:ContainerLayout&rdquo;&gt;
-&lt;/xsl:template match=&ldquo;gl:ContainerLayout&rdquo;&gt;</strong></p>
-<p>Then, inside of the <code>gl:ContainerLayout</code> template I calculate the tokens for the <code>@Id</code> of the container with the <code>tokenize()</code> function:</p>
-<p>&lt;xsl:variable name=&ldquo;IdTokens&rdquo; select=&ldquo;tokenize(@Id, &lsquo;\\')&rdquo; /&gt;</p>
-<p>The variable <code>IdTokens</code> has the sequence of the elements separated by the backslash, like for <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011</code> I have the tokens: <code>Package</code>, <code>SEQC MAIN</code>, <code>SEQC 01</code>, <code>SEQC 011</code> (in this order). You can think of it as some kind of array (but it&rsquo;s not the array, it&rsquo;s the sequence). Now I calculate the &ldquo;subpaths&rdquo; for <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code> and I will use the <code>IdTokens</code> variable. Again - I need to find the paths:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span>&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:ContainerLayout&#34;</span> /&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span> /&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span> /&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:ContainerLayout&#34;</span>&gt;
+<span style="color:#960050;background-color:#1e0010">&lt;</span>/xsl:template match=&#34;gl:ContainerLayout&#34;&gt;
+</code></pre></div><p>Then, inside of the <code>gl:ContainerLayout</code> template I calculate the tokens for the <code>@Id</code> of the container with the <code>tokenize()</code> function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IdTokens&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> /&gt;
+</code></pre></div><p>The variable <code>IdTokens</code> has the sequence of the elements separated by the backslash, like for <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011</code> I have the tokens: <code>Package</code>, <code>SEQC MAIN</code>, <code>SEQC 01</code>, <code>SEQC 011</code> (in this order). You can think of it as some kind of array (but it&rsquo;s not the array, it&rsquo;s the sequence). Now I calculate the &ldquo;subpaths&rdquo; for <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code> and I will use the <code>IdTokens</code> variable. Again - I need to find the paths:</p>
 <ul>
 <li><code>Package\SEQC MAIN\SEQC 01\SEQC 011</code></li>
 <li><code>Package\SEQC MAIN\SEQC 01</code></li>
 <li><code>Package\SEQC MAIN</code></li>
 </ul>
 <p>I don&rsquo;t need the <code>Package</code> path, as it does not exist. So, I need to concatenate the elements from the sequence for a few times. To be precise: that many times as I have the number of the elements in the sequence. Minus one. For this, I use XPath&rsquo;s <code>for</code>:</p>
-<p>&lt;xsl:variable
-name=&ldquo;IdPaths&rdquo;
-select=&ldquo;for $x in (2 to count($IdTokens))
-return string-join(subsequence($IdTokens, 1, $x), &lsquo;\')&rdquo;
-/&gt;</p>
-<p>It&rsquo;s a bit hard to read at first, so I will split it to the bits and pieces using the example of <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span>
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IdPaths&#34;</span>
+    <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;for $x in (2 to count($IdTokens)) 
+</span><span style="color:#e6db74">            return string-join(subsequence($IdTokens, 1, $x), &#39;\\&#39;)&#34;</span>
+/&gt;
+</code></pre></div><p>It&rsquo;s a bit hard to read at first, so I will split it to the bits and pieces using the example of <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code>.</p>
 <p>To concatenate the elements of the sequence I use the <code>string-join()</code> function. To point out the elements to concatenate I use the <code>subsequence()</code> function. It takes the source sequence (here - the <code>$IdTokens</code> variable) from the starting position to the ending position. To get the subpath <code>Package\SEQC MAIN\SEQC 01</code> I need to get the first three elements - <code>subsequence($IdTokens, 1, 3)</code> - and concatenate them with a backslash - <code>string-join(subsequence($IdTokens, 1, 3), '\')</code>. To get the subpath <code>Package\SEQC MAIN</code> I need to get the first two elements - <code>subsequence($IdTokens, 1, 2)</code> - and concatenate them with a backslash - <code>string-join(subsequence($IdTokens, 1, 2), '\')</code>. And so on, and so forth.</p>
 <p>Because I want to do it in the loop, I use the <code>for()</code> function. But there&rsquo;s a thing - <code>for()</code> in XPath works like <code>foreach()</code> in other languages, and if I used <code>for $x in $IdTokens</code> - each time <code>$x</code> would contain the token. But I don&rsquo;t want the token - I want the position of the token. So I use the trick <a href="http://xsltbyexample.blogspot.com/2010/05/obtain-position-from-for-expression-in.html">I found on the blog by Miguel de Melo</a>: count the number of the elements (<code>count($IdTokens)</code>) and use the <code>to</code> operator, to generate the sequence of the numbers. The construction <code>1 to 10</code> returns 10 consecutive numbers from 1 to 10, so when I use <code>for $x in (1 to count($IdTokens))</code> my <code>$x</code> will contain the numbers from 1 to the count of <code>$IdTokens</code>. In the example I use <code>for $x in (2 to count($IdTokens))</code> - it&rsquo;s because I don&rsquo;t need the path with only the <code>Package</code> element. Now I have what I want: the <code>$IdPaths</code> variable will contain the sequence of the subpaths. It&rsquo;s also in the comments of the SVG file - the upper line is the <code>@Id</code> attribute of the processed container, and the lower line contains all the <code>@Id</code> attributes of the containers I search for, separated by colons.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>OK. I have the paths of the containers (nodes) that are around the container I want to draw. The paths are the values of the <code>@Id</code> attribute of these nodes. I find them with an XPath expression and - again - use the sequence (in a variable), to store the nodes. There is the next trick: I use the sequence of paths (stored in the <code>$IdPaths</code> variable) to get only the nodes I want. And because the outer elements are later in the layout, I can specify <code>following-sibling</code> as the axis. I also set the variable as the nodes collection, hence <code>as=&quot;nodes()&quot;</code>.</p>
-<p>&lt;xsl:variable name=&ldquo;paths&rdquo; as=&ldquo;node()*&quot;&gt;
-&lt;xsl:sequence select=&ldquo;following-sibling::gl:ContainerLayout[@Id=$IdPaths]&rdquo; /&gt;
-&lt;/xsl:variable&gt;</p>
-<h1 id="getting-the-offsets">Getting the offsets</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
+<span style="color:#75715e">&lt;!--Package\SEQC MAIN:Package\SEQC MAIN\SEQC 01:Package\SEQC MAIN\SEQC 01\SEQC 011:Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
+</code></pre></div><p>OK. I have the paths of the containers (nodes) that are around the container I want to draw. The paths are the values of the <code>@Id</code> attribute of these nodes. I find them with an XPath expression and - again - use the sequence (in a variable), to store the nodes. There is the next trick: I use the sequence of paths (stored in the <code>$IdPaths</code> variable) to get only the nodes I want. And because the outer elements are later in the layout, I can specify <code>following-sibling</code> as the axis. I also set the variable as the nodes collection, hence <code>as=&quot;nodes()&quot;</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;paths&#34;</span> <span style="color:#a6e22e">as</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;node()\*&#34;</span>&gt;
+   &lt;<span style="color:#f92672">xsl:sequence</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;following-sibling::gl:ContainerLayout[@Id=$IdPaths]&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">xsl:variable</span>&gt;
+</code></pre></div><h2 id="getting-the-offsets">Getting the offsets</h2>
 <p>Almost ready. I have the nodes, so I can start the calculations. I use four variables to determine the correct coordinates. <code>x0</code> and <code>y0</code> are the values from the <code>@TopLeft</code> attribute of currently processed <code>&lt;ContainerLayout&gt;</code> node. <code>x</code> and <code>y</code> variables are the calculated values for the upper-left corner of the container.</p>
-<p>&lt;xsl:variable name=&ldquo;x0&rdquo; select=&ldquo;number(substring-before(@TopLeft, &lsquo;,'))&rdquo; /&gt;
-&lt;xsl:variable name=&ldquo;y0&rdquo; select=&ldquo;number(substring-after(@TopLeft, &lsquo;,'))&rdquo; /&gt;</p>
-<p>&lt;xsl:variable name=&ldquo;x&rdquo;
-select=&ldquo;sum(
-for $p in $paths
-return number(substring-before($p/@TopLeft, &lsquo;,'))) + $x0&rdquo;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x0&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span> /&gt;
+&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y0&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;))&#34;</span> /&gt;
+
+&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>
+              <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sum(
+</span><span style="color:#e6db74">                  for $p in $paths 
+</span><span style="color:#e6db74">                  return number(substring-before($p/@TopLeft, &#39;,&#39;))) + $x0&#34;</span>
 /&gt;
-&lt;xsl:variable name=&ldquo;y&rdquo;
-select=&ldquo;sum(
-for $p in $paths
-return number(substring-after($p/@TopLeft, &lsquo;,'))
-+ number($p/@HeaderHeight)) + $y0&rdquo;
-/&gt;</p>
-<p>To get <code>x</code> I analyse each node I found with the algorithm described earlier, get the <code>@TopLeft</code> attribute to calculate the <code>x</code> position (just like in <code>x0</code>, but for outer containers). And I make a sum of all the values. The same for <code>y</code>, but I remember that I have to add <code>@HeaderHeight</code> for each outer container. The final values are completed with <code>x0</code> and <code>y0</code> respectively (because <code>for()</code> operates on the outer containers).</p>
+&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>
+              <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sum(
+</span><span style="color:#e6db74">                  for $p in $paths
+</span><span style="color:#e6db74">                  return number(substring-after($p/@TopLeft, &#39;,&#39;))
+</span><span style="color:#e6db74">                       + number($p/@HeaderHeight)) + $y0&#34;</span>
+/&gt;
+</code></pre></div><p>To get <code>x</code> I analyse each node I found with the algorithm described earlier, get the <code>@TopLeft</code> attribute to calculate the <code>x</code> position (just like in <code>x0</code>, but for outer containers). And I make a sum of all the values. The same for <code>y</code>, but I remember that I have to add <code>@HeaderHeight</code> for each outer container. The final values are completed with <code>x0</code> and <code>y0</code> respectively (because <code>for()</code> operates on the outer containers).</p>
 <p>And that&rsquo;s it! I get the same results as I calculated on the paper! Woah!</p>
 <p>Well, not yet.</p>
-<h1 id="containerlayout-is-only-the-beginning"><!-- raw HTML omitted --> is only the beginning</h1>
+<h2 id="containerlayout-is-only-the-beginning">&lt;ContainerLayout&gt; is only the beginning</h2>
 <p>I have to use the same calculation for each element inside the container. For now, I only know the values for the <code>&lt;ContainerLayout&gt;</code> node, and the container can have the elements inside. So I repeat the code to calculate <code>x</code> and <code>y</code> for each subsequent element - <code>&lt;NodeLayout&gt;</code>, <code>&lt;EdgeLayout&gt;</code>, <code>&lt;AnnotationLayout&gt;</code>.</p>
-<h1 id="drawing-the-objects">Drawing the objects</h1>
+<h2 id="drawing-the-objects">Drawing the objects</h2>
 <p>Now I use the <code>x</code> and <code>y</code> as the values for the <code>&lt;rect&gt;</code> and <code>&lt;text&gt;</code> objects. I put them inside the <code>number()</code> function, because sometimes I use it in the equations and I wanted to be consistent when working with <code>x</code> and <code>y</code>.</p>
-<p>&lt;xsl:attribute name=&ldquo;x&rdquo;&gt;&lt;xsl:value-of select=&ldquo;number($x)&quot;/&gt;&lt;/xsl:attribute&gt;
-&lt;xsl:attribute name=&ldquo;y&rdquo;&gt;&lt;xsl:value-of select=&ldquo;number($y)&quot;/&gt;&lt;/xsl:attribute&gt;</p>
-<p>To draw the header of the container I also use the <code>&lt;rect&gt;</code>, but with the height of the <code>@HeaderHeight</code>:</p>
-<!-- raw HTML omitted -->
-<p>The last part is to draw the fancy element connectors, instead of just straight lines. For that, I leave the Sequences.xml and go back to the original <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sample2.xml">Sample2.xml</a>.</p>
-<h1 id="xsltemplate-matchgledgelayout">&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number($x)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+&lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number($y)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+</code></pre></div><p>To draw the header of the container I also use the <code>&lt;rect&gt;</code>, but with the height of the <code>@HeaderHeight</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;rect&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($x)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($y)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rx&#34;</span><span style="color:#f92672">&gt;</span>3<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ry&#34;</span><span style="color:#f92672">&gt;</span>3<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;@HeaderHeight&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>white<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke&#34;</span><span style="color:#f92672">&gt;</span>green<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+<span style="color:#f92672">&lt;/rect&gt;</span>
+</code></pre></div><p>The last part is to draw the fancy element connectors, instead of just straight lines. For that, I leave the Sequences.xml and go back to the original <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sample2.xml">Sample2.xml</a>.</p>
+<h2 id="xsltemplate-matchgledgelayout">&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;</h2>
 <p>It looks complicated, but it isn&rsquo;t. First - the <code>@Id</code> attribute of the <code>&lt;EdgeLayout&gt;</code> includes the <code>PrecedenceConstraint</code> name, like <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint 1]</code>. I get rid of it (because it hinders finding the outer containers), and then <code>tokenize()</code> the output:</p>
-<p>&lt;xsl:variable name=&quot;<strong>ParsedId</strong>&rdquo; select=&ldquo;substring-before(@Id, &lsquo;.PrecedenceConstraints&rsquo;)&rdquo; /&gt;
-&lt;xsl:variable name=&ldquo;IdTokens&rdquo; select=&ldquo;tokenize(<strong>$ParsedId</strong>, &lsquo;\\')&rdquo; /&gt;</p>
-<p>The edges can be stored in two ways - with <code>&lt;CubicBezierSegment&gt;</code>s, or without - we have either one <code>&lt;LineSegment&gt;</code> or three <code>&lt;LineSegment&gt;</code>s interlaced with two <code>&lt;CubicBezierSegment&gt;</code>s.</p>
-<p>&lt;EdgeLayout.Curve&gt;
-<a href="mssgle:Curve">mssgle:Curve</a>
-<a href="mssgle:Curve.Segments">mssgle:Curve.Segments</a>
-<a href="mssgle:SegmentCollection">mssgle:SegmentCollection</a>
-&lt;mssgle:LineSegment /&gt;
-&lt;/mssgle:SegmentCollection&gt;
-&lt;/mssgle:Curve.Segments&gt;
-&lt;/mssgle:Curve&gt;
-&lt;/EdgeLayout.Curve&gt;</p>
-<p>&lt;EdgeLayout.Curve&gt;
-<a href="mssgle:Curve">mssgle:Curve</a>
-<a href="mssgle:Curve.Segments">mssgle:Curve.Segments</a>
-<a href="mssgle:SegmentCollection">mssgle:SegmentCollection</a>
-&lt;mssgle:LineSegment /&gt;
-&lt;mssgle:CubicBezierSegment /&gt;
-&lt;mssgle:LineSegment /&gt;
-&lt;mssgle:CubicBezierSegment /&gt;
-&lt;mssgle:LineSegment /&gt;
-&lt;/mssgle:SegmentCollection&gt;
-&lt;/mssgle:Curve.Segments&gt;
-&lt;/mssgle:Curve&gt;
-&lt;/EdgeLayout.Curve&gt;</p>
-<p>The first option is something I used in the previous post. The only change is to use calculated <code>x</code> and <code>y</code> values. The second requires a bit more work because subsequent elements are connected. I use <code>&lt;xsl:choose&gt;</code> and count the occurrences of <code>&lt;CubicBezierSegment&gt;</code>s to decide what kind of the connector I have to draw:</p>
-<p><a href="xsl:choose">xsl:choose</a>
-&lt;xsl:when test=&ldquo;count(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment) gt 0&rdquo;&gt;
-<!-- raw HTML omitted -->
-&lt;/xsl:when&gt;</p>
-<p><a href="xsl:otherwise">xsl:otherwise</a>
-<!-- raw HTML omitted -->
-&lt;/xsl:otherwise&gt;
-&lt;/xsl:choose&gt;</p>
-<p>The arc option consists of five elements drawn one after another. First line is drawn based on the <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:LineSegment[1]</code>. Then the arc based on <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]</code> and so on (<code>[2]</code> and <code>[3]</code>). To better understand the calculations take a look at the example below.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/BezierCurveCalculations.png"><img src="images/BezierCurveCalculations-300x177.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ParsedId&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Id, &#39;.PrecedenceConstraints&#39;)&#34;</span> /&gt;
+&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IdTokens&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tokenize($ParsedId, &#39;\\&#39;)&#34;</span> /&gt;
+</code></pre></div><p>The edges can be stored in two ways - with <code>&lt;CubicBezierSegment&gt;</code>s, or without - we have either one <code>&lt;LineSegment&gt;</code> or three <code>&lt;LineSegment&gt;</code>s interlaced with two <code>&lt;CubicBezierSegment&gt;</code>s.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;EdgeLayout.Curve&gt;</span>
+  <span style="color:#f92672">&lt;mssgle:Curve&gt;</span>
+    <span style="color:#f92672">&lt;mssgle:Curve.Segments&gt;</span>
+      <span style="color:#f92672">&lt;mssgle:SegmentCollection&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;/mssgle:SegmentCollection&gt;</span>
+    <span style="color:#f92672">&lt;/mssgle:Curve.Segments&gt;</span>
+  <span style="color:#f92672">&lt;/mssgle:Curve&gt;</span>
+<span style="color:#f92672">&lt;/EdgeLayout.Curve&gt;</span>
+
+<span style="color:#f92672">&lt;EdgeLayout.Curve&gt;</span>
+  <span style="color:#f92672">&lt;mssgle:Curve&gt;</span>
+    <span style="color:#f92672">&lt;mssgle:Curve.Segments&gt;</span>
+      <span style="color:#f92672">&lt;mssgle:SegmentCollection&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:CubicBezierSegment</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:CubicBezierSegment</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;/mssgle:SegmentCollection&gt;</span>
+    <span style="color:#f92672">&lt;/mssgle:Curve.Segments&gt;</span>
+  <span style="color:#f92672">&lt;/mssgle:Curve&gt;</span>
+<span style="color:#f92672">&lt;/EdgeLayout.Curve&gt;</span>
+</code></pre></div><p>The first option is something I used in the previous post. The only change is to use calculated <code>x</code> and <code>y</code> values. The second requires a bit more work because subsequent elements are connected. I use <code>&lt;xsl:choose&gt;</code> and count the occurrences of <code>&lt;CubicBezierSegment&gt;</code>s to decide what kind of the connector I have to draw:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:choose</span>&gt;
+  &lt;<span style="color:#f92672">xsl:when</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;count(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment) gt 0&#34;</span>&gt;
+    <span style="color:#75715e">&lt;!-- arc option --&gt;</span>
+  &lt;/<span style="color:#f92672">xsl:when</span>&gt;
+
+  &lt;<span style="color:#f92672">xsl:otherwise</span>&gt;
+    <span style="color:#75715e">&lt;!-- straight line option --&gt;</span>
+  &lt;/<span style="color:#f92672">xsl:otherwise</span>&gt;
+&lt;/<span style="color:#f92672">xsl:choose</span>&gt;
+</code></pre></div><p>The arc option consists of five elements drawn one after another. First line is drawn based on the <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:LineSegment[1]</code>. Then the arc based on <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]</code> and so on (<code>[2]</code> and <code>[3]</code>). To better understand the calculations take a look at the example below.</p>
+<p><a href="images/BezierCurveCalculations.png"><img src="images/BezierCurveCalculations.png" alt="Bezier curve calculations"></a></p>
 <p>The important part is: to calculate the coordinates the values are relative to the <code>@TopLeft</code> attribute of the <code>&lt;EdgeLayout&gt;</code>. The second thing - <code>&lt;Line&gt;</code>s have only <code>@End</code>, so to calculate the beginning I have to use the end of the previous element. The third thing - the layout uses <code>&lt;CubicBezierSegment&gt;</code>, but to draw it in SVG I use a <a href="http://tutorials.jenkov.com/svg/path-element.html">quadratic Bezier curve</a>. It&rsquo;s because the segment is built using three points: <code>Point1</code> is the start, <code>Point2</code> is the control point of the curve, and <code>Point3</code> is the end of the curve. In SVG, I would need four points to draw the cubic bezier curve. The example below shows how to draw the first curve. I use the <code>&lt;path&gt;</code> element, where all drawing is set within the <code>d</code> attribute. First, I move (<code>M</code>) the pen to the beginning of the curve, then I draw the <code>Q</code>uadratic Bezier curve (using <code>Q</code>, not <code>q</code> as I provide the absolute coordinates).</p>
-<!-- raw HTML omitted -->
-<p>Repeat the pattern for the remaining elements and voila, I have the fancy, curved connectors.<a href="http://blog.bartekr.net/wp-content/uploads/2019/07/QuadraticBezierCurves.png"><img src="images/QuadraticBezierCurves-300x200.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">path</span>&gt;
+  &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;d&#34;</span>&gt;
+  &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;concat(&#39;M&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)))&#34;</span>/&gt;
+  &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
+  &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;concat(&#39;Q&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)))&#34;</span>/&gt;
+  &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
+  &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;concat(number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)))&#34;</span>/&gt;
+  &lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+  &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style&#34;</span>&gt;stroke:#006600; fill:none&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+&lt;/<span style="color:#f92672">path</span>&gt;
+</code></pre></div><p>Repeat the pattern for the remaining elements and voila, I have the fancy, curved connectors.</p>
+<p><a href="images/QuadraticBezierCurves.png"><img src="images/QuadraticBezierCurves.png#center" alt="Fancy, curved connections"></a></p>
 <p>It starts to look like an original package. It still lacks some elements (like path annotations), yet it is almost what I wanted. Further polishing will be a part three of the series.</p>
 
     </div>
@@ -339,12 +372,28 @@ return number(substring-after($p/@TopLeft, &lsquo;,'))
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/svg/">SVG</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/xml/">XML</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/xslt/">XSLT</a></li>
+        
+      
     </ul>
   
 </div>
@@ -441,16 +490,25 @@ return number(substring-after($p/@TopLeft, &lsquo;,'))
           
           
           <li>
+              <a href="/categories/learning/">learning<span class="count">6</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+          
+          <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">1</span></a>
+              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">1</span></a>
+              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
           
           </li>
         </ul>

@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,40 +170,56 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png');">
+    <img src="http://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png" alt="">
+  </a>
       <p>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.</p>
 <p>I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?) and selecting almost only the default options. I don&rsquo;t want to build a cluster or do sophisticated things - I just want the Linux Server to be up and running.</p>
 <p>It takes just few minutes to install Ubuntu Linux Server (16.04) . The next step is to install SQL Server. Following <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-ubuntu">the official</a> documentation I run just 5 commands to set up and one to verify if the service works well:</p>
-<pre><code>curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list | sudo tee /etc/apt/sources.list.d/mssql-server.list
 sudo apt-get update
 sudo apt-get install -y mssql-server
 sudo /opt/mssql/bin/mssql-conf setup
 
 systemctl status mssql-server
-</code></pre><p>OK, looks easy (and it is!). It really takes few minutes to have SQL Server on Linux experience. Now: I want to connect to SQL Server on VM from my Host machine (Windows). I have my SSMS there, with SQLPrompt (so you understand why I want to use it) - I want to connect to the VM.</p>
+</code></pre></div><p>OK, looks easy (and it is!). It really takes few minutes to have SQL Server on Linux experience. Now: I want to connect to SQL Server on VM from my Host machine (Windows). I have my SSMS there, with SQLPrompt (so you understand why I want to use it) - I want to connect to the VM.</p>
 <p>But.</p>
-<p>My internal network is 192.168.x.x and Ubintu Linux creates 10.0.2.15 IP address for the machine. I don&rsquo;t use Linux that often (also not that often on VirtualBox) and I don&rsquo;t want to try allthis things with iptables, ifconfig setup and so on. Is there some magic switch I could use?</p>
+<p>My internal network is 192.168.x.x and Ubuntu Linux creates 10.0.2.15 IP address for the machine. I don&rsquo;t use Linux that often (also not that often on VirtualBox) and I don&rsquo;t want to try allthis things with iptables, ifconfig setup and so on. Is there some magic switch I could use?</p>
 <p>The internet says: yes, there is - Port Forwarding.</p>
 <p>Open the settings for the virtual machine, switch to <em>Network</em> tab and expand <em>Advanced</em> part. There is a <em>Port Forwarding</em> button. Don&rsquo;t be shy, just click it.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/06/PortForwarding01.png"><img src="images/PortForwarding01.png" alt=""></a></p>
+<p><a href="images/PortForwarding01.png"><img src="images/PortForwarding01.png#center" alt="Port forwarding option"></a></p>
 <p>On the Port Forwarding Rules setup window set things as on the picture: Host IP == 127.0.0.1, Host port - one of your choice - this is the port you will connect from Host VM. Guest IP means virtual machine IP and Guest Port is the port of service on VM. SQL Server runs on port 1433 on the Ubuntu Linux with address 10.0.2.15 and I forward it to my local machine to port 14333 (because I want to). The rule name is MSSQL to be clear what is it about, you can give any name you want.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/06/PortForwarding02.png"><img src="images/PortForwarding02.png" alt=""></a></p>
+<p><a href="images/PortForwarding02.png"><img src="images/PortForwarding02.png#center" alt="Port forwarding setup"></a></p>
 <p>Best with VM turned off as I&rsquo;ve read to restart the machine after the change (and didn&rsquo;t check it too much, just followed the instructions).</p>
-<p>And that&rsquo;s it! Now I use port 14333 in SSMS and I&rsquo;m connected to VM with SQL Server on Linux.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/06/PortForwarding03.png"><img src="images/PortForwarding03.png" alt=""></a></p>
+<p>And that&rsquo;s it! Now I use port 14333 (remember to use a comma!) in SSMS and I&rsquo;m connected to VM with SQL Server on Linux.</p>
+<p><a href="images/PortForwarding03.png"><img src="images/PortForwarding03.png#center" alt="SSMS connect dialog"></a></p>
 
     </div>
     <footer>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/sql-server/">SQL Server</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/linux/">Linux</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ubuntu/">Ubuntu</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/virtualbox/">VirtualBox</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/vm/">VM</a></li>
+        
+      
     </ul>
   
 </div>
@@ -297,16 +316,25 @@ systemctl status mssql-server
           
           
           <li>
+              <a href="/categories/learning/">learning<span class="count">6</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+          
+          <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">1</span></a>
+              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">1</span></a>
+              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
           
           </li>
         </ul>

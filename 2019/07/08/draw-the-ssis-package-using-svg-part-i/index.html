@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,25 +170,33 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png');">
+    <img src="http://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png" alt="">
+  </a>
       <p>For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code <a href="https://github.com/BartekR/blog/tree/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I">is available on GitHub</a>.</p>
-<h1 id="the-setup">The setup</h1>
-<p>I start with the sample package as on the picture. It has three elements aligned vertically, with <code>AND</code> precedence constraints, evaluated as <em>Success</em>. It also has a small annotation on the side. <a href="http://blog.bartekr.net/wp-content/uploads/2019/07/SSISPackage.png"><img src="images/SSISPackage-300x200.png" alt=""></a> The part responsible for the layout is the tag<code>&lt;DTS:DesignTimeProperties&gt;</code> at the end of the XML, that stores the data as a <code>CDATA</code> section. <a href="http://blog.bartekr.net/wp-content/uploads/2019/07/DTS_DesignTimeProperties.png"><img src="images/DTS_DesignTimeProperties-300x162.png" alt=""></a> For a start, it&rsquo;s enough to save its content to a separate XML file named <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/PackageLayout.xml">PackageLayout.xml</a> and take only one part of it containing the <code>&lt;Package&gt;</code> element and save as <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/Beginning.xml">Beginning.xml</a>.</p>
+<h2 id="the-setup">The setup</h2>
+<p>I start with the sample package as on the picture. It has three elements aligned vertically, with <code>AND</code> precedence constraints, evaluated as <em>Success</em>. It also has a small annotation on the side.</p>
+<p><a href="images/SSISPackage.png"><img src="images/SSISPackage.png#center" alt="Sample SSIS package"></a></p>
+<p>The part responsible for the layout is the tag<code>&lt;DTS:DesignTimeProperties&gt;</code> at the end of the XML, that stores the data as a <code>CDATA</code> section.</p>
+<p><a href="images/DTS_DesignTimeProperties.png"><img src="images/DTS_DesignTimeProperties.png#center" alt="DTS:DesignTimeProperties"></a></p>
+<p>For a start, it&rsquo;s enough to save its content to a separate XML file named <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/PackageLayout.xml">PackageLayout.xml</a> and take only one part of it containing the <code>&lt;Package&gt;</code> element and save as <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/Beginning.xml">Beginning.xml</a>.</p>
 <p>The last thing is to have some XSLT processor. I use <a href="http://www.saxonica.com/welcome/welcome.xml">Saxon</a> for years, and for the demos, I use the Saxon HE 9.9 .NET version. I will use some of the features of XSLT 2.0, so I skip the XSLT processing used in the browsers as they don&rsquo;t support it.</p>
 <p>To run the XSLT transformation, I use <code>Transform.exe</code> with three parameters:</p>
 <ul>
-<li>-s:&lt;source.xml.file&gt;</li>
-<li>-xsl:&lt;xsl.transformations.file&gt;</li>
-<li>-o:&lt;generated.svg.file&gt;</li>
+<li><code>-s:&lt;source.xml.file&gt;</code></li>
+<li><code>-xsl:&lt;xsl.transformations.file&gt;</code></li>
+<li><code>-o:&lt;generated.svg.file&gt;</code></li>
 </ul>
 <p>To ease the process, I create the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/diagram2svg.bat">diagram2svg.bat</a> file, where I provide the path to the Saxon executables (<code>set SAXONPATH=D:\tools\SaxonHE9.9N\bin</code>) and all the commands to produce SVG files, like:</p>
-<p>%SAXONPATH%\Transform -s:Sample2.xml -xsl:package2svg.xsl -o:Sample2.svg</p>
-<h1 id="the-beginnings">The beginnings</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">%SAXONPATH%\Transform -s:Sample2.xml -xsl:package2svg.xsl -o:Sample2.svg
+</code></pre></div><h2 id="the-beginnings">The beginnings</h2>
 <p>When I started to prepare the XSLT transformations, I used the Beginning.xml file and prepared the package2svg.xsl file. But not everything wanted to work, so I took a few steps back and started slowly. First - I created a blank SVG file - <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/00.svg">00.svg</a> - just to be sure that I remember how to draw a simple image. Then I took the <code>&lt;NodeLayout&gt;</code> element and put it directly inside the <code>&lt;Objects&gt;</code> to test a simple XSLT transformation. I tested it with the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/01.xml">01.xml</a> and <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/01.xsl">01.xsl</a> files.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>XSLT processing is as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!-- First try: pretend, that NodeLayout is the first element under the root --&gt;</span>
+<span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/Objects&gt;</span>
+</code></pre></div><p>XSLT processing is as follows:</p>
 <ul>
 <li><code>xsl:stylesheet</code> is 1.0 version (for a start it&rsquo;s enough)</li>
 <li><code>xsl:output</code> is indented XML</li>
@@ -198,74 +209,88 @@
 <li>the essential part of the template is to use the proper namespace, that&rsquo;s why the full element is <code>&lt;g **xmlns=&quot;http://www.w3.org/2000/svg&quot;**&gt;</code> - if I don&rsquo;t use the namespace, the SVG file will have <code>&lt;g xmlns=&quot;&quot;&gt;</code> as the outcome and will not draw the node</li>
 <li>the <code>&lt;g&gt;</code> tag as a wrapper also has an advantage - I specify the namespace only for the one element (in another case I would have to write it for all of them within the <code>xsl:template</code>)</li>
 </ul>
-<p>&lt;xsl:stylesheet version=&ldquo;1.0&rdquo;
-xmlns:xsl=&ldquo;<a href="http://www.w3.org/1999/XSL/Transform%22">http://www.w3.org/1999/XSL/Transform&quot;</a></p>
-<blockquote>
-</blockquote>
-<p>&lt;xsl:output
-method=&ldquo;xml&rdquo;
-encoding=&ldquo;UTF-8&rdquo;
-indent=&ldquo;yes&rdquo; /&gt;</p>
-<p>&lt;xsl:template match=&quot;/Objects&rdquo;&gt;</p>
-<pre><code>&lt;svg
-  xmlns=&quot;http://www.w3.org/2000/svg&quot;
-  viewBox = &quot;0 0 1000 600&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
+  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
 &gt;
 
-  &lt;xsl:apply-templates select=&quot;NodeLayout&quot; /&gt;
+  &lt;<span style="color:#f92672">xsl:output</span>
+      <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xml&#34;</span>
+      <span style="color:#a6e22e">encoding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+      <span style="color:#a6e22e">indent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span> /&gt;
 
-&lt;/svg&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<p>&lt;xsl:template match=&ldquo;NodeLayout&rdquo;&gt;</p>
-<pre><code>&lt;g xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Objects&#34;</span>&gt;
 
-    &lt;rect&gt;
-        &lt;xsl:attribute name=&quot;x&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;y&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;rx&quot;&gt;10&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;ry&quot;&gt;10&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;width&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;height&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;fill&quot;&gt;lightgray&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;stroke&quot;&gt;black&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;stroke-width&quot;&gt;1&lt;/xsl:attribute&gt;
-    &lt;/rect&gt;
+    &lt;<span style="color:#f92672">svg</span>
+      <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
+      <span style="color:#a6e22e">viewBox </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0 0 1000 600&#34;</span>
+    &gt;
 
-&lt;/g&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<p>&lt;/xsl:stylesheet&gt;</p>
-<h1 id="the-next-step">The next step</h1>
+      &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> /&gt;
+
+    &lt;/<span style="color:#f92672">svg</span>&gt;
+
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span>&gt;
+
+    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
+
+        &lt;<span style="color:#f92672">rect</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rx&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ry&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;lightgray&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;/<span style="color:#f92672">rect</span>&gt;
+
+    &lt;/<span style="color:#f92672">g</span>&gt;
+
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+&lt;/<span style="color:#f92672">xsl:stylesheet</span>&gt;
+</code></pre></div><h2 id="the-next-step">The next step</h2>
 <p>I can draw the node from the XML document with one level of nesting. But in reality, it has four levels: <code>/Objects/Package/GraphInfo/LayoutInfo/NodeLayout</code> with a <code>&lt;GraphLayout&gt;</code> tag having different namespace(s). Working with namespaces is hard in the beginning, so the next step is to draw the same node, but with four levels of nesting. The example is in the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02.xml">02.xml</a> and <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02.xsl">02.xsl</a> files.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The 02.xsl transformation file has two differences when compared to 01.xsl:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Package&gt;</span>
+        <span style="color:#f92672">&lt;LayoutInfo&gt;</span>
+            <span style="color:#f92672">&lt;GraphLayout&gt;</span>
+                <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;/GraphLayout&gt;</span>
+        <span style="color:#f92672">&lt;/LayoutInfo&gt;</span>
+    <span style="color:#f92672">&lt;/Package&gt;</span>
+<span style="color:#f92672">&lt;/Objects&gt;</span>
+</code></pre></div><p>The 02.xsl transformation file has two differences when compared to 01.xsl:</p>
 <ul>
 <li>the root node now uses <code>xsl:apply-templates</code> to call the <code>Package</code>template</li>
 <li>all the descendant nodes call the templates of the child nodes - <code>Package</code> calls <code>LayoutInfo</code>, <code>LayoutInfo</code> calls <code>GraphLayout</code>, and <code>GraphLayout</code> calls <code>NodeLayout</code></li>
 <li>the same result I can achieve using <code>xsl:apply-templates=&quot;Package/LayoutInfo/GraphLayout/NodeLayout</code> and <code>xsl:template-match=&quot;Package/LayoutInfo/GraphLayout/NodeLayout&quot;</code> (as in <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02a.xsl">02a.xsl</a> file), but I may want to decorate the intermediate elements, so I use this construction</li>
 </ul>
-<p>(&hellip;)
-&lt;xsl:apply-templates select=&ldquo;Package&rdquo; /&gt;
-(&hellip;)
-&lt;xsl:template match=&ldquo;Package&rdquo;&gt;
-&lt;xsl:apply-templates select=&ldquo;LayoutInfo&rdquo; /&gt;
-&lt;/xsl:template&gt;</p>
-<p>&lt;xsl:template match=&ldquo;LayoutInfo&rdquo;&gt;
-&lt;xsl:apply-templates select=&ldquo;GraphLayout&rdquo; /&gt;
-&lt;/xsl:template&gt;</p>
-<p>&lt;xsl:template match=&ldquo;GraphLayout&rdquo;&gt;
-&lt;xsl:apply-templates select=&ldquo;NodeLayout&rdquo; /&gt;
-&lt;/xsl:template&gt;</p>
-<p>Now to the namespace part. The <code>&lt;GraphLayout&gt;</code>item looks like this (skipping the <code>Capacity</code> attribute):</p>
-<p>&lt;GraphLayout
-xmlns=&ldquo;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&rdquo;
-xmlns:mssgle=&ldquo;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&rdquo;
-xmlns:assembly=&ldquo;<a href="http://schemas.microsoft.com/winfx/2006/xaml%22">http://schemas.microsoft.com/winfx/2006/xaml&quot;</a></p>
-<blockquote>
-</blockquote>
-<p>To generate the correct SVG, I have to do two things:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">(...)
+&lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span> /&gt;
+(...)
+&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span>&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span>&gt;
+    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">xsl:template</span>&gt;
+</code></pre></div><p>Now to the namespace part. The <code>&lt;GraphLayout&gt;</code>item looks like this (skipping the <code>Capacity</code> attribute):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;GraphLayout</span>
+    <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+    <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
+    <span style="color:#a6e22e">xmlns:assembly=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/winfx/2006/xaml&#34;</span>
+<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>To generate the correct SVG, I have to do two things:</p>
 <ul>
 <li>add the namespace(s) used in <code>&lt;GraphLayout&gt;</code> to the xsl file</li>
 <li>use the namespace in the templates</li>
@@ -275,23 +300,23 @@ xmlns:assembly=&ldquo;<a href="http://schemas.microsoft.com/winfx/2006/xaml%22">
 <li>the default namespace of the <code>&lt;GraphLayout&gt;</code> tag has to be added to the <code>xsl:stylesheet</code> declaration and prefixed to use it later; I chose the <code>gl</code> prefix; I can skip the remaining namespaces <code>mssgle</code> and <code>assembly</code> as I don&rsquo;t use them in the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/03.xml">03.xml</a> example</li>
 <li>the <code>gl</code> name has to be used in the <code>GraphLayout</code> template and all its descendants</li>
 </ul>
-<p>&lt;xsl:stylesheet version=&ldquo;1.0&rdquo;
-xmlns:xsl=&ldquo;<a href="http://www.w3.org/1999/XSL/Transform%22">http://www.w3.org/1999/XSL/Transform&quot;</a>
-<strong>xmlns:gl=&ldquo;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&rdquo;</strong></p>
-<blockquote>
-</blockquote>
-<p>(&hellip;)</p>
-<pre><code>&lt;xsl:template match=&quot;LayoutInfo&quot;&gt;
-    &lt;xsl:apply-templates select=&quot;**gl:GraphLayout**&quot; /&gt;
-&lt;/xsl:template&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
+  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+  <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">xmlns:gl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
+&gt;
+(...)
 
-&lt;xsl:template match=&quot;**gl:GraphLayout**&quot;&gt;
-    &lt;xsl:apply-templates select=&quot;**gl:NodeLayout**&quot; /&gt;
-&lt;/xsl:template&gt;
-</code></pre>
-<p>&lt;xsl:template match=&quot;<strong>gl:NodeLayout</strong>&quot;&gt;
-(&hellip;)</p>
-<h1 id="the-drawing">The drawing</h1>
+    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span> /&gt;
+    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span>&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span> /&gt;
+    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span>&gt;
+(...)
+</code></pre></div><h2 id="the-drawing">The drawing</h2>
 <p>Having all the preparation steps completed, I can now draw the Beginning.xml part of the package. I use the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/package2svg.xsl">package2svg.xsl</a> that contains the previously learnt things and expand it with the new elements:</p>
 <ul>
 <li>the <code>gl:GraphLayout contains `gl:NodeLayout`, `gl:EdgeLayout` and `gl:AnnotationLayout` </code></li>
@@ -309,140 +334,165 @@ xmlns:xsl=&ldquo;<a href="http://www.w3.org/1999/XSL/Transform%22">http://www.w3
 <li>the <code>&lt;polygon&gt;</code> element has the points attribute, where I have to provide the coordinates of the points <code>x,y</code> separated by a space (like: <code>&lt;polygon points=&quot;10,10 10,15 15,15&quot; /&gt;</code>), so I use <code>&lt;xsl:text&gt; &lt;/xsl:text&gt;</code> to put a space between the calculated positions</li>
 <li>the <code>AnnotationElement</code> is drawn similarly to the <code>NodeElement</code> with an additional border around it (to see that the rectangle exists); compared to the original package there is a room for improvement in the text positioning</li>
 </ul>
-<p>&lt;xsl:stylesheet <strong>version=&ldquo;2.0&rdquo;</strong>
-xmlns:xsl=&ldquo;<a href="http://www.w3.org/1999/XSL/Transform%22">http://www.w3.org/1999/XSL/Transform&quot;</a>
-xmlns:gl=&ldquo;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&rdquo;
-<strong>xmlns:mssgle=&ldquo;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&rdquo;</strong></p>
-<blockquote>
-</blockquote>
-<p>&lt;xsl:output
-method=&ldquo;xml&rdquo;
-encoding=&ldquo;UTF-8&rdquo;
-indent=&ldquo;yes&rdquo; /&gt;</p>
-<p>&lt;xsl:template match=&quot;/Objects&rdquo;&gt;</p>
-<pre><code>&lt;svg
-  xmlns=&quot;http://www.w3.org/2000/svg&quot;
-  viewBox = &quot;0 0 600 600&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2.0&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
+  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+  <span style="color:#a6e22e">xmlns:gl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+  <span style="color:#a6e22e">xmlns:mssgle</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
 &gt;
-  **&lt;rect width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;lightgray&quot;/&gt;**
 
-  &lt;xsl:apply-templates select=&quot;Package&quot; /&gt;
+  &lt;<span style="color:#f92672">xsl:output</span>
+      <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xml&#34;</span>
+      <span style="color:#a6e22e">encoding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+      <span style="color:#a6e22e">indent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span> /&gt;
 
-&lt;/svg&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<pre><code>&lt;xsl:template match=&quot;Package&quot;&gt;
-    &lt;xsl:apply-templates select=&quot;LayoutInfo&quot; /&gt;
-&lt;/xsl:template&gt;
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Objects&#34;</span>&gt;
 
-&lt;xsl:template match=&quot;LayoutInfo&quot;&gt;
-    &lt;xsl:apply-templates select=&quot;gl:GraphLayout&quot; /&gt;
-&lt;/xsl:template&gt;
+    &lt;<span style="color:#f92672">svg</span>
+      <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
+      <span style="color:#a6e22e">viewBox </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0 0 600 600&#34;</span>
+    &gt;
+      &lt;<span style="color:#f92672">rect</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">fill</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lightgray&#34;</span>/&gt;
 
-&lt;xsl:template match=&quot;gl:GraphLayout&quot;&gt;
-    &lt;xsl:apply-templates select=&quot;gl:NodeLayout&quot; /&gt;
-    &lt;xsl:apply-templates select=&quot;**gl:EdgeLayout**&quot; /&gt;
-    &lt;xsl:apply-templates select=&quot;**gl:AnnotationLayout**&quot; /&gt;
-&lt;/xsl:template&gt;
-</code></pre>
-<p>&lt;xsl:template match=&ldquo;gl:NodeLayout&rdquo;&gt;</p>
-<pre><code>&lt;xsl:variable name=&quot;**nodeNameTokens**&quot; select=&quot;**tokenize**(@Id, '\\\\')&quot; /&gt;
+      &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span> /&gt;
 
-&lt;g xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+    &lt;/<span style="color:#f92672">svg</span>&gt;
 
-    &lt;rect&gt;
-        &lt;xsl:attribute name=&quot;x&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;y&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;rx&quot;&gt;10&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;ry&quot;&gt;10&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;width&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;height&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;fill&quot;&gt;white&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;stroke&quot;&gt;black&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;stroke-width&quot;&gt;1&lt;/xsl:attribute&gt;
-    &lt;/rect&gt;
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
 
-    &lt;text&gt;
-        &lt;xsl:attribute name=&quot;x&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ',')) + 5&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;y&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + (number(substring-after(@Size, ',')) div 2) + 7&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;fill&quot;&gt;black&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;font-family&quot;&gt;Verdana&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;font-size&quot;&gt;12&lt;/xsl:attribute&gt;
-        &lt;xsl:value-of select=&quot;**$nodeNameTokens\[last()\]**&quot;/&gt;
-    &lt;/text&gt;
+    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span>&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> /&gt;
+    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
 
-&lt;/g&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<p>&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;</p>
-<pre><code>&lt;g xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span> /&gt;
+    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
 
-    &lt;line&gt;
-        &lt;xsl:attribute name=&quot;x1&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;y1&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;style&quot;&gt;stroke:#006600&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;x2&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ',')) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, ','))&quot;/&gt;&lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;y2&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, ','))&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;/line&gt;
+    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span>&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span> /&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span> /&gt;
+        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span> /&gt;
+    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
 
-    &lt;polygon&gt;
-        &lt;xsl:attribute name=&quot;points&quot;&gt;
-            &lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ',')) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, ',')) - 3&quot;/&gt;,&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, ','))&quot;/&gt;
-            &lt;xsl:text&gt; &lt;/xsl:text&gt;
-            &lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ',')) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, ',')) + 3&quot;/&gt;,&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, ','))&quot;/&gt; 
-            &lt;xsl:text&gt; &lt;/xsl:text&gt;
-            &lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ',')) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, ','))&quot;/&gt;,&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, ','))&quot;/&gt;
-        &lt;/xsl:attribute&gt;
-        &lt;xsl:attribute name=&quot;style&quot;&gt;stroke:#006600; fill:#006600&lt;/xsl:attribute&gt;
-    &lt;/polygon&gt;
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span>&gt;
 
-&lt;/g&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<p>&lt;xsl:template match=&ldquo;gl:AnnotationLayout&rdquo;&gt;</p>
-<pre><code>&lt;g xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
-  &lt;text&gt;
-    &lt;xsl:attribute name=&quot;x&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-before(@TopLeft, ','))&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;y&quot;&gt;&lt;xsl:value-of select=&quot;number(substring-after(@TopLeft, ',')) + (number(substring-after(@Size, ',')) div 2)&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;fill&quot;&gt;black&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;font-family&quot;&gt;Verdana&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;font-size&quot;&gt;12&lt;/xsl:attribute&gt;
-    &lt;xsl:value-of select=&quot;@Text&quot;/&gt;
-  &lt;/text&gt;
+    &lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**nodeNameTokens**&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> /&gt;
 
-  &lt;rect&gt;
-    &lt;xsl:attribute name=&quot;x&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;y&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@TopLeft, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;width&quot;&gt;&lt;xsl:value-of select=&quot;substring-before(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;height&quot;&gt;&lt;xsl:value-of select=&quot;substring-after(@Size, ',')&quot;/&gt;&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;fill&quot;&gt;none&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;stroke&quot;&gt;black&lt;/xsl:attribute&gt;
-    &lt;xsl:attribute name=&quot;stroke-width&quot;&gt;1&lt;/xsl:attribute&gt;
-  &lt;/rect&gt;
-&lt;/g&gt;
-</code></pre>
-<p>&lt;/xsl:template&gt;</p>
-<p>&lt;/xsl:stylesheet&gt;</p>
-<h1 id="the-result">The result</h1>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/GeneratedSVG.png"><img src="images/GeneratedSVG-300x206.png" alt=""></a> <a href="http://blog.bartekr.net/wp-content/uploads/2019/07/SSISPackage.png"><img src="images/SSISPackage-300x200.png" alt=""></a></p>
-<p>The current drawing does not look that nice as the original SSIS, but hey - it&rsquo;s the same layout! So, let&rsquo;s draw something more complicated - the sequences with the elements aligned horizontally, vertically, with split paths:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/SequencesExample.png"><img src="images/SequencesExample-300x120.png" alt=""></a></p>
+    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
+
+        &lt;<span style="color:#f92672">rect</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rx&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ry&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;white&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;/<span style="color:#f92672">rect</span>&gt;
+
+        &lt;<span style="color:#f92672">text</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + 5&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2) + 7&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-family&#34;</span>&gt;Verdana&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size&#34;</span>&gt;12&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$nodeNameTokens\[last()\]&#34;</span>/&gt;
+        &lt;/<span style="color:#f92672">text</span>&gt;
+
+    &lt;/<span style="color:#f92672">g</span>&gt;
+
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span>&gt;
+
+    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
+
+        &lt;<span style="color:#f92672">line</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x1&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y1&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style&#34;</span>&gt;stroke:#006600&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x2&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y2&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;/<span style="color:#f92672">line</span>&gt;
+
+        &lt;<span style="color:#f92672">polygon</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;points&#34;</span>&gt;
+                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) - 3&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;
+                &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
+                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) + 3&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;
+                &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
+                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span>/&gt;
+            &lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style&#34;</span>&gt;stroke:#006600; fill:#006600&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;/<span style="color:#f92672">polygon</span>&gt;
+
+    &lt;/<span style="color:#f92672">g</span>&gt;
+
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span>&gt;
+
+    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
+      &lt;<span style="color:#f92672">text</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-family&#34;</span>&gt;Verdana&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size&#34;</span>&gt;12&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;@Text&#34;</span>/&gt;
+      &lt;/<span style="color:#f92672">text</span>&gt;
+
+      &lt;<span style="color:#f92672">rect</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;none&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
+      &lt;/<span style="color:#f92672">rect</span>&gt;
+    &lt;/<span style="color:#f92672">g</span>&gt;
+  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
+
+&lt;/<span style="color:#f92672">xsl:stylesheet</span>&gt;
+</code></pre></div><h2 id="the-result">The result</h2>
+<p><a href="images/GeneratedSVG.png"><img src="images/GeneratedSVG.png#center" alt="Generated SVG"></a></p>
+<p><a href="images/SSISPackage.png"><img src="images/SSISPackage.png#center" alt="SSIS Package"></a></p>
+<p>The current drawing does not look as nice as the original SSIS, but hey - it&rsquo;s the same layout! So, let&rsquo;s draw something more complicated - the sequences with the elements aligned horizontally, vertically, with split paths:</p>
+<p><a href="images/SequencesExample.png"><img src="images/SequencesExample.png#center" alt="SSIS sequence example"></a></p>
 <p>The plan of the image is stored in the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/Sample2.xml">Sample2.xml</a> file. When I run the transformation using diagram2svg.xsl file I get the following:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/UnexpectedSample2.png"><img src="images/UnexpectedSample2-300x140.png" alt=""></a></p>
+<p><a href="images/UnexpectedSample2.png"><img src="images/UnexpectedSample2.png#center" alt="Unexpected sample"></a></p>
 <p>No sequences, some elements are hidden, no path annotations. A mess. I knew I did not implement all the features, but I wanted to see the aligned nodes. Well, not this time. Adding the sequence objects, curved arrows and cleaning the XSLT, to get a picture below is a subject for the next part of the series.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2019/07/ExpectedSample.png"><img src="images/ExpectedSample-300x114.png" alt=""></a></p>
+<p><a href="images/ExpectedSample.png"><img src="images/ExpectedSample.png#center" alt="Expected sample"></a></p>
 
     </div>
     <footer>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/svg/">SVG</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/xml/">XML</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/xslt/">XSLT</a></li>
+        
+      
     </ul>
   
 </div>
@@ -539,16 +589,25 @@ indent=&ldquo;yes&rdquo; /&gt;</p>
           
           
           <li>
+              <a href="/categories/learning/">learning<span class="count">6</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+          
+          <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">1</span></a>
+              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">1</span></a>
+              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
           
           </li>
         </ul>

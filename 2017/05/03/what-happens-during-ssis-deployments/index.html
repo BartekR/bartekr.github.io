@@ -181,7 +181,7 @@
 <li>SQL:BatchCompleted</li>
 </ul>
 <p>Didn&rsquo;t set up the columns, just accepted the defaults and hit <em>Run</em>. On a busy machine I could use a filter on Application Name column (<em>Like: SSIS%</em> - two applications are involved). As the result I got 27 lines of T-SQL commands</p>
-<p><a href="images/Profiler01.png"><img src="images/Profiler01-1024x487.png" alt=""></a></p>
+<p><a href="images/Profiler01.png"><img src="images/Profiler01-1024x487.png" alt="Profiler output"></a></p>
 <p>What do we have here? First ten lines are five commands repeated two times. They check for the server version and settings. At first they are called when deployment wizard starts and connects to the <em>SSISDB</em> to check if everything is OK. The second time it starts the whole deployment procedure. The lines are:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- ========= 1 =========
 </span><span style="color:#75715e">-- Check for server environment
@@ -509,7 +509,7 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">exec</span> sp_executesql N<span style="color:#e6db74">&#39;SELECT [operation_id] FROM [catalog].[operations] WHERE [operation_id] = @operation_id AND [status] = @status&#39;</span>,N<span style="color:#e6db74">&#39;@operation_id bigint,@status int&#39;</span>,<span style="color:#f92672">@</span>operation_id<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,<span style="color:#f92672">@</span>status<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
 </code></pre></div><p>The question is: how does the <em>SSIS ISServerExec</em> proces know the value of <code>@operation_id</code>? <code>@status = 2</code> means it checks if <a href="https://docs.microsoft.com/en-us/sql/integration-services/system-views/catalog-operations-ssisdb-database">process is running</a>.</p>
 <p>To get the answer we have to take a closer look at the profiler output. The entire deployment finishes in 7 seconds, so it&rsquo;s hard to spot, but when I did I asked myself why I didn&rsquo;t see it before?</p>
-<p><a href="images/Profiler03.png"><img src="images/Profiler03-1024x425.png" alt=""></a></p>
+<p><a href="images/Profiler03.png"><img src="images/Profiler03-1024x425.png" alt="Profiler output"></a></p>
 <p>To tell you the truth I saw the operations times just after analysing <code>catalog.deploy_project</code> procedure (see the line starting with <code>declare @p4</code>). It has a WHILE loop inside waiting for some output. But output coming from what?</p>
 <p>The <em>SSIS ISServerExec</em> data in the profiler window (3 - 20:49:30) is shown before the deployment process start (2 - 20:49:28). Suddenly all becomes clear - <code>catalog.deploy_project</code> waits for <em>ISServerExec</em> to finish its job. It checks for deployment status each second and finishes when the status is set as not running (<code>@status &lt;&gt; 2</code>). So, to analyse the process I have to start with the line (2). <code>@project_stream</code> is cut for readability.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>p4 bigint
@@ -519,7 +519,7 @@
 <p>The main part of the deployment has started and now we are on <em>SSIS ISServerExec</em> side. The next line gets project binary data provided by <code>catalog.deploy_project</code> .</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">exec</span> [internal].[get_project_internal] <span style="color:#f92672">@</span>project_version_lsn<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,<span style="color:#f92672">@</span>project_id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">@</span>project_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;TestSSIS&#39;</span>
 </code></pre></div><p>As a result, we get our project stream (<code>0x504B03041400000008002E...)</code> What&rsquo;s interesting - this command is run by another user - the NTUserName column in Profiler shows SID <code>S-1-9-3...</code> We can check what user is this using simple conversion, but I was lazy and just <a href="http://wermspowke.blogspot.com/2013/03/converting-sql-server-sids-to-login.html">used the script I found on the internet</a>. The SID points to <code>AllSchemaUser</code> user in <code>SSISDB</code> database. And when we take a look into <code>internal.get_project_internal</code> procedure we see, that it&rsquo;s run in a context of <code>AllSchemaUser</code>.</p>
-<p><a href="images/internal.get_project_internal.png"><img src="images/internal.get_project_internal.png" alt=""></a></p>
+<p><a href="images/internal.get_project_internal.png"><img src="images/internal.get_project_internal.png" alt="GetProjectInternal stored procedure header"></a></p>
 <p>The next commands insert package data into <code>internal.packages</code> table using <code>internal.append_packages</code> procedure and custom table type <code>internal.PackageTableType</code>. The information comes from the project stream. As the <code>.ispac</code> is just a zip file with different extension the <em>SSIS ISServerExec</em> unpacks it and gets the content.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>p3 internal.PackageTableType
 <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>p3 <span style="color:#66d9ef">values</span>(N<span style="color:#e6db74">&#39;Package01.dtsx&#39;</span>,<span style="color:#e6db74">&#39;EB3054D0-31D0-4476-A922-EC9CE30789DB&#39;</span>,N<span style="color:#e6db74">&#39;&#39;</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>,N<span style="color:#e6db74">&#39;&#39;</span>,<span style="color:#e6db74">&#39;33FD504B-57AB-4659-A4D5-F1336537A3A6&#39;</span>,<span style="color:#ae81ff">1</span>,N<span style="color:#e6db74">&#39;N&#39;</span>,<span style="color:#66d9ef">NULL</span>,<span style="color:#66d9ef">NULL</span>)
@@ -544,7 +544,7 @@
 <span style="color:#66d9ef">exec</span> [internal].[append_parameter] <span style="color:#f92672">@</span>project_id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">@</span>object_version_lsn<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,<span style="color:#f92672">@</span>object_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;TestSSIS&#39;</span>,<span style="color:#f92672">@</span>object_type<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>,<span style="color:#f92672">@</span>parameter_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;Parameter6&#39;</span>,<span style="color:#f92672">@</span>parameter_data_type<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;Int64&#39;</span>,<span style="color:#f92672">@</span>required<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,<span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,<span style="color:#f92672">@</span>description<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;&#39;</span>,<span style="color:#f92672">@</span>design_default_value<span style="color:#f92672">=</span><span style="color:#ae81ff">666666</span>,<span style="color:#f92672">@</span>value_set<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
 <span style="color:#66d9ef">go</span>
 </code></pre></div><p>Aside sample of sample ADO.NET connection manager parametrization:</p>
-<p><img src="images/Profiler02-1024x392.png" alt=""></p>
+<p><img src="images/Profiler02-1024x392.png" alt="Profiler output"></p>
 <p>OK. Parameters set up. Now a piece of code I don&rsquo;t fully understand. It runs a synchronisation of parameters between latest project version and currently deployed version:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">exec</span> [internal].[sync_parameter_versions] <span style="color:#f92672">@</span>project_id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">@</span>object_version_lsn<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
 </code></pre></div><p>What I don&rsquo;t get is why do we sync current version with the latest version, when the current version is already the latest? I don&rsquo;t think it has something with concurrent deployments as the procedures start transactions in SERIALIZABLE isolation level. Will have to investigate it further.</p>
@@ -769,7 +769,7 @@
 <thead>
 <tr>
 <th></th>
-<th><strong>Get operation details</strong></th>
+<th>Get operation details</th>
 </tr>
 </thead>
 <tbody>
@@ -839,7 +839,7 @@
 <thead>
 <tr>
 <th></th>
-<th><strong>Get operation details (again)</strong></th>
+<th>Get operation details (again)</th>
 </tr>
 </thead>
 <tbody>
@@ -909,7 +909,7 @@
 <thead>
 <tr>
 <th></th>
-<th><strong>Get all projects from the folder</strong></th>
+<th>Get all projects from the folder</th>
 </tr>
 </thead>
 <tbody>
@@ -971,7 +971,7 @@
 <thead>
 <tr>
 <th></th>
-<th><strong>Get project details</strong></th>
+<th>Get project details</th>
 </tr>
 </thead>
 <tbody>
@@ -1040,7 +1040,7 @@
 </code></pre></div><p>So if the process finished properly (<code>@status = 7</code>) nothing happens. I made the tests few times and sometimes te last step of <em>ISServerExec</em> process finished before the end of the <code>catalog.deploy_project</code> procedure.</p>
 <p>The last thing to check is why <em>IsDeploymentWizard</em> finishes deployment so quickly and what happens behind the scenes.</p>
 <p>To answer for the latter - it does the same steps as manual deployment. And how it does it so quickly? It just doesn&rsquo;t wait for the outcome before returning to console. But it still runs it the background. Look at the <code>cmd.exe</code> process on the top and <code>sqlservr.exe</code> process at the bottom. Click the picture to see the details.</p>
-<p><a href="images/IsDeploymentWizard.gif"><img src="images/IsDeploymentWizard-1024x440.gif" alt=""></a></p>
+<p><a href="images/IsDeploymentWizard.gif"><img src="images/IsDeploymentWizard-1024x440.gif" alt="IsDeploymentWizard demo"></a></p>
 <p>And that&rsquo;s all. So:</p>
 <ul>
 <li><code>/Silent</code> mode just returns to the console right after the process start</li>
@@ -1055,12 +1055,26 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/internals/">internals</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/isdeploymentwizard/">IsDeploymentWizard</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/isserverexec/">ISServerExec</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -1157,16 +1171,25 @@
           
           
           <li>
+              <a href="/categories/learning/">learning<span class="count">6</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+          
+          <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">1</span></a>
+              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">1</span></a>
+              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
           
           </li>
         </ul>

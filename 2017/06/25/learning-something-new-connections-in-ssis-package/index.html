@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,7 +170,9 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png');">
+    <img src="http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png" alt="">
+  </a>
       <p><a href="http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/">Starting to learn something new</a> - first step. Let&rsquo;s analyse the code of SSIS package. How does it store the information about the element connections? How can I get that data as graph&rsquo;s edges and nodes? Step by step - building the packages from empty one to more complex I will find how they are stored.</p>
 <p>To achieve this I will prepare the new SSIS Project and call it <em>SSIS_Graph</em>. It will get new packages each time I will want to check something new. For start I create an empty package, then package with one Control Flow element - I will use empty Data Flow Task and the Sequence Container, then I will create two empty Data Flow Tasks and connect them with one precedence constraint (success). And so on - more precedence constraints, constraints with expressions. I won&rsquo;t paste the code for all the sample packages. It&rsquo;s just to help me get more familiar with DTSX XML and find the patterns. At the beginning, I will concentrate on Control Flow elements. The main goal is to visualise packages dependencies within a project and then other - dependencies between projects or dependencies between package&rsquo;s elements.</p>
 <p>When you take a look at the code of two empty Data Flow Tasks connected with precedence constraint you find those elements of interest:</p>
@@ -195,12 +200,24 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/internals/">internals</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -297,16 +314,25 @@
           
           
           <li>
+              <a href="/categories/learning/">learning<span class="count">6</span></a>
+          
+          <li>
+              <a href="/categories/series/">series<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+          
+          <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">1</span></a>
+              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">1</span></a>
+              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
           
           </li>
         </ul>

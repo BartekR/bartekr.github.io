@@ -199,6 +199,16 @@ Create a new SSIS project and use the automatically generated Package.dtsx. Open
     </item>
     
     <item>
+      <title>Series</title>
+      <link>http://bartekr.github.io/series/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/series/</guid>
+      <description>Some of the posts on this blog are the series about one subject. There are:
+Upgrading to SSIS 2017  So, you want to migrate SSIS(DB)? Upgrading SSIS projects, part I Upgrading SSIS projects, part II Upgrading SSIS projects, part III  SSIS testing with ssisUnit  Testing SSIS Projects with ssisUnit Writing first tests with ssisUnit Testing database connections with ssisUnit Using Connections and Datasets in ssisUnit Using cached datasets in ssisUnit Executing ssisUnit tests in MSTest framework Setting package references in ssisUnit Testing the loops in ssisUnit (on hold)  Learning something new - Power BI + SSIS + Graphs in SQL Server 2017  Learn something new – Power BI + SSIS + SQL Server 2017 Graphs Learning something new: connections in SSIS package Learning something new: getting information from SSIS packages with PowerShell (on hold)  </description>
+    </item>
+    
+    <item>
       <title>Upgrading SSIS projects - part III</title>
       <link>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</link>
       <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
@@ -259,7 +269,7 @@ The same procedure will work for migrations from version 2012 to 2017 or 2016 to
       
       <guid>http://bartekr.github.io/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</guid>
       <description>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down.
-#I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools</description>
+# I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools # find recursively all Executable nodes in .</description>
     </item>
     
     <item>
@@ -330,6 +340,15 @@ First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6
       <guid>http://bartekr.github.io/2017/04/16/sqlbits-2017/</guid>
       <description>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.
  First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
+    </item>
+    
+    <item>
+      <title>Speaking</title>
+      <link>http://bartekr.github.io/speaking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/speaking/</guid>
+      <description>In progress </description>
     </item>
     
   </channel>

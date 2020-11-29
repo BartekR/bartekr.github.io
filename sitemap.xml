@@ -208,6 +208,11 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/series/</loc>
+    <lastmod>2018-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</loc>
     <lastmod>2018-02-28T00:00:00+00:00</lastmod>
   </url>
@@ -243,8 +248,48 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/linux/</loc>
+    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/sql-server/</loc>
+    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/ubuntu/</loc>
+    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/virtualbox/</loc>
+    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/vm/</loc>
+    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/internals/</loc>
+    <lastmod>2017-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</loc>
     <lastmod>2017-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/ssis-internals/</loc>
+    <lastmod>2017-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/graph/</loc>
+    <lastmod>2017-06-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -253,8 +298,33 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/power-bi/</loc>
+    <lastmod>2017-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/sql-server-2017/</loc>
+    <lastmod>2017-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/encryption/</loc>
+    <lastmod>2017-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</loc>
     <lastmod>2017-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/isdeploymentwizard/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/isserverexec/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -268,8 +338,22 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/categories/conferences/</loc>
+    <lastmod>2017-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/sqlbits/</loc>
+    <lastmod>2017-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2017/04/16/sqlbits-2017/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/speaking/</loc>
   </url>
   
 </urlset>

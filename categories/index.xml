@@ -43,5 +43,32 @@
       <description></description>
     </item>
     
+    <item>
+      <title>SQL Server</title>
+      <link>http://bartekr.github.io/categories/sql-server/</link>
+      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/sql-server/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSIS internals</title>
+      <link>http://bartekr.github.io/categories/ssis-internals/</link>
+      <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/ssis-internals/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Conferences</title>
+      <link>http://bartekr.github.io/categories/conferences/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/conferences/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

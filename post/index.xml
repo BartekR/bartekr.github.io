@@ -250,7 +250,7 @@ The same procedure will work for migrations from version 2012 to 2017 or 2016 to
       
       <guid>http://bartekr.github.io/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</guid>
       <description>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down.
-#I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools</description>
+# I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools # find recursively all Executable nodes in .</description>
     </item>
     
     <item>
