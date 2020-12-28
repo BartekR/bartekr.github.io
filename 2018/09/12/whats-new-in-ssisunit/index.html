@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/09/12/whats-new-in-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,10 +170,13 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/09/12/whats-new-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png');">
+    <img src="http://bartekr.github.io/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png" alt="">
+  </a>
       <p>ssisUnit has a stable version for SSIS 2005 - 2014. <a href="https://github.com/johnwelch/ssisUnit/commits?author=johnwelch">It didn&rsquo;t change much since August 2014</a>, until August 2017. Then <a href="https://github.com/johnwelch/ssisUnit/pull/1">my Pull Request</a> was merged, and it added some new functionality for ssisUnit.</p>
 <p>First - it works with SSIS 2017. You can probably use it with SSIS 2016 packages, but I didn&rsquo;t test it yet. Although - you can&rsquo;t check everything - there are problems when you want to use Control Flow Templates in your packages. When I tried to read the variable from the container included from the template - it hangs for a few seconds and returns an incorrect result. It&rsquo;s something to investigate later.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/09/ProjectConnectionStringSetup.png"><img src="images/ProjectConnectionStringSetup.png" alt=""></a> Second - you can get and set the properties of the project and its elements. Like - overwriting project connection managers (I designed it with this particular need on my mind). You can now set the connection string the different server (or database) - in the PropertyPath of the PropertyCommand use <code>\Project\ConnectionManagers</code>, write the name of the connection manager <strong>with the extension</strong>, and use one of the <em>Properties</em>. You can do it during the Test setup (or all tests setup), but not during the test suite setup, as ssisUnit is not aware of the project until it loads it into the memory.</p>
+<p><a href="images/ProjectConnectionStringSetup.png"><img src="images/ProjectConnectionStringSetup.png#center" alt="Project connection string setup"></a></p>
+<p>Second - you can get and set the properties of the project and its elements. Like - overwriting project connection managers (I designed it with this particular need on my mind). You can now set the connection string the different server (or database) - in the PropertyPath of the PropertyCommand use <code>\Project\ConnectionManagers</code>, write the name of the connection manager <strong>with the extension</strong>, and use one of the <em>Properties</em>. You can do it during the Test setup (or all tests setup), but not during the test suite setup, as ssisUnit is not aware of the project until it loads it into the memory.</p>
 <p>Third - I added simple Dataset viewer/editor. It&rsquo;s still a work in progress, but you can already use it to either visualise the data or to keep it within the test file (set <code>IsResultsStored</code> to <em>true</em>, open the DataSet and save the test suite file). You don&rsquo;t have to <a href="http://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/">prepare the XML representation of the dataset manually</a>.</p>
 <p>There are also some minor changes:</p>
 <ul>
@@ -186,12 +192,20 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -218,6 +232,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -259,16 +283,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -288,13 +302,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -303,10 +326,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

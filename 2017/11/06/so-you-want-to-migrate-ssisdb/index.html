@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,55 +170,63 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png');">
+    <img src="http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="">
+  </a>
       <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
 <p>The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).</p>
 <p>I won&rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&rsquo;t use <a href="https://dbatools.io/functions/copy-dbassiscatalog/">Copy-DbaSsisCatalog</a> from <a href="http://dbatools.io">dbatools</a>.</p>
-<h1 id="the-setup">The setup</h1>
+<h2 id="the-setup">The setup</h2>
 <p>Let&rsquo;s do an example setup. I have Integration Services catalog with one folder (Test) that contains one environment (no projects) with two variables:</p>
 <p>String1 (type: String) = 123 String2 (type: String) = 123 (sensitive, encrypted)</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/10/SSISEnvironment.png"><img src="images/SSISEnvironment.png" alt=""></a></p>
-<p>First thing - the backup and restore procedure works fine. You can see the folders and projects in Integration services catalog and SSISDB database. The problem starts when you run the package, start validation or want to check the sensitive variables. I will check the last one using <strong>dbatools</strong> and <a href="https://dbatools.io/Get-DbaSsisEnvironmentVariable">Get-DbaSsisEnvironmentVariable</a> command (replace <!-- raw HTML omitted --> with your instance if you&rsquo;re using named instances):</p>
-<p>Get-DbaSsisEnvironmentVariable -SqlInstance &lsquo;<!-- raw HTML omitted -->\SQL2016&rsquo; -Environment PROD | Select-Object Name,Type,IsSensitive,Value |  Format-Table</p>
-<p>The result: <a href="http://blog.bartekr.net/wp-content/uploads/2017/10/Get-DbaSsisEnvironmentVariableOK.png"><img src="images/Get-DbaSsisEnvironmentVariableOK-1024x84.png" alt=""></a>I selected only four attributes presented as a table for better readability. Everything is OK. So - back up the database on source instance (.\SQL2016), restore on another instance (.\SQL2017) and run again the <code>Get-DbaSsisEnvironmentVariable</code>.</p>
-<p>-- .\SQL2016
-USE [master]
-BACKUP DATABASE [SSISDB]
-TO DISK = N&rsquo;C:\tmp\SSISDB2016.bak'
-WITH
-    DESCRIPTION = N&rsquo;SSISDB Migration demo - SQL2016',
+<p><a href="images/SSISEnvironment.png"><img src="images/SSISEnvironment.png" alt="SSIS environment"></a></p>
+<p>First thing - the backup and restore procedure works fine. You can see the folders and projects in Integration services catalog and SSISDB database. The problem starts when you run the package, start validation or want to check the sensitive variables. I will check the last one using <strong>dbatools</strong> and <a href="https://dbatools.io/Get-DbaSsisEnvironmentVariable">Get-DbaSsisEnvironmentVariable</a> command (replace &lt;instancename&gt; with your instance if you&rsquo;re using named instances):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Get-DbaSsisEnvironmentVariable -SqlInstance <span style="color:#e6db74">&#39;&lt;instancename&gt;\\SQL2016&#39;</span> -Environment PROD | Select-Object Name,Type,IsSensitive,Value |  Format-Table
+</code></pre></div><p>The result:</p>
+<p><a href="images/Get-DbaSsisEnvironmentVariableOK.png"><img src="images/Get-DbaSsisEnvironmentVariableOK-1024x84.png" alt="Get-DbaSsisEnvironmentVariable"></a></p>
+<p>I selected only four attributes presented as a table for better readability. Everything is OK. So - back up the database on source instance (.\SQL2016), restore on another instance (.\SQL2017) and run again the <code>Get-DbaSsisEnvironmentVariable</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- .\SQL2016
+</span><span style="color:#75715e"></span>USE [master]
+BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
+<span style="color:#66d9ef">TO</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
+<span style="color:#66d9ef">WITH</span>
+    DESCRIPTION <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB Migration demo - SQL2016&#39;</span>,
     NOFORMAT,
     NOINIT,
-    NAME = N&rsquo;SSISDB-Full Database Backup',
+    NAME <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB-Full Database Backup&#39;</span>,
     SKIP,
     NOREWIND,
     NOUNLOAD,
     COMPRESSION,
-    STATS = 20,
+    STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>,
     CHECKSUM
 ;
-GO</p>
-<p>&ndash; .\SQL2017
-USE [master]
-RESTORE DATABASE [SSISDB]
-FROM DISK = N&rsquo;C:\tmp\SSISDB2016.bak'
-WITH
-    FILE = 1,
-    MOVE N&rsquo;data' TO N&rsquo;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf',
-    MOVE N&rsquo;log'  TO N&rsquo;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf',
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#75715e">-- .\SQL2017
+</span><span style="color:#75715e"></span>USE [master]
+RESTORE <span style="color:#66d9ef">DATABASE</span> [SSISDB]
+<span style="color:#66d9ef">FROM</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
+<span style="color:#66d9ef">WITH</span>
+    FILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;data&#39;</span> <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span>,
+    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;log&#39;</span>  <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span>,
     NOUNLOAD,
-    STATS = 25
+    STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">25</span>
 ;
-GO</p>
-<p>The result: <a href="http://blog.bartekr.net/wp-content/uploads/2017/10/Get-DbaSsisEnvironmentVariableERROR.png"><img src="images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png" alt=""></a></p>
+<span style="color:#66d9ef">GO</span>
+</code></pre></div><p>The result:</p>
+<p><a href="images/Get-DbaSsisEnvironmentVariableERROR.png"><img src="images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png" alt="Get-DbaSsisEnvironmentVariable error"></a></p>
 <p>To get the error message in PowerShell I used a trick I found on <a href="https://nocolumnname.wordpress.com/2017/03/02/powershell-getting-more-from-generic-error-messages/">Shane&rsquo;s blog post</a> a while ago and just printed the full exception:</p>
-<p>$Error[0].Exception.ToString()</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/10/Get-DbaSsisEnvironmentVariableERRORDetails.png"><img src="images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$Error[0].Exception.ToString()
+</code></pre></div><p><a href="images/Get-DbaSsisEnvironmentVariableERRORDetails.png"><img src="images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png" alt="Error details"></a></p>
+<blockquote>
 <p><em>Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.</em></p>
+</blockquote>
 <p>Hmm, what should we do?</p>
-<h1 id="database-master-key">Database Master Key</h1>
+<h2 id="database-master-key">Database Master Key</h2>
 <p>Let&rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running <code>[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)</code> procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - <em>Database Master Key</em>. You can take a backup of that key and use it after restoring on another instance, but let&rsquo;s skip this for now.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/10/SSISCatalogCreation.png"><img src="images/SSISCatalogCreation.png" alt=""></a></p>
+<p><a href="images/SSISCatalogCreation.png"><img src="images/SSISCatalogCreation.png#center" alt="Create SSIS Catalog"></a></p>
 <p>What is a Database Master Key (DMK)? It&rsquo;s the main key used for encryption in the database. It&rsquo;s a symmetric key, which means it uses one password to encrypt and decrypt the objects. By default it is encrypted using <em>Service Master Key</em> (SMK) and a password - that&rsquo;s why we provide the password. In SSISDB the DMK is used to encrypt certificates used in the projects and the environments.</p>
 <p>We are encouraged to write down the password somewhere, but sometimes we forget where we put it. Or the person responsible for administration doesn&rsquo;t work in the company any longer? What do we do, when we need to move the database to another server and we have no pasword for the key?</p>
 <p>We panic.</p>
@@ -225,64 +236,71 @@ GO</p>
 </blockquote>
 <p>We can use more than one password to encrypt DMK. It&rsquo;s a great help for us if we don&rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.</p>
 <p>We may also remove the encryption with Service Master Key and use only the password, but then we always have to use <code>OPEN MASTER KEY</code> before decrypting the data. Using SMK performs this operation for us in the background.</p>
-<h1 id="back-to-the-migration">Back to the migration</h1>
+<h2 id="back-to-the-migration">Back to the migration</h2>
 <p>The database backup contains also the DMK with all its passwords. And if we didn&rsquo;t change the defaults (I didn&rsquo;t) the DMK is also encrypted with SMK. The SSISDB restore operation is made on another instance with different SMK, so there is a problem with decrypting the DMK - it&rsquo;s encrypted with SMK from original server and we try to decrypt DMK with SMK from new server - it doesn&rsquo;t work. One more time - part of the error:</p>
 <p><em>Please create a master key in the database or open the master key in the session before performing this operation.</em></p>
 <p>If we can&rsquo;t open the DMK with the SMK, we have to open it manually using <code>OPEN MASTER KEY</code> with the password. Then we can sign the DMK with the SMK from the new server. If you know the password - just use it. If not - alter the DMK on the original server by adding new password (optionally removing the binding from SMK) before taking the backup and use it on new server. The T-SQL code looks like this (let&rsquo;s say I don' t remember/know the password for the DMK in SSISDB):</p>
-<p>-- .\SQL2016
-USE SSISDB;
-GO</p>
-<p>&ndash; I forgot the password, add a new one
-ALTER MASTER KEY
-    ADD ENCRYPTION BY PASSWORD = &lsquo;Migration_Password123!&rsquo;
-;</p>
-<p>&ndash; backup the database with DMK signed with new password
-USE [master]
-BACKUP DATABASE [SSISDB]
-TO DISK = N&rsquo;C:\tmp\SSISDB2016.bak'
-WITH
-    DESCRIPTION = N&rsquo;SSISDB Migration demo - SQL2016',
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- .\SQL2016
+</span><span style="color:#75715e"></span>USE SSISDB;
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#75715e">-- I forgot the password, add a new one
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
+    <span style="color:#66d9ef">ADD</span> ENCRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
+;
+
+<span style="color:#75715e">-- backup the database with DMK signed with new password
+</span><span style="color:#75715e"></span>USE [master]
+BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
+<span style="color:#66d9ef">TO</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
+<span style="color:#66d9ef">WITH</span>
+    DESCRIPTION <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB Migration demo - SQL2016&#39;</span>,
     NOFORMAT,
     NOINIT,
-    NAME = N&rsquo;SSISDB-Full Database Backup',
+    NAME <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB-Full Database Backup&#39;</span>,
     SKIP,
     NOREWIND,
     NOUNLOAD,
     COMPRESSION,
-    STATS = 20,
+    STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>,
     CHECKSUM
 ;
-GO</p>
-<p>&ndash; .\SQL2017
-USE [master]</p>
-<p>&ndash; restore from backup, nothing new
-RESTORE DATABASE [SSISDB]
-FROM DISK = N&rsquo;C:\tmp\SSISDB2016.bak'
-WITH
-FILE = 1,
-MOVE N&rsquo;data' TO N&rsquo;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf',
-MOVE N&rsquo;log'  TO N&rsquo;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf',
-NOUNLOAD,
-STATS = 25
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#75715e">-- .\SQL2017
+</span><span style="color:#75715e"></span>USE [master]
+
+<span style="color:#75715e">-- restore from backup, nothing new
+</span><span style="color:#75715e"></span>RESTORE <span style="color:#66d9ef">DATABASE</span> [SSISDB]
+<span style="color:#66d9ef">FROM</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
+<span style="color:#66d9ef">WITH</span>
+    FILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;data&#39;</span> <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span>,
+    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;log&#39;</span>  <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span>,
+    NOUNLOAD,
+    STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">25</span>
 ;
-GO</p>
-<p>&ndash; open the DMK using the password I just added on original server
-OPEN MASTER KEY DECRYPTION BY PASSWORD = &lsquo;Migration_Password123!&rsquo;</p>
-<p>&ndash; encrypt the DMK with SMK of the new server
-ALTER MASTER KEY
-ADD ENCRYPTION BY SERVICE MASTER KEY
-;</p>
-<p>&ndash; tidy up
-CLOSE MASTER KEY
-;</p>
-<p>Now I can read SSIS environment variables on the new server. Congratulations, migration successful.</p>
-<p>Get-DbaSsisEnvironmentVariable -SqlInstance &lsquo;\SQL2017&rsquo; -Environment PROD | Select-Object Name,Type,IsSensitive,Value |  Format-Table</p>
-<p>Last thing - at the end we should drop the password we used for migration. We can do this using command</p>
-<p>ALTER MASTER KEY
-    DROP ENCRYPTION BY PASSWORD = &lsquo;Migration_Password123!&rsquo;
-;</p>
-<p>This is just a migration of SSISDB. Running the packages, upgrading them, solving problems - it&rsquo;s something to cover in another post.</p>
-<h1 id="dbatools">dbatools</h1>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#75715e">-- open the DMK using the password I just added on original server
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">OPEN</span> MASTER <span style="color:#66d9ef">KEY</span> DECRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
+
+<span style="color:#75715e">-- encrypt the DMK with SMK of the new server
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
+    <span style="color:#66d9ef">ADD</span> ENCRYPTION <span style="color:#66d9ef">BY</span> SERVICE MASTER <span style="color:#66d9ef">KEY</span>
+;
+
+<span style="color:#75715e">-- tidy up
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CLOSE</span> MASTER <span style="color:#66d9ef">KEY</span>
+;
+</code></pre></div><p>Now I can read SSIS environment variables on the new server. Congratulations, migration successful.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Get-DbaSsisEnvironmentVariable -SqlInstance <span style="color:#e6db74">&#39;\SQL2017&#39;</span> -Environment PROD | Select-Object Name,Type,IsSensitive,Value |  Format-Table
+</code></pre></div><p>Last thing - at the end we should drop the password we used for migration. We can do this using command</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
+    <span style="color:#66d9ef">DROP</span> ENCRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
+;
+</code></pre></div><p>This is just a migration of SSISDB. Running the packages, upgrading them, solving problems - it&rsquo;s something to cover in another post.</p>
+<h2 id="dbatools">dbatools</h2>
 <p>There is a <a href="https://dbatools.io/functions/copy-dbassiscatalog/">Copy-DbaSsisCatalog</a> command in dbatools. It copies the data from one SSIS catalog to another. The thing is - it reads the objects on source server and recreates them on destination server without some things that are crucial to me:</p>
 <ul>
 <li>it creates new objects in the target server, meaning they (may) have different identifiers than in source SSISDB</li>
@@ -297,12 +315,26 @@ CLOSE MASTER KEY
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/sql-server/">SQL Server</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -315,7 +347,7 @@ CLOSE MASTER KEY
   
   <div class="pagination">
     
-      <a href="/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/" class="button left"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
+      <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="button left"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
     
     
       <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/" class="button right"><span>Learning something new: getting information from SSIS packages with PowerShell</span></a>
@@ -329,6 +361,16 @@ CLOSE MASTER KEY
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -370,16 +412,6 @@ CLOSE MASTER KEY
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -399,13 +431,22 @@ CLOSE MASTER KEY
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -414,10 +455,13 @@ CLOSE MASTER KEY
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

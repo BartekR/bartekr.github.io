@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,20 +170,37 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png');">
+    <img src="http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" alt="">
+  </a>
       <p><a href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on <a href="https://github.com/BartekR/ssisUnit">my GitHub</a>.</p>
 <p>The package contains three SQL Tasks: the first just checks if we can communicate with the database using <code>SELECT 1</code> statement, the second gets the information from the table, and the third repeats the second on the container level.</p>
-<h1 id="imagespackageoutline-300x95pnghttpblogbartekrnetwp-contentuploads201804packageoutlinepngthe-database"><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/PackageOutline.png"><img src="images/PackageOutline-300x95.png" alt=""></a>The database</h1>
+<p><a href="images/PackageOutline.png"><img src="images/PackageOutline.png#center" alt="Package outline"></a></p>
+<h2 id="the-database">The database</h2>
 <p>I&rsquo;m not using database projects in SSDT on a daily basis. This learning project is an excellent reason to use it more, so I&rsquo;m building the database using the SSDT database project. The details of using them are not part of this series, so if you are not familiar with database projects just use the SQL files to create the required objects. The data is stored in the <code>Scripts</code> subfolder.</p>
-<h1 id="the-tests">The tests</h1>
+<h2 id="the-tests">The tests</h2>
 <p>The package <code>10_ProjectCM.dtsx</code> uses the <code>meta.SourceSystems</code> table to get <code>SourceSystemId</code> value for the package. After retrieval, it stores the value in the variable. So again I&rsquo;m using <code>VariableCommand</code> in my tests. But this time it&rsquo;s for values from the SQL commands.</p>
 <p>First - just verify if a connection to the database engine works correctly. It&rsquo;s enough to do just <code>SELECT one = 1</code> - if it works it means the communication with the database engine works well.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Select1.png"><img src="images/Select1-300x171.png" alt=""></a>To verify it I&rsquo;m writing a test:</p>
-<!-- raw HTML omitted -->
-<p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
-<!-- raw HTML omitted -->
-<p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
-<h1 id="summary">Summary</h1>
+<p><a href="images/Select1.png"><img src="images/Select1.png#center" alt="SELECT 1"></a></p>
+<p>To verify it I&rsquo;m writing a test:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL SELECT 1&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{6781FCBA-83D7-45E3-B946-A8894B6BF924}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Returns 1&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Value&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+</code></pre></div><p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Package Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{CA3E01B3-A958-4A12-81C9-1CB8F40410AF}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId == 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_Package&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+<span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Container Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span><span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{64643f10-70c3-49e3-85b8-7b3ddebbe377}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId = 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_ContainerScope&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+</code></pre></div><p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
+<h2 id="summary">Summary</h2>
 <p>Project level connection managers work well at the package and container level. Out of the box. You don&rsquo;t have to set up the <code>ConnectionRef</code> elements - they are for different purposes (as you will see in the following posts). You deal with the results the same way as with the other variables.</p>
 
     </div>
@@ -188,12 +208,26 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -220,6 +254,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -261,16 +305,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -290,13 +324,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -305,10 +348,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

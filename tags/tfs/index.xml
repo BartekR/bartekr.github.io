@@ -6,17 +6,7 @@
     <description>Recent content in TFS on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/tfs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
-      <link>http://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
-      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
-      <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
-First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
-    </item>
-    
+    <lastBuildDate>Mon, 04 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/tfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Adding a new Task in TFS using C#</title>
       <link>http://bartekr.github.io/2020/05/04/adding-a-new-task-in-tfs-using-c/</link>
@@ -26,6 +16,15 @@ First things first - if you do not have Azure DevOps Office® Integration 2019 i
       <description>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours.
 The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).
    Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work     Task Title1 Requirements Proj1\Team1 P Name1 Description 1 10 10   Task Title2 Maintenance Proj1\Team1 P Name2 Description 2 5 5    Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &amp;quot;\Current\Sprint 3&amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Executing ssisUnit tests in MSTest framework</title>
+      <link>http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
+      <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
+      <description>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</description>
     </item>
     
   </channel>

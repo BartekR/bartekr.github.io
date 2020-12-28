@@ -38,6 +38,129 @@ The sequence problem The main issue is with the alignment of the elements in the
     </item>
     
     <item>
+      <title>Writing ssisUnit test using API</title>
+      <link>http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</link>
+      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</guid>
+      <description>In the post about using MSTest framework to execute ssisUnit tests, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.
+Why MSTest? Because I don&amp;rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not.</description>
+    </item>
+    
+    <item>
+      <title>Testing the loops in ssisUnit</title>
+      <link>http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/</link>
+      <pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/</guid>
+      <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
+ &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
+I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
+    </item>
+    
+    <item>
+      <title>Setting package references in ssisUnit</title>
+      <link>http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/</link>
+      <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/</guid>
+      <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
+ Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
+    </item>
+    
+    <item>
+      <title>Using cached datasets in ssisUnit</title>
+      <link>http://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/</link>
+      <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/</guid>
+      <description>In the previous post, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&amp;rsquo;s result in the test file. In this post, I will show you how you can use it.
+First - why would you want to store the datasets within the test file?</description>
+    </item>
+    
+    <item>
+      <title>Using Connections and Datasets in ssisUnit</title>
+      <link>http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
+      <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
+
+The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
+ Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI)  You can find all of the attributes in the SsisUnit.</description>
+    </item>
+    
+    <item>
+      <title>Testing database connections with ssisUnit</title>
+      <link>http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/</link>
+      <pubDate>Fri, 13 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/</guid>
+      <description>Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&amp;rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&amp;rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.</description>
+    </item>
+    
+    <item>
+      <title>Writing first tests with ssisUnit</title>
+      <link>http://bartekr.github.io/2018/03/26/writing-first-tests-with-ssisunit/</link>
+      <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/03/26/writing-first-tests-with-ssisunit/</guid>
+      <description>Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&amp;rsquo;t write your first tests for the most complicated part of the package.
+Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:</description>
+    </item>
+    
+    <item>
+      <title>Testing SSIS Projects with ssisUnit</title>
+      <link>http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
+      <description>During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&amp;rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects - part III</title>
+      <link>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</link>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
+      <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
+The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects, part II</title>
+      <link>http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
+      <description>The problem I want to solve is automation of the SSIS project upgrade. Previously I wrote about the options to use Application.Upgrade() or Application.SaveAndUpdateVersionToXml() methods. This post is about the first of those options.
+If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: https://msdn.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects, part I</title>
+      <link>http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/</link>
+      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/</guid>
+      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
+
+This information is written to the log no matter which logging level we choose (also with None).</description>
+    </item>
+    
+    <item>
+      <title>So, you want to migrate SSIS(DB)?</title>
+      <link>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
+The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
+    </item>
+    
+    <item>
       <title>Learning something new: getting information from SSIS packages with PowerShell</title>
       <link>http://bartekr.github.io/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</link>
       <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>

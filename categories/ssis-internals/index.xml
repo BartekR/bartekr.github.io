@@ -6,7 +6,28 @@
     <description>Recent content in SSIS internals on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 25 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/ssis-internals/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/ssis-internals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Upgrading SSIS projects - part III</title>
+      <link>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</link>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
+      <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
+The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+    </item>
+    
+    <item>
+      <title>So, you want to migrate SSIS(DB)?</title>
+      <link>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
+The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
+    </item>
+    
     <item>
       <title>Learning something new: connections in SSIS package</title>
       <link>http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</link>

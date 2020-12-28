@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSIS internals on BartekR</title>
+    <link>http://bartekr.github.io/tags/ssis-internals/</link>
+    <description>Recent content in SSIS internals on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 04 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/ssis-internals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Upgrading SSIS projects, part II</title>
+      <link>http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
+      <description>The problem I want to solve is automation of the SSIS project upgrade. Previously I wrote about the options to use Application.Upgrade() or Application.SaveAndUpdateVersionToXml() methods. This post is about the first of those options.
+If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: https://msdn.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading SSIS projects, part I</title>
+      <link>http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/</link>
+      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/</guid>
+      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
+
+This information is written to the log no matter which logging level we choose (also with None).</description>
+    </item>
+    
+  </channel>
+</rss>

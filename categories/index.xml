@@ -6,13 +6,31 @@
     <description>Recent content in Categories on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Not-So-Technical</title>
+      <link>http://bartekr.github.io/categories/not-so-technical/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/not-so-technical/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Troubleshooting</title>
       <link>http://bartekr.github.io/categories/troubleshooting/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>http://bartekr.github.io/categories/troubleshooting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TFS</title>
+      <link>http://bartekr.github.io/categories/tfs/</link>
+      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/tfs/</guid>
       <description></description>
     </item>
     
@@ -44,20 +62,38 @@
     </item>
     
     <item>
-      <title>SQL Server</title>
-      <link>http://bartekr.github.io/categories/sql-server/</link>
-      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+      <title>Testing</title>
+      <link>http://bartekr.github.io/categories/testing/</link>
+      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/sql-server/</guid>
+      <guid>http://bartekr.github.io/categories/testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSIS internals</title>
       <link>http://bartekr.github.io/categories/ssis-internals/</link>
-      <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>http://bartekr.github.io/categories/ssis-internals/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>internals</title>
+      <link>http://bartekr.github.io/categories/internals/</link>
+      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/internals/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SQL Server</title>
+      <link>http://bartekr.github.io/categories/sql-server/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/categories/sql-server/</guid>
       <description></description>
     </item>
     

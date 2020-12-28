@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,7 +170,9 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/07/05/setting-package-references-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png');">
+    <img src="http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png" alt="">
+  </a>
       <p>When you set the packages' references in the ssisUnit tests you have four options for the source (<em>StoragePath</em>) of the package:</p>
 <ul>
 <li><em>Filesystem</em> - references the package in the filesystem - either within a project or standalone</li>
@@ -176,50 +181,66 @@
 <li><em>SsisCatalog</em> - references the package in the Integration Services Catalog</li>
 </ul>
 <p>In this post, I will show you how to set the package reference (<em>PackageRef</em>) for each option.</p>
-<h1 id="filesystem">Filesystem</h1>
+<h2 id="filesystem">Filesystem</h2>
 <p>In the previous posts about ssisUnit, I used the packages from the project located in the file system. So just to have a complete reference:</p>
 <ul>
 <li>if you use the standalone package - use the path to the package</li>
 <li>if you use the package in the project - use the path to the <code>.ispac</code> file, and then the name of the package (without the path)</li>
 </ul>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/StorageType_Filesystem.png"><img src="images/StorageType_Filesystem-300x60.png" alt=""></a></p>
-<h1 id="msdb">MSDB</h1>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/StorageType_MSDB.png"><img src="images/StorageType_MSDB-300x108.png" alt=""></a></p>
+<p><a href="images/StorageType_Filesystem.png"><img src="images/StorageType_Filesystem.png#center" alt="StorageType Filesystem"></a></p>
+<h2 id="msdb">MSDB</h2>
+<p><a href="images/StorageType_MSDB.png"><img src="images/StorageType_MSDB.png#center" alt="StorageType MSDB"></a></p>
 <p>If you use the legacy Package Deployment Model, you can store your packages in the <code>msdb</code> database. You have to provide the same details as in the SQL Agent&rsquo;s job step for SSIS subsystem when you choose <em>SQL Server</em> as the package source:</p>
 <ul>
 <li>The SQL Server instance name</li>
 <li>The full package path, starting with a backslash</li>
 </ul>
 <p>Note, that the package does not end with the <code>.dtsx</code> extension.</p>
-<h1 id="package-store">Package store</h1>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/PackageStore.png"><img src="images/PackageStore-150x150.png" alt=""></a>It&rsquo;s also related to the legacy Package Deployment Model. This time you pick either the packages in the default folder for the Integration Services Service or the <code>msdb</code> database. In the documentation, you can find that the package store is related to the filesystem, but the package store really means the locations that the SQL Server Integration Services Service is aware of. Those locations are defined in the file <code>MsDtsSrvr.ini.xml</code> located in the <code>C:\Program Files\Microsoft SQL Server\140\DTS\Binn</code> folder.</p>
+<h2 id="package-store">Package store</h2>
+<p><a href="images/PackageStore.png"><img src="images/PackageStore.png#center" alt="SSIS PackageStore"></a></p>
+<p>It&rsquo;s also related to the legacy Package Deployment Model. This time you pick either the packages in the default folder for the Integration Services Service or the <code>msdb</code> database. In the documentation, you can find that the package store is related to the filesystem, but the package store really means the locations that the SQL Server Integration Services Service is aware of. Those locations are defined in the file <code>MsDtsSrvr.ini.xml</code> located in the <code>C:\Program Files\Microsoft SQL Server\140\DTS\Binn</code> folder.</p>
 <p>Because it&rsquo;s managed by the service you set up:</p>
 <ul>
 <li>the server name (not the instance name)</li>
 <li>the path to the package (also without the <code>.dtsx</code> extension)</li>
 </ul>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/StorageType_PackageStore.png"><img src="images/StorageType_PackageStore-300x97.png" alt=""></a></p>
-<h1 id="ssis-catalog">SSIS Catalog</h1>
+<p><a href="images/StorageType_PackageStore.png"><img src="images/StorageType_PackageStore.png#center" alt="StorageType PacjageStore"></a></p>
+<h2 id="ssis-catalog">SSIS Catalog</h2>
 <p>When you use the SsisCatalog option:</p>
 <ul>
 <li>provide the name of the SQL Server, where the Integration Services Catalog is stored</li>
 <li>set the path to the project</li>
 <li>set the full name of the package</li>
 </ul>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/SSISCatalogPath.png"><img src="images/SSISCatalogPath.png" alt=""></a>Currently, only the Windows Authentication is supported, so run ssisUnit with the account that has the proper privileges. Also note, that when you set up the path to the package in the SQL Agent SSIS step, you use the full path to the package, like <code>\SSISDB\ssisUnit\ssisUnitLearning\60_Loops.dtsx</code>. In ssisUnit, you don&rsquo;t use the <code>\SSISDB\</code> part.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/StorageType_SsisCatalog.png"><img src="images/StorageType_SsisCatalog-300x106.png" alt=""></a></p>
+<p><a href="images/SSISCatalogPath.png"><img src="images/SSISCatalogPath.png#center" alt="SSIS Catalog path"></a></p>
+<p>Currently, only the Windows Authentication is supported, so run ssisUnit with the account that has the proper privileges. Also note, that when you set up the path to the package in the SQL Agent SSIS step, you use the full path to the package, like <code>\SSISDB\ssisUnit\ssisUnitLearning\60_Loops.dtsx</code>. In ssisUnit, you don&rsquo;t use the <code>\SSISDB\</code> part.</p>
+<p><a href="images/StorageType_SsisCatalog.png"><img src="images/StorageType_SsisCatalog.png#center" alt="StorageType SsisCatalog"></a></p>
 
     </div>
     <footer>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -246,6 +267,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -287,16 +318,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -316,13 +337,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -331,10 +361,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

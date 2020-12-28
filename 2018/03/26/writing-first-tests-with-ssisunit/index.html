@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/03/26/writing-first-tests-with-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,67 +170,82 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+    <img src="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
+  </a>
       <p><a href="http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">Previously</a> I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package.</p>
 <p>Create a new SSIS project and use the automatically generated <code>Package.dtsx</code>. Open it and add two parameters:</p>
 <ul>
 <li>first, a regular parameter, an <code>Int32</code> type with value <code>10</code></li>
 <li>second, an encrypted <code>String</code> parameter, with value <code>123qwe!@#</code> marked as sensitive</li>
 </ul>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/PackageParameters.png"><img src="images/PackageParameters-300x59.png" alt=""></a></p>
+<p><a href="images/PackageParameters.png"><img src="images/PackageParameters.png#center" alt="Package parameters"></a></p>
 <p>Then create two variables with the package scope (by default all variables get the package scope):</p>
 <ul>
 <li>first - the <code>String</code> with <code>G10</code> value</li>
 <li>second - also the <code>String</code>, but this time we use an expression to get value &ldquo;E&rdquo; and the value of the <code>Int32</code> package parameter: <code>&quot;E&quot; + (DT_WSTR, 2)@[$Package::pPackageParameter]</code></li>
 </ul>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Variables01.png"><img src="images/Variables01-300x48.png" alt=""></a></p>
+<p><a href="images/Variables01.png"><img src="images/Variables01.png#center" alt="Variables"></a></p>
 <p>Now let&rsquo;s write the tests for parameters and variables.</p>
-<h1 id="but-first">But first</h1>
+<h2 id="but-first">But first</h2>
 <p>If you have read the <a href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Getting%20Started.md">Getting Started</a> and the <a href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Product%20Sample%20Package%20and%20Test.md">Product Sample Package</a> from the ssisUnit docs you probably saw, that they use the <em>Package Deployment Model</em>, not the <em>Project Deployment Model</em> we use and love since SQL Server 2012. But it&rsquo;s no problem for us, as ssisUnit also supports the projects. It&rsquo;s not the <code>.dtproj</code> files though, but the <code>.ispac</code> files. So - before we prepare our tests we have to compile the project.</p>
-<h1 id="the-package-reference">The package reference</h1>
+<h2 id="the-package-reference">The package reference</h2>
 <p>We will start from scratch and won&rsquo;t use the <em>New From Package&hellip;</em> option. After the compilation, open the Test Suite Builder, choose <em>File &gt; New&hellip;</em> (or Ctrl + N, or pick the first icon on the toolbar from the left) and go to the <em>Package List</em> node. To test the packages we have to reference them in the test file, and we do that by _PackageRef_s. Right-click on the node and select <em>Add PackageRef</em>. On the right side, click the <em>ProjectPath</em> line and then click the ellipsis to set the <code>.ispac</code> file.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/AddPackageRef_Before.png"><img src="images/AddPackageRef_Before-300x110.png" alt=""></a></p>
+<p><a href="images/AddPackageRef_Before.png"><img src="images/AddPackageRef_Before.png#center" alt="Add package reference - before"></a></p>
 <p>For my ssisUnitLearning project, I have it in the <code>ssisUnitLearning\bin\Development</code> subfolder. Now pick the package you created - go to the <em>PackagePath</em> line, click the ellipsis and select the package. Leave the rest of the fields with the default values. The last part, for now, is to give the PackageRef a name. I choose the name of the package. In the end, you should have something similar to the picture below. Save the test.</p>
-<h1 id="imagesaddpackageref_after-300x84pnghttpblogbartekrnetwp-contentuploads201803addpackageref_afterpngthe-first-test"><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/AddPackageRef_After.png"><img src="images/AddPackageRef_After-300x84.png" alt=""></a>The first test</h1>
+<p><a href="images/AddPackageRef_After.png"><img src="images/AddPackageRef_After.png#center" alt="Add package reference - after"></a></p>
+<h2 id="the-first-test">The first test</h2>
 <p>Now we can start testing the package. Go to the <em>Tests</em> node, right-click and select <em>Add Test</em>. On the <em>PackageLocation</em> line pick the package to test (the list is populated from the _PackageRef_s). Now go to the <em>Task</em> line, and click the ellipsis. If you did everything with the instructions above you should see an error like this:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Test_TaskSelectionError.png"><img src="images/Test_TaskSelectionError.png" alt=""></a></p>
+<p><a href="images/Test_TaskSelectionError.png"><img src="images/Test_TaskSelectionError.png#center" alt="Task selection error"></a></p>
 <p>The error states that it can&rsquo;t find our package within the compiled project. And it&rsquo;s correct. When we want to test the package contained in the project we have to give just a name of the package, not the path to the package on disk. Go to the package reference and delete the path to the package file leaving just the name of the package file. Like this:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/PackageRef_Corrected.png"><img src="images/PackageRef_Corrected-300x56.png" alt=""></a></p>
+<p><a href="images/PackageRef_Corrected.png"><img src="images/PackageRef_Corrected.png#center" alt="Package reference - corrected"></a></p>
 <p>Now go back to the test node, click the ellipsis you should see the window with the package name. Pick it and click OK. Give your test a name (I use the package or task name), and save the test file. On the left side, the node still has a name <em>Test1</em> and is in red. The test name will refresh after you pick a different node on the tree. And the colour is red because you didn&rsquo;t finish the test.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Test_Definition.png"><img src="images/Test_Definition.png" alt=""></a></p>
+<p><a href="images/Test_Definition.png"><img src="images/Test_Definition.png#center" alt="Test definition"></a></p>
 <p>The test node is just the container for the assertions. Let&rsquo;s build first - we will check if the <em>pProjectParameter</em> has the value of 10. Right-click the test name node on the tree, select <em>Add Assert</em> and define the <em>ExpectedResult</em> as 10. To remember that I&rsquo;m writing an assert I add &lsquo;Assert:&rsquo; before each assertion. So I end up with something like below (or in the post&rsquo;s header):</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Assert_Definition.png"><img src="images/Assert_Definition-300x86.png" alt=""></a></p>
+<p><a href="images/Assert_Definition.png"><img src="images/Assert_Definition.png#center" alt="Assert definition"></a></p>
 <p>The name of the assert refreshes in the tree after you select a different node and it will also be red. We have an assertion (what we expect the test to return) and now we have to run a command to return some kind of the result. We are testing the package parameter, so pick the <em>ParameterCommand</em> right-clicking the assert&rsquo;s name.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/SelectingParameterCommand.png"><img src="images/SelectingParameterCommand-300x85.png" alt=""></a></p>
+<p><a href="images/SelectingParameterCommand.png"><img src="images/SelectingParameterCommand.png#center" alt="Add ParameterCommand"></a></p>
 <p>We will test the <em>pPackageParameter</em> in the package, so select Package from the drop-down list as the ParameterType and write the parameter&rsquo;s name in the <em>ParameterName</em> line. Leave the rest with the default values.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/ParameterCommand.png"><img src="images/ParameterCommand-300x95.png" alt=""></a></p>
+<p><a href="images/ParameterCommand.png"><img src="images/ParameterCommand.png#center" alt="ParameterCommand"></a></p>
 <p>The test is now ready. Hit the play button on the bar (or use <em>Ctrl + R</em> or use <em>Test Suite &gt; Run Suite</em> from the menu). Tada! Your first test passes!</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/TestResults.png"><img src="images/TestResults-300x93.png" alt=""></a></p>
+<p><a href="images/TestResults.png"><img src="images/TestResults.png#center" alt="Test results"></a></p>
 <p>The result shows 1 test run, 1 test passed, 2 asserts run, 2 asserts passed.</p>
 <p>Wait, what? We have prepared only one assert, why does it show two?</p>
 <p>The second assert is: &ldquo;<em>Task Completed: Actual result (Success) was equal to the expected result (Success).</em>&rdquo;. Great. Where does it come from? Let&rsquo;s find out.</p>
 <p>We have two places (up to now) that use &ldquo;Task completed&rdquo; setting: the test and the command. I will set <em>TaskResult = Failure</em> for the <em>ParameterCommand</em>, save and run again. The test still passes, so it must be the setting on the test node.</p>
 <p>But before setting up the test node a quick verification: save the test file and open it again. Go to the <em>ParameterCommand</em> node and check the value of <em>TestResult</em> line. It should be <em>Success</em> again, even when you set it to a different value. If you take a look at the source of the <code>.ssisUnit</code> file, you will see, that TestResult setting isn&rsquo;t stored in the configuration.</p>
-<!-- raw HTML omitted -->
-<p>Now change the setting for the test and run the suite. The package test didn&rsquo;t finish with a Failure (it ended with the Success), so the other assert didn&rsquo;t even run.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/FailedAssert_Package.png"><img src="images/FailedAssert_Package-300x106.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables.dtsx&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{5A229C3E-AE1F-48D1-AEF4-0EEB5C9E081E}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Assertname</span><span style="color:#960050;background-color:#1e0010">=&#34;Assert:</span> <span style="color:#960050;background-color:#1e0010">pPackageParameter</span> <span style="color:#960050;background-color:#1e0010">should</span> <span style="color:#960050;background-color:#1e0010">be</span> <span style="color:#960050;background-color:#1e0010">10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;ParameterCommandname</span><span style="color:#960050;background-color:#1e0010">=&#34;&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">parameterName=</span><span style="color:#e6db74">&#34;pPackageParameter&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+</code></pre></div><p>Now change the setting for the test and run the suite. The package test didn&rsquo;t finish with a Failure (it ended with the Success), so the other assert didn&rsquo;t even run.</p>
+<p><a href="images/FailedAssert_Package.png"><img src="images/FailedAssert_Package.png#center" alt="Failed Assert - Package"></a></p>
 <p>As a homework - check how will the test suite run, when you change <em>TestResult</em> to <em>Cancelled</em> or <em>Completed</em>.</p>
-<h1 id="next-tests">Next tests</h1>
-<p>You successfully completed the first test. Now write the test for the second parameter that is sensible. Take a moment, think about it and try to write on your own. Then compare to the assert and the command below.<a href="http://blog.bartekr.net/wp-content/uploads/2018/03/SensitiveParameterAssert.png"><img src="images/SensitiveParameterAssert-300x64.png" alt=""></a> <a href="http://blog.bartekr.net/wp-content/uploads/2018/03/SensitiveParameterCommand.png"><img src="images/SensitiveParameterCommand-300x55.png" alt=""></a></p>
+<h2 id="next-tests">Next tests</h2>
+<p>You successfully completed the first test. Now write the test for the second parameter that is sensible. Take a moment, think about it and try to write on your own. Then compare to the assert and the command below.</p>
+<p><a href="images/SensitiveParameterAssert.png"><img src="images/SensitiveParameterAssert.png#center" alt="Sensitive parameter assert"></a>
+<a href="images/SensitiveParameterCommand.png"><img src="images/SensitiveParameterCommand.png#center" alt="Sensitive parameter command"></a></p>
 <p>A note here. By default, I have <em>the EncryptSensitiveWithUserKey</em> security setting for my packages, and I run the tests on the same machine I have prepared the packages. So the UserKey security is not an issue. But what if we would run the tests on another computer? Or with <em>the EncryptAllWithPassword</em> setting for example? I will show you in the following posts.</p>
 <p>Now let&rsquo;s switch to the variables. You know how to test the package parameters, the variables are similar so there should be no problem for you to prepare the tests by yourself. It&rsquo;s also easier because when you use VariableCommand, you don&rsquo;t set the Project/Package scope.</p>
 <p>One question that may come to your mind when testing the variable calculated with an expression is &ldquo;should I use the Expression line setting when testing the expressions?&rdquo;. The answer is NO. The expression is to evaluate some .NET code expression, and it&rsquo;s something to check in the next blog posts, but for now just leave it always as <em>false</em>.</p>
 <p>If you want to compare your tests for the variables open the source code of your <code>.ssisUnit</code> test file (or switch to the XML tab on the Assert node) and take a look below.</p>
-<!-- raw HTML omitted -->
-<p>Congratulations. You now know how o write simple tests for parameters and variables.</p>
-<h1 id="the-scope">The scope</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable == G10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;G10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable with expression&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;E10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariableWithExpression&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/Assert&gt;</span>
+</code></pre></div><p>Congratulations. You now know how o write simple tests for parameters and variables.</p>
+<h2 id="the-scope">The scope</h2>
 <p>The last thing to check today is the variable&rsquo;s scope. You have checked the variables with the default scope of the package. Now test the variable with the scope of a container.</p>
 <p>Create an empty Sequence Container <em>SEQC Some container</em> and add a new variable <em>ContainerVariable</em>. Then change the scope of the variable to the container. To do it click the <em>Move Variable</em> button in the Variables window and pick the <em>SEQC Some container</em> node in the <em>Select New Scope</em> window. Then click OK.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/MoveVariable.png"><img src="images/MoveVariable-300x65.png" alt=""></a> <a href="http://blog.bartekr.net/wp-content/uploads/2018/03/SelectNewScope.png"><img src="images/SelectNewScope.png" alt=""></a></p>
+<p><a href="images/MoveVariable.png"><img src="images/MoveVariable.png#center" alt="Move variable"></a>
+<a href="images/SelectNewScope.png"><img src="images/SelectNewScope.png#center" alt="Select New Scope"></a></p>
 <p>Now write the test for the <em>ContainerVariable</em> just as you wrote the test for the previous variables. Be sure to add the assert and the command at the SEQC Some container level. You should get a test similar to this one:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Assert_VariableWithScope.png"><img src="images/Assert_VariableWithScope-300x88.png" alt=""></a></p>
+<p><a href="images/Assert_VariableWithScope.png"><img src="images/Assert_VariableWithScope.png#center" alt="Assert variable with scope"></a></p>
 <p>What would happen if we tried to test the variable on the package level? After you define the same test but in the previous test tree that is made on the package level (<em>01_OnlyParametersAndVariables</em> from the picture above), you will get an error. The assert command failed with the following exception: <em>Failed to lock variable &ldquo;ContainerVariable&rdquo; for read access with error 0xC0010001 &ldquo;The variable cannot be found. This occurs when an attempt is made to retrieve a variable from the Variables collection on a container during execution of the package, and the variable is not there. The variable name may have changed or the variable is not being created</em>.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/Assert_VarableScopeError.png"><img src="images/Assert_VarableScopeError-300x44.png" alt=""></a></p>
+<p><a href="images/Assert_VarableScopeError.png"><img src="images/Assert_VarableScopeError.png#center" alt="Assert - variable scope error"></a></p>
 <p>That&rsquo;s all for now. We started from the very beginning with parameters and variables. We checked the variables scope, saw that we can test the sensitive parameters (in some circumstances) and we are ready to test the project parameters. The last one is your homework: create the project parameter and test it with ssisUnit.</p>
 <p>You can find the sample package <code>01_OnlyParametersAndVariables.dtsx</code> and ssisUnit test for it <a href="https://github.com/BartekR/ssisUnitLearning">on my GitHub</a>.</p>
 
@@ -236,12 +254,26 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -268,6 +300,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -309,16 +351,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -338,13 +370,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -353,10 +394,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

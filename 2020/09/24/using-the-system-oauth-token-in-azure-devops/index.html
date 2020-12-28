@@ -179,7 +179,7 @@ StatusDescription : NonAuthoritativeInformation
 </code></pre></div><p>The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.</p>
 <p>To better understand the problem I created a two brand new separate Azure DevOps projects and built two pipelines: one using the classic interface, the second using YAML. Also, I made the testing easier and I just read all the comments.</p>
 <p>Why two projects? To test how it works when I call to the task in the same project and the task outside the project. The initial problem I wanted to solve was running the build pipeline in project X and add the comments to the task in the project Y. But if I wanted to understand the mechanics from the ground up and find the solution I had to begin with smaller steps.</p>
-<h2 id="so-build-me-a-classic-pipeline">So, build me a classic pipeline!</h2>
+<h2 id="so-build-me-a-classic-pipeline">So, build me a classic pipeline</h2>
 <p>My setup is just one PowerShell script calling the task address using <code>Invoke-WebRequest</code> (or <code>Invoke-RestMethod</code>). The script uses two parameters - project name and task id, as I will test two cases and don&rsquo;t want to prepare hardcoded values for both tests.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#66d9ef">param</span>(
     $project = <span style="color:#e6db74">&#39;CrossProjectTest01&#39;</span>,
@@ -206,25 +206,25 @@ AccessToken:
 StatusCode : 203
 StatusDescription : Non-Authoritative Information
 </code></pre></div><p>The access token has no value - that explains why there is no access (203 code). To fix it - edit the pipeline, go to &ldquo;<em>Run on agent</em>&rdquo; job settings, scroll down and check the &ldquo;<em>Allow scripts to access the OAuth token</em>&rdquo; option.</p>
-<p><img src="images/AzureDevOps_SystemAccessToken_ClassicPipeline.png" alt="Allow scripts to access the OAuth token"></p>
+<p><img src="images/AzureDevOps_SystemAccessToken_ClassicPipeline.png#center" alt="Allow scripts to access the OAuth token"></p>
 <p>Now the job will finish as expected - the <code>System.AccessToken</code> is visible to the process.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
-AccessToken: \*\*\*
+AccessToken: ***
 
 StatusCode        : 200
 StatusDescription : OK
-Content           : {<span style="color:#e6db74">&#34;totalCount&#34;</span>:1,<span style="color:#e6db74">&#34;count&#34;</span>:1,<span style="color:#e6db74">&#34;comments&#34;</span>:\[{<span style="color:#e6db74">&#34;workItemId&#34;</span>:26,<span style="color:#e6db74">&#34;id&#34;</span>:2806326,<span style="color:#e6db74">&#34;version&#34;</span>:1,<span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;</span>
+Content           : {<span style="color:#e6db74">&#34;totalCount&#34;</span>:1,<span style="color:#e6db74">&#34;count&#34;</span>:1,<span style="color:#e6db74">&#34;comments&#34;</span>:[{<span style="color:#e6db74">&#34;workItemId&#34;</span>:26,<span style="color:#e6db74">&#34;id&#34;</span>:2806326,<span style="color:#e6db74">&#34;version&#34;</span>:1,<span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>This worked when the pipeline and the work item were in the same project. When I set the parameters for the PowerShell script to call the task from another project (CrossProjectTest02) I got the error &ldquo;<em>project with id (&hellip;) does not exist, or you do not have permission to access it</em>&quot;:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Uri https://dev.azure.com/bartekr/CrossProjectTest02/_apis/wit/workItems/27/comments?api-version=6.0-preview.3
-AccessToken: \*\*\*
+AccessToken: ***
 Invoke-WebRequest : {<span style="color:#e6db74">&#34;$id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;innerException&#34;</span>:null,<span style="color:#e6db74">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;VS800075: The project with id</span>
 &#39;vstfs:///Classification/TeamProject/8634ba98-f13c-46c4-a30c-eedc6dbeb32b&#39; does not exist, or you do not have
 permission to access it.<span style="color:#e6db74">&#34;,&#34;</span>typeName<span style="color:#e6db74">&#34;:&#34;</span>Microsoft.TeamFoundation.Core.WebApi.ProjectDoesNotExistException,
 Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</span>typeKey<span style="color:#e6db74">&#34;:&#34;</span>ProjectDoesNotExistException<span style="color:#e6db74">&#34;,&#34;</span>errorCode<span style="color:#e6db74">&#34;:0,&#34;</span>eventId<span style="color:#e6db74">&#34;:3000}</span>
 </code></pre></div><p>It&rsquo;s because I have &ldquo;<em>Limit job authorization scope to current project</em>&rdquo; both for release and non-release pipelines set to ON (see: <em>Project settings &gt; Pipelines &gt; Settings</em>)</p>
-<p><img src="images/AzureDevOps_PipelineSettings.png" alt="Pipeline settings">]</p>
+<p><img src="images/AzureDevOps_PipelineSettings.png#center" alt="Pipeline settings"></p>
 <p>After setting the &ldquo;<em>Limit job authorization scope to current project for non-release pipelines</em>&rdquo; to OFF (in CrossProject01, as there is my pipeline) everything works. It&rsquo;s enough for me to set off for non-release because I&rsquo;m working on the build pipeline.</p>
-<h2 id="but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the YAML pipeline to work!</h2>
+<h2 id="but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the <strong>YAML</strong> pipeline to work</h2>
 <p>The crucial part for the YAML pipeline is: &ldquo;<a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=yaml#systemaccesstoken">In YAML, you must explicitly map System.AccessToken into the pipeline using a variable.</a>&rdquo;</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
 - <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
@@ -278,6 +278,8 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
   
   <div class="pagination">
     
+      <a href="/2020/11/01/migrating-to-github-pages/" class="button left"><span>Migrating to GitHub Pages</span></a>
+    
     
       <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="button right"><span>Have problems with Docker Desktop for Windows Home? Yeah, me too!</span></a>
     
@@ -290,6 +292,16 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -331,16 +343,6 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -360,13 +362,22 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -375,10 +386,13 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

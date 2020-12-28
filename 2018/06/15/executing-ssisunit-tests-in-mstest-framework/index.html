@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,39 +170,44 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png');">
+    <img src="http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" alt="">
+  </a>
       <p>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</p>
 <p>I work a lot with TFS. It has a neat feature - you can run tests during the build or release and verify how your code is doing. The goal is: I want to run ssisUnit tests of my <a href="https://github.com/BartekR/ssisUnitLearning">ssisUnitLearning project</a> in TFS and see the outcome in the reports.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/06/TFS_TestsDetails.png"><img src="images/TFS_TestsDetails-300x131.png" alt=""></a> On the picture above three of my four tests failed. Select <em>DFT_LoadUsers</em> test - it failed because of the <em>DefaultBufferMaxRow</em> setting for the <em>Data Flow Task</em>. This test is written for <code>20_DataFlow.dtsx</code> - the package to load the <code>dbo.Users</code> table using <em>Data Flow Task</em>, not <em>SQL Task</em>. There are two settings for the <em>DFT LoadUsers</em> I don&rsquo;t want to be changed: <em>DefaultBufferMaxRows</em> and <em>DelayValidation</em>. Apparently, the number of rows is not set to the required value.</p>
-<h1 id="propertycommand">PropertyCommand</h1>
+<p><a href="images/TFS_TestsDetails.png"><img src="images/TFS_TestsDetails.png#center" alt="Test details in TFS"></a></p>
+<p>On the picture above three of my four tests failed. Select <em>DFT_LoadUsers</em> test - it failed because of the <em>DefaultBufferMaxRow</em> setting for the <em>Data Flow Task</em>. This test is written for <code>20_DataFlow.dtsx</code> - the package to load the <code>dbo.Users</code> table using <em>Data Flow Task</em>, not <em>SQL Task</em>. There are two settings for the <em>DFT LoadUsers</em> I don&rsquo;t want to be changed: <em>DefaultBufferMaxRows</em> and <em>DelayValidation</em>. Apparently, the number of rows is not set to the required value.</p>
+<h2 id="propertycommand">PropertyCommand</h2>
 <p>To check for the package&rsquo;s setting I use <em>PropertyCommand</em> - it can read almost everything you need from the package. Almost, because it does not read from the _Data Flow Task_s elements, so, for example, you won&rsquo;t read the <em>Derived Column</em>, <em>Conditional Split</em> or <em>OLEDB  Destination</em> parameters. To see what you are able to get or set, take a look at the <code>LocatePropertyValue()</code> method in the <code>PropertyCommand.cs</code> script. At the end you will find some examples, like:</p>
-<p>\Package\Sequence Container\Script Task.Properties[Description]</p>
-<p>And through the method&rsquo;s code, there are string checks for the keywords: <em>Package</em>, <em>Variables</em>, <em>Properties</em>, <em>Connections</em>, <em>EventHandlers</em>. You just have to write the path using one of them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">\Package\Sequence Container\Script Task.Properties[Description]
+</code></pre></div><p>And through the method&rsquo;s code, there are string checks for the keywords: <em>Package</em>, <em>Variables</em>, <em>Properties</em>, <em>Connections</em>, <em>EventHandlers</em>. You just have to write the path using one of them.</p>
 <p>To verify my <em>DFT_Users</em> task, I use two paths:</p>
-<p>\Package\DFT LoadUsers.Properties[DefaultBufferMaxRows]
-\Package\DFT LoadUsers.Properties[DelayValidation]</p>
-<p>Nothing extraordinary, but works. You can use it for example to check the standards of your SSIS packages (like: every task&rsquo;s <em>Description</em> has to be different than the default value or the checkpoint file has the same name as the package, but different extension, &hellip;). The file <code>20_DataFlow.ssisUnit</code> test is located <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Tests">in the Tests</a> folder. Now, to the</p>
-<h1 id="mstest-part">MSTest part</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">\Package\DFT LoadUsers.Properties[DefaultBufferMaxRows]
+\Package\DFT LoadUsers.Properties[DelayValidation]
+</code></pre></div><p>Nothing extraordinary, but works. You can use it for example to check the standards of your SSIS packages (like: every task&rsquo;s <em>Description</em> has to be different than the default value or the checkpoint file has the same name as the package, but different extension, &hellip;). The file <code>20_DataFlow.ssisUnit</code> test is located <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Tests">in the Tests</a> folder. Now, to the</p>
+<h2 id="mstest-part">MSTest part</h2>
 <p><a href="https://github.com/Microsoft/testfx">MSTest v2</a> is the <a href="https://blogs.msdn.microsoft.com/bharry/2017/03/28/open-sourcing-the-mstest-test-framework/">open source</a> test framework by Microsoft. I will not write a lot about it. If you want to learn more - read the excellent <a href="https://www.meziantou.net/2018/01/22/mstest-v2-setup-a-test-project-and-run-tests">blog posts by Gérald Barré</a>.</p>
 <p>I took the idea and parts of the code from <a href="http://www.ravipal.net/2016/03/ssis-unit-testing-with-ssisunit.html">Ravi Palihena&rsquo;s blog post</a> about ssisUnit testing and his <a href="https://github.com/rarpal/SampleSSISUnit">GitHub repository</a>. Then I read the source code of the <a href="https://github.com/BartekR/ssisUnit/tree/master/SsisUnitTestRunner">SsisUnitTestRunner</a>, <a href="https://github.com/BartekR/ssisUnit/tree/master/SsisUnitTestRunnerUI">SsisUnitTestRunnerUI</a> and posts by Gérald and changed the tests a bit.</p>
 <p>I will use MSTest to execute ssisUnit tests from the file <code>20_DataFlow.ssisUnit</code>. For that, I created a new <em>Visual C# &gt; Test &gt; Unit Test Project (.NET Framework)</em> - <code>ssisUnitLearning.MSTest</code> - within the solution. I also set the reference to the <code>SsisUnit2017.dll</code> and <code>SsisUnitBase.dll</code> libraries and loaded required namespaces</p>
-<p>using SsisUnit;
-using SsisUnitBase.EventArgs;</p>
-<p>I decided that each test file has its own class with the same name as the name of the ssisUnit file. But the name of the class can&rsquo;t start with the number, so I added a <code>TestUnit</code> prefix. I load the ssisUnit tests at the beginning, and it&rsquo;s enough to do it once, so I add the <code>ClassInitialize</code> attribute to the <code>Init()</code> method. The tests are executed from the <code>.dll</code> file created after compilation, and I chose to load the <code>.ssisUnit</code> file with all the tests using relative path.</p>
-<p>[ClassInitialize]
-public static void Init(TestContext tc)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> SsisUnit;
+<span style="color:#66d9ef">using</span> SsisUnitBase.EventArgs;
+</code></pre></div><p>I decided that each test file has its own class with the same name as the name of the ssisUnit file. But the name of the class can&rsquo;t start with the number, so I added a <code>TestUnit</code> prefix. I load the ssisUnit tests at the beginning, and it&rsquo;s enough to do it once, so I add the <code>ClassInitialize</code> attribute to the <code>Init()</code> method. The tests are executed from the <code>.dll</code> file created after compilation, and I chose to load the <code>.ssisUnit</code> file with all the tests using relative path.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[ClassInitialize]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Init(TestContext tc)
 {
-// ssisUnitLearningMSTest.dll is in subfolder bin\Debug and Tests folder is parallel, that&rsquo;s why ..\..\..
-testSuite = new SsisTestSuite(@&quot;..\..\..\Tests\01_OnlyParametersAndVariables.ssisUnit&quot;);
-}</p>
-<p>The <code>Init()</code> method has to follow the rules I got first from the error message: <em>Method ssisUnitLearningMSTest.TestUnit_01_OnlyParametersAndVariables.Init has wrong signature. The method must be static, public, does not return a value and should take a single parameter of type TestContext. Additionally, if you are using async-await in method then return-type must be Task</em>. Also the <code>testSuite</code> parameter, that holds the <code>.ssisUnit</code> file contents has to be static.</p>
-<p>private static SsisTestSuite testSuite;
-private SsisUnitBase.TestResult testResult;
-private Test test;
-private Context context;</p>
-<p>private bool isTestPassed;</p>
-<p>private List<!-- raw HTML omitted --> messages = new List<!-- raw HTML omitted -->();</p>
-<p>The other variables are:</p>
+    <span style="color:#75715e">// ssisUnitLearningMSTest.dll is in subfolder bin\Debug and Tests folder is parallel, that&#39;s why ..\..\..
+</span><span style="color:#75715e"></span>    testSuite = <span style="color:#66d9ef">new</span> SsisTestSuite(<span style="color:#e6db74">@&#34;..\..\..\Tests\01_OnlyParametersAndVariables.ssisUnit&#34;</span>);
+}
+</code></pre></div><p>The <code>Init()</code> method has to follow the rules I got first from the error message: <em>Method ssisUnitLearningMSTest.TestUnit_01_OnlyParametersAndVariables.Init has wrong signature. The method must be static, public, does not return a value and should take a single parameter of type TestContext. Additionally, if you are using async-await in method then return-type must be Task</em>. Also the <code>testSuite</code> parameter, that holds the <code>.ssisUnit</code> file contents has to be static.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> SsisTestSuite testSuite;
+<span style="color:#66d9ef">private</span> SsisUnitBase.TestResult testResult;
+<span style="color:#66d9ef">private</span> Test test;
+<span style="color:#66d9ef">private</span> Context context;
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">bool</span> isTestPassed;
+
+<span style="color:#66d9ef">private</span> List&lt;<span style="color:#66d9ef">string</span>&gt; messages = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;();
+</code></pre></div><p>The other variables are:</p>
 <ul>
 <li><code>testResult</code> holds the result of the ssisUnit test</li>
 <li><code>test</code> is the ssisUnit test object</li>
@@ -210,104 +218,106 @@ private Context context;</p>
 <p>Each test is written as a class decorated by the <code>TestMethod</code> attribute. The tests are loaded to the <code>testSuite</code> object, so to get the ssisUnit test I want to run I get it from the <code>Tests</code> dictionary by the name. Then I create the context for it.</p>
 <p>ssisUnit uses events and responses. When the assertion completes, the <code>AssertCompleted</code> event is called. I subscribe to this event before running the test and unsubscribe after the test is executed and all asserts are finished. I also set the flag <code>isTestPassed</code> to <code>true</code>. It will be set to <code>false</code> if any of the assertions fail.</p>
 <p>In the end, I run two MSTest asserts. The second checks if all the assertions were successful. If not it writes all the error messages. But as I set <code>isTestPassed</code> flag as <code>true</code> in the beginning the MSTest&rsquo;s assert will always return <code>true</code>, even if I don&rsquo;t run the tests. So I added the first assertion to check if the test was executed. This can happen if there are errors in the <code>.ssisUnit</code> or <code>.dtsx</code> file.</p>
-<p>[TestMethod]
-public void DFT_LoadUsers()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[TestMethod]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DFT_LoadUsers()
 {
-test = testSuite.Tests[&ldquo;DFT LoadUsers&rdquo;];
-context = testSuite.CreateContext();</p>
-<pre><code>testSuite.AssertCompleted += TestSuiteAssertCompleted;
-isTestPassed = true;
+    test = testSuite.Tests[<span style="color:#e6db74">&#34;DFT LoadUsers&#34;</span>];
+    context = testSuite.CreateContext();
 
-bool rs = test.Execute(context);
+    testSuite.AssertCompleted += TestSuiteAssertCompleted;
+    isTestPassed = <span style="color:#66d9ef">true</span>;
 
-testSuite.AssertCompleted -= TestSuiteAssertCompleted;
+    <span style="color:#66d9ef">bool</span> rs = test.Execute(context);
 
-Assert.AreEqual(true, rs, &quot;Package did not execute&quot;);
-Assert.AreEqual(true, isTestPassed, System.String.Join(&quot;;&quot;, messages));
-</code></pre>
-<p>}</p>
-<p>The <code>TestSuiteAssertCompleted</code> method verifies the <code>TestExecResult</code> of each assertion and sets the <code>isTestPassed</code> flag. If there is an error, it&rsquo;s added to the messages list.</p>
-<p>private void TestSuiteAssertCompleted(object sender, AssertCompletedEventArgs e)
-{
-if (e.AssertName != null)
-{
-testResult = e.TestExecResult;
-isTestPassed = isTestPassed &amp; e.TestExecResult.TestPassed;
-if(e.TestExecResult.TestPassed == false)
-{
-messages.Add(e.AssertName + &quot; failed: &quot; + e.TestExecResult.TestResultMsg);
+    testSuite.AssertCompleted -= TestSuiteAssertCompleted;
+
+    Assert.AreEqual(<span style="color:#66d9ef">true</span>, rs, <span style="color:#e6db74">&#34;Package did not execute&#34;</span>);
+    Assert.AreEqual(<span style="color:#66d9ef">true</span>, isTestPassed, System.String.Join(<span style="color:#e6db74">&#34;;&#34;</span>, messages));
 }
-}
-}</p>
-<p><a href="https://github.com/BartekR/ssisUnitLearning/blob/master/ssisUnitLearning.MSTest/TestUnit_20_DataFlow.cs">The full code</a>:</p>
-<p>using SsisUnit;
-using SsisUnitBase.EventArgs;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;</p>
-<p>namespace ssisUnitLearningMSTestExample
+</code></pre></div><p>The <code>TestSuiteAssertCompleted</code> method verifies the <code>TestExecResult</code> of each assertion and sets the <code>isTestPassed</code> flag. If there is an error, it&rsquo;s added to the messages list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> TestSuiteAssertCompleted(<span style="color:#66d9ef">object</span> sender, AssertCompletedEventArgs e)
 {
-[TestClass]
-public class TestUnit_20_DataFlow
-{
-private static SsisTestSuite testSuite;</p>
-<pre><code>    private SsisUnitBase.TestResult testResult;
-    private Test test;
-    private Context context;
-
-    private bool isTestPassed;
-
-    private List messages = new List();
-
-    \[ClassInitialize\]
-    public static void Init(TestContext tc)
+    <span style="color:#66d9ef">if</span> (e.AssertName != <span style="color:#66d9ef">null</span>)
     {
-        // ssisUnitLearningMSTest.dll is in subfolder bin\\Debug and Tests folder is parallel, that's why ..\\..\\..
-        testSuite = new SsisTestSuite(@&quot;..\\..\\..\\Tests\\20\_DataFlow.ssisUnit&quot;);
-    }
-
-    private void TestSuiteAssertCompleted(object sender, AssertCompletedEventArgs e)
-    {
-        if (e.AssertName != null)
+        testResult = e.TestExecResult;
+        isTestPassed = isTestPassed &amp; e.TestExecResult.TestPassed;
+        <span style="color:#66d9ef">if</span>(e.TestExecResult.TestPassed == <span style="color:#66d9ef">false</span>)
         {
-            testResult = e.TestExecResult;
-            isTestPassed = isTestPassed &amp; e.TestExecResult.TestPassed;
-            if(e.TestExecResult.TestPassed == false)
-            {
-                messages.Add(e.AssertName + &quot; failed: &quot; + e.TestExecResult.TestResultMsg);
-            }
+            messages.Add(e.AssertName + <span style="color:#e6db74">&#34; failed: &#34;</span> + e.TestExecResult.TestResultMsg);
         }
     }
+}
+</code></pre></div><p><a href="https://github.com/BartekR/ssisUnitLearning/blob/master/ssisUnitLearning.MSTest/TestUnit_20_DataFlow.cs">The full code</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> SsisUnit;
+<span style="color:#66d9ef">using</span> SsisUnitBase.EventArgs;
+<span style="color:#66d9ef">using</span> System.Collections.Generic;
+<span style="color:#66d9ef">using</span> Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    \[TestMethod\]
-    public void DFT\_LoadUsers()
+<span style="color:#66d9ef">namespace</span> ssisUnitLearningMSTestExample
+{
+<span style="color:#a6e22e">    [TestClass]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestUnit_20_DataFlow</span>
     {
-        test = testSuite.Tests\[&quot;DFT LoadUsers&quot;\];
-        context = testSuite.CreateContext();
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> SsisTestSuite testSuite;
 
-        testSuite.AssertCompleted += TestSuiteAssertCompleted;
-        isTestPassed = true;
+        <span style="color:#66d9ef">private</span> SsisUnitBase.TestResult testResult;
+        <span style="color:#66d9ef">private</span> Test test;
+        <span style="color:#66d9ef">private</span> Context context;
 
-        bool rs = test.Execute(context);
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">bool</span> isTestPassed;
 
-        testSuite.AssertCompleted -= TestSuiteAssertCompleted;
+        <span style="color:#66d9ef">private</span> List messages = <span style="color:#66d9ef">new</span> List();
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [ClassInitialize]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Init(TestContext tc)
+        {
+            <span style="color:#75715e">// ssisUnitLearningMSTest.dll is in subfolder bin\\Debug and Tests folder is parallel, that&#39;s why ..\..\..
+</span><span style="color:#75715e"></span>            testSuite = <span style="color:#66d9ef">new</span> SsisTestSuite(<span style="color:#e6db74">@&#34;..\..\..\Tests\20_DataFlow.ssisUnit&#34;</span>);
+        }
 
-        Assert.AreEqual(true, rs, &quot;Package did not execute&quot;);
-        Assert.AreEqual(true, isTestPassed, System.String.Join(&quot;;&quot;, messages));
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> TestSuiteAssertCompleted(<span style="color:#66d9ef">object</span> sender, AssertCompletedEventArgs e)
+        {
+            <span style="color:#66d9ef">if</span> (e.AssertName != <span style="color:#66d9ef">null</span>)
+            {
+                testResult = e.TestExecResult;
+                isTestPassed = isTestPassed &amp; e.TestExecResult.TestPassed;
+                <span style="color:#66d9ef">if</span>(e.TestExecResult.TestPassed == <span style="color:#66d9ef">false</span>)
+                {
+                    messages.Add(e.AssertName + <span style="color:#e6db74">&#34; failed: &#34;</span> + e.TestExecResult.TestResultMsg);
+                }
+            }
+        }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [TestMethod]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DFT_LoadUsers()
+        {
+            test = testSuite.Tests[<span style="color:#e6db74">&#34;DFT LoadUsers&#34;</span>];
+            context = testSuite.CreateContext();
+
+            testSuite.AssertCompleted += TestSuiteAssertCompleted;
+            isTestPassed = <span style="color:#66d9ef">true</span>;
+
+            <span style="color:#66d9ef">bool</span> rs = test.Execute(context);
+
+            testSuite.AssertCompleted -= TestSuiteAssertCompleted;
+
+            Assert.AreEqual(<span style="color:#66d9ef">true</span>, rs, <span style="color:#e6db74">&#34;Package did not execute&#34;</span>);
+            Assert.AreEqual(<span style="color:#66d9ef">true</span>, isTestPassed, System.String.Join(<span style="color:#e6db74">&#34;;&#34;</span>, messages));
+        }
     }
 }
-</code></pre>
-<p>}</p>
-<h1 id="there-has-to-be-an-easier-way">There has to be an easier way!</h1>
+</code></pre></div><h2 id="there-has-to-be-an-easier-way">There has to be an easier way</h2>
 <p>In the beginning, I created two MSTest files - first for <code>01_OnlyParametersAndVariables.ssisUnit</code> and second for <code>20_DataFlow.ssisUnit</code>. Only to see if it works, and how to use it. When the number of tests started to grow, I started searching for the automatic test generation. I found idea sparking <a href="http://blog.colinbreck.com/programmatically-generating-tests-using-a-visual-studio-t4-text-template/">post by Colin Breck</a>, watched the <a href="https://www.pluralsight.com/courses/t4-templates">T4 Templates course on Pluralsight</a> and prepared the solution.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/06/TestExplorer.png"><img src="images/TestExplorer-190x300.png" alt=""></a>I started by creating the template using right-click on the <code>ssisUnitLearning.MSTest</code> project, selecting <em>New Item</em> and the <em>Text Template</em>. Then I copied and pasted the content from one of the test files and modified it with two loops - for each <code>.ssisUnit</code> test file I create the class that contains the test method for each ssisUnit test. <code>ReadTestFile()</code> and <code>CleanName()</code> methods are modified versions of the code from the formerly mentioned course on Pluralsight. And that&rsquo;s it! When you compile the project, the template will generate all the test classes and methods, and they will be available in the <code>.dll</code> file to use in the <em>Test Explorer</em>. The code is available <a href="https://github.com/BartekR/ssisUnitLearning/blob/master/ssisUnitLearning.MSTest/ssisUnitTestTemplate.tt">in the <code>ssisUnitTestTemplate.tt</code> script</a>.</p>
-<h1 id="tfs-part">TFS part</h1>
+<p><a href="images/TestExplorer.png"><img src="images/TestExplorer.png#center" alt="Test explorer"></a></p>
+<p>I started by creating the template using right-click on the <code>ssisUnitLearning.MSTest</code> project, selecting <em>New Item</em> and the <em>Text Template</em>. Then I copied and pasted the content from one of the test files and modified it with two loops - for each <code>.ssisUnit</code> test file I create the class that contains the test method for each ssisUnit test. <code>ReadTestFile()</code> and <code>CleanName()</code> methods are modified versions of the code from the formerly mentioned course on Pluralsight. And that&rsquo;s it! When you compile the project, the template will generate all the test classes and methods, and they will be available in the <code>.dll</code> file to use in the <em>Test Explorer</em>. The code is available <a href="https://github.com/BartekR/ssisUnitLearning/blob/master/ssisUnitLearning.MSTest/ssisUnitTestTemplate.tt">in the <code>ssisUnitTestTemplate.tt</code> script</a>.</p>
+<h2 id="tfs-part">TFS part</h2>
 <p>The last thing is to use the MSTest project in the TFS build. The whole building and deployment process of the database, SSIS project, tests, configuration, etc. is a topic for one of the next posts, but for running the tests it&rsquo;s enough to:</p>
 <ul>
 <li>use the <em>MSBuild</em> or <em>Visual Studio Build</em> task to compile the project (I used <em>MSBuild</em>)</li>
 <li>use the <em>Visual Studio Test</em> task and leave all the defaults as is</li>
 </ul>
 <p>You should now have the reports in TFS that show you the ssisUnit tests results.</p>
-<h1 id="summary">Summary</h1>
+<h2 id="summary">Summary</h2>
 <p>Basically, to run the ssisUnit tests using <em>MSTest</em> I had to port some parts of the ssisUnitTestRunner code to the framework. Then, to automate test generation, I used T4 template to iterate through all the test files and defined tests. Now it&rsquo;s enough to prepare the next ssisUnit suite, save and compile the MSTest project to have all the tests available in Visual Studio&rsquo;s <em>Test Runner</em> or - after the project builds - in TFS.</p>
 
     </div>
@@ -315,12 +325,28 @@ private static SsisTestSuite testSuite;</p>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/mstest/">MSTest</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/tfs/">TFS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -347,6 +373,16 @@ private static SsisTestSuite testSuite;</p>
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -388,16 +424,6 @@ private static SsisTestSuite testSuite;</p>
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -417,13 +443,22 @@ private static SsisTestSuite testSuite;</p>
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -432,10 +467,13 @@ private static SsisTestSuite testSuite;</p>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

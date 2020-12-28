@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,10 +170,12 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png');">
+    <img src="http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png" alt="">
+  </a>
       <p>One of the elements you can define in ssisUnit is a Dataset. In this post of the <a href="http://blog.bartekr.net/series/">ssisUnit series</a>, I will show you how to prepare and use it later in a test.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Dataset.png"><img src="images/Dataset-300x40.png" alt=""></a></p>
-<h1 id="the-dataset">The Dataset</h1>
+<p><a href="images/Dataset.png"><img src="images/Dataset.png#center" alt="Dataset"></a></p>
+<h2 id="the-dataset">The Dataset</h2>
 <p>As you can see in the image above, <strong>the dataset is a named result that contains data</strong>. It has five attributes (although you can see just four of them in the GUI):</p>
 <ul>
 <li><em>Name</em> (required) - the name of the dataset, used for referencing the dataset in a test</li>
@@ -181,12 +186,18 @@
 </ul>
 <p>You can find all of the attributes in the <code>SsisUnit.xsd</code> file in the source code.</p>
 <p>Why would you use the dataset? Verifying the numbers is almost always enough, but I have the cases I have to check the actual data after the processing. Like testing the SCD1 or SCD2 attributes, verifying the <code>MERGE</code> statements, checking <code>UPDATE</code>s on the data. I prepare a small reference data and compare it using <code>DataCompareCommand</code>.</p>
-<p>[caption id=&ldquo;attachment_318&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;300&rdquo;]<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Datasets.png"><img src="images/Datasets-300x107.png" alt=""></a> The goal: compare data in the table (actual data) with the reference data (expected data)[/caption]</p>
-<h1 id="the-scenario">The scenario</h1>
+<figure class="noborder">
+    <img src="images/Datasets.png#center"
+         alt="The goal: compare data in the table (actual data) with the reference data (expected data)"/> <figcaption>
+            <p>The goal: compare data in the table (actual data) with the reference data (expected data)</p>
+        </figcaption>
+</figure>
+
+<h2 id="the-scenario">The scenario</h2>
 <p>I will test loading users data from the staging table to the destination table. I have the <code>stg.Users</code> table with the information from the source system, and I want to transfer it to the <code>dbo.Users</code> table using the rules:</p>
 <ul>
 <li>the natural key in <code>dbo.Users</code> is (<code>SourceId, SourceSystemId</code>)</li>
-<li>the natural key in <code>stg.Users is (`Id, SourceSystemId`)</code></li>
+<li>the natural key in <code>stg.Users</code> is (<code>Id, SourceSystemId</code>)</li>
 <li>if the record from <code>stg.Users</code> is not in <code>dbo.Users</code>, then add it</li>
 <li>if the record exists in <code>dbo.Users</code> and has different data than the record in <code>stg.Users</code>, then update it</li>
 <li>if the record exists in <code>dbo.Users</code> and doesn&rsquo;t exist in <code>stg.Users</code> - mark it as deleted (<code>IsDeleted</code> = 1)</li>
@@ -195,11 +206,11 @@
 <li>only the records with the changed attributes get an update</li>
 </ul>
 <p>I will use the <code>MERGE</code> statement for the data loading process. In the package I will also use two _SQL Task_s for auditing. I have <code>meta.Audit</code> table for tracking the executions of the packages and I use <code>meta.uspPackageStart</code> and <code>meta.uspPackageFinish</code> stored procedures to insert and update the audit data. The package looks like in the picture below.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/15_Users_Dataset.png"><img src="images/15_Users_Dataset-220x300.png" alt=""></a></p>
+<p><a href="images/15_Users_Dataset.png"><img src="images/15_Users_Dataset.png#center" alt="Users dataset"></a></p>
 <p>I will define the tests to run later in the post.</p>
-<h1 id="defining-the-ssisunit-connections">Defining the ssisUnit connections</h1>
+<h2 id="defining-the-ssisunit-connections">Defining the ssisUnit connections</h2>
 <p>One of the dataset&rsquo;s attributes is a <em>Connection</em>. It&rsquo;s not any of the connections defined within the SSIS package or the project. It&rsquo;s the connection defined in the ssisUnit test suite.</p>
-<p>[caption id=&ldquo;attachment_310&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;300&rdquo;]<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Connection.png"><img src="images/Connection-300x36.png" alt="ssisUnit connection"></a> ssisUnit connection[/caption]</p>
+<p><a href="images/Connection.png"><img src="images/Connection.png#center" alt="ssisUnit connection"></a></p>
 <p>The connection has four attributes:</p>
 <ul>
 <li><em>Connection string</em> - the connection string to the external source</li>
@@ -207,43 +218,44 @@
 <li><em>Invariant type</em> - the type of the <em>Ado.Net</em> provider (when used)</li>
 <li>Reference <em>name</em> - the name of the connection to use in <code>SqlCommand</code> or <code>DatasetCommand</code></li>
 </ul>
-<p>I use a Connection string for the database communication. When you add a new connection, you have only the text box for entering the connection string, or you can pick the provider to enter all the data.<a href="http://blog.bartekr.net/wp-content/uploads/2018/04/DefineConnectionString.png"><img src="images/DefineConnectionString-300x136.png" alt=""></a></p>
+<p>I use a Connection string for the database communication. When you add a new connection, you have only the text box for entering the connection string, or you can pick the provider to enter all the data.</p>
+<p><a href="images/DefineConnectionString.png"><img src="images/DefineConnectionString.png#center" alt="Define connection string"></a></p>
 <p>After you fill the connection information, the wizard detects the type and displays them in the proper format.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/ConnectionString_OleDbProvider.png"><img src="images/ConnectionString_OleDbProvider-300x281.png" alt=""></a></p>
+<p><a href="images/ConnectionString_OleDbProvider.png"><img src="images/ConnectionString_OleDbProvider.png#center" alt="Connection string for OLEDB provider"></a></p>
 <p>The connection reference should be ready to use. But when you try to use it in the <code>SqlCommand</code> right after creating it you will see the error:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/ConnectionRefError.png"><img src="images/ConnectionRefError-300x107.png" alt=""></a></p>
+<p><a href="images/ConnectionRefError.png"><img src="images/ConnectionRefError.png#center" alt="ConnectionRef eror"></a></p>
 <p>It&rsquo;s not a ssisUnit problem, but the GUI problem - it has some issues with refreshing the object information. Just save the test, open it again, and everything will work fine.</p>
-<h1 id="the-test-the-setup-the-teardown">The test, the setup, the teardown</h1>
+<h2 id="the-test-the-setup-the-teardown">The test, the setup, the teardown</h2>
 <p>Now you can use SQL commands to query the database about the data. You can also prepare and destroy data before and after the test during the setup and teardown phases. But first - the test itself. Create a new test <em>SQL MERGE Users: Empty table</em> using the <em>SQL MERGE Users</em> task. Now create the <code>SqlCommand</code> in the <em>TestSetup</em> node using right-click, and add the following code to setup <code>stg.Users</code> data:</p>
-<p>WITH stgUsers AS (
-SELECT *
-FROM (
-VALUES
-(&lsquo;Name 1&rsquo;, &lsquo;Login 1&rsquo;, 1, 1, 2, -1),
-(&lsquo;Name 2&rsquo;, &lsquo;Login 2&rsquo;, 1, 2, 2, -1),
-(&lsquo;Name 3&rsquo;, &lsquo;Login 3&rsquo;, 0, 3, 2, -1)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">WITH</span> stgUsers <span style="color:#66d9ef">AS</span> (
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">FROM</span> (
+    <span style="color:#66d9ef">VALUES</span>
+        (<span style="color:#e6db74">&#39;Name 1&#39;</span>, <span style="color:#e6db74">&#39;Login 1&#39;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),
+        (<span style="color:#e6db74">&#39;Name 2&#39;</span>, <span style="color:#e6db74">&#39;Login 2&#39;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),
+        (<span style="color:#e6db74">&#39;Name 3&#39;</span>, <span style="color:#e6db74">&#39;Login 3&#39;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 )x (Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId)
 )
-INSERT INTO stg.Users (
-Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> stg.Users (
+    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
 )
-SELECT
-Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
-FROM stgUsers
-;</p>
-<p>You should have something like in the picture below:</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/TestSetupSqlCommand.png"><img src="images/TestSetupSqlCommand-300x56.png" alt=""></a></p>
+<span style="color:#66d9ef">SELECT</span>
+    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+<span style="color:#66d9ef">FROM</span> stgUsers
+;
+</code></pre></div><p>You should have something like in the picture below:</p>
+<p><a href="images/TestSetupSqlCommand.png"><img src="images/TestSetupSqlCommand.png#center" alt="Test setup - SQL command"></a></p>
 <p>As you can see - the GUI has a feature of not displaying the name of the command in the test tree on the left.</p>
 <p>As there is a code to set up the test I also have the code to tidy up after. I use two <code>TRUNCATE TABLE</code> commands to clean up the <code>stg.Users</code> and <code>dbo.Users</code> tables.</p>
-<p><!-- raw HTML omitted -->TRUNCATE TABLE stg.Users;<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->TRUNCATE TABLE dbo.Users;<!-- raw HTML omitted --></p>
-<h1 id="the-test-cases">The test cases</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;SqlCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SqlCommand: TRUNCATE stg.Users&#34;</span> <span style="color:#a6e22e">connectionRef=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">returnsValue=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>TRUNCATE TABLE stg.Users;<span style="color:#f92672">&lt;/SqlCommand&gt;</span>
+<span style="color:#f92672">&lt;SqlCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SqlCommand: TRUNCATE dbo.Users&#34;</span> <span style="color:#a6e22e">connectionRef=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">returnsValue=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>TRUNCATE TABLE dbo.Users;<span style="color:#f92672">&lt;/SqlCommand&gt;</span>
+</code></pre></div><h2 id="the-test-cases">The test cases</h2>
 <p>There are a few test cases I want to run for the scenario mentioned above. I will cover them in this and following posts:</p>
 <ul>
 <li>the <code>stg.Users</code> table contains the data, and the <code>dbo.Users</code> table is empty</li>
 <li>the <code>stg.Users</code> table has the data, that does not exist in the <code>dbo.Users</code> table and <code>dbo.Users</code> table is not empty</li>
 <li>the <code>stg.Users</code> table is not empty but lacks some records from the <code>dbo.Users</code> table</li>
-<li>the <code>stg.Users</code> table is empty and the dbo.Users table is not empty</li>
+<li>the <code>stg.Users</code> table is empty and the <code>dbo.Users</code> table is not empty</li>
 </ul>
 <p>Within those test cases I want to check:</p>
 <ul>
@@ -254,84 +266,159 @@ FROM stgUsers
 </ul>
 <p>This time I will not use the variables to hold the results. I will run separate SQL statements to verify the count of the records in the table and write expected and actual datasets code to verify if they match. I will focus on the dataset part.</p>
 <p>I will load three records to the <code>stg.Users</code> table (with the T-SQL code above) and process them with the package. Then I will check if these records are loaded to the <code>dbo.Users</code> table and if they have the same values (excluding audits and the <code>Id</code> column). To verify I will use just the <code>SELECT</code> statement from the code above as the reference data and compare it to the <code>SELECT</code> statement on <code>dbo.Users</code> table.</p>
-<h1 id="creating-and-using-the-datasets-finally">Creating and using the datasets (finally!)</h1>
+<h2 id="creating-and-using-the-datasets-finally">Creating and using the datasets (finally!)</h2>
 <p>To create the dataset go to the <em>Datasets</em> node, right-click, and select <em>Add Dataset</em>. Prepare two datasets: <em>Empty table test: expected dataset</em> and <em>Empty table test: actual dataset</em>. At the beginning try to be very descriptive, it helps with getting familiar with the terminology and the process.</p>
 <p>For the expected dataset use the T-SQL code above changing <code>InsertAuditId</code> = -1  column to <code>IsDeleted</code> = 0, set the <em>ssisUnitLearningDB</em> connection prepared in the previous steps and leave <em>IsResultsStored</em> flag as <em>false</em>. For the actual dataset use a <code>SELECT</code> query on the <code>dbo.Users</code> table. You should get the code similar to this one:</p>
-<!-- raw HTML omitted -->
-<p>To use the dataset in the test use <em>Add Command / DatasetCommand</em> on the right-click menu on the Assert node. Use the created expected and actual datasets and leave <em>TaskResult</em> as Success.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/04/Datasets.png"><img src="images/Datasets-300x107.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;DatasetList&gt;</span>
+    <span style="color:#f92672">&lt;Dataset</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Empty table test: expected dataset&#34;</span> <span style="color:#a6e22e">connection=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">isResultsStored=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;query&gt;</span>
+        <span style="color:#75715e">&lt;![CDATA[SELECT *
+</span><span style="color:#75715e">FROM (
+</span><span style="color:#75715e">    VALUES
+</span><span style="color:#75715e">        (&#39;Name 1&#39;, &#39;Login 1&#39;, 1, 1, 2, 0),
+</span><span style="color:#75715e">        (&#39;Name 2&#39;, &#39;Login 2&#39;, 1, 2, 2, 0),
+</span><span style="color:#75715e">        (&#39;Name 3&#39;, &#39;Login 3&#39;, 0, 3, 2, 0)
+</span><span style="color:#75715e">)x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
+</span><span style="color:#75715e">;]]&gt;</span>
+        <span style="color:#f92672">&lt;/query&gt;</span>
+    <span style="color:#f92672">&lt;/Dataset&gt;</span>
+    <span style="color:#f92672">&lt;Dataset</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Empty table test: actual dataset&#34;</span> <span style="color:#a6e22e">connection=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">isResultsStored=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;query&gt;</span>
+        <span style="color:#75715e">&lt;![CDATA[SELECT
+</span><span style="color:#75715e">    Name,
+</span><span style="color:#75715e">    Login,
+</span><span style="color:#75715e">    IsActive,
+</span><span style="color:#75715e">    SourceId,
+</span><span style="color:#75715e">    SourceSystemId,
+</span><span style="color:#75715e">    IsDeleted
+</span><span style="color:#75715e">FROM dbo.Users
+</span><span style="color:#75715e">;]]&gt;</span>
+        <span style="color:#f92672">&lt;/query&gt;</span>
+    <span style="color:#f92672">&lt;/Dataset&gt;</span>
+<span style="color:#f92672">&lt;/DatasetList&gt;</span>
+</code></pre></div><p>To use the dataset in the test use <em>Add Command / DatasetCommand</em> on the right-click menu on the Assert node. Use the created expected and actual datasets and leave <em>TaskResult</em> as Success.</p>
+<p><a href="images/Datasets.png"><img src="images/Datasets.png#center" alt="Datasets"></a></p>
 <p>The whole test looks like this:</p>
-<!-- raw HTML omitted -->
-<p>Save the test and hit the <em>Run</em> button.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL MERGE Users: Empty table&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;15_Users_Dataset&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{FB549B65-6F0D-4794-BA8E-3FF975A6AE0B}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;TestSetup&gt;</span>
+    <span style="color:#f92672">&lt;SqlCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SqlCommand: setup stg.Users&#34;</span> <span style="color:#a6e22e">connectionRef=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">returnsValue=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>WITH stgUsers AS (
+SELECT *
+FROM (
+    VALUES
+        (&#39;Name 1&#39;, &#39;Login 1&#39;, 1, 1, 2, -1),
+        (&#39;Name 2&#39;, &#39;Login 2&#39;, 1, 2, 2, -1),
+        (&#39;Name 3&#39;, &#39;Login 3&#39;, 0, 3, 2, -1)
+)x (Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId)
+)
+INSERT INTO stg.Users (
+    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+)
+SELECT
+    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+FROM stgUsers
+;<span style="color:#f92672">&lt;/SqlCommand&gt;</span>
+  <span style="color:#f92672">&lt;/TestSetup&gt;</span>
+  <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Added 3 records&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;SqlCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">connectionRef=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">returnsValue=</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">&gt;</span>SELECT COUNT(*) FROM dbo.Users;<span style="color:#f92672">&lt;/SqlCommand&gt;</span>
+  <span style="color:#f92672">&lt;/Assert&gt;</span>
+  <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: dbo.Users has expected records&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;True&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;DataCompareCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">expected=</span><span style="color:#e6db74">&#34;Empty table test: expected dataset&#34;</span> <span style="color:#a6e22e">actual=</span><span style="color:#e6db74">&#34;Empty table test: actual dataset&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;/Assert&gt;</span>
+  <span style="color:#f92672">&lt;TestTeardown&gt;</span>
+    <span style="color:#f92672">&lt;SqlCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SqlCommand: TRUNCATE stg.Users&#34;</span> <span style="color:#a6e22e">connectionRef=</span><span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span> <span style="color:#a6e22e">returnsValue=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>TRUNCATE TABLE stg.users;<span style="color:#f92672">&lt;/SqlCommand&gt;</span>
+  <span style="color:#f92672">&lt;/TestTeardown&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+</code></pre></div><p>Save the test and hit the <em>Run</em> button.</p>
 <p>The test failed</p>
 <p><em>The actual result (False) did not match the expected result (True).</em> <em>3 rows differ between the expected &ldquo;Empty table test: expected dataset&rdquo; and actual &ldquo;Empty table test: actual dataset&rdquo; datasets.</em></p>
-<h1 id="tuning-the-test">Tuning the test</h1>
+<h2 id="tuning-the-test">Tuning the test</h2>
 <p>There are few things to have in mind when preparing the datasets:</p>
 <ul>
 <li>the dataset compare checks the data AND the data types</li>
 <li>if you don&rsquo;t specify ORDER BY, most of the times you don&rsquo;t get the required order</li>
 </ul>
 <p>When you check the datatypes of the expected and actual datasets you will see the difference:</p>
-<p>EXEC sp_describe_first_result_set N'
-SELECT *
-FROM (
-VALUES
-(&lsquo;&lsquo;Name 1&rsquo;&rsquo;, &lsquo;&lsquo;Login 1&rsquo;&rsquo;, 1, 1, 2, 0),
-(&lsquo;&lsquo;Name 2&rsquo;&rsquo;, &lsquo;&lsquo;Login 2&rsquo;&rsquo;, 1, 2, 2, 0),
-(&lsquo;&lsquo;Name 3&rsquo;&rsquo;, &lsquo;&lsquo;Login 3&rsquo;&rsquo;, 0, 3, 2, 0)
-)x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
-&lsquo;;</p>
-<p>EXEC sp_describe_first_result_set N&rsquo;
-SELECT
-Name,
-Login,
-IsActive,
-SourceId,
-SourceSystemId,
-IsDeleted
-FROM dbo.Users;
-&lsquo;;</p>
-<p>Column</p>
-<p>Type (expected)</p>
-<p>Type (actual)</p>
-<p>Name</p>
-<p>VARCHAR(6)</p>
-<p>VARCHAR(50)</p>
-<p>Login</p>
-<p>VARCHAR(7)</p>
-<p>CHAR(12)</p>
-<p>IsActive</p>
-<p>INT</p>
-<p>BIT</p>
-<p>SourceId</p>
-<p>INT</p>
-<p>INT</p>
-<p>SourceSystemId</p>
-<p>INT</p>
-<p>TINYINT</p>
-<p>IsDeleted</p>
-<p>INT</p>
-<p>BIT</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXEC</span> sp_describe_first_result_set N<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">SELECT *
+</span><span style="color:#e6db74">FROM (
+</span><span style="color:#e6db74">    VALUES
+</span><span style="color:#e6db74">        (&#39;&#39;Name 1&#39;&#39;, &#39;&#39;Login 1&#39;&#39;, 1, 1, 2, 0),
+</span><span style="color:#e6db74">        (&#39;&#39;Name 2&#39;&#39;, &#39;&#39;Login 2&#39;&#39;, 1, 2, 2, 0),
+</span><span style="color:#e6db74">        (&#39;&#39;Name 3&#39;&#39;, &#39;&#39;Login 3&#39;&#39;, 0, 3, 2, 0)
+</span><span style="color:#e6db74">)x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
+</span><span style="color:#e6db74">&#39;</span>;
+
+<span style="color:#66d9ef">EXEC</span> sp_describe_first_result_set N<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">SELECT
+</span><span style="color:#e6db74">    Name,
+</span><span style="color:#e6db74">    Login,
+</span><span style="color:#e6db74">    IsActive,
+</span><span style="color:#e6db74">    SourceId,
+</span><span style="color:#e6db74">    SourceSystemId,
+</span><span style="color:#e6db74">    IsDeleted
+</span><span style="color:#e6db74">FROM dbo.Users;
+</span><span style="color:#e6db74">&#39;</span>;
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:center">Column</th>
+<th style="text-align:center">Type (expected)</th>
+<th style="text-align:center">Type (actual)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Name</td>
+<td style="text-align:center">VARCHAR(6)</td>
+<td style="text-align:center">VARCHAR(50)</td>
+</tr>
+<tr>
+<td style="text-align:center">Login</td>
+<td style="text-align:center">VARCHAR(7)</td>
+<td style="text-align:center">CHAR(12)</td>
+</tr>
+<tr>
+<td style="text-align:center">IsActive</td>
+<td style="text-align:center">INT</td>
+<td style="text-align:center">BIT</td>
+</tr>
+<tr>
+<td style="text-align:center">SourceId</td>
+<td style="text-align:center">INT</td>
+<td style="text-align:center">INT</td>
+</tr>
+<tr>
+<td style="text-align:center">SourceSystemId</td>
+<td style="text-align:center">INT</td>
+<td style="text-align:center">TINYINT</td>
+</tr>
+<tr>
+<td style="text-align:center">IsDeleted</td>
+<td style="text-align:center">INT</td>
+<td style="text-align:center">BIT</td>
+</tr>
+</tbody>
+</table>
 <p>Change the expected dataset to match the data types:</p>
-<p>SELECT *
-FROM (
-VALUES
-(CAST(&lsquo;Name 1&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 1&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(1 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
-(CAST(&lsquo;Name 2&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 2&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(2 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
-(CAST(&lsquo;Name 3&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 3&rsquo; AS CHAR(12)), CAST(0 AS BIT), CAST(3 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">FROM</span> (
+    <span style="color:#66d9ef">VALUES</span>
+        (<span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Name 1&#39;</span> <span style="color:#66d9ef">AS</span> VARCHAR(<span style="color:#ae81ff">50</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Login 1&#39;</span> <span style="color:#66d9ef">AS</span> CHAR(<span style="color:#ae81ff">12</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">AS</span> BIT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">AS</span> INT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">AS</span> TINYINT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">AS</span> BIT)),
+        (<span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Name 2&#39;</span> <span style="color:#66d9ef">AS</span> VARCHAR(<span style="color:#ae81ff">50</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Login 2&#39;</span> <span style="color:#66d9ef">AS</span> CHAR(<span style="color:#ae81ff">12</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">AS</span> BIT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">AS</span> INT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">AS</span> TINYINT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">AS</span> BIT)),
+        (<span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Name 3&#39;</span> <span style="color:#66d9ef">AS</span> VARCHAR(<span style="color:#ae81ff">50</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#e6db74">&#39;Login 3&#39;</span> <span style="color:#66d9ef">AS</span> CHAR(<span style="color:#ae81ff">12</span>)), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">AS</span> BIT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">3</span> <span style="color:#66d9ef">AS</span> INT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">AS</span> TINYINT), <span style="color:#66d9ef">CAST</span>(<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">AS</span> BIT))
 )x (Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
-ORDER BY Id;</p>
-<p>And add an <code>ORDER BY</code> clause to the actual dataset:</p>
-<p>SELECT
-Name,
-Login,
-IsActive,
-SourceId,
-SourceSystemId,
-IsDeleted
-FROM dbo.Users
-ORDER BY SourceId;</p>
-<p>Now the test should pass.</p>
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> Id;
+</code></pre></div><p>And add an <code>ORDER BY</code> clause to the actual dataset:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+    Name,
+    Login,
+    IsActive,
+    SourceId,
+    SourceSystemId,
+    IsDeleted
+<span style="color:#66d9ef">FROM</span> dbo.Users
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> SourceId;
+</code></pre></div><p>Now the test should pass.</p>
 <p>So, when using datasets:</p>
 <ul>
 <li>create the connections to the database</li>
@@ -347,12 +434,26 @@ ORDER BY SourceId;</p>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -379,6 +480,16 @@ ORDER BY SourceId;</p>
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -420,16 +531,6 @@ ORDER BY SourceId;</p>
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -449,13 +550,22 @@ ORDER BY SourceId;</p>
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -464,10 +574,13 @@ ORDER BY SourceId;</p>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

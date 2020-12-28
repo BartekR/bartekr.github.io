@@ -3,27 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://bartekr.github.io/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/github/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/hubo/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/2020/11/01/migrating-to-github-pages/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/not-so-technical/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/post/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/wordpress/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/tags/azure-devops/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://bartekr.github.io/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/categories/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://bartekr.github.io/tags/oauth/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/post/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -34,11 +64,6 @@
   
   <url>
     <loc>http://bartekr.github.io/tags/security/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/tags/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -83,7 +108,7 @@
   </url>
   
   <url>
-    <loc>http://bartekr.github.io/tags/tfs/</loc>
+    <loc>http://bartekr.github.io/categories/tfs/</loc>
     <lastmod>2020-05-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -99,6 +124,11 @@
   
   <url>
     <loc>http://bartekr.github.io/categories/programming/</loc>
+    <lastmod>2020-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/tfs/</loc>
     <lastmod>2020-05-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -148,6 +178,16 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/ssisunit/</loc>
+    <lastmod>2018-11-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/testing/</loc>
+    <lastmod>2018-11-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/</loc>
     <lastmod>2018-11-05T00:00:00+00:00</lastmod>
   </url>
@@ -155,6 +195,11 @@
   <url>
     <loc>http://bartekr.github.io/2018/09/12/whats-new-in-ssisunit/</loc>
     <lastmod>2018-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/mstest/</loc>
+    <lastmod>2018-08-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -203,6 +248,11 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/sql-server-2017/</loc>
+    <lastmod>2018-03-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</loc>
     <lastmod>2018-03-19T00:00:00+00:00</lastmod>
   </url>
@@ -213,8 +263,33 @@
   </url>
   
   <url>
+    <loc>http://bartekr.github.io/tags/internals/</loc>
+    <lastmod>2018-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/migration/</loc>
+    <lastmod>2018-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/ssis-internals/</loc>
+    <lastmod>2018-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</loc>
     <lastmod>2018-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/internals/</loc>
+    <lastmod>2018-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/tags/ssis-internals/</loc>
+    <lastmod>2018-02-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -228,12 +303,22 @@
   </url>
   
   <url>
-    <loc>http://bartekr.github.io/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/</loc>
+    <loc>http://bartekr.github.io/tags/t-sql-tuesday/</loc>
+    <lastmod>2017-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</loc>
     <lastmod>2017-11-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</loc>
+    <lastmod>2017-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bartekr.github.io/categories/sql-server/</loc>
     <lastmod>2017-11-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -253,11 +338,6 @@
   </url>
   
   <url>
-    <loc>http://bartekr.github.io/categories/sql-server/</loc>
-    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://bartekr.github.io/tags/ubuntu/</loc>
     <lastmod>2017-06-28T00:00:00+00:00</lastmod>
   </url>
@@ -273,17 +353,7 @@
   </url>
   
   <url>
-    <loc>http://bartekr.github.io/tags/internals/</loc>
-    <lastmod>2017-06-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</loc>
-    <lastmod>2017-06-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/categories/ssis-internals/</loc>
     <lastmod>2017-06-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -299,11 +369,6 @@
   
   <url>
     <loc>http://bartekr.github.io/tags/power-bi/</loc>
-    <lastmod>2017-06-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://bartekr.github.io/tags/sql-server-2017/</loc>
     <lastmod>2017-06-14T00:00:00+00:00</lastmod>
   </url>
   

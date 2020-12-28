@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,11 +170,13 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+    <img src="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
+  </a>
       <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
 <p>I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit</a> framework by John Welch.</p>
 <p>The ssisUnit project started <a href="http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/">a long time ago</a> and was <a href="https://archive.codeplex.com/?p=ssisunit">hosted on CodePlex</a>, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (<a href="https://pragmaticworks.com/Products/BI-xPress">BiXpress</a>, <a href="https://pragmaticworks.com/Products/LegiTest">LegiTest</a>). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.</p>
-<h1 id="but-why">But why?</h1>
+<h2 id="but-why">But why?</h2>
 <p>Why would we even think about SSIS testing? Most of the times we already check our work during development, don&rsquo;t we? We carefully craft our packages, run them many times to see the outcome, sometimes we even disable some Control Flow elements and check how the moving parts work alone. We write some SQL to review the data before and after the process. And it&rsquo;s good!</p>
 <p>It&rsquo;s nothing wrong in testing the packages this way. If it&rsquo;s done at the beginning of your journey to ETL with SSIS. When you work with it for some time you probably see the main three cons:</p>
 <ul>
@@ -181,22 +186,22 @@
 </ul>
 <p>(also error-prone, makes you work harder during debugging and you have a headache when you are forced to work with the package looking like a giant spider of tasks, constraints and data flows).</p>
 <p>And probably the most important thing: lots of the times you THINK you are testing the package. If it&rsquo;s a simple package for staging the data it&rsquo;s often hard to do something wrong, but what with the more advanced logic? Are you sure you know the data you work with? Do you have some use cases? Probably not. You have some requirements that you discuss with the team (or analyst), and you put the code using the best knowledge you have. And then it starts - data duplicates on some joins, there are nulls when you want to insert data to NOT NULL column, divide by zero, MERGE tries to update the row twice, primary key violations. Sounds familiar?</p>
-<h1 id="why-do-i-test">Why do I test?</h1>
+<h2 id="why-do-i-test">Why do I test?</h2>
 <p>Because of all the above. And more. Because I write a lot of tests when I&rsquo;m programming with PowerShell or C#. Because I&rsquo;ve made all those mistakes and have seen other team members facing them. Because just data quality testing before and after the package run is not enough for me. I want to know if my package is ready to deal with some problems. I want to be sure, that when I change the package in a future, the test will show me the issues before they hit production testing environment. Because someone could change the table I&rsquo;m using in the package (like, say - adding a NOT NULL column at the end) and my package will stop working. Because writing the tests makes me think more about the data and forces me to understand the requirements.</p>
-<h1 id="last-thing-before-we-start">Last thing before we start</h1>
+<h2 id="last-thing-before-we-start">Last thing before we start</h2>
 <p>Testing SSIS packages is hard. The more complex tasks the package is supposed to do, the more complicated testing is. It can take a lot of time to build the tests for the package (and sometimes we can&rsquo;t afford it).</p>
 <p>But - as with the programming - thinking &ldquo;how could I test this part?&rdquo; impacts your package design. You make it more modular, you start improving logging, creating the tables that hold temporary data for diagnostic purposes. It gives you the comfort of well-done work. Probably you won&rsquo;t test everything, but you have to begin with something. Start with something simple, test one thing. Then test second, third thing. Don&rsquo;t think &ldquo;it&rsquo;s a hell of a job to write the tests for the whole package&rdquo;. It is, but it&rsquo;s like eating an elephant - one piece at a time.</p>
 <p>After you start testing, you will change your mindset, and the tests will become the standard tool in your work.</p>
-<h1 id="lets-start">Let&rsquo;s start</h1>
+<h2 id="lets-start">Let&rsquo;s start</h2>
 <p>When I started using ssisUnit, I knew almost nothing about it. I just said to myself &ldquo;I will finally start testing SSIS packages, and I will use that thing I&rsquo;ve read about a while ago - ssisUnit&rdquo;.</p>
 <p>I remembered that it&rsquo;s one of the few tools that help to test the SSIS packages. And that it uses XML to define those tests. Nothing more. There are two simple examples of testing individual packages in the documentation (and they are a good entry point), but I wanted to start with testing the packages in the SSIS projects, not the individual packages. Also - you have only the source code that you have to compile yourself so the entry point is not as easy as you might think. But - it&rsquo;s not that complicated. I will show you how to compile ssisUnit in the next posts. For now - you can <a href="https://github.com/BartekR/ssisUnit/releases">download the compiled version for SSIS 2017 here</a>.</p>
 <p>When you compile it, you have the ssisUnit library, the test runner (command line) and the Test Suite Builder (that also can run the tests in a GUI). The GUI is simple and helps you get started - pick the <em>File &gt; New From Package&hellip;</em> option, choose the package and its tasks, and you&rsquo;re good to write the tests.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/ssisUnit_NewFromPackage.png"><img src="images/ssisUnit_NewFromPackage-300x135.png" alt=""></a></p>
+<p><a href="images/ssisUnit_NewFromPackage.png"><img src="images/ssisUnit_NewFromPackage.png#center" alt="New SSISUnit test from package"></a></p>
 <p>I started with the simple staging package. I&rsquo;ve analysed the examples, watched the recorded sessions by John during the SQLBits (<a href="http://sqlbits.com/Sessions/Event12/Practical_Unit_Testing_for_SSIS_Packages">there</a> and <a href="http://sqlbits.com/Sessions/Event10/Unit_Testing_SSIS_Packages">there</a>) and prepared my first test for the SQL Task element. And it passed as expected! Wow me! Then I made a second test. And it didn&rsquo;t pass. The program started to throw errors with connection managers (that worked with the previous test). I wrote the third test. It didn&rsquo;t pass, but also didn&rsquo;t throw the engine errors.</p>
 <p>I got confused. And angry - why it doesn&rsquo;t want to work? I also checked the tests in BiXpress - and it gave me exactly the same errors. So I started the project that would help me learn ssisUnit starting with simple tests. Getting the data from a variable, from a variable with an expression, in a container, with a different scope. Each test gave me more insight into the way the ssisUnit works.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/ssisUnit_TestExample.png"><img src="images/ssisUnit_TestExample-300x156.png" alt=""></a></p>
+<p><a href="images/ssisUnit_TestExample.png"><img src="images/ssisUnit_TestExample.png#center" alt="SSISUnit test example"></a></p>
 <p>The picture above is an example of the basic tests I made to learn how to use ssisUnit. I will tell more about them in the next posts. For now, let&rsquo;s talk a bit about</p>
-<h1 id="the-ssisunit-test-structure">The ssisUnit test structure</h1>
+<h2 id="the-ssisunit-test-structure">The ssisUnit test structure</h2>
 <p>ssisUnit follows the convention known from another testing frameworks:</p>
 <ul>
 <li>you can set up individual test, run it, and clean up after it (teardown)</li>
@@ -204,9 +209,18 @@
 <li>the tests execution is automated and repeatable</li>
 </ul>
 <p>If you create an empty test in the GUI and then save it you have the following content:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><code>&lt;TestSuite&gt;</code> groups all the elements. You can set up and tear down the whole suite with - surprise - <code>&lt;TestSuiteSetup&gt;</code> / <code>&lt;TestSuiteTeardown&gt;</code> elements. It&rsquo;s the place where you run all the preparations for the tests to run and clean up after the job is done. The code is run only once. The tests are stored it the <code>&lt;Tests&gt;</code> element, and you can <code>&lt;Setup&gt;</code> and <code>&lt;Teardown&gt;</code> the code that will be applied <strong>before and after each test</strong>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
+<span style="color:#f92672">&lt;TestSuite</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://tempuri.org/SsisUnit.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;ConnectionList</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;PackageList</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;DatasetList</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;TestSuiteSetup</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;Setup</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;Tests</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;Teardown</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;TestSuiteTeardown</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/TestSuite&gt;</span>
+</code></pre></div><p><code>&lt;TestSuite&gt;</code> groups all the elements. You can set up and tear down the whole suite with - surprise - <code>&lt;TestSuiteSetup&gt;</code> / <code>&lt;TestSuiteTeardown&gt;</code> elements. It&rsquo;s the place where you run all the preparations for the tests to run and clean up after the job is done. The code is run only once. The tests are stored it the <code>&lt;Tests&gt;</code> element, and you can <code>&lt;Setup&gt;</code> and <code>&lt;Teardown&gt;</code> the code that will be applied <strong>before and after each test</strong>.</p>
 <p>There are also helper objects:</p>
 <ul>
 <li><code>&lt;ConnectionList&gt;</code> will hold all the database connections you can use during the testing,</li>
@@ -215,13 +229,17 @@
 </ul>
 <p>When you start adding the tests you fill the <code>&lt;Tests&gt;</code> element with <code>&lt;Test&gt;</code> elements (you also do the <code>&lt;PackageList&gt;</code> and the <code>&lt;ConnectionList&gt;</code>, but let&rsquo;s skip it for now). The <code>&lt;Test&gt;</code> element contains <code>&lt;Assert&gt;</code>s (how do we expect the result of the test to be), and each assert contains the <code>&lt;Command&gt;</code> element, where we tell the engine what operation it should it do.</p>
 <p>Well, the <code>&lt;Command&gt;</code> element is my global term to the eight possible commands you can run with ssisUnit, but you get the idea.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/ssisUnit_Commands.png"><img src="images/ssisUnit_Commands-300x179.png" alt=""></a></p>
+<p><a href="images/ssisUnit_Commands.png"><img src="images/ssisUnit_Commands.png#center" alt="Add command"></a></p>
 <p>The outcome of the command is then compared with assertions. If they match - the test passes, if not - the test fails. That simple. Below you find an example how the test with one assertion definition looks like (you can have more than one assertion per test).</p>
-<!-- raw HTML omitted -->
-<p>You can run the test using the GUI or the console test runner. In both situations, you have the simple report of the test suite outcome.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/03/ssisUnit_TestResults.png"><img src="images/ssisUnit_TestResults-1024x300.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Container test&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{E4C43E00-EC90-4C0D-92CB-CC3D5CD44236}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Container Variable == 42&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;42&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ContainerVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/Assert&gt;</span>
+<span style="color:#f92672">&lt;/Test&gt;</span>
+</code></pre></div><p>You can run the test using the GUI or the console test runner. In both situations, you have the simple report of the test suite outcome.</p>
+<p><a href="images/ssisUnit_TestResults.png"><img src="images/ssisUnit_TestResults.png#center" alt="Test results"></a></p>
 <p>The assertion error you see above is expected to fail as I check the variable out of the test&rsquo;s scope.</p>
-<h1 id="testing-is-useful">Testing is useful</h1>
+<h2 id="testing-is-useful">Testing is useful</h2>
 <p>Working more and more with the tests I found them easy to write and my brain started to think about more and more things I could test. And it helped me to correct my testing package. I started not just testing the existing part of the package - I started test-driven development.</p>
 <p>I wrote the test for SQL Task that didn&rsquo;t exist yet, then I prepared that task using Ctrl+C, Ctrl+V form another SQL Task (don&rsquo;t tell me that you don&rsquo;t do it!), edited the parts of it and run the tests. And the test failed. Because it found, that I didn&rsquo;t change the variable name for the outcome of the script.</p>
 <p>This post is just an introduction to SSIS testing. In the next posts, I will show you how to start with writing the first ssisUnit tests and slowly beginning to do something more complicated.</p>
@@ -231,12 +249,28 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -263,6 +297,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -304,16 +348,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -333,13 +367,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -348,10 +391,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

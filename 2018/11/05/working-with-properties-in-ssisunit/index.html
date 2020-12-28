@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,21 +170,21 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/11/05/working-with-properties-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png');">
+    <img src="http://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png" alt="">
+  </a>
       <p>One of the ssisUnit commands is a <code>PropertyCommand</code>. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&rsquo;t test the properties of the precedence constraints or data flow elements (but you can&rsquo;t currently test data flow at all).</p>
 <p>How do you use it?</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/10/EmptyPropertyCommand.png"><img src="images/EmptyPropertyCommand-300x74.png" alt=""></a></p>
+<p><a href="images/EmptyPropertyCommand.png"><img src="images/EmptyPropertyCommand.png#center" alt="Empty property command"></a></p>
 <p>The command is simple. You can <strong>get</strong> or <strong>set</strong> the property using the <strong>value</strong> for given <strong>property path</strong>. As usual - when you get the value, you leave the value blank. The path - well - is the path to the element in the package or the project. You use backslashes to separate elements in the package tree, and at the end, you use <code>.Properties[PropertyName]</code> to read the property. If you use the elements collection - like connection managers - you can pick a single element using square brackets and the name of this element.</p>
 <p>When you take a look into the source code (<code>\ssisUnit\SSISUnit\PropertyCommand.cs</code>), you will see the examples like:</p>
-<ul>
-<li><code>\Project\ConnectionManagers[localhost.AdventureWorks2012.conmgr].Properties[ConnectionString]</code></li>
-<li><code>\Package.Properties[CreationDate]</code></li>
-<li><code>\Package.Connections[localhost.AdventureWorksDW2008].Properties[Description]</code></li>
-<li><code>\Package.EventHandlers[OnError].Properties[Description]</code></li>
-<li><code>\Package\Sequence Container\Script Task.Properties[Description]</code></li>
-<li><code>\Package.EventHandlers[OnError].Variables[System::Cancel].Properties[Value]</code></li>
-</ul>
-<p>They all have one thing in common - they start with a backslash. It&rsquo;s not required though, it&rsquo;s a convention. I wrote that the <em>PropertyPath</em> uses the backslashes as the element separator. In the examples you see, that backslash is used interchangeably with a dot. In fact, it does not matter - during the parsing phase, all the backslashes are converted to dots.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">\Project\ConnectionManagers[localhost.AdventureWorks2012.conmgr].Properties[ConnectionString]
+\Package.Properties[CreationDate]
+\Package.Connections[localhost.AdventureWorksDW2008].Properties[Description]
+\Package.EventHandlers[OnError].Properties[Description]
+\Package\Sequence Container\Script Task.Properties[Description]
+\Package.EventHandlers[OnError].Variables[System::Cancel].Properties[Value]
+</code></pre></div><p>They all have one thing in common - they start with a backslash. It&rsquo;s not required though, it&rsquo;s a convention. I wrote that the <em>PropertyPath</em> uses the backslashes as the element separator. In the examples you see, that backslash is used interchangeably with a dot. In fact, it does not matter - during the parsing phase, all the backslashes are converted to dots.</p>
 <p>How do you write the path? You can take a look at the package and name each part that you need to walk through, to get to your element. Or simply - when you take a look at any SSIS package source code, you will see, that each <code>DTS:Executable</code> has the <code>DTS:refId</code> attribute, that contains the path to the element in the package. You can safely use it as a path for the <em>PropertyPath</em>, or you can add a leading backslash.</p>
 <p>In what scenarios you can use the <em>PropertyCommand</em>?</p>
 <ul>
@@ -196,12 +199,24 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -228,6 +243,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -269,16 +294,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -298,13 +313,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -313,10 +337,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

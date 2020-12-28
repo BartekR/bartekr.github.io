@@ -219,7 +219,7 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.TeamFoundation.Client;
 <span style="color:#66d9ef">using</span> System;
 (...)
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span><span style="color:#960050;background-color:#1e0010">\</span>[<span style="color:#960050;background-color:#1e0010">\</span>] args)
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
 {
     <span style="color:#75715e">// TFS Server address, with the collection name
 </span><span style="color:#75715e"></span>    Uri tfsServerUri = <span style="color:#66d9ef">new</span> Uri(<span style="color:#e6db74">&#34;http://tfsserveraddress/tfs/CollectionName&#34;</span>);
@@ -228,7 +228,7 @@
 </span><span style="color:#75715e"></span>    TfsTeamProjectCollection tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsServerUri);
 
     <span style="color:#75715e">//AddWorkItems(tfs);
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> filePath = <span style="color:#e6db74">@&#34;C:\\tmp\\DataImport.json&#34;</span>;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> filePath = <span style="color:#e6db74">@&#34;C:\tmp\DataImport.json&#34;</span>;
 
     Workitems mwi = <span style="color:#66d9ef">new</span> Workitems();
     mwi.AddFromFile(tfs, filePath);
@@ -284,9 +284,9 @@ patchDocument.Add(
 );
 </code></pre></div><p>Great, I have a pattern I can use. Just one small thing - how can I find the field names? The two above - <em>System.Description</em> and <em>System.Title</em> are taken from the examples, but how can I find the name for CompletedWork? I can use several sources:</p>
 <ol>
-<li>TFS and Azure DevOps Server (only on-premises version) have an additional <strong>Warehouse</strong> mechanism - a database with dimensions and facts that has the data from all the collections on the server. The <code>dbo.DimWorkitem</code> table holds the columns with the names that correspond to the paths. The downside - not all the fields have to be in the warehouse. <a href="images/DimWorkItem.png"><img src="images/DimWorkItem-184x300.png" alt="TFS Warehouse dbo.DimWorkItem"></a></li>
-<li>In the <strong>collection&rsquo;s database</strong>, there is a table <code>dbo.tbl_Fields</code> with all the fields for the collection<a href="images/tbl_Field.png"><img src="images/tbl_Field-300x104.png" alt="TFS collection database tbl_Field"></a></li>
-<li>I can use Azure DevOps and an <strong>API</strong> link, like <em>https://azuredevopsserver/Collection/_apis/wit/fields</em> or <em>https://azuredevopsserver/Collection/Project/_apis/wit/fields</em>, take a look at all the entries and use the <code>referenceName</code> value; the link does not work in TFS, I had to use Azure DevOps / Azure DevOps Server<a href="http://blog.bartekr.net/wp-content/uploads/2020/05/AzureDevOpsWorkItemFieldExample.png"><img src="images/AzureDevOpsWorkItemFieldExample-300x171.png" alt="Azure DevOps WorkItem field example"></a></li>
+<li>TFS and Azure DevOps Server (only on-premises version) have an additional <strong>Warehouse</strong> mechanism - a database with dimensions and facts that has the data from all the collections on the server. The <code>dbo.DimWorkitem</code> table holds the columns with the names that correspond to the paths. The downside - not all the fields have to be in the warehouse. <a href="images/DimWorkItem.png"><img src="images/DimWorkItem.png#center" alt="TFS Warehouse dbo.DimWorkItem"></a></li>
+<li>In the <strong>collection&rsquo;s database</strong>, there is a table <code>dbo.tbl_Fields</code> with all the fields for the collection<a href="images/tbl_Field.png"><img src="images/tbl_Field.png#center" alt="TFS collection database tbl_Field"></a></li>
+<li>I can use Azure DevOps and an <strong>API</strong> link, like <em>https://azuredevopsserver/Collection/_apis/wit/fields</em> or <em>https://azuredevopsserver/Collection/Project/_apis/wit/fields</em>, take a look at all the entries and use the <code>referenceName</code> value; the link does not work in TFS, I had to use Azure DevOps / Azure DevOps Server<a href="http://blog.bartekr.net/wp-content/uploads/2020/05/AzureDevOpsWorkItemFieldExample.png"><img src="images/AzureDevOpsWorkItemFieldExample.png#center" alt="Azure DevOps WorkItem field example"></a></li>
 <li>In the <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/work%20items/create?view=azure-devops-rest-5.1">documentation</a>, there&rsquo;s an example that shows the return value of the created WorkItem, and there&rsquo;s a whole list of field names.</li>
 </ol>
 <p>Having the names for the field path I can either modify the Excel file, so the header will contain the proper field names, or I can do some sort of mapping in the code (like <em>Title</em> -&gt; <em>System.Title</em>). As it&rsquo;s the prototype, I will use the former and change the file directly. Then I will save it as the CSV file - it&rsquo;s still a prototype, so I will prepare the input data as I see them fit.</p>
@@ -416,6 +416,16 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
       </header>
       
       <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
     <img src="http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
   </a>
@@ -455,16 +465,6 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -484,13 +484,22 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -499,10 +508,13 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

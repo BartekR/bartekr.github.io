@@ -6,7 +6,26 @@
     <description>Recent content in SQL Server 2017 on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/sql-server-2017/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/sql-server-2017/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testing SSIS Projects with ssisUnit</title>
+      <link>http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
+      <description>During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&amp;rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.</description>
+    </item>
+    
+    <item>
+      <title>So, you want to migrate SSIS(DB)?</title>
+      <link>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
+The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
+    </item>
+    
     <item>
       <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
       <link>http://bartekr.github.io/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</link>

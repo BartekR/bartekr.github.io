@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,21 +170,26 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/07/10/testing-the-loops-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png');">
+    <img src="http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" alt="">
+  </a>
       <p>In the <a href="http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/">Q &amp; A post</a> after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:</p>
 <blockquote>
 <p>&ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&rdquo;</p>
 <p>I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</p>
 </blockquote>
 <p>There is no example though, so let&rsquo;s add one.</p>
-<h1 id="the-setup">The setup</h1>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/07/TheForLoop.png"><img src="images/TheForLoop-150x150.png" alt=""></a>The example is simple: it will add the number six within the <em>For Loop</em>, and I will check for the final results. The sample script <code>60_Loops.dtsx</code> <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/ssisUnitLearning">in the ssisUnitLearning project</a> contains the loop, the expression and two variables: <code>i</code> and <code>v</code>. The first is used for the iterations, the second for keeping the final value. The formula of the expression is: <code>@[User::v] = @[User::v] + 6</code>.</p>
-<p>The loop iterates 7 times<a href="http://blog.bartekr.net/wp-content/uploads/2018/07/TheForLoopProperties.png"><img src="images/TheForLoopProperties.png" alt=""></a>. So the final value I&rsquo;m expecting is 42 - <a href="https://www.google.com/search?q=the+answer+to+life+the+universe+and+everything">the answer to life, the universe, everything</a>. Instead of setting the OnPostExecute breakpoint at the container level and checking for the value I will build two quick tests - for the <em>FLC Evaluate expression</em> and <em>EXPR Add 6</em> objects.</p>
-<h1 id="the-tests">The tests</h1>
+<h2 id="the-setup">The setup</h2>
+<p><a href="images/TheForLoop.png"><img src="images/TheForLoop.png#center" alt="For loop example"></a></p>
+<p>The example is simple: it will add the number six within the <em>For Loop</em>, and I will check for the final results. The sample script <code>60_Loops.dtsx</code> <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/ssisUnitLearning">in the ssisUnitLearning project</a> contains the loop, the expression and two variables: <code>i</code> and <code>v</code>. The first is used for the iterations, the second for keeping the final value. The formula of the expression is: <code>@[User::v] = @[User::v] + 6</code>.</p>
+<p>The loop iterates 7 times. So the final value I&rsquo;m expecting is 42 - <a href="https://www.google.com/search?q=the+answer+to+life+the+universe+and+everything">the answer to life, the universe, everything</a>. Instead of setting the OnPostExecute breakpoint at the container level and checking for the value I will build two quick tests - for the <em>FLC Evaluate expression</em> and <em>EXPR Add 6</em> objects.</p>
+<p><a href="images/TheForLoopProperties.png"><img src="images/TheForLoopProperties.png#center" alt="ForLoop properties"></a></p>
+<h2 id="the-tests">The tests</h2>
 <p>I will add the tests using the <code>File &gt; New From Package ...</code> option and select the container and the expression. There is no tests' setup/teardown needed, so I leave it blank. The asserts will use the <em>VariableCommand</em> to read the values of the <code>v</code> variable. For the container, I&rsquo;m setting 42 as the <em>ExpectedResult</em>, and for the expression, I&rsquo;m setting &hellip; Wait for a moment and think: what value should be written? What are we testing?</p>
 <p>You can congratulate yourself if you think the expected value is six. It&rsquo;s the unit test, you are testing the individual component, so you just check the correctness of the expression. It&rsquo;s the container that calculates the aggregated value.</p>
-<p>After setting up the tests and running you should have a working test, that verifies that the package works as expected. <a href="http://blog.bartekr.net/wp-content/uploads/2018/07/TheForLoopTestsResults.png"><img src="images/TheForLoopTestsResults-300x125.png" alt=""></a></p>
-<h1 id="the-summary">The summary</h1>
+<p>After setting up the tests and running you should have a working test, that verifies that the package works as expected.</p>
+<p><a href="images/TheForLoopTestsResults.png"><img src="images/TheForLoopTestsResults.png#center" alt="ForLoop tests results"></a></p>
+<h2 id="the-summary">The summary</h2>
 <p>Testing the container is no different than the other SSIS tasks. The only catch is when you want to check the value of something inside the container. Remember, always think about it as the standalone component.</p>
 
     </div>
@@ -189,12 +197,26 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -221,6 +243,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -262,16 +294,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -291,13 +313,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -306,10 +337,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

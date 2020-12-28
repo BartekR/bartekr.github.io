@@ -6,7 +6,17 @@
     <description>Recent content in SQL Server on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 28 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>So, you want to migrate SSIS(DB)?</title>
+      <link>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
+The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
+    </item>
+    
     <item>
       <title>Connect to SQL Server on Ubuntu Linux VirtualBox machine</title>
       <link>http://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>

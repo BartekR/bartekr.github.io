@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,26 +170,34 @@
 
     </div>
     <div class="content">
-      
-      <p>In <a href="http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/">the previous post</a>, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like “The package was migrated from version 6 to version 8. It must be saved to retain migration changes.”</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/12/SSISCatalog_UpgradePackage.png"><img src="images/SSISCatalog_UpgradePackage-300x86.png" alt=""></a></p>
+      <a href="/2017/12/24/upgrading-ssis-projects-part-i/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png');">
+    <img src="http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="">
+  </a>
+      <p>In <a href="http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/">the previous post</a>, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&rdquo;</p>
+<p><a href="images/SSISCatalog_UpgradePackage.png"><img src="images/SSISCatalog_UpgradePackage.png#center" alt="Package upgrade info"></a></p>
 <p>This information is written to the log no matter which logging level we choose (also with <em>None</em>).</p>
-<p>The question is: will it blend should we upgrade the packages (or better – the projects)? And if the answer is ‘yes’ – why should we do it and what are the options?</p>
-<h1 id="should-we-upgrade-the-packages">Should we upgrade the packages?</h1>
+<p>The question is: <del>will it blend</del> should we upgrade the packages (or better – the projects)? And if the answer is &lsquo;yes&rsquo; – why should we do it and what are the options?</p>
+<h2 id="should-we-upgrade-the-packages">Should we upgrade the packages?</h2>
 <p>Yes. Read on.</p>
-<h1 id="why-should-we-do-it">Why should we do it?</h1>
+<h2 id="why-should-we-do-it">Why should we do it?</h2>
 <p>Looking at the times of the upgrade (it takes milliseconds) we can live with automatic version migrations during thousands of executions. So – is there any gain if we retain it?</p>
 <p>Let&rsquo;s take a closer look at the SSIS Toolbox. We are migrating to SSIS 2017 from the lower version, let’s say the source is SSIS 2012. Open SQL Server Data Tools (for Visual Studio 2015 or 2017, does not matter for now) and load your project. I will use SSDT for VS 2017 with sample project created for SSIS 2012. See the SSIS Toolbox for the project in version SSIS 2012? There is a <em>Script Task</em> following an <em>FTP</em> <em>Task</em>.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/12/VS_SSIS_Toolbox_2012.png"><img src="images/VS_SSIS_Toolbox_2012-300x177.png" alt=""></a></p>
+<p><a href="images/VS_SSIS_Toolbox_2012.png"><img src="images/VS_SSIS_Toolbox_2012.png#center" alt="SSIS2012 toolbox"></a></p>
 <p>I will upgrade the SSIS project to the latest version (and write more about it in few lines) and take a look at the SSIS Toolbox now.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2017/12/VS_SSIS_Toolbox_2017.png"><img src="images/VS_SSIS_Toolbox_2017-300x182.png" alt=""></a></p>
+<p><a href="images/VS_SSIS_Toolbox_2017.png"><img src="images/VS_SSIS_Toolbox_2017.png#center" alt="SSIS2017 toolbox"></a></p>
 <p>Now we can see additional tasks for Hadoop. Upgrading the project does at least two things that are interesting to us: it uses the latest versions of the tasks and components, but also introduces the new elements to use.</p>
-<h1 id="ok-what-are-the-options">OK, what are the options?</h1>
+<h2 id="ok-what-are-the-options">OK, what are the options?</h2>
 <p>Basically, you have two:</p>
 <ol>
-<li>Use “Upgrade All Packages” option when you right-click the “SSIS Packages” node in the project – it starts the <em>SSIS Package Upgrade Wizard</em> <a href="http://blog.bartekr.net/wp-content/uploads/2017/12/UpgradeAllPackages.png"><img src="images/UpgradeAllPackages.png" alt=""></a></li>
-<li>Set “Target Server Version” to SQL Server 2017 when you use “Properties &gt; Configuration properties &gt; General” page of the project configuration <a href="http://blog.bartekr.net/wp-content/uploads/2017/12/TargetServerVersion2017.png"><img src="images/TargetServerVersion2017-300x79.png" alt=""></a></li>
+<li>
+<p>Use &ldquo;Upgrade All Packages&rdquo; option when you right-click the &ldquo;SSIS Packages&rdquo; node in the project – it starts the <em>SSIS Package Upgrade Wizard</em></p>
+<p><a href="images/UpgradeAllPackages.png"><img src="images/UpgradeAllPackages.png#center" alt="Upgrade all packages option"></a></p>
+</li>
+<li>
+<p>Set &ldquo;Target Server Version&rdquo; to SQL Server 2017 when you use &ldquo;Properties &gt; Configuration properties &gt; General&rdquo; page of the project configuration</p>
+</li>
 </ol>
+<p><a href="images/TargetServerVersion2017.png"><img src="images/TargetServerVersion2017.png#center" alt="Target server version"></a></p>
 <p>What is the difference and what are the potential problems? You can read more <a href="https://www.hansmichiels.com/2016/10/23/how-to-upgrade-your-ssis-packages-from-sql-server-2012-to-2016-ssis-series/">in the blog post by Hans Michiels</a>, but from my perspective, it sums up to those situations:</p>
 <ul>
 <li>if you set target server version, you also upgrade the .dtproj file and the connection managers (if needed)</li>
@@ -195,9 +206,9 @@
 <li>you won’t upgrade the package when there is even one error when you use the SSIS Package Upgrade Wizard</li>
 </ul>
 <p>Personally, I use the setting the Target Server Version approach as I also want to upgrade the <code>.dtproj</code> file. When you use the wizard, you have to change the project file by hand – if you don’t SSDT will automatically downgrade the packages to the lower version to be in line with the project version.</p>
-<h1 id="the-problem">The problem</h1>
-<p>Great, we can migrate the packages using SSDT. But what if you have a lot of projects (say – 50) and there is a chance you will have to do the process few times? There is no external tool to migrate the project from the command line (the wizard has no options to run from the cmd - it just opens the application <strong>EDIT 29.12.2017</strong>: SSISUpgrade.exe has commandline switches, but only for automatic setting of the wizard options), so I started a small investigation.</p>
-<p>Under the hood, the two processes are a bit different. For now, it looks like using Target Server Version way uses the same mechanism as automatic migration, and the SSIS Package Upgrade Wizard might use methods from the <code>[Application](https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.aspx)</code> class from the <code>[Microsoft.SqlServer.Dts.Runtime](https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.aspx)</code> namespace. I’m not 100% sure about it, but after some time with observations of those two processes, I think this is it. I don’t use sophisticated tools, don’t know yet how to use WinDbg to observe the Windows processes, I just watched the assemblies loaded using the <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer">Process Explorer</a> and read methods of the files in the Visual Studio (added references to assemblies or executables and analysed them with Object Browser).</p>
+<h2 id="the-problem">The problem</h2>
+<p>Great, we can migrate the packages using SSDT. But what if you have a lot of projects (say – 50) and there is a chance you will have to do the process few times? There is no external tool to migrate the project from the command line (<del>the wizard has no options to run from the cmd - it just opens the application</del> <strong>EDIT 29.12.2017</strong>: <code>SSISUpgrade.exe</code> has commandline switches, but only for automatic setting of the wizard options), so I started a small investigation.</p>
+<p>Under the hood, the two processes are a bit different. For now, it looks like using Target Server Version way uses the same mechanism as automatic migration, and the SSIS Package Upgrade Wizard might use methods from the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.aspx"><code>Application</code></a> class from the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.aspx"><code>Microsoft.SqlServer.Dts.Runtime</code></a> namespace. I&rsquo;m not 100% sure about it, but after some time with observations of those two processes, I think this is it. I don&rsquo;t use sophisticated tools, don&rsquo;t know yet how to use WinDbg to observe the Windows processes, I just watched the assemblies loaded using the <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer">Process Explorer</a> and read methods of the files in the Visual Studio (added references to assemblies or executables and analysed them with Object Browser).</p>
 <p>If you observe the libraries loaded to SSDT during the setting the target version, you will see it loads <code>Microsoft.SqlServer.PackageFormatUpdate.dll</code> (of course it uses a lot more, but this one has a significant name) that relies on <code>Microsoft.SqlServer.DTSRuntimeWrap</code>. The wizard does not use this library. It uses (besides other .dll files) <code>Microsoft.SqlServer.ManagedDTS</code> and <code>Microsoft.SqlServer.DTSRuntimeWrap</code>.</p>
 <p>After reading the documentation of the <code>Application</code> class, I think there is quite an easy way to upgrade the packages automatically with the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. But this is the subject of the second part of the SSIS migration posts.</p>
 
@@ -206,12 +217,24 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/internals/">internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
 </div>
@@ -227,7 +250,7 @@
       <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="button left"><span>Upgrading SSIS projects, part II</span></a>
     
     
-      <a href="/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/" class="button right"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
+      <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="button right"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
     
   </div>
 
@@ -238,6 +261,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -279,16 +312,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -308,13 +331,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -323,10 +355,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

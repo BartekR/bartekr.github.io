@@ -175,31 +175,31 @@
   </a>
       <p><a href="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/">In the previous post</a>, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.</p>
 <p>First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to <a href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a> and pick it from the <em>Other Tools and Frameworks</em> section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.</p>
-<p><a href="images/AzureDevOps_TeamPlugin.png"><img src="images/AzureDevOps_TeamPlugin.png" alt="Team plugin"></a></p>
+<p><a href="images/AzureDevOps_TeamPlugin.png"><img src="images/AzureDevOps_TeamPlugin.png#center" alt="Team plugin"></a></p>
 <p>This time I will use my Azure DevOps collection <a href="https://bartekr.visualstudio.com">bartekr</a> and the <em>AzureDevOps_APITests</em> project. It uses a <em>Basic</em> process, but I also tested the process on an <em>Agile</em> workflow. To add the elements click <em>New List</em> and connect to the project. If it&rsquo;s the first time you connect to Azure DevOps or TFS you will be prompted to set up the connection to the collection. After you connect pick the <em>Input list</em> from the options</p>
-<p><a href="images/ExcelNewList_InputList.png"><img src="images/ExcelNewList_InputList-300x185.png" alt="Input list"></a></p>
+<p><a href="images/ExcelNewList_InputList.png"><img src="images/ExcelNewList_InputList.png#center" alt="Input list"></a></p>
 <p>Now you should see an empty list with information about the connection. The list is ready and you could start filling the columns Title, Work Item Type, State, Reason, Assigned To (ID is read-only).</p>
-<p><a href="images/ExcelEmptyList.png"><img src="images/ExcelEmptyList.png" alt="Empty list"></a></p>
+<p><a href="images/ExcelEmptyList.png"><img src="images/ExcelEmptyList.png#center" alt="Empty list"></a></p>
 <p>But - we want to add not only the tasks but also the connection to a parent element. In this case, tasks should be connected to the Issue (in a <em>Basic</em> process) or the User Story (an <em>Agile</em> process). To do it we have to work with the tree, not a flat list (notice: List type: Flat on the right side of the yellow header). Click on the list and you should see an enabled <em>Add Tree Level</em> button. Click it.</p>
-<p><a href="images/ExcelAddTreeLevel.png"><img src="images/ExcelAddTreeLevel.png" alt="Add tree level"></a></p>
+<p><a href="images/ExcelAddTreeLevel.png"><img src="images/ExcelAddTreeLevel.png#center" alt="Add tree level"></a></p>
 <p>In the <em>Convert to Tree List</em> select Parent-Child (the default option)</p>
-<p><a href="images/ExcelConvertToTreeList.png"><img src="images/ExcelConvertToTreeList.png" alt="Convert to tree"></a></p>
+<p><a href="images/ExcelConvertToTreeList.png">![Convert to tree](images/ExcelConvertToTreeList.png#center</a></p>
 <p>Now you should see the columns - <em>Title 1</em> and <em>Title 2</em> and the <em>List type: tree</em>. The first title is for the parent item, the second for the child.</p>
-<p><a href="images/ExcelEmptyWorkitemsTree-1.png"><img src="images/ExcelEmptyWorkitemsTree-1.png" alt="Empty work items list"></a></p>
+<p><a href="images/ExcelEmptyWorkitemsTree-1.png"><img src="images/ExcelEmptyWorkitemsTree-1.png#center" alt="Empty work items list"></a></p>
 <p>Now - I want to add the new tasks for the Issue 2</p>
-<p><a href="images/AzureDevOps_BacklogBefore.png"><img src="images/AzureDevOps_BacklogBefore-600x256.png" alt="Backlog before"></a></p>
+<p><a href="images/AzureDevOps_BacklogBefore.png"><img src="images/AzureDevOps_BacklogBefore.png#center" alt="Backlog before"></a></p>
 <p>In the <em>Team</em> toolbar click <em>Get Work Items</em>, find the <em>Issue 2</em> in the opened window, select it and click <em>OK</em>.</p>
-<p><a href="images/ExcelFindWorkItem.png"><img src="images/ExcelFindWorkItem.png" alt="Find work item"></a></p>
+<p><a href="images/ExcelFindWorkItem.png"><img src="images/ExcelFindWorkItem.png#center" alt="Find work item"></a></p>
 <p>The spreadsheet looks like below:</p>
-<p><a href="images/ExcelIssue2Tree.png"><img src="images/ExcelIssue2Tree.png" alt="Issue 2 as tree"></a></p>
+<p><a href="images/ExcelIssue2Tree.png"><img src="images/ExcelIssue2Tree.png#center" alt="Issue 2 as tree"></a></p>
 <p>Nothing unusual. Now - in the <em>Title 2</em> column add new tasks with Work Item Type == <em>Task</em> and push the button <em>Publish</em>. And that&rsquo;s it!</p>
-<p><a href="images/ExcelIssue2Tree_NewWorkItems.png"><img src="images/ExcelIssue2Tree_NewWorkItems.png" alt="Issue 2 - new work items"></a></p>
+<p><a href="images/ExcelIssue2Tree_NewWorkItems.png"><img src="images/ExcelIssue2Tree_NewWorkItems.png#center" alt="Issue 2 - new work items"></a></p>
 <p>In Azure DevOps:</p>
-<p><a href="images/AzureDevOps_BacklogAfter.png"><img src="images/AzureDevOps_BacklogAfter.png" alt="Backlog after"></a></p>
+<p><a href="images/AzureDevOps_BacklogAfter.png"><img src="images/AzureDevOps_BacklogAfter.png#center" alt="Backlog after"></a></p>
 <p>If I wanted to fill more columns (like Assigned To, Sprint, Estimated time and so on) - I click <em>Choose columns</em> button and add them to the list.</p>
 <p>One more small thing for the end. Let&rsquo;s say you have a lot of Tasks with one parent Issue / User Story. <strong>Do not delete them from the list</strong> <em>&ldquo;because you want to have a clean sheet with just the Issue / User Story&rdquo;</em>. Deleting the tasks from the list does not delete the tasks (of course), but it removes the Parent-Child hierarchy for the deleted elements.</p>
 <p>If you repeat the steps to get the tasks for Issue 2 and delete them, you will see they lost the connection:</p>
-<p><a href="images/AzureDevOps_WorkitemDeletedLink.png"><img src="images/AzureDevOps_WorkitemDeletedLink-300x285.png" alt="Work item delete"></a></p>
+<p><a href="images/AzureDevOps_WorkitemDeletedLink.png"><img src="images/AzureDevOps_WorkitemDeletedLink.png#center" alt="Work item delete"></a></p>
 <p>In short: adding work items to TFS / Azure DevOps using Excel is easy. The trick is <del><a href="https://www.youtube.com/watch?v=GwKtszQ8Ejo">to keep breathing</a></del> to use the <em>Add Tree Level</em> button.</p>
 
     </div>
@@ -207,7 +207,11 @@
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/tfs/">TFS</a></li>
+        
+      
     </ul>
   
   
@@ -217,8 +221,6 @@
           <li><a class="article-terms-link" href="/tags/azure-devops/">Azure DevOps</a></li>
         
           <li><a class="article-terms-link" href="/tags/excel/">Excel</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/tfs/">TFS</a></li>
         
       
     </ul>
@@ -247,6 +249,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -288,16 +300,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -317,13 +319,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -332,10 +343,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

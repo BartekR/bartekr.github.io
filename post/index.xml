@@ -6,7 +6,17 @@
     <description>Recent content in Posts on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrating to GitHub Pages</title>
+      <link>http://bartekr.github.io/2020/11/01/migrating-to-github-pages/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://bartekr.github.io/2020/11/01/migrating-to-github-pages/</guid>
+      <description>I blog with WordPress since the 17th of February 2009. At first, I used a blog-as-a-service approach, as I wanted just to start writing and see how it goes, not building all the infrastructure. I was writing for myself, to document interesting things I found during my adventures with SQL Server.
+Then, in 2017 I decided to switch to an English blog. I wanted to do the next step, and as I was helping run other WordPress-based websites, I started my own hosted blog – again using WordPress.</description>
+    </item>
+    
     <item>
       <title>Using the system OAuth token in Azure DevOps</title>
       <link>http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
@@ -197,8 +207,7 @@ Create a new SSIS project and use the automatically generated Package.dtsx. Open
       <guid>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
       <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
 The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
-public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );
- the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
     </item>
     
     <item>
@@ -217,17 +226,17 @@ If you take a look at the documentation link provided above you will see just th
       <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/</guid>
-      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like “The package was migrated from version 6 to version 8. It must be saved to retain migration changes.”
+      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
 
 This information is written to the log no matter which logging level we choose (also with None).</description>
     </item>
     
     <item>
       <title>T-SQL Tuesday #96: Folks Who Have Made a Difference</title>
-      <link>http://bartekr.github.io/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/</link>
+      <link>http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</link>
       <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/</guid>
+      <guid>http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</guid>
       <description>This post is a part of T-SQL Tuesday series started by Adam Machanic in 2009.
 Ewald Cress (b | t) asked to give a shout-out to people (well-known or otherwise) who have made a meaningful contribution to your life in the world of data.
 As I was thinking about the people that had the most impact on my career I have to give the biggest kudos to my friend, Leszek Kwaśniewski (t).</description>

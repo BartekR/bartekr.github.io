@@ -151,33 +151,47 @@
   <header>
   <div class="title">
     
-      <h2><a href="/2017/12/24/upgrading-ssis-projects-part-i/">Upgrading SSIS projects, part I</a></h2>
+      <h2><a href="/2018/02/04/upgrading-ssis-projects-part-ii/">Upgrading SSIS projects, part II</a></h2>
     
     
   </div>
   <div class="meta">
-    <time datetime="2017-12-24 00:00:00 &#43;0000 UTC">December 24, 2017</time>
+    <time datetime="2018-02-04 00:00:00 &#43;0000 UTC">February 4, 2018</time>
     
     
   </div>
 </header>
 
   <div class="content">
+    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png');">
+    <img src="http://bartekr.github.io/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" alt="">
+  </a>
     
-    
-    <p>In <a href="http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/">the previous post</a>, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like “The package was migrated from version 6 to version 8. It must be saved to retain migration changes.”</p>
+    <p>The problem I want to solve is automation of the SSIS project upgrade. <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">Previously</a> I wrote about the options to use <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. This post is about the first of those options.</p>
   </div>
   <footer>
-    <a href="/2017/12/24/upgrading-ssis-projects-part-i/" class="button big">Read More</a>
+    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="button big">Read More</a>
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/internals/">internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
 </div>
@@ -190,7 +204,60 @@
   <header>
   <div class="title">
     
-      <h2><a href="/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/">T-SQL Tuesday #96: Folks Who Have Made a Difference</a></h2>
+      <h2><a href="/2017/12/24/upgrading-ssis-projects-part-i/">Upgrading SSIS projects, part I</a></h2>
+    
+    
+  </div>
+  <div class="meta">
+    <time datetime="2017-12-24 00:00:00 &#43;0000 UTC">December 24, 2017</time>
+    
+    
+  </div>
+</header>
+
+  <div class="content">
+    <a href="/2017/12/24/upgrading-ssis-projects-part-i/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png');">
+    <img src="http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="">
+  </a>
+    
+    <p>In <a href="http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/">the previous post</a>, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&rdquo;</p>
+  </div>
+  <footer>
+    <a href="/2017/12/24/upgrading-ssis-projects-part-i/" class="button big">Read More</a>
+    <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/internals/">internals</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis-internals/">SSIS internals</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+  </footer>
+</article>
+
+  
+    <article class="post">
+  <header>
+  <div class="title">
+    
+      <h2><a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/">T-SQL Tuesday #96: Folks Who Have Made a Difference</a></h2>
     
     
   </div>
@@ -202,12 +269,14 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/images/T-SQL-Tuesday-Logo1.jpg');">
+    <img src="http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/images/T-SQL-Tuesday-Logo1.jpg" alt="">
+  </a>
     
     <p><em>This post is a part of <a href="http://tsqltuesday.com/">T-SQL Tuesday</a> series started by Adam Machanic in 2009.</em></p>
   </div>
   <footer>
-    <a href="/2017/11/14/t-sql-tuesday-#96-folks-who-have-made-a-difference/" class="button big">Read More</a>
+    <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="button big">Read More</a>
     <div class="stats">
   
     <ul class="categories">
@@ -216,7 +285,11 @@
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/t-sql-tuesday/">T-SQL Tuesday</a></li>
+        
+      
     </ul>
   
 </div>
@@ -241,7 +314,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png');">
+    <img src="http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="">
+  </a>
     
     <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
   </div>
@@ -250,12 +325,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/sql-server/">SQL Server</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -586,59 +675,12 @@
 </article>
 
   
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/2017/04/16/sqlbits-2017/">SQLBits 2017</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2017-04-16 00:00:00 &#43;0000 UTC">April 16, 2017</time>
-    
-    
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/2017/04/16/sqlbits-2017/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg');">
-    <img src="http://bartekr.github.io/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg" alt="">
-  </a>
-    
-    <p>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.</p>
-  </div>
-  <footer>
-    <a href="/2017/04/16/sqlbits-2017/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/conferences/">Conferences</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/sqlbits/">Sqlbits</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
   <div class="pagination">
     
       <a href="/post/page/2/" class="button left"><span>Previous Page</span></a>
     
+    
+      <a href="/post/page/4/" class="button right"><span>Next Page</span></a>
     
   </div>
 
@@ -649,6 +691,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -690,16 +742,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -719,13 +761,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -734,10 +785,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

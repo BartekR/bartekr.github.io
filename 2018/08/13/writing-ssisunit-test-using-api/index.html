@@ -13,7 +13,10 @@
   <meta property="og:url" content="http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="http://bartekr.github.io/img/main/Bartek_SqlSatOslo2019_100x100.png">
+    
+      <meta property="og:image" content="http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png">
+      <meta property="og:image:alt" content="">
+    
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
@@ -167,21 +170,25 @@
 
     </div>
     <div class="content">
-      
+      <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png');">
+    <img src="http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" alt="">
+  </a>
       <p>In <a href="http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">the post about using MSTest framework to execute ssisUnit tests</a>, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.</p>
 <p>Why MSTest? Because I don&rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not. When I write the MSTest tests, I can run them using the Test Explorer in VS, using a command line, or in TFS.</p>
-<h1 id="the-preparations">The preparations</h1>
+<h2 id="the-preparations">The preparations</h2>
 <p>I create a new project <code>ssisUnitLearning.API</code> within the <code>ssisUnitLearning</code> solution using right-click on a solution name, then <em>Add &gt; New Project &gt; Visual C# &gt; Class library (.NET framework)</em> and using .NET 4.5 as a target.</p>
 <p>I rename the newly created <code>Class1.cs</code> file to <code>Test_15_Users_Dataset.cs</code> and will write the test from scratch. I set up the references - I need <code>SSISUnit2017.dll</code>(I will work with the latest version of ssisUnit compiled for SSIS 2017, but the standard <code>SSISUnit2012.dll</code> will work too) and <code>SSISUnitBase.dll</code>. I clear all the default references.</p>
 <p>I will use MSTest v2. I didn&rsquo;t create a new project as a test project, but as a library, so I will add the testing framework using NuGet. Right-click the <em>References</em> node, and choose <em>Manage NuGet packages</em> and in the <em>Browse</em> section search for <em>MsTest</em>. Choose <code>MsTest.Framework</code> and <code>MsTest.TestAdapter</code> and install them. At the time of writing, I work with version 1.3.2.</p>
 <p>Last thing before I start writing the tests - I set up namespaces for ssisUnit and MsTest:</p>
-<p>using SsisUnit;
-using SsisUnitBase.Enums;
-using SsisUnit.Packages;
-using SsisUnit.Enums;
-using Microsoft.VisualStudio.TestTools.UnitTesting;</p>
-<h1 id="the-reference">The reference</h1>
-<p>I chose the <code>[15_Users_Dataset.ssisUnit](https://github.com/BartekR/ssisUnitLearning/tree/master/Tests)</code> file as a reference. I will write the same test using the API. <a href="http://blog.bartekr.net/wp-content/uploads/2018/08/15_Users_Dataset.png"><img src="images/15_Users_Dataset-300x148.png" alt=""></a> The referenced ssisUnit test file contains:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> SsisUnit;
+<span style="color:#66d9ef">using</span> SsisUnitBase.Enums;
+<span style="color:#66d9ef">using</span> SsisUnit.Packages;
+<span style="color:#66d9ef">using</span> SsisUnit.Enums;
+<span style="color:#66d9ef">using</span> Microsoft.VisualStudio.TestTools.UnitTesting;
+</code></pre></div><h2 id="the-reference">The reference</h2>
+<p>I chose the <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Tests"><code>15_Users_Dataset.ssisUnit</code></a> file as a reference. I will write the same test using the API.</p>
+<p><a href="images/15_Users_Dataset.png"><img src="images/15_Users_Dataset.png#center" alt="Users dataset"></a></p>
+<p>The referenced ssisUnit test file contains:</p>
 <ul>
 <li>the connection to the <em>ssisUnitLearningDB</em> database</li>
 <li>the reference to the <em>15_Users_Dataset</em> package</li>
@@ -189,161 +196,171 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;</p>
 <li>one test with setup, teardown and two asserts</li>
 </ul>
 <p>The API idea is simple: create the objects (connections, tests, asserts, commands etc.), add them to the ssisUnit test suite object and execute the suite.</p>
-<h1 id="writing-the-test">Writing the test</h1>
+<h2 id="writing-the-test">Writing the test</h2>
 <p>I start with the scaffolding:</p>
-<p>namespace ssisUnitLearning.API
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">namespace</span> ssisUnitLearning.API
 {
-[TestClass]
-public class Test_15_Users_Dataset
-{
-[TestMethod]
-public void SQL_MERGE_Users_Empty_table()
-{
+<span style="color:#a6e22e">    [TestClass]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test_15_Users_Dataset</span>
+    {
+<span style="color:#a6e22e">        [TestMethod]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> SQL_MERGE_Users_Empty_table()
+        {
+        }
+    }
 }
-}
-}</p>
-<p>I assume one ssisUnit test suite as one class and one ssisUnit test as one method. The class' name cannot begin with the number, so I add the <em>Test_</em> prefix. I add the <em>TestClass</em>, and <em>TestMethod</em> attributes to expose my code to the MsTest framework. The test method is void and without the parameters.</p>
+</code></pre></div><p>I assume one ssisUnit test suite as one class and one ssisUnit test as one method. The class' name cannot begin with the number, so I add the <em>Test_</em> prefix. I add the <em>TestClass</em>, and <em>TestMethod</em> attributes to expose my code to the MsTest framework. The test method is void and without the parameters.</p>
 <p>The central element in the ssisUnit API is the <code>SsisUnitSuite</code> class - it contains all the test suite objects. At the beginning I create an empty object:</p>
-<p>SsisTestSuite ts = new SsisTestSuite();</p>
-<p>Then I create the package and the database connection references (the code is split into the separate lines for readability):</p>
-<p>// the package to test
-PackageRef p = new PackageRef(
-&ldquo;15_Users_Dataset&rdquo;,
-@&ldquo;C:\Users\Administrator\source\repos\ssisUnitLearning\ssisUnitLearning\bin\Development\ssisUnitLearning.ispac&rdquo;,
-&ldquo;15_Users_Dataset.dtsx&rdquo;,
-PackageStorageType.FileSystem
-);</p>
-<p>// the connection for the datasets
-ConnectionRef c = new ConnectionRef(
-&ldquo;ssisUnitLearningDB&rdquo;,
-@&ldquo;Provider=SQLNCLI11.1;Data Source=.\SQL2017;Integrated Security=SSPI;Initial Catalog=ssisUnitLearningDB;Auto Translate=False&rdquo;,
-ConnectionRef.ConnectionTypeEnum.ConnectionString
-);</p>
-<p>The package reference is created with a <em>15_Users_Dataset</em> name. The package is a part of the project saved in the file system, so I add the full path to the <code>.ispac</code> file (the project), the name of the package within the project (<code>.dtsx</code> file), and set the storage type. The connection reference has the name <em>ssisUnitLearningDB</em> and is stored as a connection string.</p>
-<p>Now I can add those two objects to the test suite. Because I can have many packages and database connections, they are stored in lists:</p>
-<p>ts.ConnectionList.Add(c.ReferenceName, c);
-ts.PackageList.Add(p.Name, p);</p>
-<p>The next objects are the datasets - expected and actual. They are created with a reference to the test suite, a name, reference to the database connection and a SQL command. The <code>false</code> in the definitions is that the datasets will not store the results in the test suite. One thing that is a bit misleading is the reference to the test suite (the <em>ts</em> object). It&rsquo;s not used to add the dataset to the test suite, but to make the dataset aware of the test suite. It&rsquo;s because of some ssisUnit model designs, mostly used for the progress reporting and the test suite statistics. We add the datasets to the suite using the <code>Add()</code> method on the <code>Datasets</code> list.</p>
-<p>Dataset expected = new Dataset(
-ts,
-&ldquo;Empty table test: expected dataset&rdquo;,
-c,
-false,
-@&ldquo;SELECT *
-FROM(
-VALUES
-(CAST(&lsquo;Name 1&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 1&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(1 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
-(CAST(&lsquo;Name 2&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 2&rsquo; AS CHAR(12)), CAST(1 AS BIT), CAST(2 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
-(CAST(&lsquo;Name 3&rsquo; AS VARCHAR(50)), CAST(&lsquo;Login 3&rsquo; AS CHAR(12)), CAST(0 AS BIT), CAST(3 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT))
-)x(Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
-ORDER BY Id; &ldquo;);</p>
-<p>Dataset actual = new Dataset(
-ts,
-&ldquo;Empty table test: actual dataset&rdquo;,
-c,
-false,
-@&ldquo;SELECT
-Name,
-Login,
-IsActive,
-SourceId,
-SourceSystemId,
-IsDeleted
-FROM dbo.Users
-ORDER BY SourceId;&quot;);</p>
-<p>// add the datasets to the test suite
-ts.Datasets.Add(expected.Name, expected);
-ts.Datasets.Add(actual.Name, actual);</p>
-<p>The same situation with the test and other objects - we make them aware of the test suite and add them to the same test suite. The test has a name (<em>SQL MERGE Users: Empty table</em>), references the <em>15_Users_Dataset</em> package, has no password (<em>null</em>) and works with the SQL Merge Users task (<em>{FB549B65-6F0D-4794-BA8E-3FF975A6AE0B}</em>). As for the last part - you can set the task object either as the ID of the element in the SSIS package (as in the example) or the PackagePath. I chose the ID, as I copied it from the <code>.ssisUnit</code> file (the wizard in the ssisUnit GUI works with the IDs)</p>
-<p>Test t = new Test(
-ts,
-&ldquo;SQL MERGE Users: Empty table&rdquo;,
-&ldquo;15_Users_Dataset&rdquo;,
-null,
-&ldquo;{FB549B65-6F0D-4794-BA8E-3FF975A6AE0B}&rdquo;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">SsisTestSuite ts = <span style="color:#66d9ef">new</span> SsisTestSuite();
+</code></pre></div><p>Then I create the package and the database connection references (the code is split into the separate lines for readability):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#75715e">// the package to test
+</span><span style="color:#75715e"></span>PackageRef p = <span style="color:#66d9ef">new</span> PackageRef(
+    <span style="color:#e6db74">&#34;15_Users_Dataset&#34;</span>,
+    <span style="color:#e6db74">@&#34;C:\Users\Administrator\source\repos\ssisUnitLearning\ssisUnitLearning\bin\Development\ssisUnitLearning.ispac&#34;</span>,
+    <span style="color:#e6db74">&#34;15_Users_Dataset.dtsx&#34;</span>,
+    PackageStorageType.FileSystem
 );
-ts.Tests.Add(t.Name, t);</p>
-<p>The test has a setup command. The <code>stg.Users</code> table is empty, so I use the <code>SqlCommand</code> to fill it with the data. In the end, I add the command to the collection of the <code>TestSetup</code> commands of the test.</p>
-<p>SqlCommand s1 = new SqlCommand(
-ts,
-&ldquo;ssisUnitLearningDB&rdquo;,
-false,
-@&ldquo;WITH stgUsers AS (
-SELECT *
-FROM (
-VALUES
-(&lsquo;Name 1&rsquo;, &lsquo;Login 1&rsquo;, 1, 1, 2, -1),
-(&lsquo;Name 2&rsquo;, &lsquo;Login 2&rsquo;, 1, 2, 2, -1),
-(&lsquo;Name 3&rsquo;, &lsquo;Login 3&rsquo;, 0, 3, 2, -1)
-)x (Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId)
-)
-INSERT INTO stg.Users (
-Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
-)
-SELECT
-Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
-FROM stgUsers
-;&quot;);</p>
-<p>t.TestSetup.Commands.Add(s1);</p>
-<p>The test has two asserts:</p>
+
+<span style="color:#75715e">// the connection for the datasets
+</span><span style="color:#75715e"></span>ConnectionRef c = <span style="color:#66d9ef">new</span> ConnectionRef(
+    <span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span>,
+    <span style="color:#e6db74">@&#34;Provider=SQLNCLI11.1;Data Source=.\SQL2017;Integrated Security=SSPI;Initial Catalog=ssisUnitLearningDB;Auto Translate=False&#34;</span>,
+    ConnectionRef.ConnectionTypeEnum.ConnectionString
+);
+</code></pre></div><p>The package reference is created with a <em>15_Users_Dataset</em> name. The package is a part of the project saved in the file system, so I add the full path to the <code>.ispac</code> file (the project), the name of the package within the project (<code>.dtsx</code> file), and set the storage type. The connection reference has the name <em>ssisUnitLearningDB</em> and is stored as a connection string.</p>
+<p>Now I can add those two objects to the test suite. Because I can have many packages and database connections, they are stored in lists:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">ts.ConnectionList.Add(c.ReferenceName, c);
+ts.PackageList.Add(p.Name, p);
+</code></pre></div><p>The next objects are the datasets - expected and actual. They are created with a reference to the test suite, a name, reference to the database connection and a SQL command. The <code>false</code> in the definitions is that the datasets will not store the results in the test suite. One thing that is a bit misleading is the reference to the test suite (the <em>ts</em> object). It&rsquo;s not used to add the dataset to the test suite, but to make the dataset aware of the test suite. It&rsquo;s because of some ssisUnit model designs, mostly used for the progress reporting and the test suite statistics. We add the datasets to the suite using the <code>Add()</code> method on the <code>Datasets</code> list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">Dataset expected = <span style="color:#66d9ef">new</span> Dataset(
+    ts,
+    <span style="color:#e6db74">&#34;Empty table test: expected dataset&#34;</span>,
+    c,
+    <span style="color:#66d9ef">false</span>,
+    <span style="color:#e6db74">@&#34;SELECT *
+</span><span style="color:#e6db74">FROM(
+</span><span style="color:#e6db74">    VALUES
+</span><span style="color:#e6db74">        (CAST(&#39;Name 1&#39; AS VARCHAR(50)), CAST(&#39;Login 1&#39; AS CHAR(12)), CAST(1 AS BIT), CAST(1 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
+</span><span style="color:#e6db74">        (CAST(&#39;Name 2&#39; AS VARCHAR(50)), CAST(&#39;Login 2&#39; AS CHAR(12)), CAST(1 AS BIT), CAST(2 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT)),
+</span><span style="color:#e6db74">        (CAST(&#39;Name 3&#39; AS VARCHAR(50)), CAST(&#39;Login 3&#39; AS CHAR(12)), CAST(0 AS BIT), CAST(3 AS INT), CAST(2 AS TINYINT), CAST(0 AS BIT))
+</span><span style="color:#e6db74">)x(Name, Login, IsActive, Id, SourceSystemId, IsDeleted)
+</span><span style="color:#e6db74">ORDER BY Id; &#34;</span>);
+
+Dataset actual = <span style="color:#66d9ef">new</span> Dataset(
+    ts,
+    <span style="color:#e6db74">&#34;Empty table test: actual dataset&#34;</span>,
+    c,
+    <span style="color:#66d9ef">false</span>,
+    <span style="color:#e6db74">@&#34;SELECT
+</span><span style="color:#e6db74">    Name,
+</span><span style="color:#e6db74">    Login,
+</span><span style="color:#e6db74">    IsActive,
+</span><span style="color:#e6db74">    SourceId,
+</span><span style="color:#e6db74">    SourceSystemId,
+</span><span style="color:#e6db74">    IsDeleted
+</span><span style="color:#e6db74">FROM dbo.Users
+</span><span style="color:#e6db74">ORDER BY SourceId;&#34;</span>);
+
+<span style="color:#75715e">// add the datasets to the test suite
+</span><span style="color:#75715e"></span>ts.Datasets.Add(expected.Name, expected);
+ts.Datasets.Add(actual.Name, actual);
+</code></pre></div><p>The same situation with the test and other objects - we make them aware of the test suite and add them to the same test suite. The test has a name (<em>SQL MERGE Users: Empty table</em>), references the <em>15_Users_Dataset</em> package, has no password (<em>null</em>) and works with the SQL Merge Users task (<em>{FB549B65-6F0D-4794-BA8E-3FF975A6AE0B}</em>). As for the last part - you can set the task object either as the ID of the element in the SSIS package (as in the example) or the PackagePath. I chose the ID, as I copied it from the <code>.ssisUnit</code> file (the wizard in the ssisUnit GUI works with the IDs)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">Test t = <span style="color:#66d9ef">new</span> Test(
+    ts,
+    <span style="color:#e6db74">&#34;SQL MERGE Users: Empty table&#34;</span>,
+    <span style="color:#e6db74">&#34;15_Users_Dataset&#34;</span>,
+    <span style="color:#66d9ef">null</span>,
+    <span style="color:#e6db74">&#34;{FB549B65-6F0D-4794-BA8E-3FF975A6AE0B}&#34;</span>
+);
+ts.Tests.Add(t.Name, t);
+</code></pre></div><p>The test has a setup command. The <code>stg.Users</code> table is empty, so I use the <code>SqlCommand</code> to fill it with the data. In the end, I add the command to the collection of the <code>TestSetup</code> commands of the test.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">SqlCommand s1 = <span style="color:#66d9ef">new</span> SqlCommand(
+    ts,
+    <span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span>,
+    <span style="color:#66d9ef">false</span>,
+    <span style="color:#e6db74">@&#34;WITH stgUsers AS (
+</span><span style="color:#e6db74">SELECT *
+</span><span style="color:#e6db74">FROM (
+</span><span style="color:#e6db74">    VALUES
+</span><span style="color:#e6db74">        (&#39;Name 1&#39;, &#39;Login 1&#39;, 1, 1, 2, -1),
+</span><span style="color:#e6db74">        (&#39;Name 2&#39;, &#39;Login 2&#39;, 1, 2, 2, -1),
+</span><span style="color:#e6db74">        (&#39;Name 3&#39;, &#39;Login 3&#39;, 0, 3, 2, -1)
+</span><span style="color:#e6db74">)x (Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId)
+</span><span style="color:#e6db74">)
+</span><span style="color:#e6db74">INSERT INTO stg.Users (
+</span><span style="color:#e6db74">    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+</span><span style="color:#e6db74">)
+</span><span style="color:#e6db74">SELECT
+</span><span style="color:#e6db74">    Name, Login, IsActive, Id, SourceSystemId, InsertedAuditId
+</span><span style="color:#e6db74">FROM stgUsers
+</span><span style="color:#e6db74">;&#34;</span>);
+
+t.TestSetup.Commands.Add(s1);
+</code></pre></div><p>The test has two asserts:</p>
 <ul>
 <li>checking if the <code>dbo.Users</code> table has 3 records,</li>
 <li>and if those 3 records look like the expected dataset.</li>
 </ul>
 <p>The assert is a definition of the expected result, and it executes a command to get the actual. Take a look at the first assert&rsquo;s definition. It has the reference to the test suite (<em>ts</em>), the test (<em>t</em>), has a name (<em>Assert: Added 3 records</em>), expects <em>3</em> as a result, and is executed after the task executes (<em>false</em>). It runs a <code>SqlCommand</code> referencing the test suite (<em>ts</em>) using <em>ssisUnitLearningDB</em> connection reference, returns a value (<em>true</em>), and the command to run is <em>SELECT COUNT(*) FROM dbo.Users</em>.</p>
 <p>Similar with the second assert, the difference is the command - a <code>DatasetCommand</code> - that compares the expected and the actual datasets and has no name (<em>&quot;&quot;</em>). After the asserts are created, I add them to the test.</p>
-<p>SsisAssert a1 = new SsisAssert(
-ts,
-t,
-&ldquo;Assert: Added 3 records&rdquo;,
-3,
-false);</p>
-<p>a1.Command = new SqlCommand(
-ts,
-&ldquo;ssisUnitLearningDB&rdquo;,
-true,
-&ldquo;SELECT COUNT(*) FROM dbo.Users;&rdquo;
-);</p>
-<p>SsisAssert a2 = new SsisAssert(
-ts,
-t,
-&ldquo;Assert: dbo.Users has expected records&rdquo;,
-true,
-false
-);</p>
-<p>a2.Command = new DataCompareCommand(
-ts,
-&ldquo;&rdquo;,
-expected,
-actual
-);</p>
-<p>t.Asserts.Add(a1.Name, a1);
-t.Asserts.Add(a2.Name, a2);</p>
-<p>The last part of the test is the TestTeardown. I tidy up after the tests running <code>TRUNCATE TABLE</code> commands on the <code>stg.Users</code> and <code>dbo.Users</code> tables. The commands are added to the <code>TestTeardown</code> collection.</p>
-<p>SqlCommand t1 = new SqlCommand(
-ts,
-&ldquo;ssisUnitLearningDb&rdquo;,
-false,
-&ldquo;TRUNCATE TABLE stg.Users;&rdquo;
-);</p>
-<p>SqlCommand t2 = new SqlCommand(
-ts,
-&ldquo;ssisUnitLearningDb&rdquo;,
-false,
-&ldquo;TRUNCATE TABLE dbo.Users;&rdquo;
-);</p>
-<p>t.TestTeardown.Commands.Add(t1);
-t.TestTeardown.Commands.Add(t2);</p>
-<p>Finally, the test and all the test suite is ready, and I can run it using the <code>Execute()</code> command.</p>
-<p>ts.Execute();</p>
-<p>To check if all the ssisUnit test suite asserts finished successfully I use <code>Assert.AreEqual()</code> command of the MsTest. I take the number of the ssisUnit asserts that passed and compare it to the expected value. The ssisUnit test suite holds the <code>Statistics</code> object with the numbers of tests and asserts executed, passed and failed, so I use it to get the value:</p>
-<p>Assert.AreEqual(2, ts.Statistics.GetStatistic(StatisticEnum.AssertPassedCount));</p>
-<p>When I run this, I get the error: <em>Message: Assert.AreEqual failed. Expected:&lt;2&gt;. Actual:&lt;3&gt;</em>. Why 3?! I have only two asserts! The reason becomes clear when I run the <code>.ssisUnit</code> test in the GUI - the third assert comes from the <em>TaskResult</em>.</p>
-<p><a href="http://blog.bartekr.net/wp-content/uploads/2018/08/15_Users_Dataset_Result.png"><img src="images/15_Users_Dataset_Result-300x94.png" alt=""></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">SsisAssert a1 = <span style="color:#66d9ef">new</span> SsisAssert(
+    ts,
+    t,
+    <span style="color:#e6db74">&#34;Assert: Added 3 records&#34;</span>,
+    <span style="color:#ae81ff">3</span>,
+    <span style="color:#66d9ef">false</span>);
+
+a1.Command = <span style="color:#66d9ef">new</span> SqlCommand(
+    ts,
+    <span style="color:#e6db74">&#34;ssisUnitLearningDB&#34;</span>,
+    <span style="color:#66d9ef">true</span>,
+    <span style="color:#e6db74">&#34;SELECT COUNT(*) FROM dbo.Users;&#34;</span>
+);
+
+SsisAssert a2 = <span style="color:#66d9ef">new</span> SsisAssert(
+    ts,
+    t,
+    <span style="color:#e6db74">&#34;Assert: dbo.Users has expected records&#34;</span>,
+    <span style="color:#66d9ef">true</span>,
+    <span style="color:#66d9ef">false</span>
+);
+
+a2.Command = <span style="color:#66d9ef">new</span> DataCompareCommand(
+    ts,
+    <span style="color:#e6db74">&#34;&#34;</span>,
+    expected,
+    actual
+);
+
+t.Asserts.Add(a1.Name, a1);
+t.Asserts.Add(a2.Name, a2);
+</code></pre></div><p>The last part of the test is the TestTeardown. I tidy up after the tests running <code>TRUNCATE TABLE</code> commands on the <code>stg.Users</code> and <code>dbo.Users</code> tables. The commands are added to the <code>TestTeardown</code> collection.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">SqlCommand t1 = <span style="color:#66d9ef">new</span> SqlCommand(
+    ts,
+    <span style="color:#e6db74">&#34;ssisUnitLearningDb&#34;</span>,
+    <span style="color:#66d9ef">false</span>,
+    <span style="color:#e6db74">&#34;TRUNCATE TABLE stg.Users;&#34;</span>
+);
+
+SqlCommand t2 = <span style="color:#66d9ef">new</span> SqlCommand(
+    ts,
+    <span style="color:#e6db74">&#34;ssisUnitLearningDb&#34;</span>,
+    <span style="color:#66d9ef">false</span>,
+    <span style="color:#e6db74">&#34;TRUNCATE TABLE dbo.Users;&#34;</span>
+);
+
+t.TestTeardown.Commands.Add(t1);
+t.TestTeardown.Commands.Add(t2);
+</code></pre></div><p>Finally, the test and all the test suite is ready, and I can run it using the <code>Execute()</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">ts.Execute();
+</code></pre></div><p>To check if all the ssisUnit test suite asserts finished successfully I use <code>Assert.AreEqual()</code> command of the MsTest. I take the number of the ssisUnit asserts that passed and compare it to the expected value. The ssisUnit test suite holds the <code>Statistics</code> object with the numbers of tests and asserts executed, passed and failed, so I use it to get the value:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">Assert.AreEqual(<span style="color:#ae81ff">2</span>, ts.Statistics.GetStatistic(StatisticEnum.AssertPassedCount));
+</code></pre></div><p>When I run this, I get the error: <em>Message: Assert.AreEqual failed. Expected:&lt;2&gt;. Actual:&lt;3&gt;</em>. Why 3?! I have only two asserts! The reason becomes clear when I run the <code>.ssisUnit</code> test in the GUI - the third assert comes from the <em>TaskResult</em>.</p>
+<p><a href="images/15_Users_Dataset_Result.png"><img src="images/15_Users_Dataset_Result.png#center" alt="15_Users_Dataset test results"></a></p>
 <p>So, the proper command is:</p>
-<p>Assert.AreEqual(3, ts.Statistics.GetStatistic(StatisticEnum.AssertPassedCount));</p>
-<p>And that&rsquo;s it. The test suite is finished.</p>
-<h1 id="summary">Summary</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">Assert.AreEqual(<span style="color:#ae81ff">3</span>, ts.Statistics.GetStatistic(StatisticEnum.AssertPassedCount));
+</code></pre></div><p>And that&rsquo;s it. The test suite is finished.</p>
+<h2 id="summary">Summary</h2>
 <p>The API model of the ssisUnit is not complicated, but sometimes its a bit unintuitive. I would like to operate more on the prepared objects than on their names, but maybe that&rsquo;s just me. A bit odd (at the beginning) is fact, that I have to set the test suite object as the parameter of the objects other than <code>CommandRef</code> and <code>PackageRef</code>, and then also add the objects to the test suite.</p>
 <p>If you want to know more about ssisUnit API model, I encourage you to read the code in the <code>SsisUnit.Tests</code> folder of the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit source code</a>, as there&rsquo;s a lot of examples how to use the API.</p>
 <p>The full code is <a href="https://github.com/BartekR/ssisUnitLearning">available on GitHub</a>.</p>
@@ -353,12 +370,28 @@ t.TestTeardown.Commands.Add(t2);</p>
       <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/mstest/">MSTest</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -385,6 +418,16 @@ t.TestTeardown.Commands.Add(t2);</p>
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -426,16 +469,6 @@ t.TestTeardown.Commands.Add(t2);</p>
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -455,13 +488,22 @@ t.TestTeardown.Commands.Add(t2);</p>
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -470,10 +512,13 @@ t.TestTeardown.Commands.Add(t2);</p>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>

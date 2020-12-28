@@ -151,6 +151,63 @@
   <header>
   <div class="title">
     
+      <h2><a href="/2018/08/13/writing-ssisunit-test-using-api/">Writing ssisUnit test using API</a></h2>
+    
+    
+  </div>
+  <div class="meta">
+    <time datetime="2018-08-13 00:00:00 &#43;0000 UTC">August 13, 2018</time>
+    
+    
+  </div>
+</header>
+
+  <div class="content">
+    <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png');">
+    <img src="http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" alt="">
+  </a>
+    
+    <p>In <a href="http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">the post about using MSTest framework to execute ssisUnit tests</a>, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.</p>
+  </div>
+  <footer>
+    <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="button big">Read More</a>
+    <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/mstest/">MSTest</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+  </footer>
+</article>
+
+  
+    <article class="post">
+  <header>
+  <div class="title">
+    
       <h2><a href="/2018/07/10/testing-the-loops-in-ssisunit/">Testing the loops in ssisUnit</a></h2>
     
     
@@ -163,7 +220,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/07/10/testing-the-loops-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png');">
+    <img src="http://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" alt="">
+  </a>
     
     <p>In the <a href="http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/">Q & A post</a> after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:</p>
   </div>
@@ -172,12 +231,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -202,7 +275,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/07/05/setting-package-references-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png');">
+    <img src="http://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png" alt="">
+  </a>
     
     <p>When you set the packages' references in the ssisUnit tests you have four options for the source (<em>StoragePath</em>) of the package:</p>
   </div>
@@ -211,12 +286,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -241,7 +330,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png');">
+    <img src="http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" alt="">
+  </a>
     
     <p>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or&hellip;</p>
   </div>
@@ -250,12 +341,28 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/mstest/">MSTest</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/tfs/">TFS</a></li>
+        
+      
     </ul>
   
 </div>
@@ -280,7 +387,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/05/31/using-cached-datasets-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png');">
+    <img src="http://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png" alt="">
+  </a>
     
     <p><a href="http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/">In the previous post</a>, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&rsquo;s result in the test file. In this post, I will show you how you can use it.</p>
   </div>
@@ -289,12 +398,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -319,7 +442,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png');">
+    <img src="http://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png" alt="">
+  </a>
     
     <p>One of the elements you can define in ssisUnit is a Dataset. In this post of the <a href="http://blog.bartekr.net/series/">ssisUnit series</a>, I will show you how to prepare and use it later in a test.</p>
   </div>
@@ -328,12 +453,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -358,7 +497,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png');">
+    <img src="http://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" alt="">
+  </a>
     
     <p><a href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and&hellip;</p>
   </div>
@@ -367,12 +508,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -397,7 +552,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+    <img src="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
+  </a>
     
     <p><a href="http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">Previously</a> I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package.</p>
   </div>
@@ -406,12 +563,26 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -436,7 +607,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+    <img src="http://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
+  </a>
     
     <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s&hellip;</p>
   </div>
@@ -445,12 +618,28 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
+        
+      
     </ul>
   
 </div>
@@ -475,7 +664,9 @@
 </header>
 
   <div class="content">
-    
+    <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png');">
+    <img src="http://bartekr.github.io/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="">
+  </a>
     
     <p>In <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">the first part</a> of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> and  <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a>. This post is about the latter.</p>
   </div>
@@ -484,51 +675,24 @@
     <div class="stats">
   
     <ul class="categories">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
+        
+      
     </ul>
   
   
     <ul class="tags">
-      <li>None</li>
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/2018/02/04/upgrading-ssis-projects-part-ii/">Upgrading SSIS projects, part II</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2018-02-04 00:00:00 &#43;0000 UTC">February 4, 2018</time>
-    
-    
-  </div>
-</header>
-
-  <div class="content">
-    
-    
-    <p>The problem I want to solve is automation of the SSIS project upgrade. <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">Previously</a> I wrote about the options to use <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. This post is about the first of those options.</p>
-  </div>
-  <footer>
-    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      <li>None</li>
-    </ul>
-  
-  
-    <ul class="tags">
-      <li>None</li>
+      
+        
+          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/internals/">internals</a></li>
+        
+      
     </ul>
   
 </div>
@@ -553,6 +717,16 @@
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2020/11/01/migrating-to-github-pages/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png');">
+    <img src="http://bartekr.github.io/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2020/11/01/migrating-to-github-pages/">Migrating to GitHub Pages</a></h2>
+          <time class="published" datetime="2020-11-01 00:00:00 &#43;0000 UTC">November 1, 2020</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
@@ -594,16 +768,6 @@
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="http://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-          <time class="published" datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/post/" class="button">See More</a>
@@ -623,13 +787,22 @@
           
           
           <li>
-              <a href="/categories/learning/">learning<span class="count">6</span></a>
+              <a href="/categories/learning/">learning<span class="count">16</span></a>
           
           <li>
-              <a href="/categories/series/">series<span class="count">3</span></a>
+              <a href="/categories/series/">series<span class="count">13</span></a>
           
           <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">3</span></a>
+              <a href="/categories/testing/">testing<span class="count">11</span></a>
+          
+          <li>
+              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
+          
+          <li>
+              <a href="/categories/internals/">internals<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/sql-server/">sql-server<span class="count">2</span></a>
           
           <li>
               <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
@@ -638,10 +811,13 @@
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
           
           <li>
+              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
+          
+          <li>
               <a href="/categories/programming/">programming<span class="count">1</span></a>
           
           <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">1</span></a>
+              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
           
           </li>
         </ul>
