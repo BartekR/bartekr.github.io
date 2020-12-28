@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SVG on BartekR</title>
-    <link>https://bartekr.github.io/tags/svg/</link>
+    <link>https://blog.bartekr.net/tags/svg/</link>
     <description>Recent content in SVG on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/svg/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/svg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Draw the SSIS Package using SVG - part III</title>
-      <link>https://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</link>
+      <link>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
+      <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
       <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
 Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
     </item>
     
     <item>
       <title>Draw the SSIS Package using SVG - part II</title>
-      <link>https://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</link>
+      <link>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</link>
       <pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
+      <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
       <description>The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.
  
 The sequence problem The main issue is with the alignment of the elements in the Sequence object (no matter if it&amp;rsquo;s the default one, the ForEachLoop or the ForLoop).</description>
@@ -30,10 +30,10 @@ The sequence problem The main issue is with the alignment of the elements in the
     
     <item>
       <title>Draw the SSIS package using SVG - part I</title>
-      <link>https://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/</link>
+      <link>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</link>
       <pubDate>Mon, 08 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
+      <guid>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
       <description>For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub.</description>
     </item>
     

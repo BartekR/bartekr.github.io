@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SQL Server on BartekR</title>
-    <link>https://bartekr.github.io/categories/sql-server/</link>
+    <link>https://blog.bartekr.net/categories/sql-server/</link>
     <description>Recent content in SQL Server on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 06 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>So, you want to migrate SSIS(DB)?</title>
-      <link>https://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <link>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
       <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <guid>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
       <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
 The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
     </item>
     
     <item>
       <title>Connect to SQL Server on Ubuntu Linux VirtualBox machine</title>
-      <link>https://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>
+      <link>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
+      <guid>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
       <description>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.
 I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?</description>
     </item>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Power BI on BartekR</title>
-    <link>https://bartekr.github.io/tags/power-bi/</link>
+    <link>https://blog.bartekr.net/tags/power-bi/</link>
     <description>Recent content in Power BI on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/power-bi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/power-bi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
-      <link>https://bartekr.github.io/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</link>
+      <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</link>
       <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</guid>
+      <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</guid>
       <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&#39; relations using graphs and Power BI?
 Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</description>
     </item>

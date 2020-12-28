@@ -2,314 +2,323 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on BartekR</title>
-    <link>https://bartekr.github.io/tags/</link>
+    <link>https://blog.bartekr.net/tags/</link>
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>https://blog.bartekr.net/tags/hugo/</link>
+      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>GitHub</title>
-      <link>https://bartekr.github.io/tags/github/</link>
+      <link>https://blog.bartekr.net/tags/github/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/github/</guid>
+      <guid>https://blog.bartekr.net/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hubo</title>
-      <link>https://bartekr.github.io/tags/hubo/</link>
+      <link>https://blog.bartekr.net/tags/hubo/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/hubo/</guid>
+      <guid>https://blog.bartekr.net/tags/hubo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>WordPress</title>
-      <link>https://bartekr.github.io/tags/wordpress/</link>
+      <link>https://blog.bartekr.net/tags/wordpress/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/wordpress/</guid>
+      <guid>https://blog.bartekr.net/tags/wordpress/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Azure DevOps</title>
-      <link>https://bartekr.github.io/tags/azure-devops/</link>
+      <link>https://blog.bartekr.net/tags/azure-devops/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/azure-devops/</guid>
+      <guid>https://blog.bartekr.net/tags/azure-devops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OAuth</title>
-      <link>https://bartekr.github.io/tags/oauth/</link>
+      <link>https://blog.bartekr.net/tags/oauth/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/oauth/</guid>
+      <guid>https://blog.bartekr.net/tags/oauth/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PowerShell</title>
-      <link>https://bartekr.github.io/tags/powershell/</link>
+      <link>https://blog.bartekr.net/tags/powershell/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/powershell/</guid>
+      <guid>https://blog.bartekr.net/tags/powershell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>security</title>
-      <link>https://bartekr.github.io/tags/security/</link>
+      <link>https://blog.bartekr.net/tags/security/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/security/</guid>
+      <guid>https://blog.bartekr.net/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>https://bartekr.github.io/tags/docker/</link>
+      <link>https://blog.bartekr.net/tags/docker/</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/docker/</guid>
+      <guid>https://blog.bartekr.net/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker desktop</title>
-      <link>https://bartekr.github.io/tags/docker-desktop/</link>
+      <link>https://blog.bartekr.net/tags/docker-desktop/</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/docker-desktop/</guid>
+      <guid>https://blog.bartekr.net/tags/docker-desktop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>WSL2</title>
-      <link>https://bartekr.github.io/tags/wsl2/</link>
+      <link>https://blog.bartekr.net/tags/wsl2/</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/wsl2/</guid>
+      <guid>https://blog.bartekr.net/tags/wsl2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Excel</title>
-      <link>https://bartekr.github.io/tags/excel/</link>
+      <link>https://blog.bartekr.net/tags/excel/</link>
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/excel/</guid>
+      <guid>https://blog.bartekr.net/tags/excel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C#</title>
-      <link>https://bartekr.github.io/tags/c#/</link>
+      <link>https://blog.bartekr.net/tags/c#/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/c#/</guid>
+      <guid>https://blog.bartekr.net/tags/c#/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TFS</title>
-      <link>https://bartekr.github.io/tags/tfs/</link>
+      <link>https://blog.bartekr.net/tags/tfs/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/tfs/</guid>
+      <guid>https://blog.bartekr.net/tags/tfs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSIS</title>
-      <link>https://bartekr.github.io/tags/ssis/</link>
+      <link>https://blog.bartekr.net/tags/ssis/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/ssis/</guid>
+      <guid>https://blog.bartekr.net/tags/ssis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SVG</title>
-      <link>https://bartekr.github.io/tags/svg/</link>
+      <link>https://blog.bartekr.net/tags/svg/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/svg/</guid>
+      <guid>https://blog.bartekr.net/tags/svg/</guid>
       <description></description>
     </item>
     
     <item>
       <title>XML</title>
-      <link>https://bartekr.github.io/tags/xml/</link>
+      <link>https://blog.bartekr.net/tags/xml/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/xml/</guid>
+      <guid>https://blog.bartekr.net/tags/xml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>XSLT</title>
-      <link>https://bartekr.github.io/tags/xslt/</link>
+      <link>https://blog.bartekr.net/tags/xslt/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/xslt/</guid>
+      <guid>https://blog.bartekr.net/tags/xslt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ssisUnit</title>
-      <link>https://bartekr.github.io/tags/ssisunit/</link>
+      <link>https://blog.bartekr.net/tags/ssisunit/</link>
       <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/ssisunit/</guid>
+      <guid>https://blog.bartekr.net/tags/ssisunit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MSTest</title>
-      <link>https://bartekr.github.io/tags/mstest/</link>
+      <link>https://blog.bartekr.net/tags/mstest/</link>
       <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/mstest/</guid>
+      <guid>https://blog.bartekr.net/tags/mstest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SQL Server 2017</title>
-      <link>https://bartekr.github.io/tags/sql-server-2017/</link>
+      <link>https://blog.bartekr.net/tags/sql-server-2017/</link>
       <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/sql-server-2017/</guid>
+      <guid>https://blog.bartekr.net/tags/sql-server-2017/</guid>
       <description></description>
     </item>
     
     <item>
       <title>internals</title>
-      <link>https://bartekr.github.io/tags/internals/</link>
+      <link>https://blog.bartekr.net/tags/internals/</link>
       <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/internals/</guid>
+      <guid>https://blog.bartekr.net/tags/internals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>migration</title>
-      <link>https://bartekr.github.io/tags/migration/</link>
+      <link>https://blog.bartekr.net/tags/migration/</link>
       <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/migration/</guid>
+      <guid>https://blog.bartekr.net/tags/migration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSIS internals</title>
-      <link>https://bartekr.github.io/tags/ssis-internals/</link>
+      <link>https://blog.bartekr.net/tags/ssis-internals/</link>
       <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/ssis-internals/</guid>
+      <guid>https://blog.bartekr.net/tags/ssis-internals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>T-SQL Tuesday</title>
-      <link>https://bartekr.github.io/tags/t-sql-tuesday/</link>
+      <link>https://blog.bartekr.net/tags/t-sql-tuesday/</link>
       <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/t-sql-tuesday/</guid>
+      <guid>https://blog.bartekr.net/tags/t-sql-tuesday/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux</title>
-      <link>https://bartekr.github.io/tags/linux/</link>
+      <link>https://blog.bartekr.net/tags/linux/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/linux/</guid>
+      <guid>https://blog.bartekr.net/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ubuntu</title>
-      <link>https://bartekr.github.io/tags/ubuntu/</link>
+      <link>https://blog.bartekr.net/tags/ubuntu/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/ubuntu/</guid>
+      <guid>https://blog.bartekr.net/tags/ubuntu/</guid>
       <description></description>
     </item>
     
     <item>
       <title>VirtualBox</title>
-      <link>https://bartekr.github.io/tags/virtualbox/</link>
+      <link>https://blog.bartekr.net/tags/virtualbox/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/virtualbox/</guid>
+      <guid>https://blog.bartekr.net/tags/virtualbox/</guid>
       <description></description>
     </item>
     
     <item>
       <title>VM</title>
-      <link>https://bartekr.github.io/tags/vm/</link>
+      <link>https://blog.bartekr.net/tags/vm/</link>
       <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/vm/</guid>
+      <guid>https://blog.bartekr.net/tags/vm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Graph</title>
-      <link>https://bartekr.github.io/tags/graph/</link>
+      <link>https://blog.bartekr.net/tags/graph/</link>
       <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/graph/</guid>
+      <guid>https://blog.bartekr.net/tags/graph/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Power BI</title>
-      <link>https://bartekr.github.io/tags/power-bi/</link>
+      <link>https://blog.bartekr.net/tags/power-bi/</link>
       <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/power-bi/</guid>
+      <guid>https://blog.bartekr.net/tags/power-bi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>encryption</title>
-      <link>https://bartekr.github.io/tags/encryption/</link>
+      <link>https://blog.bartekr.net/tags/encryption/</link>
       <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/encryption/</guid>
+      <guid>https://blog.bartekr.net/tags/encryption/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IsDeploymentWizard</title>
-      <link>https://bartekr.github.io/tags/isdeploymentwizard/</link>
+      <link>https://blog.bartekr.net/tags/isdeploymentwizard/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/isdeploymentwizard/</guid>
+      <guid>https://blog.bartekr.net/tags/isdeploymentwizard/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ISServerExec</title>
-      <link>https://bartekr.github.io/tags/isserverexec/</link>
+      <link>https://blog.bartekr.net/tags/isserverexec/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/isserverexec/</guid>
+      <guid>https://blog.bartekr.net/tags/isserverexec/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sqlbits</title>
-      <link>https://bartekr.github.io/tags/sqlbits/</link>
+      <link>https://blog.bartekr.net/tags/sqlbits/</link>
       <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/tags/sqlbits/</guid>
+      <guid>https://blog.bartekr.net/tags/sqlbits/</guid>
       <description></description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Not-So-Technical on BartekR</title>
-    <link>https://bartekr.github.io/categories/not-so-technical/</link>
+    <link>https://blog.bartekr.net/categories/not-so-technical/</link>
     <description>Recent content in Not-So-Technical on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/categories/not-so-technical/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/not-so-technical/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Migrating to GitHub Pages</title>
-      <link>https://bartekr.github.io/2020/11/01/migrating-to-github-pages/</link>
+      <link>https://blog.bartekr.net/2020/11/01/migrating-to-github-pages/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2020/11/01/migrating-to-github-pages/</guid>
+      <guid>https://blog.bartekr.net/2020/11/01/migrating-to-github-pages/</guid>
       <description>I blog with WordPress since the 17th of February 2009. At first, I used a blog-as-a-service approach, as I wanted just to start writing and see how it goes, not building all the infrastructure. I was writing for myself, to document interesting things I found during my adventures with SQL Server.
 Then, in 2017 I decided to switch to an English blog. I wanted to do the next step, and as I was helping run other WordPress-based websites, I started my own hosted blog – again using WordPress.</description>
     </item>

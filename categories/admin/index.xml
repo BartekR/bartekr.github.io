@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Admin on BartekR</title>
+    <link>https://blog.bartekr.net/categories/admin/</link>
+    <description>Recent content in Admin on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/admin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrating to GitHub Pages with Hugo</title>
+      <link>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</link>
+      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</guid>
+      <description>Decision was made. And announced. And deadline set - so I will look stupid if I don&amp;rsquo;t do it. Something that was a strong decision started weakening. But setting a goal, and telling your friends about it is a strong motivator. Not to mention the WordPress annoyances during the transition period.
+First hurdles I chose Hugo by accident. At first I wanted to use Jekyll - I worked with Ruby long time ago and thought it might be a good idea to return to those times and refresh knowledge a bit.</description>
+    </item>
+    
+  </channel>
+</rss>

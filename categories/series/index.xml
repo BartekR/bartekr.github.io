@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on BartekR</title>
-    <link>https://bartekr.github.io/categories/series/</link>
+    <link>https://blog.bartekr.net/categories/series/</link>
     <description>Recent content in Series on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/categories/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Draw the SSIS Package using SVG - part III</title>
-      <link>https://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</link>
+      <link>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
+      <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
       <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
 Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
     </item>
     
     <item>
       <title>Draw the SSIS Package using SVG - part II</title>
-      <link>https://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</link>
+      <link>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</link>
       <pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
+      <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
       <description>The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.
  
 The sequence problem The main issue is with the alignment of the elements in the Sequence object (no matter if it&amp;rsquo;s the default one, the ForEachLoop or the ForLoop).</description>
@@ -30,19 +30,19 @@ The sequence problem The main issue is with the alignment of the elements in the
     
     <item>
       <title>Draw the SSIS package using SVG - part I</title>
-      <link>https://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/</link>
+      <link>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</link>
       <pubDate>Mon, 08 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
+      <guid>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
       <description>For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub.</description>
     </item>
     
     <item>
       <title>Working with properties in ssisUnit</title>
-      <link>https://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</link>
       <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/11/05/working-with-properties-in-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
       <description>One of the ssisUnit commands is a PropertyCommand. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).
 How do you use it?
 
@@ -51,20 +51,20 @@ The command is simple. You can get or set the property using the value for given
     
     <item>
       <title>Writing ssisUnit test using API</title>
-      <link>https://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</link>
+      <link>https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/</link>
       <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</guid>
+      <guid>https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/</guid>
       <description>In the post about using MSTest framework to execute ssisUnit tests, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.
 Why MSTest? Because I don&amp;rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not.</description>
     </item>
     
     <item>
       <title>Testing the loops in ssisUnit</title>
-      <link>https://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</link>
       <pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/07/10/testing-the-loops-in-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
       <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
  &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
 I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
@@ -72,39 +72,39 @@ I didn’t have time to demo this during the presentation. Good thing too, becau
     
     <item>
       <title>Setting package references in ssisUnit</title>
-      <link>https://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</link>
       <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/07/05/setting-package-references-in-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
       <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
  Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
     </item>
     
     <item>
       <title>Executing ssisUnit tests in MSTest framework</title>
-      <link>https://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
+      <link>https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
       <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
+      <guid>https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
       <description>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</description>
     </item>
     
     <item>
       <title>Using cached datasets in ssisUnit</title>
-      <link>https://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/</link>
       <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/05/31/using-cached-datasets-in-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/</guid>
       <description>In the previous post, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&amp;rsquo;s result in the test file. In this post, I will show you how you can use it.
 First - why would you want to store the datasets within the test file?</description>
     </item>
     
     <item>
       <title>Using Connections and Datasets in ssisUnit</title>
-      <link>https://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</link>
       <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
       <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
 
 The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
@@ -113,29 +113,29 @@ The Dataset As you can see in the image above, the dataset is a named result tha
     
     <item>
       <title>Testing database connections with ssisUnit</title>
-      <link>https://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/</link>
       <pubDate>Fri, 13 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/04/13/testing-database-connections-with-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/</guid>
       <description>Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&amp;rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&amp;rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.</description>
     </item>
     
     <item>
       <title>Writing first tests with ssisUnit</title>
-      <link>https://bartekr.github.io/2018/03/26/writing-first-tests-with-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/</link>
       <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/03/26/writing-first-tests-with-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/</guid>
       <description>Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&amp;rsquo;t write your first tests for the most complicated part of the package.
 Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:</description>
     </item>
     
     <item>
       <title>Testing SSIS Projects with ssisUnit</title>
-      <link>https://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
+      <link>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
       <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
+      <guid>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
       <description>During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&amp;rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.</description>
     </item>
     

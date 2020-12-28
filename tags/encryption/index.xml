@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>encryption on BartekR</title>
-    <link>https://bartekr.github.io/tags/encryption/</link>
+    <link>https://blog.bartekr.net/tags/encryption/</link>
     <description>Recent content in encryption on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 11 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/encryption/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/encryption/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get the passwords from SSIS Environment variables</title>
-      <link>https://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</link>
+      <link>https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/</link>
       <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
+      <guid>https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
       <description>SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&amp;rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.
 But what if you need to do the configuration on another server? Or you&amp;rsquo;re just curious how to decode encrypted data?</description>
     </item>

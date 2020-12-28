@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Azure DevOps on BartekR</title>
-    <link>https://bartekr.github.io/tags/azure-devops/</link>
+    <link>https://blog.bartekr.net/tags/azure-devops/</link>
     <description>Recent content in Azure DevOps on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/azure-devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/azure-devops/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using the system OAuth token in Azure DevOps</title>
-      <link>https://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
+      <link>https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
+      <guid>https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
       <description>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</description>
     </item>
     
     <item>
       <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
-      <link>https://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
+      <link>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
+      <guid>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
       <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
 First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
     </item>
