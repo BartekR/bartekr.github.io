@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>security on BartekR</title>
-    <link>http://bartekr.github.io/tags/security/</link>
+    <link>https://bartekr.github.io/tags/security/</link>
     <description>Recent content in security on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using the system OAuth token in Azure DevOps</title>
-      <link>http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
+      <link>https://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
+      <guid>https://bartekr.github.io/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
       <description>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</description>
     </item>
     

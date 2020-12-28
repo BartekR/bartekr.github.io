@@ -2,107 +2,107 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on BartekR</title>
-    <link>http://bartekr.github.io/categories/</link>
+    <link>https://bartekr.github.io/categories/</link>
     <description>Recent content in Categories on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Not-So-Technical</title>
-      <link>http://bartekr.github.io/categories/not-so-technical/</link>
+      <link>https://bartekr.github.io/categories/not-so-technical/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/not-so-technical/</guid>
+      <guid>https://bartekr.github.io/categories/not-so-technical/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Troubleshooting</title>
-      <link>http://bartekr.github.io/categories/troubleshooting/</link>
+      <link>https://bartekr.github.io/categories/troubleshooting/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/troubleshooting/</guid>
+      <guid>https://bartekr.github.io/categories/troubleshooting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TFS</title>
-      <link>http://bartekr.github.io/categories/tfs/</link>
+      <link>https://bartekr.github.io/categories/tfs/</link>
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/tfs/</guid>
+      <guid>https://bartekr.github.io/categories/tfs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Programming</title>
-      <link>http://bartekr.github.io/categories/programming/</link>
+      <link>https://bartekr.github.io/categories/programming/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/programming/</guid>
+      <guid>https://bartekr.github.io/categories/programming/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Learning</title>
-      <link>http://bartekr.github.io/categories/learning/</link>
+      <link>https://bartekr.github.io/categories/learning/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/learning/</guid>
+      <guid>https://bartekr.github.io/categories/learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Series</title>
-      <link>http://bartekr.github.io/categories/series/</link>
+      <link>https://bartekr.github.io/categories/series/</link>
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/series/</guid>
+      <guid>https://bartekr.github.io/categories/series/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Testing</title>
-      <link>http://bartekr.github.io/categories/testing/</link>
+      <link>https://bartekr.github.io/categories/testing/</link>
       <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/testing/</guid>
+      <guid>https://bartekr.github.io/categories/testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSIS internals</title>
-      <link>http://bartekr.github.io/categories/ssis-internals/</link>
+      <link>https://bartekr.github.io/categories/ssis-internals/</link>
       <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/ssis-internals/</guid>
+      <guid>https://bartekr.github.io/categories/ssis-internals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>internals</title>
-      <link>http://bartekr.github.io/categories/internals/</link>
+      <link>https://bartekr.github.io/categories/internals/</link>
       <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/internals/</guid>
+      <guid>https://bartekr.github.io/categories/internals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SQL Server</title>
-      <link>http://bartekr.github.io/categories/sql-server/</link>
+      <link>https://bartekr.github.io/categories/sql-server/</link>
       <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/sql-server/</guid>
+      <guid>https://bartekr.github.io/categories/sql-server/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Conferences</title>
-      <link>http://bartekr.github.io/categories/conferences/</link>
+      <link>https://bartekr.github.io/categories/conferences/</link>
       <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/categories/conferences/</guid>
+      <guid>https://bartekr.github.io/categories/conferences/</guid>
       <description></description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>T-SQL Tuesday on BartekR</title>
-    <link>http://bartekr.github.io/tags/t-sql-tuesday/</link>
+    <link>https://bartekr.github.io/tags/t-sql-tuesday/</link>
     <description>Recent content in T-SQL Tuesday on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 14 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/t-sql-tuesday/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/t-sql-tuesday/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>T-SQL Tuesday #96: Folks Who Have Made a Difference</title>
-      <link>http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</link>
+      <link>https://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</link>
       <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</guid>
+      <guid>https://bartekr.github.io/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</guid>
       <description>This post is a part of T-SQL Tuesday series started by Adam Machanic in 2009.
 Ewald Cress (b | t) asked to give a shout-out to people (well-known or otherwise) who have made a meaningful contribution to your life in the world of data.
 As I was thinking about the people that had the most impact on my career I have to give the biggest kudos to my friend, Leszek Kwaśniewski (t).</description>

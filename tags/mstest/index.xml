@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MSTest on BartekR</title>
-    <link>http://bartekr.github.io/tags/mstest/</link>
+    <link>https://bartekr.github.io/tags/mstest/</link>
     <description>Recent content in MSTest on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 13 Aug 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/mstest/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Aug 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/mstest/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writing ssisUnit test using API</title>
-      <link>http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</link>
+      <link>https://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</link>
       <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</guid>
+      <guid>https://bartekr.github.io/2018/08/13/writing-ssisunit-test-using-api/</guid>
       <description>In the post about using MSTest framework to execute ssisUnit tests, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.
 Why MSTest? Because I don&amp;rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not.</description>
     </item>
     
     <item>
       <title>Executing ssisUnit tests in MSTest framework</title>
-      <link>http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
+      <link>https://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</link>
       <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
+      <guid>https://bartekr.github.io/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
       <description>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</description>
     </item>
     

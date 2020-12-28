@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Excel on BartekR</title>
-    <link>http://bartekr.github.io/tags/excel/</link>
+    <link>https://bartekr.github.io/tags/excel/</link>
     <description>Recent content in Excel on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/tags/excel/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/tags/excel/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
-      <link>http://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
+      <link>https://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
+      <guid>https://bartekr.github.io/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
       <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
 First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
     </item>

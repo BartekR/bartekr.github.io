@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SSIS internals on BartekR</title>
-    <link>http://bartekr.github.io/categories/ssis-internals/</link>
+    <link>https://bartekr.github.io/categories/ssis-internals/</link>
     <description>Recent content in SSIS internals on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 28 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://bartekr.github.io/categories/ssis-internals/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://bartekr.github.io/categories/ssis-internals/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Upgrading SSIS projects - part III</title>
-      <link>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</link>
+      <link>https://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</link>
       <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
+      <guid>https://bartekr.github.io/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
       <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
 The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
 public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
@@ -20,40 +20,40 @@ public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts
     
     <item>
       <title>So, you want to migrate SSIS(DB)?</title>
-      <link>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+      <link>https://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
       <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+      <guid>https://bartekr.github.io/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
       <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
 The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
     </item>
     
     <item>
       <title>Learning something new: connections in SSIS package</title>
-      <link>http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</link>
+      <link>https://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</link>
       <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</guid>
+      <guid>https://bartekr.github.io/2017/06/25/learning-something-new-connections-in-ssis-package/</guid>
       <description>Starting to learn something new - first step. Let&amp;rsquo;s analyse the code of SSIS package. How does it store the information about the element connections? How can I get that data as graph&amp;rsquo;s edges and nodes? Step by step - building the packages from empty one to more complex I will find how they are stored.
 To achieve this I will prepare the new SSIS Project and call it SSIS_Graph. It will get new packages each time I will want to check something new.</description>
     </item>
     
     <item>
       <title>Get the passwords from SSIS Environment variables</title>
-      <link>http://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</link>
+      <link>https://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</link>
       <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
+      <guid>https://bartekr.github.io/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
       <description>SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&amp;rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.
 But what if you need to do the configuration on another server? Or you&amp;rsquo;re just curious how to decode encrypted data?</description>
     </item>
     
     <item>
       <title>What happens during SSIS deployments?</title>
-      <link>http://bartekr.github.io/2017/05/03/what-happens-during-ssis-deployments/</link>
+      <link>https://bartekr.github.io/2017/05/03/what-happens-during-ssis-deployments/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://bartekr.github.io/2017/05/03/what-happens-during-ssis-deployments/</guid>
+      <guid>https://bartekr.github.io/2017/05/03/what-happens-during-ssis-deployments/</guid>
       <description>When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&amp;rsquo;s skip SMO and stuff). Both mean the same: IsDeploymentWizard.exe. I was curious what happens during deployment and why mode/Silent finishes deployment very quickly, so I started digging.
 First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6 project parameters and no connection managers (who needs them anyway?). Each package contained empty Data Flow Task - so you see that all just to compile something more than a single package.</description>
     </item>
