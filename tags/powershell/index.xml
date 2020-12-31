@@ -6,7 +6,16 @@
     <description>Recent content in PowerShell on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advent of Code 2020</title>
+      <link>https://blog.bartekr.net/2020/12/31/advent-of-code-2020/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2020/12/31/advent-of-code-2020/</guid>
+      <description>This year I took part in &amp;ldquo;Advent of Code&amp;rdquo; - a challenge with the series of puzzles to solve using any programming language. I tried two years ago but resigned after the first day. This year was different, as we set the internal leaderboards, and I had a motivation to test my skills. My initial idea was to use only the PowerShell, but after some talks, I thought &amp;ldquo;maybe it&amp;rsquo;s a good moment to start learning go lang&amp;rdquo;?</description>
+    </item>
+    
     <item>
       <title>Using the system OAuth token in Azure DevOps</title>
       <link>https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</link>

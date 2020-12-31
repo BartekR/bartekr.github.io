@@ -6,7 +6,25 @@
     <description>Recent content in Categories on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advent of Code</title>
+      <link>https://blog.bartekr.net/categories/advent-of-code/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/categories/advent-of-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>https://blog.bartekr.net/categories/programming/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/categories/programming/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Admin</title>
       <link>https://blog.bartekr.net/categories/admin/</link>
@@ -40,15 +58,6 @@
       <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/categories/tfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming</title>
-      <link>https://blog.bartekr.net/categories/programming/</link>
-      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/programming/</guid>
       <description></description>
     </item>
     

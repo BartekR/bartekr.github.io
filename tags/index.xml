@@ -6,7 +6,25 @@
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AoC2020</title>
+      <link>https://blog.bartekr.net/tags/aoc2020/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/aoc2020/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PowerShell</title>
+      <link>https://blog.bartekr.net/tags/powershell/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/powershell/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Hugo</title>
       <link>https://blog.bartekr.net/tags/hugo/</link>
@@ -58,15 +76,6 @@
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/tags/oauth/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PowerShell</title>
-      <link>https://blog.bartekr.net/tags/powershell/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/powershell/</guid>
       <description></description>
     </item>
     
