@@ -6,7 +6,25 @@
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Comments</title>
+      <link>https://blog.bartekr.net/tags/comments/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/comments/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://blog.bartekr.net/tags/hugo/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>AoC2020</title>
       <link>https://blog.bartekr.net/tags/aoc2020/</link>
@@ -22,15 +40,6 @@
       <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/tags/powershell/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://blog.bartekr.net/tags/hugo/</link>
-      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/hugo/</guid>
       <description></description>
     </item>
     

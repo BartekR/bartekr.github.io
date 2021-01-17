@@ -6,7 +6,17 @@
     <description>Recent content in Posts on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testing Utterances Comments</title>
+      <link>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</guid>
+      <description>When I switched to Hugo, I knew my new blog would not have the comments enabled. I planned it &amp;ldquo;for later&amp;rdquo;, as I didn&amp;rsquo;t want to use Disqus (available by default in Hugo).
+When I chose the hugo-future-imperfect-slim theme, I saw I could integrate Staticman, which creates the comments as the Pull Request in GitHub. Brilliant idea, but it involves some additional setup (either authorising Staticman GitHub account or hosting an own API instance).</description>
+    </item>
+    
     <item>
       <title>Advent of Code 2020</title>
       <link>https://blog.bartekr.net/2020/12/31/advent-of-code-2020/</link>
