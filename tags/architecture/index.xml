@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>architecture on BartekR</title>
+    <link>https://blog.bartekr.net/tags/architecture/</link>
+    <description>Recent content in architecture on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build Yourself a Web App in Azure</title>
+      <link>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</link>
+      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
+      <description>NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.
+ When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a Basic Web App reference architecture, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.</description>
+    </item>
+    
+  </channel>
+</rss>

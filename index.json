@@ -1,4 +1,10 @@
 [{
+    "title": "Build Yourself a Web App in Azure",
+    "date": "",
+    "description": "",
+    "body": " NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.\n When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a Basic Web App reference architecture, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.\nBut then, you might start thinking. \u0026ldquo;How secure it is for the enterprise application\u0026rdquo;? \u0026ldquo;What else should I learn to check my options\u0026rdquo;? And that\u0026rsquo;s how this series started. I wanted to build a secure environment for the web application hosted in Azure. It\u0026rsquo;s also a perfect opportunity to learn a lot about Azure architecture and components.\nBuilding a secure web app in Azure \u0026hellip; without Application Service Environment (ASE). I will start with the basic web app reference architecture, and then I will add some elements to make it more secure. The components I want to use are:\n Azure App Service Web Application (in App Service Plan) Application Gateway Azure SQL Database Azure Key Vault Azure Monitor Azure Blob Storage  I will explore the options on how to connect between them, how to use SSL, networking options (service endpoints, private endpoints, subnet delegation), managed identities, RBAC, \u0026hellip;\nThe architecture I want to use is almost a new basic web app architecture (see below), plus the Application Gateway before the Web App.\nQuite a journey ahead.\nimages: Azure Documentation - Azure Architecture Center - Basic Web Application\n",
+    "ref": "/2021/02/28/build-yourself-a-web-app-in-azure/"
+  },{
     "title": "Testing Utterances Comments",
     "date": "",
     "description": "",
