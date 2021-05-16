@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/04/13/testing-database-connections-with-ssisunit/">Testing database connections with ssisUnit</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png');">
     <img src="https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" alt="">
   </a>
-      <p><a href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on <a href="https://github.com/BartekR/ssisUnit">my GitHub</a>.</p>
+        <p><a href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on <a href="https://github.com/BartekR/ssisUnit">my GitHub</a>.</p>
 <p>The package contains three SQL Tasks: the first just checks if we can communicate with the database using <code>SELECT 1</code> statement, the second gets the information from the table, and the third repeats the second on the container level.</p>
 <p><a href="images/PackageOutline.png"><img src="images/PackageOutline.png#center" alt="Package outline"></a></p>
 <h2 id="the-database">The database</h2>
@@ -203,9 +204,9 @@
 <h2 id="summary">Summary</h2>
 <p>Project level connection managers work well at the package and container level. Out of the box. You don&rsquo;t have to set up the <code>ConnectionRef</code> elements - they are for different purposes (as you will see in the following posts). You deal with the results the same way as with the other variables.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -232,10 +233,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -243,7 +244,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/" class="button left"><span>Using Connections and Datasets in ssisUnit</span></a>
@@ -448,8 +450,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

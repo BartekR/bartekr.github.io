@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
+      </div>
+      <div class="content">
+        <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
     <img src="https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
   </a>
-      <p>In the third part of a series, I focus on drawing the constraints' descriptions and the colours. And also a bit of PowerShell for automation.</p>
+        <p>In the third part of a series, I focus on drawing the constraints' descriptions and the colours. And also a bit of PowerShell for automation.</p>
 <h2 id="automating-the-layout-extraction">Automating the layout extraction</h2>
 <p>Previously I prepared the file with a layout by hand - I copied the <code>CDATA</code> content of the<code>/DTS:Executable/DTS:DesignTimeProperties</code> element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1">New-Diagram.ps1</a>. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Find &lt;DesignTimeProperties&gt;, CDATA section</span>
@@ -242,9 +243,9 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
 <p><a href="images/Package.Diagram.png"><img src="images/Package.Diagram.png" alt="Package diagram"></a></p>
 <p>Up to now, I drew the Control Flow. The next part will focus on the Data Flow and Event Handlers.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -275,10 +276,10 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -286,7 +287,8 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="button left"><span>Adding a new Task in TFS using C#</span></a>
@@ -491,8 +493,8 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

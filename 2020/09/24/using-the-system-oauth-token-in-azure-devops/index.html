@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
+      </div>
+      <div class="content">
+        <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
     <img src="https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
   </a>
-      <p>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing <code>Invoke-WebRequest</code> (with <code>try/catch</code> logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</p>
+        <p>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing <code>Invoke-WebRequest</code> (with <code>try/catch</code> logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">StatusCode : 203
 StatusDescription : NonAuthoritativeInformation
 </code></pre></div><p>The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.</p>
@@ -241,9 +242,9 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
 <li>Disable the &ldquo;Limit job authorization scope to current project&rdquo; options to access different projects than the current one</li>
 </ol>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -270,10 +271,10 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -281,7 +282,8 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2020/11/01/migrating-to-github-pages/" class="button left"><span>Migrating to GitHub Pages</span></a>
@@ -486,8 +488,8 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

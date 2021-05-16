@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/11/05/working-with-properties-in-ssisunit/">Working with properties in ssisUnit</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/11/05/working-with-properties-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/11/05/working-with-properties-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png');">
     <img src="https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png" alt="">
   </a>
-      <p>One of the ssisUnit commands is a <code>PropertyCommand</code>. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&rsquo;t test the properties of the precedence constraints or data flow elements (but you can&rsquo;t currently test data flow at all).</p>
+        <p>One of the ssisUnit commands is a <code>PropertyCommand</code>. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&rsquo;t test the properties of the precedence constraints or data flow elements (but you can&rsquo;t currently test data flow at all).</p>
 <p>How do you use it?</p>
 <p><a href="images/EmptyPropertyCommand.png"><img src="images/EmptyPropertyCommand.png#center" alt="Empty property command"></a></p>
 <p>The command is simple. You can <strong>get</strong> or <strong>set</strong> the property using the <strong>value</strong> for given <strong>property path</strong>. As usual - when you get the value, you leave the value blank. The path - well - is the path to the element in the package or the project. You use backslashes to separate elements in the package tree, and at the end, you use <code>.Properties[PropertyName]</code> to read the property. If you use the elements collection - like connection managers - you can pick a single element using square brackets and the name of this element.</p>
@@ -194,9 +195,9 @@
 </ul>
 <p>Personally, up to now, I used only the project connection manager overwriting. It wasn&rsquo;t available <a href="http://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/">until the recent ssisUnit update</a>, but now you can use it in your projects.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -221,10 +222,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -232,7 +233,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/" class="button left"><span>Draw the SSIS package using SVG - part I</span></a>
@@ -437,8 +439,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

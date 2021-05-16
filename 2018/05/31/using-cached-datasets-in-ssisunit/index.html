@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/05/31/using-cached-datasets-in-ssisunit/">Using cached datasets in ssisUnit</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/05/31/using-cached-datasets-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/05/31/using-cached-datasets-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png');">
     <img src="https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png" alt="">
   </a>
-      <p><a href="http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/">In the previous post</a>, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&rsquo;s result in the test file. In this post, I will show you how you can use it.</p>
+        <p><a href="http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/">In the previous post</a>, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&rsquo;s result in the test file. In this post, I will show you how you can use it.</p>
 <p>First - why would you want to store the datasets within the test file? Well, maybe you don&rsquo;t want to hammer your database with hundreds of requests to prepare the expected data outcome. And/or you want to have everything in your unit test file, and you don&rsquo;t want to write all that <code>CAST</code>/<code>CONVERT</code> information for the datatypes when preparing the dataset?</p>
 <p>The ssisUnit GUI does not support creating the persisted dataset. If you switch the <em>IsResultsStored</em> flag to true on the dataset&rsquo;s properties, it gives a warning &ldquo;<em>The expected dataset&rsquo;s (&lt;the dataset name&gt;) stored results does not contain data. Populate the Results data table before executing.</em>&rdquo; during the test run.</p>
 <p>To find out more about it, take a look at the source code. Open the <code>Dataset.cs</code> file and go to the line 126. There is a method <code>PersistToXml()</code> that writes the <code>Dataset</code> as XML.</p>
@@ -312,9 +313,9 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
 <h2 id="to-sum-up">To sum up</h2>
 <p>If you want to store the dataset in the test file - no problem. The ssisUnit GUI does not support it, but the engine does. Use provided scripts to get the metadata of the dataset and serialise the prepared dataset. Then set the <em>IsResultsStored</em> flag to <em>True</em> and paste the serialised code directly to the ssisUnit file using <code>&lt;results /&gt;</code> and <code>CDATA</code>.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -341,10 +342,10 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -352,7 +353,8 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/" class="button left"><span>Executing ssisUnit tests in MSTest framework</span></a>
@@ -557,8 +559,8 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

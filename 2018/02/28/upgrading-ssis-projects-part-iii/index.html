@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/02/28/upgrading-ssis-projects-part-iii/">Upgrading SSIS projects - part III</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png');">
     <img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="">
   </a>
-      <p>In <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">the first part</a> of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> and  <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a>. This post is about the latter.</p>
+        <p>In <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">the first part</a> of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> and  <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a>. This post is about the latter.</p>
 <p>The documentation of the method is also a bit sparse at the moment, but is self-explanatory:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> SaveAndUpdateVersionToXml (
     <span style="color:#66d9ef">string</span> fileName,
@@ -238,9 +239,9 @@
 <p>So it is just another approach to convert the packages to the version we want. But - as in the previous part - it&rsquo;s just the packages. The project file is still the same, and when you open it in the Visual Studio it automatically downgrades the packages. Next part of the series will be about the project file itself.</p>
 <p>The code is also available on <a href="https://github.com/BartekR/blog/tree/master/201802%20Upgrading%20SSIS%20Projects%20part%20III/SaveAndUpdateVersionToXML">GitHub</a>.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -265,10 +266,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -276,7 +277,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="button left"><span>Testing SSIS Projects with ssisUnit</span></a>
@@ -481,8 +483,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

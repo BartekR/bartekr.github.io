@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/08/13/writing-ssisunit-test-using-api/">Writing ssisUnit test using API</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png');">
     <img src="https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" alt="">
   </a>
-      <p>In <a href="http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">the post about using MSTest framework to execute ssisUnit tests</a>, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.</p>
+        <p>In <a href="http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">the post about using MSTest framework to execute ssisUnit tests</a>, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.</p>
 <p>Why MSTest? Because I don&rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not. When I write the MSTest tests, I can run them using the Test Explorer in VS, using a command line, or in TFS.</p>
 <h2 id="the-preparations">The preparations</h2>
 <p>I create a new project <code>ssisUnitLearning.API</code> within the <code>ssisUnitLearning</code> solution using right-click on a solution name, then <em>Add &gt; New Project &gt; Visual C# &gt; Class library (.NET framework)</em> and using .NET 4.5 as a target.</p>
@@ -365,9 +366,9 @@ t.TestTeardown.Commands.Add(t2);
 <p>If you want to know more about ssisUnit API model, I encourage you to read the code in the <code>SsisUnit.Tests</code> folder of the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit source code</a>, as there&rsquo;s a lot of examples how to use the API.</p>
 <p>The full code is <a href="https://github.com/BartekR/ssisUnitLearning">available on GitHub</a>.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -396,10 +397,10 @@ t.TestTeardown.Commands.Add(t2);
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -407,7 +408,8 @@ t.TestTeardown.Commands.Add(t2);
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/09/12/whats-new-in-ssisunit/" class="button left"><span>What&#39;s new in ssisUnit?</span></a>
@@ -612,8 +614,8 @@ t.TestTeardown.Commands.Add(t2);
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

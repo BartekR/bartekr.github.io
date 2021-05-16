@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">Testing SSIS Projects with ssisUnit</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
     <img src="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
   </a>
-      <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
+        <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
 <p>I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit</a> framework by John Welch.</p>
 <p>The ssisUnit project started <a href="http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/">a long time ago</a> and was <a href="https://archive.codeplex.com/?p=ssisunit">hosted on CodePlex</a>, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (<a href="https://pragmaticworks.com/Products/BI-xPress">BiXpress</a>, <a href="https://pragmaticworks.com/Products/LegiTest">LegiTest</a>). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.</p>
 <h2 id="but-why">But why?</h2>
@@ -244,9 +245,9 @@
 <p>I wrote the test for SQL Task that didn&rsquo;t exist yet, then I prepared that task using Ctrl+C, Ctrl+V form another SQL Task (don&rsquo;t tell me that you don&rsquo;t do it!), edited the parts of it and run the tests. And the test failed. Because it found, that I didn&rsquo;t change the variable name for the outcome of the script.</p>
 <p>This post is just an introduction to SSIS testing. In the next posts, I will show you how to start with writing the first ssisUnit tests and slowly beginning to do something more complicated.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -275,10 +276,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -286,7 +287,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="button left"><span>Writing first tests with ssisUnit</span></a>
@@ -491,8 +493,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

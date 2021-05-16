@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/">Connect to SQL Server on Ubuntu Linux VirtualBox machine</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png');">
+      </div>
+      <div class="content">
+        <a href="/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png');">
     <img src="https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png" alt="">
   </a>
-      <p>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.</p>
+        <p>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.</p>
 <p>I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?) and selecting almost only the default options. I don&rsquo;t want to build a cluster or do sophisticated things - I just want the Linux Server to be up and running.</p>
 <p>It takes just few minutes to install Ubuntu Linux Server (16.04) . The next step is to install SQL Server. Following <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-ubuntu">the official</a> documentation I run just 5 commands to set up and one to verify if the service works well:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
@@ -195,9 +196,9 @@ systemctl status mssql-server
 <p>And that&rsquo;s it! Now I use port 14333 (remember to use a comma!) in SSMS and I&rsquo;m connected to VM with SQL Server on Linux.</p>
 <p><a href="images/PortForwarding03.png"><img src="images/PortForwarding03.png#center" alt="SSMS connect dialog"></a></p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -224,10 +225,10 @@ systemctl status mssql-server
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -235,7 +236,8 @@ systemctl status mssql-server
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/" class="button left"><span>Learning something new: getting information from SSIS packages with PowerShell</span></a>
@@ -440,8 +442,8 @@ systemctl status mssql-server
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

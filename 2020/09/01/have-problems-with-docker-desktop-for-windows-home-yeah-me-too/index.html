@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">Have problems with Docker Desktop for Windows Home? Yeah, me too!</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
+      </div>
+      <div class="content">
+        <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
     <img src="https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="">
   </a>
-      <p>Last week finally came that day: &ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.</p>
+        <p>Last week finally came that day: &ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.</p>
 <p>Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional. Also at home, I prepared a working environment consisting of Windows 10 Home + WSL + VirtualBox. The last one for hosting an Ubuntu virtual machine, as it&rsquo;s not possible to run Docker Desktop on Windows 10 Home or run a docker daemon in WSL. I configured it with a very helpful posts from Nick Janetakis (<a href="https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly">https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly</a>, <a href="https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon">https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon</a>). Now, with WSL2 I could eliminate VirtualBox from the ecosystem.</p>
 <p>After the installation and some restarts I opened the PowerShell, wrote <code>docker version</code> and got the message: <em>&ldquo;unable to resolve docker endpoint: open C:\Users\<!-- raw HTML omitted -->\.docker\machine\machines\default\ca.pem: The system cannot find the path specified&rdquo;</em></p>
 <p>The problem might occur because I was testing a Docker Toolbox a long time ago, and the uninstaller might not delete all the settings. The solution: change the <code>DOCKER_CERT_PATH</code> environment variable. To list all docker related variables I run this in PowerShell:</p>
@@ -205,9 +206,9 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
 </code></pre></div><p>Now I can also work from VSCode + docker extension.</p>
 <p>*) I&rsquo;ve read, that sometimes changing the <code>DOCKER_HOST</code> to <code>tcp://localhost:2375</code> did not help, but setting it to <code>tcp://127.0.0.1:2375</code> did.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -232,10 +233,10 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -243,7 +244,8 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="button left"><span>Using the system OAuth token in Azure DevOps</span></a>
@@ -448,8 +450,8 @@ DOCKER_MACHINE_NAME            <span style="color:#66d9ef">default</span>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

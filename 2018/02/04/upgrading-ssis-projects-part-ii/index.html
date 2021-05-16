@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/02/04/upgrading-ssis-projects-part-ii/">Upgrading SSIS projects, part II</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/02/04/upgrading-ssis-projects-part-ii/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png');">
     <img src="https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" alt="">
   </a>
-      <p>The problem I want to solve is automation of the SSIS project upgrade. <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">Previously</a> I wrote about the options to use <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. This post is about the first of those options.</p>
+        <p>The problem I want to solve is automation of the SSIS project upgrade. <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">Previously</a> I wrote about the options to use <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a> methods. This post is about the first of those options.</p>
 <p>If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx">https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx</a> with the example of upgrading the packages stored in the filesystem. If the page disappears, I have a <a href="https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976">backup copy on my</a> GitHub:</p>
 <script type="application/javascript" src="https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976.js"></script>
 
@@ -248,9 +249,9 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
 <h2 id="additional-materials">Additional materials</h2>
 <p>All source files are available on <a href="https://github.com/BartekR/blog/tree/master/201802%20Upgrading%20SSIS%20Projects%20part%20II">GitHub</a>.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -275,10 +276,10 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -286,7 +287,8 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="button left"><span>Upgrading SSIS projects - part III</span></a>
@@ -491,8 +493,8 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

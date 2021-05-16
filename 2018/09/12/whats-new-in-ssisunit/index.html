@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/09/12/whats-new-in-ssisunit/">What&#39;s new in ssisUnit?</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/09/12/whats-new-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/09/12/whats-new-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png');">
     <img src="https://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png" alt="">
   </a>
-      <p>ssisUnit has a stable version for SSIS 2005 - 2014. <a href="https://github.com/johnwelch/ssisUnit/commits?author=johnwelch">It didn&rsquo;t change much since August 2014</a>, until August 2017. Then <a href="https://github.com/johnwelch/ssisUnit/pull/1">my Pull Request</a> was merged, and it added some new functionality for ssisUnit.</p>
+        <p>ssisUnit has a stable version for SSIS 2005 - 2014. <a href="https://github.com/johnwelch/ssisUnit/commits?author=johnwelch">It didn&rsquo;t change much since August 2014</a>, until August 2017. Then <a href="https://github.com/johnwelch/ssisUnit/pull/1">my Pull Request</a> was merged, and it added some new functionality for ssisUnit.</p>
 <p>First - it works with SSIS 2017. You can probably use it with SSIS 2016 packages, but I didn&rsquo;t test it yet. Although - you can&rsquo;t check everything - there are problems when you want to use Control Flow Templates in your packages. When I tried to read the variable from the container included from the template - it hangs for a few seconds and returns an incorrect result. It&rsquo;s something to investigate later.</p>
 <p><a href="images/ProjectConnectionStringSetup.png"><img src="images/ProjectConnectionStringSetup.png#center" alt="Project connection string setup"></a></p>
 <p>Second - you can get and set the properties of the project and its elements. Like - overwriting project connection managers (I designed it with this particular need on my mind). You can now set the connection string the different server (or database) - in the PropertyPath of the PropertyCommand use <code>\Project\ConnectionManagers</code>, write the name of the connection manager <strong>with the extension</strong>, and use one of the <em>Properties</em>. You can do it during the Test setup (or all tests setup), but not during the test suite setup, as ssisUnit is not aware of the project until it loads it into the memory.</p>
@@ -187,9 +188,9 @@
 </ul>
 <p>If you want to get the latest version - <a href="https://github.com/johnwelch/ssisUnit">go to the GitHub repository</a>, download or clone the source code, compile it, and run. That easy! In case you have some problems with compilation (or ssisUnit not working correctly) - <a href="https://github.com/johnwelch/ssisUnit/issues">open an issue</a> or write a comment to this post.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -210,10 +211,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -221,7 +222,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/11/05/working-with-properties-in-ssisunit/" class="button left"><span>Working with properties in ssisUnit</span></a>
@@ -426,8 +428,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

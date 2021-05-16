@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">So, you want to migrate SSIS(DB)?</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png');">
+      </div>
+      <div class="content">
+        <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png');">
     <img src="https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="">
   </a>
-      <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
+        <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
 <p>The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).</p>
 <p>I won&rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&rsquo;t use <a href="https://dbatools.io/functions/copy-dbassiscatalog/">Copy-DbaSsisCatalog</a> from <a href="http://dbatools.io">dbatools</a>.</p>
 <h2 id="the-setup">The setup</h2>
@@ -310,9 +311,9 @@ BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
 </ul>
 <p>So the backup/restore/alter DMK procedure is OK for me.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -339,10 +340,10 @@ BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -350,7 +351,8 @@ BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="button left"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
@@ -555,8 +557,8 @@ BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

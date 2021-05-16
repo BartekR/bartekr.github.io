@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2017/05/03/what-happens-during-ssis-deployments/">What happens during SSIS deployments?</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2017/05/03/what-happens-during-ssis-deployments/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal.png');">
+      </div>
+      <div class="content">
+        <a href="/2017/05/03/what-happens-during-ssis-deployments/" class="image" style="--bg-image: url('https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal.png');">
     <img src="https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal.png" alt="">
   </a>
-      <p>When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&rsquo;s skip SMO and stuff). Both mean the same: <code>IsDeploymentWizard.exe</code>. I was curious what happens during deployment and why mode<code>/Silent</code> finishes deployment very quickly, so I started digging.</p>
+        <p>When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&rsquo;s skip SMO and stuff). Both mean the same: <code>IsDeploymentWizard.exe</code>. I was curious what happens during deployment and why mode<code>/Silent</code> finishes deployment very quickly, so I started digging.</p>
 <p>First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6 project parameters and no connection managers (who needs them anyway?). Each package contained empty Data Flow Task - so you see that all just to compile something more than a single package. Later during tests, I added connection managers, but they were treated the same as project parameters, so I skipped them (the same with package parameters). To observe the environment I used good old SQL Profiler and <a href="https://technet.microsoft.com/en-us/sysinternals/processexplorer.aspx">Process Explorer</a>.</p>
 <p>First - the SQL Profiler. I prepared only two operations to capture:</p>
 <ul>
@@ -1050,9 +1051,9 @@
 </ul>
 <p>The communication between <em>SSISDB</em> and <em>ISServerExec</em> (and <em>ISServerExec</em> itself) is a great candidate for another post in near future.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -1079,10 +1080,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -1090,7 +1091,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/" class="button left"><span>Get the passwords from SSIS Environment variables</span></a>
@@ -1295,8 +1297,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

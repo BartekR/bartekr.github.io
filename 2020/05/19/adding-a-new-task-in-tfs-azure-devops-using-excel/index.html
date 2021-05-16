@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/">Adding a new task in TFS (Azure DevOps) using Excel</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png');">
+      </div>
+      <div class="content">
+        <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png');">
     <img src="https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png" alt="">
   </a>
-      <p><a href="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/">In the previous post</a>, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.</p>
+        <p><a href="http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/">In the previous post</a>, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.</p>
 <p>First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to <a href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a> and pick it from the <em>Other Tools and Frameworks</em> section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.</p>
 <p><a href="images/AzureDevOps_TeamPlugin.png"><img src="images/AzureDevOps_TeamPlugin.png#center" alt="Team plugin"></a></p>
 <p>This time I will use my Azure DevOps collection <a href="https://bartekr.visualstudio.com">bartekr</a> and the <em>AzureDevOps_APITests</em> project. It uses a <em>Basic</em> process, but I also tested the process on an <em>Agile</em> workflow. To add the elements click <em>New List</em> and connect to the project. If it&rsquo;s the first time you connect to Azure DevOps or TFS you will be prompted to set up the connection to the collection. After you connect pick the <em>Input list</em> from the options</p>
@@ -202,9 +203,9 @@
 <p><a href="images/AzureDevOps_WorkitemDeletedLink.png"><img src="images/AzureDevOps_WorkitemDeletedLink.png#center" alt="Work item delete"></a></p>
 <p>In short: adding work items to TFS / Azure DevOps using Excel is easy. The trick is <del><a href="https://www.youtube.com/watch?v=GwKtszQ8Ejo">to keep breathing</a></del> to use the <em>Add Tree Level</em> button.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -227,10 +228,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -238,7 +239,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="button left"><span>Have problems with Docker Desktop for Windows Home? Yeah, me too!</span></a>
@@ -443,8 +445,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">Adding a new Task in TFS using C#</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png');">
+      </div>
+      <div class="content">
+        <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png');">
     <img src="https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" alt="">
   </a>
-      <p>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. <a href="https://youtu.be/XlhihCd6qtw?t=23">You have three months from now</a>. Or a few hours.</p>
+        <p>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. <a href="https://youtu.be/XlhihCd6qtw?t=23">You have three months from now</a>. Or a few hours.</p>
 <p>The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).</p>
 <table>
 <thead>
@@ -367,9 +368,9 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
 <p>The next steps - checking how it works with Azure DevOps in Azure and a bit more of parametrisation. Also, I have to verify if I have to pass a full URL for the parent WorkItem (User Story) and if it&rsquo;s possible to insert the task with the <em>Closed</em> status (not possible form the GUI - the only option is New). But that&rsquo;s a subject for a different blog post.</p>
 <p>The code is available <a href="https://github.com/BartekR/TFSImport">on GitHub</a>.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -392,10 +393,10 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -403,7 +404,8 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/" class="button left"><span>Adding a new task in TFS (Azure DevOps) using Excel</span></a>
@@ -608,8 +610,8 @@ DataSet x = JsonConvert.DeserializeObject(jsonTasks);
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

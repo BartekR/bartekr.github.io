@@ -16,7 +16,7 @@
     <meta property="og:image" content="https://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -143,8 +143,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/">Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</a></h2>
@@ -158,17 +159,17 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      
-      <p>Recently I attended the AppDev PASS Virtual Group <a href="http://appdev.pass.org/?EventID=8085">webinar about graphs in SQL Server 2017</a>. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using <a href="https://powerbi.microsoft.com/en-us/blog/visual-awesomeness-unlocked-the-force-directed-graph/">Force-directed graph plugin</a>) the idea struck: how about visualising SSIS packages' relations using graphs and Power BI?</p>
+      </div>
+      <div class="content">
+        
+        <p>Recently I attended the AppDev PASS Virtual Group <a href="http://appdev.pass.org/?EventID=8085">webinar about graphs in SQL Server 2017</a>. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using <a href="https://powerbi.microsoft.com/en-us/blog/visual-awesomeness-unlocked-the-force-directed-graph/">Force-directed graph plugin</a>) the idea struck: how about visualising SSIS packages' relations using graphs and Power BI?</p>
 <p>Maybe it won&rsquo;t work, maybe there are limitations I&rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</p>
 <p>For a time of writing I know there are some limitations about graph querying for hierarchical data - <a href="https://twitter.com/arvisam/status/873312748142080000">but only until next CTP</a>, so I will start slow - with defining the sample project and a graph itself. The rough roadmap below:</p>
 <ul>
@@ -186,9 +187,9 @@
 <li>(on hold)</li>
 </ul>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -215,10 +216,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -226,7 +227,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/" class="button left"><span>Learning something new: connections in SSIS package</span></a>
@@ -431,8 +433,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

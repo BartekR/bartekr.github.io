@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">Executing ssisUnit tests in MSTest framework</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png');">
     <img src="https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" alt="">
   </a>
-      <p>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</p>
+        <p>One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).</p>
 <p>I work a lot with TFS. It has a neat feature - you can run tests during the build or release and verify how your code is doing. The goal is: I want to run ssisUnit tests of my <a href="https://github.com/BartekR/ssisUnitLearning">ssisUnitLearning project</a> in TFS and see the outcome in the reports.</p>
 <p><a href="images/TFS_TestsDetails.png"><img src="images/TFS_TestsDetails.png#center" alt="Test details in TFS"></a></p>
 <p>On the picture above three of my four tests failed. Select <em>DFT_LoadUsers</em> test - it failed because of the <em>DefaultBufferMaxRow</em> setting for the <em>Data Flow Task</em>. This test is written for <code>20_DataFlow.dtsx</code> - the package to load the <code>dbo.Users</code> table using <em>Data Flow Task</em>, not <em>SQL Task</em>. There are two settings for the <em>DFT LoadUsers</em> I don&rsquo;t want to be changed: <em>DefaultBufferMaxRows</em> and <em>DelayValidation</em>. Apparently, the number of rows is not set to the required value.</p>
@@ -320,9 +321,9 @@
 <h2 id="summary">Summary</h2>
 <p>Basically, to run the ssisUnit tests using <em>MSTest</em> I had to port some parts of the ssisUnitTestRunner code to the framework. Then, to automate test generation, I used T4 template to iterate through all the test files and defined tests. Now it&rsquo;s enough to prepare the next ssisUnit suite, save and compile the MSTest project to have all the tests available in Visual Studio&rsquo;s <em>Test Runner</em> or - after the project builds - in TFS.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -351,10 +352,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -362,7 +363,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/07/05/setting-package-references-in-ssisunit/" class="button left"><span>Setting package references in ssisUnit</span></a>
@@ -567,8 +569,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

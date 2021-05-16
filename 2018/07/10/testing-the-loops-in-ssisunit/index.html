@@ -19,7 +19,7 @@
     
   
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/vs2015.min.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
@@ -146,8 +146,9 @@
 
       <main id="site-main">
         
-  <article class="post">
-    <header>
+  <article>
+    <div class="post">
+      <header>
   <div class="title">
     
       <h2><a href="/2018/07/10/testing-the-loops-in-ssisunit/">Testing the loops in ssisUnit</a></h2>
@@ -161,19 +162,19 @@
   </div>
 </header>
 
-    <div id="socnet-share">
-      
+      <div id="socnet-share">
+        
 
 
 
 
 
-    </div>
-    <div class="content">
-      <a href="/2018/07/10/testing-the-loops-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png');">
+      </div>
+      <div class="content">
+        <a href="/2018/07/10/testing-the-loops-in-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png');">
     <img src="https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" alt="">
   </a>
-      <p>In the <a href="http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/">Q &amp; A post</a> after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:</p>
+        <p>In the <a href="http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/">Q &amp; A post</a> after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:</p>
 <blockquote>
 <p>&ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&rdquo;</p>
 <p>I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</p>
@@ -192,9 +193,9 @@
 <h2 id="the-summary">The summary</h2>
 <p>Testing the container is no different than the other SSIS tasks. The only catch is when you want to check the value of something inside the container. Remember, always think about it as the standalone component.</p>
 
-    </div>
-    <footer>
-      <div class="stats">
+      </div>
+      <footer>
+        <div class="stats">
   
     <ul class="categories">
       
@@ -221,10 +222,10 @@
   
 </div>
 
-    </footer>
-  </article>
-  
-    <script src="https://utteranc.es/client.js"
+      </footer>
+    </div>
+    
+      <script src="https://utteranc.es/client.js"
         repo="BartekR/bartekr.github.io"
         issue-term="url"
         label="blog-comment"
@@ -232,7 +233,8 @@
         crossorigin="anonymous"
         async>
 </script>
-  
+    
+  </article>
   <div class="pagination">
     
       <a href="/2018/08/13/writing-ssisunit-test-using-api/" class="button left"><span>Writing ssisUnit test using API</span></a>
@@ -437,8 +439,8 @@
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/languages/csharp.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.b4e669fa428a81defb8af0916c53f39cd1b8e0bbab22199c06f0b182907ba474.js" integrity="sha256-tOZp&#43;kKKgd77ivCRbFPznNG44LurIhmcBvCxgpB7pHQ="></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;
