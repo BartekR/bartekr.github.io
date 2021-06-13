@@ -6,7 +6,25 @@
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Azure Blob Storage</title>
+      <link>https://blog.bartekr.net/tags/azure-blob-storage/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/azure-blob-storage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Azure SQL Database</title>
+      <link>https://blog.bartekr.net/tags/azure-sql-database/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/azure-sql-database/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>application gateway</title>
       <link>https://blog.bartekr.net/tags/application-gateway/</link>

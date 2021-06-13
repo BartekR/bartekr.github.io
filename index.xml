@@ -6,7 +6,17 @@
     <description>Recent content on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Read Data From Azure Blob Storage to Azure SQL Database</title>
+      <link>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</guid>
+      <description>In one of the projects, we store source files as JSON data on Azure Blob Storage. These files must be loaded into Azure SQL Database. We use a .NET code to perform this, but how could I load the files directly into Azure SQL Database?
+The environment Nothing extraordinary: a default storage account bartekr01stacc configured with local redundancy (LRS) + SQL Database VariousExamples located within bartekr01 Azure SQL Server. The storage account has json-data-container container (set as private) and json-data-share file share.</description>
+    </item>
+    
     <item>
       <title>Build Yourself a Web App in Azure</title>
       <link>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</link>
@@ -396,7 +406,7 @@ First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/speaking/</guid>
-      <description>(work in progress)    &amp;gt; Event Date Session      24.01.2020. First steps with SQL Server on Docker    28.09.2019. How does the recursive CTE work?    14.09.2019. First steps with SQL Server on Docker    31.08.2019. First steps with SQL Server on Docker    14.05.2019. SQL Server + Docker – pierwsze kroki    09.02.2019. Testuj swoje pakiety SSIS z ssisUnit    18.</description>
+      <description>(work in progress)    Event Date Session      24.01.2020. First steps with SQL Server on Docker    28.09.2019. How does the recursive CTE work?    14.09.2019. First steps with SQL Server on Docker    31.08.2019. First steps with SQL Server on Docker    14.05.2019. SQL Server + Docker – pierwsze kroki    09.02.2019. Testuj swoje pakiety SSIS z ssisUnit    18.</description>
     </item>
     
   </channel>

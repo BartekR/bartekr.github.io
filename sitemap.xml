@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.bartekr.net/categories/azure/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/tags/azure-blob-storage/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/tags/azure-sql-database/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/categories/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/post/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bartekr.net/tags/</loc>
+    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bartekr.net/tags/application-gateway/</loc>
     <lastmod>2021-02-28T00:00:00+00:00</lastmod>
   </url>
@@ -13,32 +53,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bartekr.net/categories/azure/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bartekr.net/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bartekr.net/categories/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bartekr.net/post/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bartekr.net/tags/</loc>
     <lastmod>2021-02-28T00:00:00+00:00</lastmod>
   </url>
   
