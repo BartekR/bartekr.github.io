@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="generator" content="Hugo 0.76.5" /><meta property="og:site_name" content="BartekR">
+<meta name="generator" content="Hugo 0.84.0" /><meta property="og:site_name" content="BartekR">
   <meta property="og:title" content="Advent of Code 2020">
   <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
   <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
@@ -20,7 +20,7 @@
   
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.307f33cd8015e5bab28d6ebda9b400f8d3059bc248b4e60adf4d23469fab5a2b.css" integrity="sha256-MH8zzYAV5bqyjW69qbQA&#43;NMFm8JItOYK300jRp&#43;rWis="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -206,7 +206,7 @@ $cd = $customDeclarations -split <span style="color:#e6db74">&#34;</span><span s
 </ul>
 <p>We can read data using regex like <code>(\d+)-(\d+) ([a-z]): ([a-z]+)</code>, but we have to remember the indices of the groups, like <code>$Matches[3]</code> means the third group (the letter a-z).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$passwords = Get-Content .\Passwords.txt -First 3
-$passwords | <span style="color:#66d9ef">ForEach</span>-Object {
+$passwords | ForEach-Object {
     $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(\d+)-(\d+) ([a-z]): ([a-z]+)&#39;</span> | Out-Null
     $Matches
 }
@@ -233,7 +233,7 @@ $passwords | <span style="color:#66d9ef">ForEach</span>-Object {
 </code></pre></div><p>Instead, we can use named references in regexes using <code>?&lt;name&gt;</code> construction before the pattern, like:</p>
 <p><code>(?&lt;minLength&gt;\d+)-(?&lt;maxLength&gt;\d+) (?&lt;letter&gt;[a-z]): (?&lt;password&gt;[a-z]+)</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$passwords = Get-Content .\Passwords.txt -First 3
-$passwords | <span style="color:#66d9ef">ForEach</span>-Object {
+$passwords | ForEach-Object {
     $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(?&lt;minLength&gt;\d+)-(?&lt;maxLength&gt;\d+) (?&lt;letter&gt;[a-z]): (?&lt;password&gt;[a-z]+)&#39;</span> | Out-Null
     $Matches
 }
@@ -346,7 +346,7 @@ $seats = @(<span style="color:#e6db74">&#39;.&#39;</span> * $columns) + $seats0 
 <p>Always be aware of the datatypes. A standard case with numbers:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$n = @(65, 66, 67, 68, 69)
 $h = @{}
-$n | <span style="color:#66d9ef">ForEach</span>-Object {$h[$_] = <span style="color:#66d9ef">[char]</span>$_}
+$n | ForEach-Object {$h[$_] = <span style="color:#66d9ef">[char]</span>$_}
 $h
 
 <span style="color:#75715e">&lt;#
@@ -368,7 +368,7 @@ $h.<span style="color:#e6db74">&#39;69&#39;</span>
 </code></pre></div><p>But with the array of numbers as strings:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$n1 = @(<span style="color:#e6db74">&#39;65&#39;</span>, <span style="color:#e6db74">&#39;66&#39;</span>, <span style="color:#e6db74">&#39;67&#39;</span>, <span style="color:#e6db74">&#39;68&#39;</span>, <span style="color:#e6db74">&#39;69&#39;</span>)
 $h1 = @{}
-$n1 | <span style="color:#66d9ef">ForEach</span>-Object {$h1[$_] = <span style="color:#66d9ef">[char][int]</span>$_}
+$n1 | ForEach-Object {$h1[$_] = <span style="color:#66d9ef">[char][int]</span>$_}
 
 <span style="color:#75715e">&lt;#
 </span><span style="color:#75715e">Name                           Value
@@ -687,14 +687,14 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
   <p class="copyright">
     © 2021 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.76.5' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.9e8013dcbfeece2831bd4dc0ed6da28ca673c0454506b0bd1c2a857964e21918.js" integrity="sha256-noAT3L/uzigxvU3A7W2ijKZzwEVFBrC9HCqFeWTiGRg="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;
