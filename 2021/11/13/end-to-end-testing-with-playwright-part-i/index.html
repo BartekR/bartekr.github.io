@@ -181,10 +181,11 @@
 <p>So first - run the following commands in the shell of your choice (I use <code>pwsh</code>):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">dotnet new blazorserver -o BlazorApp --no-https
 <span style="color:#66d9ef">cd</span> BlazorApp
+dotnet new gitignore
 dotnet watch
 </code></pre></div><p>This should start the browser, and you should see a default Blazor app:</p>
 <p><img src="./images/SampleBlazorApp.png#center" alt="Sample Blazor app"></p>
-<p><code>dotnet new blazorserver -o BlazorApp --no-https</code> creates a new application in the <code>BlazorApp</code> folder (<code>-o</code>) and disables HTTPS (<code>--no-https</code>), as I don&rsquo;t need it in this example. <code>dotnet watch</code> restores dependencies, builds the project and waits for the code changes, to immediately reload the browser. The hot reload is not required - I could use just <code>dotnet run</code>, but I copied the earlier tutorial commands. Also - <code>dotnet run</code> does not run the browser, and you have to do it manually. And to run it manually, you have to know the exact address. You will find it in the <code>&lt;BlazorAppFolder&gt;/Properties/launchSettings.json</code> file in the <code>properties</code> section.</p>
+<p><code>dotnet new blazorserver -o BlazorApp --no-https</code> creates a new application in the <code>BlazorApp</code> folder (<code>-o</code>) and disables HTTPS (<code>--no-https</code>), as I don&rsquo;t need it in this example. <code>dotnet new gitignore</code> adds a default .gitignore file for .NET. <code>dotnet watch</code> restores dependencies, builds the project and waits for the code changes, to immediately reload the browser. The hot reload is not required - I could use just <code>dotnet run</code>, but I copied the earlier tutorial commands. Also - <code>dotnet run</code> does not run the browser, and you have to do it manually. And to run it manually, you have to know the exact address. You will find it in the <code>&lt;BlazorAppFolder&gt;/Properties/launchSettings.json</code> file in the <code>properties</code> section.</p>
 <p><img src="./images/launchSettings.png#center" alt="launchSettings.json"></p>
 <p>Next - I will create a test project and install Playwright.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd"><span style="color:#66d9ef">cd</span> ..
@@ -192,6 +193,7 @@ dotnet new nunit -n BlazorApp.Tests
 <span style="color:#66d9ef">cd</span> BlazorApp.Tests
 dotnet tool install --global Microsoft.Playwright.CLI
 dotnet add package Microsoft.Playwright.NUnit
+dotnet new gitignore
 dotnet build
 playwright install
 </code></pre></div><p>Step by step:</p>
@@ -201,6 +203,7 @@ playwright install
 <li>I want to configure the project, so I go into the directory</li>
 <li>I install <code>Playwright</code> globally</li>
 <li>I install the Playwright test adapter for NUnit</li>
+<li>I add the default .gitignore file</li>
 <li>I build the project (you will get the message <em>Please make sure Playwright is installed and built prior to using Playwright tool</em> if you don&rsquo;t build the project first)</li>
 <li>I install the Playwright library and browsers (it can take some time)</li>
 </ol>
