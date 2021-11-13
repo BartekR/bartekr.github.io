@@ -6,7 +6,16 @@
     <description>Recent content in Testing on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 05 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/testing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/testing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>End-to-End testing with Playwright, part I</title>
+      <link>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</link>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</guid>
+      <description>I started working with Playwright by accident. YouTube has shown me a recommendation - a short film by Nick Chapsas (yt | t) about testing user interfaces with SpecFlow and Playwright. While I admire the SpecFlow, BDD and Gherkin ideas - I still haven&amp;rsquo;t convinced myself to use them. But Playwright + C# have drawn my attention. Then I found a webinar recording with Andrey Lushnikov, and I was sold on Playwright.</description>
+    </item>
+    
     <item>
       <title>Working with properties in ssisUnit</title>
       <link>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</link>

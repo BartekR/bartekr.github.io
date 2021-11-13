@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.bartekr.net/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/c#/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/categories/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/nunit/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/playwright/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/post/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/categories/testing/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.bartekr.net/categories/azure/</loc>
     <lastmod>2021-06-13T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,19 +38,7 @@
     <loc>https://blog.bartekr.net/tags/azure-sql-database/</loc>
     <lastmod>2021-06-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/</loc>
-    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/categories/</loc>
-    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/post/</loc>
-    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</loc>
-    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/tags/</loc>
     <lastmod>2021-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/tags/application-gateway/</loc>
@@ -119,9 +134,6 @@
     <loc>https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</loc>
     <lastmod>2020-05-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/tags/c#/</loc>
-    <lastmod>2020-05-04T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.bartekr.net/tags/tfs/</loc>
     <lastmod>2020-05-04T00:00:00+00:00</lastmod>
   </url><url>
@@ -153,9 +165,6 @@
     <lastmod>2019-07-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/tags/ssisunit/</loc>
-    <lastmod>2018-11-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/categories/testing/</loc>
     <lastmod>2018-11-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</loc>

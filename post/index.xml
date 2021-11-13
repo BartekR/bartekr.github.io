@@ -6,7 +6,16 @@
     <description>Recent content in Posts on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 13 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>End-to-End testing with Playwright, part I</title>
+      <link>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</link>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</guid>
+      <description>I started working with Playwright by accident. YouTube has shown me a recommendation - a short film by Nick Chapsas (yt | t) about testing user interfaces with SpecFlow and Playwright. While I admire the SpecFlow, BDD and Gherkin ideas - I still haven&amp;rsquo;t convinced myself to use them. But Playwright + C# have drawn my attention. Then I found a webinar recording with Andrey Lushnikov, and I was sold on Playwright.</description>
+    </item>
+    
     <item>
       <title>Read Data From Azure Blob Storage to Azure SQL Database</title>
       <link>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</link>
