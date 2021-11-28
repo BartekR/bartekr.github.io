@@ -6,7 +6,18 @@
     <description>Recent content in C# on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>End-to-End testing with Playwright, part II</title>
+      <link>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</link>
+      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</guid>
+      <description>In the first part I created a sample Blazor app, installed Playwright and created first test. This post is to get more comfortable with Playwright.
+Getting more familiar Just to recall the test I wrote (validation of the element on a /counter web page):
+using Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page  await Page.GotoAsync(&amp;#34;http://localhost:5165/counter&amp;#34;); // search for the counter value  var content = await Page.</description>
+    </item>
+    
     <item>
       <title>End-to-End testing with Playwright, part I</title>
       <link>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</link>
