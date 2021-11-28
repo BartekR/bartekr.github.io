@@ -3,21 +3,24 @@
   <head>
   <meta charset="utf-8">
 <title>Testing SSIS Projects with ssisUnit - BartekR</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:site_name" content="BartekR">
+<meta property="og:title" content="Testing SSIS Projects with ssisUnit">
+<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">
+    <meta property="og:image" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
+    <meta property="og:image:alt" content="">
 
 
-<meta name="generator" content="Hugo 0.84.0" /><meta property="og:site_name" content="BartekR">
-  <meta property="og:title" content="Testing SSIS Projects with ssisUnit">
-  <meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-  <meta property="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-  <meta property="og:url" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">
-  <meta property="og:type" content="article">
-  
-    
-      <meta property="og:image" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
-      <meta property="og:image:alt" content="">
-    
-  
+  <link rel="shortcut icon" href="/favicon.ico">
+
+
+  <meta name="generator" content="Hugo 0.84.0" />
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
           <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
@@ -85,7 +88,7 @@
 
     <div id="wrapper">
       <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="https://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
+  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
   <header>
     <h1>BartekR</h1>
   </header>
@@ -171,9 +174,10 @@
 
       </div>
       <div class="content">
-        <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
-    <img src="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
+        <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
+    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
   </a>
+        
         <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
 <p>I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit</a> framework by John Welch.</p>
 <p>The ssisUnit project started <a href="http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/">a long time ago</a> and was <a href="https://archive.codeplex.com/?p=ssisunit">hosted on CodePlex</a>, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (<a href="https://pragmaticworks.com/Products/BI-xPress">BiXpress</a>, <a href="https://pragmaticworks.com/Products/LegiTest">LegiTest</a>). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.</p>
@@ -307,8 +311,8 @@
       </header>
       
       <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
+          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
+    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
   </a>
         <header>
           <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
@@ -317,8 +321,8 @@
       </article>
       
       <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
+          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
+    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
   </a>
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
@@ -327,8 +331,8 @@
       </article>
       
       <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
+          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
+    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
   </a>
         <header>
           <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
@@ -337,8 +341,8 @@
       </article>
       
       <article class="mini-post">
-          <a href="/2021/01/17/testing-utterances-comments/" class="image" style="--bg-image: url('https://blog.bartekr.net/2021/01/17/testing-utterances-comments/images/utterances.png');">
-    <img src="https://blog.bartekr.net/2021/01/17/testing-utterances-comments/images/utterances.png" alt="">
+          <a href="/2021/01/17/testing-utterances-comments/" class="image" style="--bg-image: url('/2021/01/17/testing-utterances-comments/images/utterances.png');">
+    <img src="/2021/01/17/testing-utterances-comments/images/utterances.png" alt="">
   </a>
         <header>
           <h2><a href="/2021/01/17/testing-utterances-comments/">Testing Utterances Comments</a></h2>
@@ -347,8 +351,8 @@
       </article>
       
       <article class="mini-post">
-          <a href="/2020/12/31/advent-of-code-2020/" class="image" style="--bg-image: url('https://blog.bartekr.net/2020/12/31/advent-of-code-2020/images/AoC.png');">
-    <img src="https://blog.bartekr.net/2020/12/31/advent-of-code-2020/images/AoC.png" alt="">
+          <a href="/2020/12/31/advent-of-code-2020/" class="image" style="--bg-image: url('/2020/12/31/advent-of-code-2020/images/AoC.png');">
+    <img src="/2020/12/31/advent-of-code-2020/images/AoC.png" alt="">
   </a>
         <header>
           <h2><a href="/2020/12/31/advent-of-code-2020/">Advent of Code 2020</a></h2>
