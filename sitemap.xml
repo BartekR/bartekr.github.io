@@ -2,13 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.bartekr.net/</loc>
-    <lastmod>2021-11-28T00:00:00+00:00</lastmod>
+    <loc>https://blog.bartekr.net/categories/azure/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/tags/c#/</loc>
-    <lastmod>2021-11-28T00:00:00+00:00</lastmod>
+    <loc>https://blog.bartekr.net/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/2022/10/31/build-your-sql-server-vm-using-cdktf/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/categories/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/cdktf/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/categories/iac/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/categories/learning/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/post/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/categories/sql-server/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/terraform/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/vm/</loc>
+    <lastmod>2022-10-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.bartekr.net/tags/c#/</loc>
     <lastmod>2021-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</loc>
@@ -20,20 +50,11 @@
     <loc>https://blog.bartekr.net/tags/playwright/</loc>
     <lastmod>2021-11-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/post/</loc>
-    <lastmod>2021-11-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/tags/</loc>
-    <lastmod>2021-11-28T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.bartekr.net/categories/testing/</loc>
     <lastmod>2021-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</loc>
     <lastmod>2021-11-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/categories/azure/</loc>
-    <lastmod>2021-06-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/tags/azure-blob-storage/</loc>
     <lastmod>2021-06-13T00:00:00+00:00</lastmod>
@@ -143,9 +164,6 @@
     <loc>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</loc>
     <lastmod>2019-08-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/categories/learning/</loc>
-    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.bartekr.net/categories/series/</loc>
     <lastmod>2019-08-07T00:00:00+00:00</lastmod>
   </url><url>
@@ -248,9 +266,6 @@
     <loc>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</loc>
     <lastmod>2017-11-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.bartekr.net/categories/sql-server/</loc>
-    <lastmod>2017-11-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/</loc>
     <lastmod>2017-07-26T00:00:00+00:00</lastmod>
   </url><url>
@@ -264,9 +279,6 @@
     <lastmod>2017-06-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/tags/virtualbox/</loc>
-    <lastmod>2017-06-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bartekr.net/tags/vm/</loc>
     <lastmod>2017-06-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/</loc>

@@ -6,7 +6,17 @@
     <description>Recent content in SQL Server on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 06 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build your SQL Server VM using CdkTf</title>
+      <link>https://blog.bartekr.net/2022/10/31/build-your-sql-server-vm-using-cdktf/</link>
+      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2022/10/31/build-your-sql-server-vm-using-cdktf/</guid>
+      <description>When I build infrastructure in Azure, I use terraform. I can&amp;rsquo;t force myself to use ARM templates, and I&amp;rsquo;m not yet convinced to use bicep. Terraform has flaws and problems, and HCL is not that intuitive initially, but after banging my head against the wall, we became friends.
+Yet, some time ago, when I saw Pulumi on DevOpsLab - I knew I would have to try it. Using C# to create infrastructure was something I wanted to do a while ago with Farmer and F#.</description>
+    </item>
+    
     <item>
       <title>So, you want to migrate SSIS(DB)?</title>
       <link>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
