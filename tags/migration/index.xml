@@ -15,7 +15,7 @@
       <guid>https://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
       <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
 The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
-public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events ); the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events) To load the package I use the Application.</description>
     </item>
     
     <item>
@@ -35,7 +35,6 @@ If you take a look at the documentation link provided above you will see just th
       
       <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
       <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
-
 This information is written to the log no matter which logging level we choose (also with None).</description>
     </item>
     

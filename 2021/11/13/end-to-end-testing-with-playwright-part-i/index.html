@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -183,24 +193,24 @@
 <h2 id="preparations">Preparations</h2>
 <p>As we use Blazor in one of the applications I&rsquo;m working with, I will use an example Blazor project to build end-to-end tests. <a href="https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro">You can develop your first Blazor app in minutes</a>, and that&rsquo;s what I want for a start. For future reference: I used VSCode 1.62.2 for development, .NET 6.0.100. (SDK), and Playwright 1.16.2.</p>
 <p>So first - run the following commands in the shell of your choice (I use <code>pwsh</code>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">dotnet new blazorserver -o BlazorApp --no-https
-<span style="color:#66d9ef">cd</span> BlazorApp
-dotnet new gitignore
-dotnet watch
-</code></pre></div><p>This should start the browser, and you should see a default Blazor app:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dotnet new blazorserver -o BlazorApp --no-https
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> BlazorApp
+</span></span><span style="display:flex;"><span>dotnet new gitignore
+</span></span><span style="display:flex;"><span>dotnet watch
+</span></span></code></pre></div><p>This should start the browser, and you should see a default Blazor app:</p>
 <p><img src="./images/SampleBlazorApp.png#center" alt="Sample Blazor app"></p>
 <p><code>dotnet new blazorserver -o BlazorApp --no-https</code> creates a new application in the <code>BlazorApp</code> folder (<code>-o</code>) and disables HTTPS (<code>--no-https</code>), as I don&rsquo;t need it in this example. <code>dotnet new gitignore</code> adds a default .gitignore file for .NET. <code>dotnet watch</code> restores dependencies, builds the project and waits for the code changes, to immediately reload the browser. The hot reload is not required - I could use just <code>dotnet run</code>, but I copied the earlier tutorial commands. Also - <code>dotnet run</code> does not run the browser, and you have to do it manually. And to run it manually, you have to know the exact address. You will find it in the <code>&lt;BlazorAppFolder&gt;/Properties/launchSettings.json</code> file in the <code>properties</code> section.</p>
 <p><img src="./images/launchSettings.png#center" alt="launchSettings.json"></p>
 <p>Next - I will create a test project and install Playwright.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd"><span style="color:#66d9ef">cd</span> ..
-dotnet new nunit -n BlazorApp.Tests
-<span style="color:#66d9ef">cd</span> BlazorApp.Tests
-dotnet tool install --global Microsoft.Playwright.CLI
-dotnet add package Microsoft.Playwright.NUnit
-dotnet new gitignore
-dotnet build
-playwright install
-</code></pre></div><p>Step by step:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ..
+</span></span><span style="display:flex;"><span>dotnet new nunit -n BlazorApp.Tests
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> BlazorApp.Tests
+</span></span><span style="display:flex;"><span>dotnet tool install --global Microsoft.Playwright.CLI
+</span></span><span style="display:flex;"><span>dotnet add package Microsoft.Playwright.NUnit
+</span></span><span style="display:flex;"><span>dotnet new gitignore
+</span></span><span style="display:flex;"><span>dotnet build
+</span></span><span style="display:flex;"><span>playwright install
+</span></span></code></pre></div><p>Step by step:</p>
 <ol>
 <li>I go out of the <code>BlazorApp</code> directory, as I want my tests to be at the same level as my application</li>
 <li>I create a new project using NUnit template</li>
@@ -215,43 +225,43 @@ playwright install
 <h2 id="writing-first-test---step-by-step">Writing first test - step by step</h2>
 <p>The <code>BlazorApp.Tests</code> contains the sample <code>UnitTest1.cs</code> file. I skip it for now, and I add my own empty file to start from scratch using command <code>code MainPageTests.cs</code> (in <code>BlazorApp.Tests</code> folder).</p>
 <p>As I use .NET 6, I will start with declaring the namespace (see: <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#file-scoped-namespace-declaration">https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#file-scoped-namespace-declaration</a> and <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/namespace">https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/namespace</a>), and the test class:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-    
-}
-</code></pre></div><p>Pay attention to <code>: PageTest</code> - it&rsquo;s not just a signal we are building on the Playwright library. <strong>We also get all the required setup</strong> - under the covers, Playwright spins up a new browser and opens an empty page, so we can already start testing the web pages. It means - you <strong>don&rsquo;t need to write</strong> the following code to wire everything up.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> var playwright = <span style="color:#66d9ef">await</span> Playwright.CreateAsync();
-<span style="color:#66d9ef">await</span> <span style="color:#66d9ef">using</span> var browser = <span style="color:#66d9ef">await</span> playwright.Chromium.LaunchAsync();
-<span style="color:#66d9ef">var</span> page = <span style="color:#66d9ef">await</span> browser.NewPageAsync();
-</code></pre></div><p>You can write this code, but why bother?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Pay attention to <code>: PageTest</code> - it&rsquo;s not just a signal we are building on the Playwright library. <strong>We also get all the required setup</strong> - under the covers, Playwright spins up a new browser and opens an empty page, so we can already start testing the web pages. It means - you <strong>don&rsquo;t need to write</strong> the following code to wire everything up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> var playwright = <span style="color:#66d9ef">await</span> Playwright.CreateAsync();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">await</span> <span style="color:#66d9ef">using</span> var browser = <span style="color:#66d9ef">await</span> playwright.Chromium.LaunchAsync();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> page = <span style="color:#66d9ef">await</span> browser.NewPageAsync();
+</span></span></code></pre></div><p>You can write this code, but why bother?</p>
 <blockquote>
 <p>Side note: the Playwright&rsquo;s object hierarchy is Playwright &gt; Browser &gt; Context &gt; Page. You can inherit from all the hierarchy, but for the beginning, it&rsquo;s good enough to just always start with a new empty browser page. To read more - take a look at the <a href="https://playwright.dev/dotnet/docs/test-runners#base-nunit-classes-for-playwright">base NUnit classes documentation</a>.</p>
 </blockquote>
 <p>To make the compiler aware of what the <code>PageTest</code> is, I add the <code>using</code> directive:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-    
-}
-</code></pre></div><p>When writing the Playwright tests - all test methods must be of type <code>public async Task</code>. It implies that we use the <code>System.Threading.Tasks</code> namespace, so I add it to the <code>using</code> section and write my first test skeleton:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
-    {
-        
-    }
-}
-</code></pre></div><p>I want to check whether the counter on the <code>/counter</code> page has an initial value of zero. When you visit the <code>/counter</code> page, you see it has, but we are writing the test to be sure.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>When writing the Playwright tests - all test methods must be of type <code>public async Task</code>. It implies that we use the <code>System.Threading.Tasks</code> namespace, so I add it to the <code>using</code> section and write my first test skeleton:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I want to check whether the counter on the <code>/counter</code> page has an initial value of zero. When you visit the <code>/counter</code> page, you see it has, but we are writing the test to be sure.</p>
 <p><img src="./images/CounterEqualsZero.png#center" alt="Counter equals zero"></p>
 <p>The test will contain three elements:</p>
 <ul>
@@ -260,76 +270,76 @@ playwright install
 <li>assertion for the value</li>
 </ul>
 <p>As the first test should always fail, I will check whether the counter value equals 42:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
-    {
-        <span style="color:#75715e">// call to the `/counter` page
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
-
-        <span style="color:#75715e">// search for the counter value
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
-
-        <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>        Assert.Equals(<span style="color:#e6db74">&#34;Current count: 42&#34;</span>, content);
-    }
-}
-</code></pre></div><p>Last two things: <code>Assert</code> is a part of the NUnit library, so I need to add a namespace for it (or use the full name with the namespace, but I don&rsquo;t want to). Also - NUnit does not know that my method is a test, so I need to decorate it with the <code>[Test]</code> attribute:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-<span style="color:#66d9ef">using</span> NUnit.Framework;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-<span style="color:#a6e22e">    [Test]</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
-    {
-        <span style="color:#75715e">// call to the `/counter` page
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
-
-        <span style="color:#75715e">// search for the counter value
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
-
-        <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>        Assert.AreEqual(<span style="color:#e6db74">&#34;Current count: 42&#34;</span>, content);
-    }
-}
-</code></pre></div><h2 id="running-the-tests">Running the tests</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// call to the `/counter` page</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// search for the counter value</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>        Assert.Equals(<span style="color:#e6db74">&#34;Current count: 42&#34;</span>, content);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Last two things: <code>Assert</code> is a part of the NUnit library, so I need to add a namespace for it (or use the full name with the namespace, but I don&rsquo;t want to). Also - NUnit does not know that my method is a test, so I need to decorate it with the <code>[Test]</code> attribute:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NUnit.Framework;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [Test]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// call to the `/counter` page</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// search for the counter value</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>        Assert.AreEqual(<span style="color:#e6db74">&#34;Current count: 42&#34;</span>, content);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="running-the-tests">Running the tests</h2>
 <p>To run all the tests, use the <code>dotnet test</code> command. You should get an error:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">     Expected string length 17 but was 16. Strings differ at index 15.
-  Expected: <span style="color:#e6db74">&#34;Current count: 42&#34;</span>
-  But was:  <span style="color:#e6db74">&#34;Current count: 0&#34;</span>
-  --------------------------<span style="color:#ae81ff">^
-</span></code></pre></div><p>That&rsquo;s great - the test was supposed to fail, so to fix it, change the assertion. The full <code>MainPageTests.cs</code> file should look following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-<span style="color:#66d9ef">using</span> NUnit.Framework;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-<span style="color:#a6e22e">    [Test]</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
-    {
-        <span style="color:#75715e">// call to the `/counter` page
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
-
-        <span style="color:#75715e">// search for the counter value
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
-
-        <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>        Assert.AreEqual(<span style="color:#e6db74">&#34;Current count: 0&#34;</span>, content);
-    }
-}
-</code></pre></div><p>Congratulations. Your first Playwright test passed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>     Expected string length 17 but was 16. Strings differ at index 15.
+</span></span><span style="display:flex;"><span>  Expected: <span style="color:#e6db74">&#34;Current count: 42&#34;</span>
+</span></span><span style="display:flex;"><span>  But was:  <span style="color:#e6db74">&#34;Current count: 0&#34;</span>
+</span></span><span style="display:flex;"><span>  --------------------------<span style="color:#ae81ff">^
+</span></span></span></code></pre></div><p>That&rsquo;s great - the test was supposed to fail, so to fix it, change the assertion. The full <code>MainPageTests.cs</code> file should look following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NUnit.Framework;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [Test]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// call to the `/counter` page</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// search for the counter value</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>        Assert.AreEqual(<span style="color:#e6db74">&#34;Current count: 0&#34;</span>, content);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Congratulations. Your first Playwright test passed.</p>
 <h2 id="things-to-remember-and-pay-attention-to">Things to remember and pay attention to</h2>
 <ol>
 <li>Always use <code>await</code> when calling the Playwright methods (e.g. <code>await Page.GotoAsync(&quot;http://localhost:5165/counter&quot;);</code>)</li>
@@ -396,6 +406,16 @@ playwright install
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -432,16 +452,6 @@ playwright install
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -485,6 +495,9 @@ playwright install
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -498,9 +511,6 @@ playwright install
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -571,22 +581,22 @@ playwright install
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

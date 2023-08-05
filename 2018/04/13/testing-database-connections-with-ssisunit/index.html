@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -188,23 +198,23 @@
 <p>First - just verify if a connection to the database engine works correctly. It&rsquo;s enough to do just <code>SELECT one = 1</code> - if it works it means the communication with the database engine works well.</p>
 <p><a href="images/Select1.png"><img src="images/Select1.png#center" alt="SELECT 1"></a></p>
 <p>To verify it I&rsquo;m writing a test:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL SELECT 1&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{6781FCBA-83D7-45E3-B946-A8894B6BF924}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Returns 1&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Value&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/Assert&gt;</span>
-<span style="color:#f92672">&lt;/Test&gt;</span>
-</code></pre></div><p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Package Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{CA3E01B3-A958-4A12-81C9-1CB8F40410AF}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId == 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_Package&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/Assert&gt;</span>
-<span style="color:#f92672">&lt;/Test&gt;</span>
-<span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Container Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span><span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{64643f10-70c3-49e3-85b8-7b3ddebbe377}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId = 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_ContainerScope&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/Assert&gt;</span>
-<span style="color:#f92672">&lt;/Test&gt;</span>
-</code></pre></div><p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL SELECT 1&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{6781FCBA-83D7-45E3-B946-A8894B6BF924}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Returns 1&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Value&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+</span></span></code></pre></div><p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Package Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{CA3E01B3-A958-4A12-81C9-1CB8F40410AF}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId == 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_Package&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Container Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span><span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{64643f10-70c3-49e3-85b8-7b3ddebbe377}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId = 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_ContainerScope&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+</span></span></code></pre></div><p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
 <h2 id="summary">Summary</h2>
 <p>Project level connection managers work well at the package and container level. Out of the box. You don&rsquo;t have to set up the <code>ConnectionRef</code> elements - they are for different purposes (as you will see in the following posts). You deal with the results the same way as with the other variables.</p>
 
@@ -268,6 +278,16 @@
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -304,16 +324,6 @@
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -357,6 +367,9 @@
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -370,9 +383,6 @@
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -443,22 +453,22 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

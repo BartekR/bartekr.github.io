@@ -13,7 +13,7 @@
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
-      <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
+      <description>In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.
 Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
     </item>
     
@@ -24,7 +24,6 @@ Automating the layout extraction Previously I prepared the file with a layout by
       
       <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
       <description>The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.
- 
 The sequence problem The main issue is with the alignment of the elements in the Sequence object (no matter if it&amp;rsquo;s the default one, the ForEachLoop or the ForLoop).</description>
     </item>
     
@@ -45,7 +44,6 @@ The sequence problem The main issue is with the alignment of the elements in the
       <guid>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
       <description>One of the ssisUnit commands is a PropertyCommand. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).
 How do you use it?
-
 The command is simple. You can get or set the property using the value for given property path.</description>
     </item>
     
@@ -66,7 +64,7 @@ Why MSTest? Because I don&amp;rsquo;t want to write some application that will c
       
       <guid>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
       <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
- &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
+&amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
 I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
     </item>
     
@@ -76,8 +74,8 @@ I didn’t have time to demo this during the presentation. Good thing too, becau
       <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
-      <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
- Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
+      <description>When you set the packages&amp;rsquo; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
+Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
     </item>
     
     <item>
@@ -106,9 +104,8 @@ First - why would you want to store the datasets within the test file?</descript
       
       <guid>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
       <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
-
 The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
- Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI)  You can find all of the attributes in the SsisUnit.</description>
+Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit.</description>
     </item>
     
     <item>

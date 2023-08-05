@@ -24,7 +24,6 @@ If you take a look at the documentation link provided above you will see just th
       
       <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
       <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
-
 This information is written to the log no matter which logging level we choose (also with None).</description>
     </item>
     

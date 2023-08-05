@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -181,58 +191,58 @@
         <p><a href="https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/">In the first part</a> I created a sample Blazor app, installed Playwright and created first test. This post is to get more comfortable with Playwright.</p>
 <h2 id="getting-more-familiar">Getting more familiar</h2>
 <p>Just to recall the test I wrote (validation of the element on a <code>/counter</code> web page):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-
-<span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
-{
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
-    {
-        <span style="color:#75715e">// call to the `/counter` page
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
-
-        <span style="color:#75715e">// search for the counter value
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
-
-        <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>        Assert.Equals(<span style="color:#e6db74">&#34;Current count: 0&#34;</span>, content);
-    }
-}
-</code></pre></div><p>Writing subsequent tests is like copy/paste/edit - go to the page, do something, verify if it returns what you expected. As an example - check if I&rsquo;m redirected to the <code>/counter</code> page when I click the link on the main page looks like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Test]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task ClickingCounterRedirectsToCounterPage()
-{
-    <span style="color:#75715e">// call to the main page
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/&#34;</span>);
-
-    <span style="color:#75715e">// search for the counter link and click it
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.ClickAsync(<span style="color:#e6db74">&#34;text=Counter&#34;</span>);
-
-    <span style="color:#75715e">// verify redirection
-</span><span style="color:#75715e"></span>    Assert.AreEqual(<span style="color:#e6db74">&#34;xxx&#34;</span>, Page.Url);
-}
-</code></pre></div><p><code>Page.ClickAsync()</code> is a void method, so to check whether I was redirected, I check the <code>Page.Url</code> property, as it is <a href="https://playwright.dev/dotnet/docs/navigations/#navigation-lifecycle">updated in the navigation lifecycle</a>. As previously - the first test execution should fail (and also helps to verify what is returned). And it fails:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Expected string length 3 but was 29. Strings differ at index 0.
-Expected: <span style="color:#e6db74">&#34;xxx&#34;</span>
-But was:  <span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>
------------<span style="color:#ae81ff">^
-</span></code></pre></div><p><code>Page.Url</code> returns the whole URL (I expected that) as a <code>string</code>. I could compare the absolute URLs, but I don&rsquo;t want to. I will use <code>System.Uri</code> to get only a relative part:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Test]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task ClickingCounterRedirectsToCounterPage()
-{
-    <span style="color:#75715e">// call to the main page
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/&#34;</span>);
-
-    <span style="color:#75715e">// search for the counter link and click it
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.ClickAsync(<span style="color:#e6db74">&#34;text=Counter&#34;</span>);
-
-    <span style="color:#75715e">// verify redirection
-</span><span style="color:#75715e"></span>    System.Uri pageUri = <span style="color:#66d9ef">new</span> System.Uri(Page.Url);
-    Assert.AreEqual(<span style="color:#e6db74">&#34;/counter&#34;</span>, pageUri.PathAndQuery);
-}
-</code></pre></div><p>OK, I get more or less how it works, and I can dig into the documentation to find out more commands I can use for testing. As an example I can verify other web page&rsquo;s parameters or states (<code>Page.Title</code>, <code>Page.ContentAsync()</code>, <code>Page.IsCheckedAsync()</code>) and test any selector. When I think about a thing I would like to check or test - it&rsquo;s all there. So it boils down to searching a method in the API documentation and using it. Simple. If you want to see more tests - check <a href="https://github.com/BartekR/blog/tree/master/202111%20E2E%20testing%20with%20Playwright/BlazorApp.Tests">the repository</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Playwright.NUnit;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> BlazorApp.Tests;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainPageTests</span> : PageTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CounterStartsWithZero()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// call to the `/counter` page</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// search for the counter value</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> content = <span style="color:#66d9ef">await</span> Page.TextContentAsync(<span style="color:#e6db74">&#34;p&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>        Assert.Equals(<span style="color:#e6db74">&#34;Current count: 0&#34;</span>, content);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Writing subsequent tests is like copy/paste/edit - go to the page, do something, verify if it returns what you expected. As an example - check if I&rsquo;m redirected to the <code>/counter</code> page when I click the link on the main page looks like the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task ClickingCounterRedirectsToCounterPage()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// call to the main page</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// search for the counter link and click it</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.ClickAsync(<span style="color:#e6db74">&#34;text=Counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// verify redirection</span>
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(<span style="color:#e6db74">&#34;xxx&#34;</span>, Page.Url);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Page.ClickAsync()</code> is a void method, so to check whether I was redirected, I check the <code>Page.Url</code> property, as it is <a href="https://playwright.dev/dotnet/docs/navigations/#navigation-lifecycle">updated in the navigation lifecycle</a>. As previously - the first test execution should fail (and also helps to verify what is returned). And it fails:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Expected string length 3 but was 29. Strings differ at index 0.
+</span></span><span style="display:flex;"><span>Expected: <span style="color:#e6db74">&#34;xxx&#34;</span>
+</span></span><span style="display:flex;"><span>But was:  <span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</span>
+</span></span><span style="display:flex;"><span>-----------<span style="color:#ae81ff">^
+</span></span></span></code></pre></div><p><code>Page.Url</code> returns the whole URL (I expected that) as a <code>string</code>. I could compare the absolute URLs, but I don&rsquo;t want to. I will use <code>System.Uri</code> to get only a relative part:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task ClickingCounterRedirectsToCounterPage()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// call to the main page</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// search for the counter link and click it</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.ClickAsync(<span style="color:#e6db74">&#34;text=Counter&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// verify redirection</span>
+</span></span><span style="display:flex;"><span>    System.Uri pageUri = <span style="color:#66d9ef">new</span> System.Uri(Page.Url);
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(<span style="color:#e6db74">&#34;/counter&#34;</span>, pageUri.PathAndQuery);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>OK, I get more or less how it works, and I can dig into the documentation to find out more commands I can use for testing. As an example I can verify other web page&rsquo;s parameters or states (<code>Page.Title</code>, <code>Page.ContentAsync()</code>, <code>Page.IsCheckedAsync()</code>) and test any selector. When I think about a thing I would like to check or test - it&rsquo;s all there. So it boils down to searching a method in the API documentation and using it. Simple. If you want to see more tests - check <a href="https://github.com/BartekR/blog/tree/master/202111%20E2E%20testing%20with%20Playwright/BlazorApp.Tests">the repository</a>.</p>
 <p>So I&rsquo;m going to verify something less obvious. The Weather forecast page has a table, and I will prepare some tests to validate it.</p>
 <p><img src="./images/WeatherForecastTable.png" alt="Weather forecast table"></p>
 <p>I want to test four things about the table:</p>
@@ -249,65 +259,65 @@ But was:  <span style="color:#e6db74">&#34;http://localhost:5165/counter&#34;</s
 <ul>
 <li>
 <p>find a table and get the row count (including header - returns 6):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table&#34;</span>, <span style="color:#e6db74">&#34;tbl =&gt; tbl.rows.length&#34;</span>);
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table&#34;</span>, <span style="color:#e6db74">&#34;tbl =&gt; tbl.rows.length&#34;</span>);
+</span></span></code></pre></div></li>
 <li>
 <p>find a table&rsquo;s <code>tbody</code> element and get the row count (only data rows - all methods return 5)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.childNodes.length&#34;</span>);
-<span style="color:#75715e">// or
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.childElementCount&#34;</span>);
-<span style="color:#75715e">// or
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.rows.length&#34;</span>);
-<span style="color:#75715e">// or
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAllAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody/tr&#34;</span>, <span style="color:#e6db74">&#34;rows =&gt; rows.length&#34;</span>);
-<span style="color:#75715e">// or
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr&#34;</span>).CountAsync();
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.childNodes.length&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.childElementCount&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;tbody =&gt; tbody.rows.length&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAllAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody/tr&#34;</span>, <span style="color:#e6db74">&#34;rows =&gt; rows.length&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> tableRows = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr&#34;</span>).CountAsync();
+</span></span></code></pre></div></li>
 </ul>
 <p>A short explanation of the code above: each command looks for element(s) that match the selectors (I used XPath selectors <code>//table</code> and <code>//table/body</code>). After the selector is matched, Playwright uses the found element(s) in the expression. The syntax used above utilises lambda expressions, meaning &ldquo;hey, I have something, and I will refer to that something as the thing you see on the left side of the expression, and on the right, side I will show you what to do with it&rdquo;. To look a bit closer, I will take <code>Page.EvalOnSelectorAsync&lt;int&gt;(&quot;//table/tbody&quot;, &quot;el =&gt; el.rows.length&quot;)</code> as an example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;el =&gt; el.rows.length&#34;</span>)
-<span style="color:#75715e">// selector: &#34;//table/tbody&#34;
-</span><span style="color:#75715e">// expression: &#34;el =&gt; el.rows.length&#34;
-</span></code></pre></div><p>The expression means:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">int</span>&gt;(<span style="color:#e6db74">&#34;//table/tbody&#34;</span>, <span style="color:#e6db74">&#34;el =&gt; el.rows.length&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// selector: &#34;//table/tbody&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// expression: &#34;el =&gt; el.rows.length&#34;</span>
+</span></span></code></pre></div><p>The expression means:</p>
 <ul>
 <li>the selector found some object, I will call it <code>el</code>: &ldquo;<code>el</code> =&gt; &hellip;&rdquo;</li>
 <li>take this element <code>el</code> and get me its <code>rows.length</code> property: &ldquo;&hellip; =&gt; <code>el.rows.length</code>&rdquo;</li>
 </ul>
 <p>To find the dates, I use <code>Locator</code> and <code>InnerTextAsync()</code> to show the syntax. The XPath expressions find the rows, and DateTime operations set the formatted dates as the expected values. Not beautiful, but it works.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Test]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task TableDatesStartTomorrowAscending()
-{
-    <span style="color:#75715e">// call to the `/fetchdata` page
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/fetchdata&#34;</span>);
-
-    <span style="color:#75715e">// get number of table rows
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> date1 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[1]/td[1]&#34;</span>).InnerTextAsync();
-    <span style="color:#66d9ef">string</span> date2 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[2]/td[1]&#34;</span>).InnerTextAsync();
-    <span style="color:#66d9ef">string</span> date3 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[3]/td[1]&#34;</span>).InnerTextAsync();
-    <span style="color:#66d9ef">string</span> date4 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[4]/td[1]&#34;</span>).InnerTextAsync();
-    <span style="color:#66d9ef">string</span> date5 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[5]/td[1]&#34;</span>).InnerTextAsync();
-
-    <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">1</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date1);
-    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">2</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date2);
-    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">3</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date3);
-    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">4</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date4);
-    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">5</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date5);
-}
-</code></pre></div><p>The last example is a test whether the header&rsquo;s font is 16px. For this I modified an example <a href="https://playwright.dev/dotnet/docs/assertions/#custom-assertions">from the official documentation</a> and used <code>window.getComputedStyle(cell).fontSize</code> expression:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Test]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task TableHeaderHas16pxFont()
-{
-    <span style="color:#75715e">// call to the `/fetchdata` page
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#66d9ef">this</span>.pageUrl);
-
-    <span style="color:#75715e">// get number of table rows
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> fontSize = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">string</span>&gt;(<span style="color:#e6db74">&#34;//table/thead/tr/th&#34;</span>, <span style="color:#e6db74">&#34;cell =&gt; window.getComputedStyle(cell).fontSize&#34;</span>);
-
-    <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>    Assert.AreEqual(<span style="color:#e6db74">&#34;16px&#34;</span>, fontSize);
-}
-</code></pre></div><p>Not sure why, but sometimes the tests using <code>window.getComputedStyle()</code> failed when run for the first time. Rerunning them made the tests pass, but it looks unstable and is something to investigate later.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task TableDatesStartTomorrowAscending()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// call to the `/fetchdata` page</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#e6db74">&#34;http://localhost:5165/fetchdata&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// get number of table rows</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> date1 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[1]/td[1]&#34;</span>).InnerTextAsync();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> date2 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[2]/td[1]&#34;</span>).InnerTextAsync();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> date3 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[3]/td[1]&#34;</span>).InnerTextAsync();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> date4 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[4]/td[1]&#34;</span>).InnerTextAsync();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> date5 = <span style="color:#66d9ef">await</span> Page.Locator(<span style="color:#e6db74">&#34;//table/tbody/tr[5]/td[1]&#34;</span>).InnerTextAsync();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">1</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date1);
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">2</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date2);
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">3</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date3);
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">4</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date4);
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(DateTime.Now.AddDays(<span style="color:#ae81ff">5</span>).ToString(<span style="color:#e6db74">&#34;dd.MM.yyyy&#34;</span>), date5);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The last example is a test whether the header&rsquo;s font is 16px. For this I modified an example <a href="https://playwright.dev/dotnet/docs/assertions/#custom-assertions">from the official documentation</a> and used <code>window.getComputedStyle(cell).fontSize</code> expression:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task TableHeaderHas16pxFont()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// call to the `/fetchdata` page</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#66d9ef">this</span>.pageUrl);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// get number of table rows</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> fontSize = <span style="color:#66d9ef">await</span> Page.EvalOnSelectorAsync&lt;<span style="color:#66d9ef">string</span>&gt;(<span style="color:#e6db74">&#34;//table/thead/tr/th&#34;</span>, <span style="color:#e6db74">&#34;cell =&gt; window.getComputedStyle(cell).fontSize&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(<span style="color:#e6db74">&#34;16px&#34;</span>, fontSize);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Not sure why, but sometimes the tests using <code>window.getComputedStyle()</code> failed when run for the first time. Rerunning them made the tests pass, but it looks unstable and is something to investigate later.</p>
 <h2 id="a-bit-more-about-expressions">A bit more about expressions</h2>
 <p>I can tell which element I want to find, and I can use a few engines (<code>text=...</code> for searching by text, <code>/</code> or <code>XPath=</code> for XPath, <code>css=...</code> for CSS). I know I need to use lambda expressions for the expression part. But how can I check what I can test using the expression? How do I get these <code>rows.length</code>, <code>childElementCount</code>, or <code>window.getComputedStyle(cell).fontSize</code>?</p>
 <p>The first option is to use the developer tools in the browser. I click the right mouse button on a given element and select <em>Inspect</em>. I confirm whether the console shows the correct part and then switch to the <em>Properties</em> tab.</p>
@@ -323,27 +333,27 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
 </ul>
 <h2 id="setting-the-url-once">Setting the URL once</h2>
 <p>I&rsquo;m sure you have noticed that I repeat the URL in every test. I don&rsquo;t like it either, and it&rsquo;s now the time to clean it up a bit.  I create an additional <code>Init()</code> method for each test class and decorate it with the <code>[Setup]</code> attribute, so it will be called before each test. Inside, I set the <code>pageUrl</code> property, which is then used in the <code>Page.GotoAsync()</code> method:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">string</span> pageUrl = <span style="color:#e6db74">&#34;&#34;</span>;
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">[SetUp]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Init()
-{
-    pageUrl = <span style="color:#e6db74">&#34;http://localhost:5165&#34;</span>;
-}
-<span style="color:#a6e22e">
-</span><span style="color:#a6e22e">[Test]</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task PageTitleIsIndex()
-{
-    <span style="color:#75715e">// call to the `/counter` page
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#66d9ef">this</span>.pageUrl);
-
-    <span style="color:#75715e">// get page title
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> title = <span style="color:#66d9ef">await</span> Page.TitleAsync();
-
-    <span style="color:#75715e">// assertion for the value
-</span><span style="color:#75715e"></span>    Assert.AreEqual(<span style="color:#e6db74">&#34;Index&#34;</span>, title);
-}
-</code></pre></div><p>For now, I will leave like that. I don&rsquo;t like the website&rsquo;s hardcoded address and will fix it in the next part using external configuration.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">string</span> pageUrl = <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">[SetUp]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Init()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    pageUrl = <span style="color:#e6db74">&#34;http://localhost:5165&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task PageTitleIsIndex()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// call to the `/counter` page</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Page.GotoAsync(<span style="color:#66d9ef">this</span>.pageUrl);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// get page title</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> title = <span style="color:#66d9ef">await</span> Page.TitleAsync();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// assertion for the value</span>
+</span></span><span style="display:flex;"><span>    Assert.AreEqual(<span style="color:#e6db74">&#34;Index&#34;</span>, title);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For now, I will leave like that. I don&rsquo;t like the website&rsquo;s hardcoded address and will fix it in the next part using external configuration.</p>
 <p>Sidenotes on the header screenshot:</p>
 <ul>
 <li>I see the <code>Run Test | Debug Test</code> elements in VSCode only when I open the BlazorApp.Tests folder directly; it does not show when I open the parent folder or add the folder in the workspace (maybe some configuration is invalid/missing?); they show because I have <strong>C#</strong> VSCode extension from Microsoft installed</li>
@@ -415,6 +425,16 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -451,16 +471,6 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -504,6 +514,9 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -517,9 +530,6 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -590,22 +600,22 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

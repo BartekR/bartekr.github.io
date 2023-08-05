@@ -15,7 +15,7 @@
       <guid>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</guid>
       <description>In the first part I created a sample Blazor app, installed Playwright and created first test. This post is to get more comfortable with Playwright.
 Getting more familiar Just to recall the test I wrote (validation of the element on a /counter web page):
-using Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page  await Page.GotoAsync(&amp;#34;http://localhost:5165/counter&amp;#34;); // search for the counter value  var content = await Page.</description>
+using Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page await Page.GotoAsync(&amp;#34;http://localhost:5165/counter&amp;#34;); // search for the counter value var content = await Page.</description>
     </item>
     
     <item>

@@ -6,7 +6,17 @@
     <description>Recent content on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 31 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform CIDR Functions</title>
+      <link>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</guid>
+      <description>Recently, when I was using Terraform to provision virtual network structure, I had to find a solution to create 4 predefined subnets within a given network range. Initially - as PoC - I used string manipulation to obtain the ranges, but I haven&amp;rsquo;t liked it. Then I found two built-in terraform functions, that are a great help when working with network aspect: cidrsubnet and cidrsubnets.
+CIDR notation 101 Wikipedia states, that</description>
+    </item>
+    
     <item>
       <title>Build your SQL Server VM using CdkTf</title>
       <link>https://blog.bartekr.net/2022/10/31/build-your-sql-server-vm-using-cdktf/</link>
@@ -25,7 +35,7 @@ Yet, some time ago, when I saw Pulumi on DevOpsLab - I knew I would have to try 
       <guid>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</guid>
       <description>In the first part I created a sample Blazor app, installed Playwright and created first test. This post is to get more comfortable with Playwright.
 Getting more familiar Just to recall the test I wrote (validation of the element on a /counter web page):
-using Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page  await Page.GotoAsync(&amp;#34;http://localhost:5165/counter&amp;#34;); // search for the counter value  var content = await Page.</description>
+using Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page await Page.GotoAsync(&amp;#34;http://localhost:5165/counter&amp;#34;); // search for the counter value var content = await Page.</description>
     </item>
     
     <item>
@@ -54,7 +64,7 @@ The environment Nothing extraordinary: a default storage account bartekr01stacc 
       
       <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
       <description>NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.
- When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a Basic Web App reference architecture, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.</description>
+When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a Basic Web App reference architecture, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.</description>
     </item>
     
     <item>
@@ -133,7 +143,7 @@ First things first - if you do not have Azure DevOps Office® Integration 2019 i
       <guid>https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</guid>
       <description>An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours.
 The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).
-   Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work     Task Title1 Requirements Proj1\Team1 P Name1 Description 1 10 10   Task Title2 Maintenance Proj1\Team1 P Name2 Description 2 5 5    Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &amp;quot;\Current\Sprint 3&amp;quot;.</description>
+Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work Task Title1 Requirements Proj1\Team1 P Name1 Description 1 10 10 Task Title2 Maintenance Proj1\Team1 P Name2 Description 2 5 5 Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &amp;quot;\Current\Sprint 3&amp;quot;.</description>
     </item>
     
     <item>
@@ -142,7 +152,7 @@ The original spreadsheet contains 16 records - the header and 15 tasks with 11 c
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
-      <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
+      <description>In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.
 Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
     </item>
     
@@ -153,7 +163,6 @@ Automating the layout extraction Previously I prepared the file with a layout by
       
       <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
       <description>The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.
- 
 The sequence problem The main issue is with the alignment of the elements in the Sequence object (no matter if it&amp;rsquo;s the default one, the ForEachLoop or the ForLoop).</description>
     </item>
     
@@ -174,7 +183,6 @@ The sequence problem The main issue is with the alignment of the elements in the
       <guid>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
       <description>One of the ssisUnit commands is a PropertyCommand. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).
 How do you use it?
-
 The command is simple. You can get or set the property using the value for given property path.</description>
     </item>
     
@@ -205,7 +213,7 @@ Why MSTest? Because I don&amp;rsquo;t want to write some application that will c
       
       <guid>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
       <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
- &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
+&amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
 I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
     </item>
     
@@ -215,8 +223,8 @@ I didn’t have time to demo this during the presentation. Good thing too, becau
       <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
-      <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
- Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
+      <description>When you set the packages&amp;rsquo; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
+Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
     </item>
     
     <item>
@@ -254,9 +262,8 @@ First - why would you want to store the datasets within the test file?</descript
       
       <guid>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
       <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
-
 The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
- Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI)  You can find all of the attributes in the SsisUnit.</description>
+Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit.</description>
     </item>
     
     <item>
@@ -294,7 +301,7 @@ Create a new SSIS project and use the automatically generated Package.dtsx. Open
       
       <guid>https://blog.bartekr.net/series/</guid>
       <description>Some of the posts on this blog are the series about one subject. There are:
-Upgrading to SSIS 2017  So, you want to migrate SSIS(DB)? Upgrading SSIS projects, part I Upgrading SSIS projects, part II Upgrading SSIS projects, part III  SSIS testing with ssisUnit  Testing SSIS Projects with ssisUnit Writing first tests with ssisUnit Testing database connections with ssisUnit Using Connections and Datasets in ssisUnit Using cached datasets in ssisUnit Executing ssisUnit tests in MSTest framework Setting package references in ssisUnit Testing the loops in ssisUnit Writing ssisUnit test using API Working with properties in ssisUnit  Power BI + SSIS + Graphs in SQL Server 2017  Learn something new – Power BI + SSIS + SQL Server 2017 Graphs Learning something new: connections in SSIS package Learning something new: getting information from SSIS packages with PowerShell (on hold)  </description>
+Upgrading to SSIS 2017 So, you want to migrate SSIS(DB)? Upgrading SSIS projects, part I Upgrading SSIS projects, part II Upgrading SSIS projects, part III SSIS testing with ssisUnit Testing SSIS Projects with ssisUnit Writing first tests with ssisUnit Testing database connections with ssisUnit Using Connections and Datasets in ssisUnit Using cached datasets in ssisUnit Executing ssisUnit tests in MSTest framework Setting package references in ssisUnit Testing the loops in ssisUnit Writing ssisUnit test using API Working with properties in ssisUnit Power BI + SSIS + Graphs in SQL Server 2017 Learn something new – Power BI + SSIS + SQL Server 2017 Graphs Learning something new: connections in SSIS package Learning something new: getting information from SSIS packages with PowerShell (on hold) </description>
     </item>
     
     <item>
@@ -305,7 +312,7 @@ Upgrading to SSIS 2017  So, you want to migrate SSIS(DB)? Upgrading SSIS project
       <guid>https://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
       <description>In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter.
 The documentation of the method is also a bit sparse at the moment, but is self-explanatory:
-public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events );  the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events)  To load the package I use the Application.</description>
+public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events ); the name of the target file - that&amp;rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events) To load the package I use the Application.</description>
     </item>
     
     <item>
@@ -325,7 +332,6 @@ If you take a look at the documentation link provided above you will see just th
       
       <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
       <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
-
 This information is written to the log no matter which logging level we choose (also with None).</description>
     </item>
     
@@ -382,11 +388,11 @@ To achieve this I will prepare the new SSIS Project and call it SSIS_Graph. It w
     
     <item>
       <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
-      <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</link>
+      <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</link>
       <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/</guid>
-      <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&#39; relations using graphs and Power BI?
+      <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</guid>
+      <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&amp;rsquo; relations using graphs and Power BI?
 Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</description>
     </item>
     
@@ -417,7 +423,7 @@ First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6
       
       <guid>https://blog.bartekr.net/about/</guid>
       <description>photo: Rodney Kidd, SQL Saturday Oslo 2019
-  Hi! My name is Bartosz and I&amp;rsquo;m from Poland. I was blogging from time to time in polish, but during SQLBits 2017 I got so much inspiration, met a lot of new friends (and stopped being afraid to speak my terrible english) that I started writing an english-language-based blog. The main goal was to level up my english laguage, the second to show what I have to offer to a broader audience.</description>
+Hi! My name is Bartosz and I&amp;rsquo;m from Poland. I was blogging from time to time in polish, but during SQLBits 2017 I got so much inspiration, met a lot of new friends (and stopped being afraid to speak my terrible english) that I started writing an english-language-based blog. The main goal was to level up my english laguage, the second to show what I have to offer to a broader audience.</description>
     </item>
     
     <item>
@@ -427,7 +433,7 @@ First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6
       
       <guid>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</guid>
       <description>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.
- First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
+First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
     </item>
     
     <item>
@@ -436,7 +442,7 @@ First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/speaking/</guid>
-      <description>(work in progress)    Event Date Session      24.01.2020. First steps with SQL Server on Docker    28.09.2019. How does the recursive CTE work?    14.09.2019. First steps with SQL Server on Docker    31.08.2019. First steps with SQL Server on Docker    14.05.2019. SQL Server + Docker – pierwsze kroki    09.02.2019. Testuj swoje pakiety SSIS z ssisUnit    18.</description>
+      <description>(work in progress) Event Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.</description>
     </item>
     
   </channel>

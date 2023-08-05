@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -219,12 +229,12 @@
 <p>The second assert is: &ldquo;<em>Task Completed: Actual result (Success) was equal to the expected result (Success).</em>&rdquo;. Great. Where does it come from? Let&rsquo;s find out.</p>
 <p>We have two places (up to now) that use &ldquo;Task completed&rdquo; setting: the test and the command. I will set <em>TaskResult = Failure</em> for the <em>ParameterCommand</em>, save and run again. The test still passes, so it must be the setting on the test node.</p>
 <p>But before setting up the test node a quick verification: save the test file and open it again. Go to the <em>ParameterCommand</em> node and check the value of <em>TestResult</em> line. It should be <em>Success</em> again, even when you set it to a different value. If you take a look at the source of the <code>.ssisUnit</code> file, you will see, that TestResult setting isn&rsquo;t stored in the configuration.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables.dtsx&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{5A229C3E-AE1F-48D1-AEF4-0EEB5C9E081E}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;Assertname</span><span style="color:#960050;background-color:#1e0010">=&#34;Assert:</span> <span style="color:#960050;background-color:#1e0010">pPackageParameter</span> <span style="color:#960050;background-color:#1e0010">should</span> <span style="color:#960050;background-color:#1e0010">be</span> <span style="color:#960050;background-color:#1e0010">10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;ParameterCommandname</span><span style="color:#960050;background-color:#1e0010">=&#34;&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">parameterName=</span><span style="color:#e6db74">&#34;pPackageParameter&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/Assert&gt;</span>
-<span style="color:#f92672">&lt;/Test&gt;</span>
-</code></pre></div><p>Now change the setting for the test and run the suite. The package test didn&rsquo;t finish with a Failure (it ended with the Success), so the other assert didn&rsquo;t even run.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables.dtsx&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{5A229C3E-AE1F-48D1-AEF4-0EEB5C9E081E}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assertname</span><span style="color:#960050;background-color:#1e0010">=&#34;Assert:</span> <span style="color:#960050;background-color:#1e0010">pPackageParameter</span> <span style="color:#960050;background-color:#1e0010">should</span> <span style="color:#960050;background-color:#1e0010">be</span> <span style="color:#960050;background-color:#1e0010">10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;ParameterCommandname</span><span style="color:#960050;background-color:#1e0010">=&#34;&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">parameterName=</span><span style="color:#e6db74">&#34;pPackageParameter&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+</span></span></code></pre></div><p>Now change the setting for the test and run the suite. The package test didn&rsquo;t finish with a Failure (it ended with the Success), so the other assert didn&rsquo;t even run.</p>
 <p><a href="images/FailedAssert_Package.png"><img src="images/FailedAssert_Package.png#center" alt="Failed Assert - Package"></a></p>
 <p>As a homework - check how will the test suite run, when you change <em>TestResult</em> to <em>Cancelled</em> or <em>Completed</em>.</p>
 <h2 id="next-tests">Next tests</h2>
@@ -235,13 +245,13 @@
 <p>Now let&rsquo;s switch to the variables. You know how to test the package parameters, the variables are similar so there should be no problem for you to prepare the tests by yourself. It&rsquo;s also easier because when you use VariableCommand, you don&rsquo;t set the Project/Package scope.</p>
 <p>One question that may come to your mind when testing the variable calculated with an expression is &ldquo;should I use the Expression line setting when testing the expressions?&rdquo;. The answer is NO. The expression is to evaluate some .NET code expression, and it&rsquo;s something to check in the next blog posts, but for now just leave it always as <em>false</em>.</p>
 <p>If you want to compare your tests for the variables open the source code of your <code>.ssisUnit</code> test file (or switch to the XML tab on the Assert node) and take a look below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable == G10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;G10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
-<span style="color:#f92672">&lt;/Assert&gt;</span>
-<span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable with expression&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;E10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariableWithExpression&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
-<span style="color:#f92672">&lt;/Assert&gt;</span>
-</code></pre></div><p>Congratulations. You now know how o write simple tests for parameters and variables.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable == G10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;G10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable with expression&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;E10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariableWithExpression&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Assert&gt;</span>
+</span></span></code></pre></div><p>Congratulations. You now know how o write simple tests for parameters and variables.</p>
 <h2 id="the-scope">The scope</h2>
 <p>The last thing to check today is the variable&rsquo;s scope. You have checked the variables with the default scope of the package. Now test the variable with the scope of a container.</p>
 <p>Create an empty Sequence Container <em>SEQC Some container</em> and add a new variable <em>ContainerVariable</em>. Then change the scope of the variable to the container. To do it click the <em>Move Variable</em> button in the Variables window and pick the <em>SEQC Some container</em> node in the <em>Select New Scope</em> window. Then click OK.</p>
@@ -314,6 +324,16 @@
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -350,16 +370,6 @@
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -403,6 +413,9 @@
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -416,9 +429,6 @@
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -489,22 +499,22 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

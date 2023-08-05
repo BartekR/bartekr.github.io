@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -193,15 +203,15 @@
 <li><code>-o:&lt;generated.svg.file&gt;</code></li>
 </ul>
 <p>To ease the process, I create the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/diagram2svg.bat">diagram2svg.bat</a> file, where I provide the path to the Saxon executables (<code>set SAXONPATH=D:\tools\SaxonHE9.9N\bin</code>) and all the commands to produce SVG files, like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">%SAXONPATH%\Transform -s:Sample2.xml -xsl:package2svg.xsl -o:Sample2.svg
-</code></pre></div><h2 id="the-beginnings">The beginnings</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>%SAXONPATH%\Transform -s:Sample2.xml -xsl:package2svg.xsl -o:Sample2.svg
+</span></span></code></pre></div><h2 id="the-beginnings">The beginnings</h2>
 <p>When I started to prepare the XSLT transformations, I used the Beginning.xml file and prepared the package2svg.xsl file. But not everything wanted to work, so I took a few steps back and started slowly. First - I created a blank SVG file - <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/00.svg">00.svg</a> - just to be sure that I remember how to draw a simple image. Then I took the <code>&lt;NodeLayout&gt;</code> element and put it directly inside the <code>&lt;Objects&gt;</code> to test a simple XSLT transformation. I tested it with the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/01.xml">01.xml</a> and <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/01.xsl">01.xsl</a> files.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#75715e">&lt;!-- First try: pretend, that NodeLayout is the first element under the root --&gt;</span>
-<span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
-<span style="color:#f92672">&lt;/Objects&gt;</span>
-</code></pre></div><p>XSLT processing is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- First try: pretend, that NodeLayout is the first element under the root --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Objects&gt;</span>
+</span></span></code></pre></div><p>XSLT processing is as follows:</p>
 <ul>
 <li><code>xsl:stylesheet</code> is 1.0 version (for a start it&rsquo;s enough)</li>
 <li><code>xsl:output</code> is indented XML</li>
@@ -214,88 +224,88 @@
 <li>the essential part of the template is to use the proper namespace, that&rsquo;s why the full element is <code>&lt;g **xmlns=&quot;http://www.w3.org/2000/svg&quot;**&gt;</code> - if I don&rsquo;t use the namespace, the SVG file will have <code>&lt;g xmlns=&quot;&quot;&gt;</code> as the outcome and will not draw the node</li>
 <li>the <code>&lt;g&gt;</code> tag as a wrapper also has an advantage - I specify the namespace only for the one element (in another case I would have to write it for all of them within the <code>xsl:template</code>)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
-  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-&gt;
-
-  &lt;<span style="color:#f92672">xsl:output</span>
-      <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xml&#34;</span>
-      <span style="color:#a6e22e">encoding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
-      <span style="color:#a6e22e">indent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span> /&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Objects&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">svg</span>
-      <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
-      <span style="color:#a6e22e">viewBox </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0 0 1000 600&#34;</span>
-    &gt;
-
-      &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> /&gt;
-
-    &lt;/<span style="color:#f92672">svg</span>&gt;
-
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
-
-        &lt;<span style="color:#f92672">rect</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rx&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ry&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;lightgray&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;/<span style="color:#f92672">rect</span>&gt;
-
-    &lt;/<span style="color:#f92672">g</span>&gt;
-
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-&lt;/<span style="color:#f92672">xsl:stylesheet</span>&gt;
-</code></pre></div><h2 id="the-next-step">The next step</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:output</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">method=</span><span style="color:#e6db74">&#34;xml&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">encoding=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">indent=</span><span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/Objects&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;svg</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">viewBox =</span> <span style="color:#e6db74">&#34;0 0 1000 600&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/svg&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;g</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;rect&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rx&#34;</span><span style="color:#f92672">&gt;</span>10<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ry&#34;</span><span style="color:#f92672">&gt;</span>10<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>lightgray<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke&#34;</span><span style="color:#f92672">&gt;</span>black<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/rect&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/g&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><h2 id="the-next-step">The next step</h2>
 <p>I can draw the node from the XML document with one level of nesting. But in reality, it has four levels: <code>/Objects/Package/GraphInfo/LayoutInfo/NodeLayout</code> with a <code>&lt;GraphLayout&gt;</code> tag having different namespace(s). Working with namespaces is hard in the beginning, so the next step is to draw the same node, but with four levels of nesting. The example is in the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02.xml">02.xml</a> and <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02.xsl">02.xsl</a> files.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-<span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;Package&gt;</span>
-        <span style="color:#f92672">&lt;LayoutInfo&gt;</span>
-            <span style="color:#f92672">&lt;GraphLayout&gt;</span>
-                <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
-            <span style="color:#f92672">&lt;/GraphLayout&gt;</span>
-        <span style="color:#f92672">&lt;/LayoutInfo&gt;</span>
-    <span style="color:#f92672">&lt;/Package&gt;</span>
-<span style="color:#f92672">&lt;/Objects&gt;</span>
-</code></pre></div><p>The 02.xsl transformation file has two differences when compared to 01.xsl:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Objects</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;sql11&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Package&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;LayoutInfo&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;GraphLayout&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;NodeLayout</span> <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;179,42&#34;</span> <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\\SQL Create table test&#34;</span> <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/GraphLayout&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/LayoutInfo&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Package&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Objects&gt;</span>
+</span></span></code></pre></div><p>The 02.xsl transformation file has two differences when compared to 01.xsl:</p>
 <ul>
 <li>the root node now uses <code>xsl:apply-templates</code> to call the <code>Package</code>template</li>
 <li>all the descendant nodes call the templates of the child nodes - <code>Package</code> calls <code>LayoutInfo</code>, <code>LayoutInfo</code> calls <code>GraphLayout</code>, and <code>GraphLayout</code> calls <code>NodeLayout</code></li>
 <li>the same result I can achieve using <code>xsl:apply-templates=&quot;Package/LayoutInfo/GraphLayout/NodeLayout</code> and <code>xsl:template-match=&quot;Package/LayoutInfo/GraphLayout/NodeLayout&quot;</code> (as in <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/02a.xsl">02a.xsl</a> file), but I may want to decorate the intermediate elements, so I use this construction</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">(...)
-&lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span> /&gt;
-(...)
-&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span>&gt;
-    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> /&gt;
-&lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
-    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span> /&gt;
-&lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-&lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span>&gt;
-    &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> /&gt;
-&lt;/<span style="color:#f92672">xsl:template</span>&gt;
-</code></pre></div><p>Now to the namespace part. The <code>&lt;GraphLayout&gt;</code>item looks like this (skipping the <code>Capacity</code> attribute):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;GraphLayout</span>
-    <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
-    <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
-    <span style="color:#a6e22e">xmlns:assembly=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/winfx/2006/xaml&#34;</span>
-<span style="color:#f92672">&gt;</span>
-</code></pre></div><p>To generate the correct SVG, I have to do two things:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span>(...)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>(...)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;Package&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;GraphLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;NodeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span></code></pre></div><p>Now to the namespace part. The <code>&lt;GraphLayout&gt;</code>item looks like this (skipping the <code>Capacity</code> attribute):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;GraphLayout</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:assembly=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/winfx/2006/xaml&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><p>To generate the correct SVG, I have to do two things:</p>
 <ul>
 <li>add the namespace(s) used in <code>&lt;GraphLayout&gt;</code> to the xsl file</li>
 <li>use the namespace in the templates</li>
@@ -305,23 +315,23 @@
 <li>the default namespace of the <code>&lt;GraphLayout&gt;</code> tag has to be added to the <code>xsl:stylesheet</code> declaration and prefixed to use it later; I chose the <code>gl</code> prefix; I can skip the remaining namespaces <code>mssgle</code> and <code>assembly</code> as I don&rsquo;t use them in the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/03.xml">03.xml</a> example</li>
 <li>the <code>gl</code> name has to be used in the <code>GraphLayout</code> template and all its descendants</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
-  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-  <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">xmlns:gl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
-&gt;
-(...)
-
-    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span>&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span>&gt;
-(...)
-</code></pre></div><h2 id="the-drawing">The drawing</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">xmlns:gl=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>(...)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;**gl:GraphLayout**&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;**gl:NodeLayout**&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>(...)
+</span></span></code></pre></div><h2 id="the-drawing">The drawing</h2>
 <p>Having all the preparation steps completed, I can now draw the Beginning.xml part of the package. I use the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I/package2svg.xsl">package2svg.xsl</a> that contains the previously learnt things and expand it with the new elements:</p>
 <ul>
 <li>the <code>gl:GraphLayout contains `gl:NodeLayout`, `gl:EdgeLayout` and `gl:AnnotationLayout` </code></li>
@@ -339,129 +349,129 @@
 <li>the <code>&lt;polygon&gt;</code> element has the points attribute, where I have to provide the coordinates of the points <code>x,y</code> separated by a space (like: <code>&lt;polygon points=&quot;10,10 10,15 15,15&quot; /&gt;</code>), so I use <code>&lt;xsl:text&gt; &lt;/xsl:text&gt;</code> to put a space between the calculated positions</li>
 <li>the <code>AnnotationElement</code> is drawn similarly to the <code>NodeElement</code> with an additional border around it (to see that the rectangle exists); compared to the original package there is a room for improvement in the text positioning</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2.0&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
-  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-  <span style="color:#a6e22e">xmlns:gl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
-  <span style="color:#a6e22e">xmlns:mssgle</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
-&gt;
-
-  &lt;<span style="color:#f92672">xsl:output</span>
-      <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xml&#34;</span>
-      <span style="color:#a6e22e">encoding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
-      <span style="color:#a6e22e">indent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span> /&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Objects&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">svg</span>
-      <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
-      <span style="color:#a6e22e">viewBox </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0 0 600 600&#34;</span>
-    &gt;
-      &lt;<span style="color:#f92672">rect</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">fill</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lightgray&#34;</span>/&gt;
-
-      &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span> /&gt;
-
-    &lt;/<span style="color:#f92672">svg</span>&gt;
-
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Package&#34;</span>&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span>&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-    &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span>&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span> /&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span> /&gt;
-        &lt;<span style="color:#f92672">xsl:apply-templates</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;**nodeNameTokens**&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> /&gt;
-
-    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
-
-        &lt;<span style="color:#f92672">rect</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rx&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ry&#34;</span>&gt;10&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;white&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;/<span style="color:#f92672">rect</span>&gt;
-
-        &lt;<span style="color:#f92672">text</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + 5&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2) + 7&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-family&#34;</span>&gt;Verdana&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size&#34;</span>&gt;12&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$nodeNameTokens\[last()\]&#34;</span>/&gt;
-        &lt;/<span style="color:#f92672">text</span>&gt;
-
-    &lt;/<span style="color:#f92672">g</span>&gt;
-
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
-
-        &lt;<span style="color:#f92672">line</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x1&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y1&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style&#34;</span>&gt;stroke:#006600&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x2&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y2&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;/<span style="color:#f92672">line</span>&gt;
-
-        &lt;<span style="color:#f92672">polygon</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;points&#34;</span>&gt;
-                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) - 3&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;
-                &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
-                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) + 3&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span>/&gt;
-                &lt;<span style="color:#f92672">xsl:text</span>&gt; &lt;/<span style="color:#f92672">xsl:text</span>&gt;
-                &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span>/&gt;,&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span>/&gt;
-            &lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-            &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style&#34;</span>&gt;stroke:#006600; fill:#006600&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;/<span style="color:#f92672">polygon</span>&gt;
-
-    &lt;/<span style="color:#f92672">g</span>&gt;
-
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-  &lt;<span style="color:#f92672">xsl:template</span> <span style="color:#a6e22e">match</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span>&gt;
-
-    &lt;<span style="color:#f92672">g</span> <span style="color:#a6e22e">xmlns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>&gt;
-      &lt;<span style="color:#f92672">text</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-family&#34;</span>&gt;Verdana&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size&#34;</span>&gt;12&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;@Text&#34;</span>/&gt;
-      &lt;/<span style="color:#f92672">text</span>&gt;
-
-      &lt;<span style="color:#f92672">rect</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;y&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;height&#34;</span>&gt;&lt;<span style="color:#f92672">xsl:value-of</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span>/&gt;&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fill&#34;</span>&gt;none&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke&#34;</span>&gt;black&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-        &lt;<span style="color:#f92672">xsl:attribute</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span>&gt;1&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-      &lt;/<span style="color:#f92672">rect</span>&gt;
-    &lt;/<span style="color:#f92672">g</span>&gt;
-  &lt;/<span style="color:#f92672">xsl:template</span>&gt;
-
-&lt;/<span style="color:#f92672">xsl:stylesheet</span>&gt;
-</code></pre></div><h2 id="the-result">The result</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#960050;background-color:#1e0010">**</span><span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.0&#34;</span><span style="color:#960050;background-color:#1e0010">**</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:gl=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:output</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">method=</span><span style="color:#e6db74">&#34;xml&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">encoding=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">indent=</span><span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/Objects&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;svg</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">viewBox =</span> <span style="color:#e6db74">&#34;0 0 600 600&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;lightgray&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/svg&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;Package&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;LayoutInfo&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;**nodeNameTokens**&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;g</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;rect&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rx&#34;</span><span style="color:#f92672">&gt;</span>10<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ry&#34;</span><span style="color:#f92672">&gt;</span>10<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>white<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke&#34;</span><span style="color:#f92672">&gt;</span>black<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/rect&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;text&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + 5&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2) + 7&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>black<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;font-family&#34;</span><span style="color:#f92672">&gt;</span>Verdana<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;font-size&#34;</span><span style="color:#f92672">&gt;</span>12<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$nodeNameTokens\[last()\]&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/text&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/g&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;g</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;line&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x1&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y1&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;style&#34;</span><span style="color:#f92672">&gt;</span>stroke:#006600<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x2&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y2&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/line&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;polygon&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;points&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) - 3&#34;</span><span style="color:#f92672">/&gt;</span>,<span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xsl:text&gt;</span> <span style="color:#f92672">&lt;/xsl:text&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;)) + 3&#34;</span><span style="color:#f92672">/&gt;</span>,<span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@End, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xsl:text&gt;</span> <span style="color:#f92672">&lt;/xsl:text&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;)) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;</span>,<span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/@EndConnector, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;style&#34;</span><span style="color:#f92672">&gt;</span>stroke:#006600; fill:#006600<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/polygon&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/g&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;g</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://www.w3.org/2000/svg&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;text&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;)) + (number(substring-after(@Size, &#39;,&#39;)) div 2)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>black<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;font-family&#34;</span><span style="color:#f92672">&gt;</span>Verdana<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;font-size&#34;</span><span style="color:#f92672">&gt;</span>12<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;@Text&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/text&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;rect&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@TopLeft, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-after(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>none<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke&#34;</span><span style="color:#f92672">&gt;</span>black<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/rect&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/g&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><h2 id="the-result">The result</h2>
 <p><a href="images/GeneratedSVG.png"><img src="images/GeneratedSVG.png#center" alt="Generated SVG"></a></p>
 <p><a href="images/SSISPackage.png"><img src="images/SSISPackage.png#center" alt="SSIS Package"></a></p>
 <p>The current drawing does not look as nice as the original SSIS, but hey - it&rsquo;s the same layout! So, let&rsquo;s draw something more complicated - the sequences with the elements aligned horizontally, vertically, with split paths:</p>
@@ -533,6 +543,16 @@
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -569,16 +589,6 @@
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -622,6 +632,9 @@
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -635,9 +648,6 @@
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -708,22 +718,22 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

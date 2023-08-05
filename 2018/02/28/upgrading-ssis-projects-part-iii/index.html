@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -180,65 +190,65 @@
         
         <p>In <a href="http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/">the first part</a> of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017">Application.Upgrade()</a> and  <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017">Application.SaveAndUpdateVersionToXml()</a>. This post is about the latter.</p>
 <p>The documentation of the method is also a bit sparse at the moment, but is self-explanatory:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> SaveAndUpdateVersionToXml (
-    <span style="color:#66d9ef">string</span> fileName,
-    Microsoft.SqlServer.Dts.Runtime.Package package,
-    Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion,
-    Microsoft.SqlServer.Dts.Runtime.IDTSEvents events
-);
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> SaveAndUpdateVersionToXml (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> fileName,
+</span></span><span style="display:flex;"><span>    Microsoft.SqlServer.Dts.Runtime.Package package,
+</span></span><span style="display:flex;"><span>    Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion,
+</span></span><span style="display:flex;"><span>    Microsoft.SqlServer.Dts.Runtime.IDTSEvents events
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><ul>
 <li>the name of <strong>the target</strong> file - that&rsquo;s where we save the outcome of the update operation (fileName)</li>
 <li>the package we want to convert (package)</li>
 <li>which SSIS version we have in mind (newVersion)</li>
 <li>an object for the events that happened during the process (events)</li>
 </ul>
 <p>To load the package I use the <a href="https://msdn.microsoft.com/en-us/library/ms188550.aspx"><code>Application.LoadPackage()</code></a> method. It reads package from the file and converts it to the object. Then set target version with the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.targetserverversion.aspx"><code>Application.TargetServerVersion</code></a> and run <code>Application.SaveAndUpdateVersionToXml()</code>. The last thing is to create an empty class for the events, and that&rsquo;s it.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> System.IO;
-<span style="color:#66d9ef">using</span> Microsoft.SqlServer.Dts.Runtime; 
-
-<span style="color:#66d9ef">namespace</span> SaveAndUpdateVersionToXML
-{
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
-    {
-        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span><span style="color:#960050;background-color:#1e0010">\</span>[<span style="color:#960050;background-color:#1e0010">\</span>] args)
-        {
-            <span style="color:#75715e">// packages to upgrade
-</span><span style="color:#75715e"></span>            System.Collections.ArrayList packages = <span style="color:#66d9ef">new</span> System.Collections.ArrayList();
-
-            <span style="color:#75715e">// SSIS project directory (to load packages from)
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">string</span> sourceDirectory = <span style="color:#e6db74">@&#34;C:\\Users\\Administrator\\source\\repos\\MigrationSample\\&#34;</span>;
-
-            <span style="color:#75715e">// target directory (to save migrated packages)
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">string</span> targetDirectory = <span style="color:#e6db74">@&#34;C:\\Users\\Administrator\\source\\repos\\MigrationSample.Migrated\\&#34;</span>;
-
-            <span style="color:#75715e">// add the packages; it&#39;s an example, so I&#39;m adding manualy
-</span><span style="color:#75715e"></span>            packages.Add(<span style="color:#e6db74">&#34;Package.dtsx&#34;</span>);
-            packages.Add(<span style="color:#e6db74">&#34;ScriptMigrationTesting.dtsx&#34;</span>);
-
-            <span style="color:#75715e">// the events container
-</span><span style="color:#75715e"></span>            MyEvents e = <span style="color:#66d9ef">new</span> MyEvents();
-
-            <span style="color:#75715e">// we use the appliction object for migration
-</span><span style="color:#75715e"></span>            Application a = <span style="color:#66d9ef">new</span> Application();
-
-            <span style="color:#75715e">// load and upgrade packages
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">string</span> package <span style="color:#66d9ef">in</span> packages)
-            {
-                <span style="color:#75715e">// load the package
-</span><span style="color:#75715e"></span>                Package p = a.LoadPackage(Path.Combine(sourceDirectory, package), e);
-
-                <span style="color:#75715e">// and save to the target location
-</span><span style="color:#75715e"></span>                a.SaveAndUpdateVersionToXml(Path.Combine(targetDirectory, package), p, DTSTargetServerVersion.SQLServer2017, e);
-            }
-        }
-    }
-
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyEvents</span> : DefaultEvents
-    {
-
-    }
-}
-</code></pre></div><p>There is less code than in the <a href="http://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/"><code>Application.Upgrade()</code> example</a>, but let&rsquo;s take a closer look at both. There I used two variables for source and target locations of packages. They could be the counterparts of the StorageInfo objects storeinfoSource and storeinfoDest in the <code>ApplicationUpgrade()</code> example. My <code>packages</code> collection is a less specialised version of the <code>UpgradePackageInfo</code> objects collection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.IO;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.SqlServer.Dts.Runtime; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> SaveAndUpdateVersionToXML
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span><span style="color:#960050;background-color:#1e0010">\</span>[<span style="color:#960050;background-color:#1e0010">\</span>] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// packages to upgrade</span>
+</span></span><span style="display:flex;"><span>            System.Collections.ArrayList packages = <span style="color:#66d9ef">new</span> System.Collections.ArrayList();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// SSIS project directory (to load packages from)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">string</span> sourceDirectory = <span style="color:#e6db74">@&#34;C:\\Users\\Administrator\\source\\repos\\MigrationSample\\&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// target directory (to save migrated packages)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">string</span> targetDirectory = <span style="color:#e6db74">@&#34;C:\\Users\\Administrator\\source\\repos\\MigrationSample.Migrated\\&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// add the packages; it&#39;s an example, so I&#39;m adding manualy</span>
+</span></span><span style="display:flex;"><span>            packages.Add(<span style="color:#e6db74">&#34;Package.dtsx&#34;</span>);
+</span></span><span style="display:flex;"><span>            packages.Add(<span style="color:#e6db74">&#34;ScriptMigrationTesting.dtsx&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// the events container</span>
+</span></span><span style="display:flex;"><span>            MyEvents e = <span style="color:#66d9ef">new</span> MyEvents();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// we use the appliction object for migration</span>
+</span></span><span style="display:flex;"><span>            Application a = <span style="color:#66d9ef">new</span> Application();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// load and upgrade packages</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">string</span> package <span style="color:#66d9ef">in</span> packages)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// load the package</span>
+</span></span><span style="display:flex;"><span>                Package p = a.LoadPackage(Path.Combine(sourceDirectory, package), e);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// and save to the target location</span>
+</span></span><span style="display:flex;"><span>                a.SaveAndUpdateVersionToXml(Path.Combine(targetDirectory, package), p, DTSTargetServerVersion.SQLServer2017, e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyEvents</span> : DefaultEvents
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There is less code than in the <a href="http://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/"><code>Application.Upgrade()</code> example</a>, but let&rsquo;s take a closer look at both. There I used two variables for source and target locations of packages. They could be the counterparts of the StorageInfo objects storeinfoSource and storeinfoDest in the <code>ApplicationUpgrade()</code> example. My <code>packages</code> collection is a less specialised version of the <code>UpgradePackageInfo</code> objects collection.</p>
 <p>It looks like the main difference is that I don&rsquo;t set up the upgrade options, just tell the target version of the package. Previously, the target version was based on the version of the assembly I used in the project (thing to remember: <code>Application.ComponentStorePath</code>).</p>
 <p>So it is just another approach to convert the packages to the version we want. But - as in the previous part - it&rsquo;s just the packages. The project file is still the same, and when you open it in the Visual Studio it automatically downgrades the packages. Next part of the series will be about the project file itself.</p>
 <p>The code is also available on <a href="https://github.com/BartekR/blog/tree/master/201802%20Upgrading%20SSIS%20Projects%20part%20III/SaveAndUpdateVersionToXML">GitHub</a>.</p>
@@ -301,6 +311,16 @@
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -337,16 +357,6 @@
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -390,6 +400,9 @@
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -403,9 +416,6 @@
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -476,22 +486,22 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

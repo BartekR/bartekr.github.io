@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cidr on BartekR</title>
+    <link>https://blog.bartekr.net/tags/cidr/</link>
+    <description>Recent content in cidr on BartekR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/cidr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform CIDR Functions</title>
+      <link>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</guid>
+      <description>Recently, when I was using Terraform to provision virtual network structure, I had to find a solution to create 4 predefined subnets within a given network range. Initially - as PoC - I used string manipulation to obtain the ranges, but I haven&amp;rsquo;t liked it. Then I found two built-in terraform functions, that are a great help when working with network aspect: cidrsubnet and cidrsubnets.
+CIDR notation 101 Wikipedia states, that</description>
+    </item>
+    
+  </channel>
+</rss>

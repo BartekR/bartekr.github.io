@@ -6,7 +6,17 @@
     <description>Recent content in terraform on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 31 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform CIDR Functions</title>
+      <link>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</guid>
+      <description>Recently, when I was using Terraform to provision virtual network structure, I had to find a solution to create 4 predefined subnets within a given network range. Initially - as PoC - I used string manipulation to obtain the ranges, but I haven&amp;rsquo;t liked it. Then I found two built-in terraform functions, that are a great help when working with network aspect: cidrsubnet and cidrsubnets.
+CIDR notation 101 Wikipedia states, that</description>
+    </item>
+    
     <item>
       <title>Build your SQL Server VM using CdkTf</title>
       <link>https://blog.bartekr.net/2022/10/31/build-your-sql-server-vm-using-cdktf/</link>

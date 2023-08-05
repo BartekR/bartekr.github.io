@@ -15,7 +15,6 @@
       <guid>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
       <description>One of the ssisUnit commands is a PropertyCommand. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).
 How do you use it?
-
 The command is simple. You can get or set the property using the value for given property path.</description>
     </item>
     
@@ -46,7 +45,7 @@ Why MSTest? Because I don&amp;rsquo;t want to write some application that will c
       
       <guid>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
       <description>In the Q &amp;amp; A post after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:
- &amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
+&amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;
 I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.</description>
     </item>
     
@@ -56,8 +55,8 @@ I didn’t have time to demo this during the presentation. Good thing too, becau
       <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
-      <description>When you set the packages&#39; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
- Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog  In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
+      <description>When you set the packages&amp;rsquo; references in the ssisUnit tests you have four options for the source (StoragePath) of the package:
+Filesystem - references the package in the filesystem - either within a project or standalone MSDB - package stored in the msdb database Package store - packages managed by Integration Services Service SsisCatalog - references the package in the Integration Services Catalog In this post, I will show you how to set the package reference (PackageRef) for each option.</description>
     </item>
     
     <item>
@@ -86,9 +85,8 @@ First - why would you want to store the datasets within the test file?</descript
       
       <guid>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
       <description>One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test.
-
 The Dataset As you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI):
- Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI)  You can find all of the attributes in the SsisUnit.</description>
+Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit.</description>
     </item>
     
     <item>

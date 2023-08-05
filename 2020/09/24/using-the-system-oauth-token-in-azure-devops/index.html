@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -179,66 +189,66 @@
   </a>
         
         <p>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing <code>Invoke-WebRequest</code> (with <code>try/catch</code> logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">StatusCode : 203
-StatusDescription : NonAuthoritativeInformation
-</code></pre></div><p>The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>StatusCode : 203
+</span></span><span style="display:flex;"><span>StatusDescription : NonAuthoritativeInformation
+</span></span></code></pre></div><p>The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.</p>
 <p>To better understand the problem I created a two brand new separate Azure DevOps projects and built two pipelines: one using the classic interface, the second using YAML. Also, I made the testing easier and I just read all the comments.</p>
 <p>Why two projects? To test how it works when I call to the task in the same project and the task outside the project. The initial problem I wanted to solve was running the build pipeline in project X and add the comments to the task in the project Y. But if I wanted to understand the mechanics from the ground up and find the solution I had to begin with smaller steps.</p>
 <h2 id="so-build-me-a-classic-pipeline">So, build me a classic pipeline</h2>
 <p>My setup is just one PowerShell script calling the task address using <code>Invoke-WebRequest</code> (or <code>Invoke-RestMethod</code>). The script uses two parameters - project name and task id, as I will test two cases and don&rsquo;t want to prepare hardcoded values for both tests.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#66d9ef">param</span>(
-    $project = <span style="color:#e6db74">&#39;CrossProjectTest01&#39;</span>,
-    $workitem = 26
-)
-
-$uri = <span style="color:#e6db74">&#34;https://dev.azure.com/bartekr/$project/_apis/wit/workItems/$workitem/comments?api-version=6.0-preview.3&#34;</span>
-
-Write-Host <span style="color:#e6db74">&#34;Uri $uri&#34;</span>
-Write-Host <span style="color:#e6db74">&#34;AccessToken: $env:SYSTEM_ACCESSTOKEN&#34;</span>
-
-$result = Invoke-WebRequest \`
-    -Uri $uri \`
-    -Method GET \`
-    -Headers @{ Authorization = <span style="color:#e6db74">&#34;Bearer $env:SYSTEM_ACCESSTOKEN&#34;</span> } \`
-    -UseBasicParsing
-
-$result
-</code></pre></div><p>The most important part of the code is <code>-Headers @{ Authorization = &quot;Bearer $env:SYSTEM_ACCESSTOKEN&quot; }</code>. It involves <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=classic#systemaccesstoken">a special system OAuth token</a> available during the job execution. We could use a PAT (Personal Access Token) with required privileges to do the same, but why create one if we have already one at hand? Also pay attention that there is a <strong>Bearer</strong> keyword, not a Basic auth.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">param</span>(
+</span></span><span style="display:flex;"><span>    $project = <span style="color:#e6db74">&#39;CrossProjectTest01&#39;</span>,
+</span></span><span style="display:flex;"><span>    $workitem = <span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$uri = <span style="color:#e6db74">&#34;https://dev.azure.com/bartekr/</span>$project<span style="color:#e6db74">/_apis/wit/workItems/</span>$workitem<span style="color:#e6db74">/comments?api-version=6.0-preview.3&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write-Host <span style="color:#e6db74">&#34;Uri </span>$uri<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>Write-Host <span style="color:#e6db74">&#34;AccessToken: </span>$env:SYSTEM_ACCESSTOKEN<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$result = Invoke-WebRequest \`
+</span></span><span style="display:flex;"><span>    -Uri $uri \`
+</span></span><span style="display:flex;"><span>    -Method GET \`
+</span></span><span style="display:flex;"><span>    -Headers @{ Authorization = <span style="color:#e6db74">&#34;Bearer </span>$env:SYSTEM_ACCESSTOKEN<span style="color:#e6db74">&#34;</span> } \`
+</span></span><span style="display:flex;"><span>    -UseBasicParsing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$result
+</span></span></code></pre></div><p>The most important part of the code is <code>-Headers @{ Authorization = &quot;Bearer $env:SYSTEM_ACCESSTOKEN&quot; }</code>. It involves <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=classic#systemaccesstoken">a special system OAuth token</a> available during the job execution. We could use a PAT (Personal Access Token) with required privileges to do the same, but why create one if we have already one at hand? Also pay attention that there is a <strong>Bearer</strong> keyword, not a Basic auth.</p>
 <p>Using a default setup (create an empty classic pipeline, add steps) I get the output as described at the beginning of the post:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
-AccessToken:
-
-StatusCode : 203
-StatusDescription : Non-Authoritative Information
-</code></pre></div><p>The access token has no value - that explains why there is no access (203 code). To fix it - edit the pipeline, go to &ldquo;<em>Run on agent</em>&rdquo; job settings, scroll down and check the &ldquo;<em>Allow scripts to access the OAuth token</em>&rdquo; option.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
+</span></span><span style="display:flex;"><span>AccessToken:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>StatusCode : 203
+</span></span><span style="display:flex;"><span>StatusDescription : Non-Authoritative Information
+</span></span></code></pre></div><p>The access token has no value - that explains why there is no access (203 code). To fix it - edit the pipeline, go to &ldquo;<em>Run on agent</em>&rdquo; job settings, scroll down and check the &ldquo;<em>Allow scripts to access the OAuth token</em>&rdquo; option.</p>
 <p><img src="images/AzureDevOps_SystemAccessToken_ClassicPipeline.png#center" alt="Allow scripts to access the OAuth token"></p>
 <p>Now the job will finish as expected - the <code>System.AccessToken</code> is visible to the process.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
-AccessToken: ***
-
-StatusCode        : 200
-StatusDescription : OK
-Content           : {<span style="color:#e6db74">&#34;totalCount&#34;</span>:1,<span style="color:#e6db74">&#34;count&#34;</span>:1,<span style="color:#e6db74">&#34;comments&#34;</span>:[{<span style="color:#e6db74">&#34;workItemId&#34;</span>:26,<span style="color:#e6db74">&#34;id&#34;</span>:2806326,<span style="color:#e6db74">&#34;version&#34;</span>:1,<span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p>This worked when the pipeline and the work item were in the same project. When I set the parameters for the PowerShell script to call the task from another project (CrossProjectTest02) I got the error &ldquo;<em>project with id (&hellip;) does not exist, or you do not have permission to access it</em>&quot;:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Uri https://dev.azure.com/bartekr/CrossProjectTest02/_apis/wit/workItems/27/comments?api-version=6.0-preview.3
-AccessToken: ***
-Invoke-WebRequest : {<span style="color:#e6db74">&#34;$id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;innerException&#34;</span>:null,<span style="color:#e6db74">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;VS800075: The project with id</span>
-&#39;vstfs:///Classification/TeamProject/8634ba98-f13c-46c4-a30c-eedc6dbeb32b&#39; does not exist, or you do not have
-permission to access it.<span style="color:#e6db74">&#34;,&#34;</span>typeName<span style="color:#e6db74">&#34;:&#34;</span>Microsoft.TeamFoundation.Core.WebApi.ProjectDoesNotExistException,
-Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</span>typeKey<span style="color:#e6db74">&#34;:&#34;</span>ProjectDoesNotExistException<span style="color:#e6db74">&#34;,&#34;</span>errorCode<span style="color:#e6db74">&#34;:0,&#34;</span>eventId<span style="color:#e6db74">&#34;:3000}</span>
-</code></pre></div><p>It&rsquo;s because I have &ldquo;<em>Limit job authorization scope to current project</em>&rdquo; both for release and non-release pipelines set to ON (see: <em>Project settings &gt; Pipelines &gt; Settings</em>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
+</span></span><span style="display:flex;"><span>AccessToken: ***
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>StatusCode        : 200
+</span></span><span style="display:flex;"><span>StatusDescription : OK
+</span></span><span style="display:flex;"><span>Content           : {<span style="color:#e6db74">&#34;totalCount&#34;</span>:1,<span style="color:#e6db74">&#34;count&#34;</span>:1,<span style="color:#e6db74">&#34;comments&#34;</span>:[{<span style="color:#e6db74">&#34;workItemId&#34;</span>:26,<span style="color:#e6db74">&#34;id&#34;</span>:2806326,<span style="color:#e6db74">&#34;version&#34;</span>:1,<span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>This worked when the pipeline and the work item were in the same project. When I set the parameters for the PowerShell script to call the task from another project (CrossProjectTest02) I got the error &ldquo;<em>project with id (&hellip;) does not exist, or you do not have permission to access it</em>&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest02/_apis/wit/workItems/27/comments?api-version=6.0-preview.3
+</span></span><span style="display:flex;"><span>AccessToken: ***
+</span></span><span style="display:flex;"><span>Invoke-WebRequest : {<span style="color:#e6db74">&#34;$id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;innerException&#34;</span>:null,<span style="color:#e6db74">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;VS800075: The project with id</span>
+</span></span><span style="display:flex;"><span>&#39;vstfs:///Classification/TeamProject/8634ba98-f13c-46c4-a30c-eedc6dbeb32b&#39; does not exist, or you do not have
+</span></span><span style="display:flex;"><span>permission to access it.<span style="color:#e6db74">&#34;,&#34;</span>typeName<span style="color:#e6db74">&#34;:&#34;</span>Microsoft.TeamFoundation.Core.WebApi.ProjectDoesNotExistException,
+</span></span><span style="display:flex;"><span>Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</span>typeKey<span style="color:#e6db74">&#34;:&#34;</span>ProjectDoesNotExistException<span style="color:#e6db74">&#34;,&#34;</span>errorCode<span style="color:#e6db74">&#34;:0,&#34;</span>eventId<span style="color:#e6db74">&#34;:3000}</span>
+</span></span></code></pre></div><p>It&rsquo;s because I have &ldquo;<em>Limit job authorization scope to current project</em>&rdquo; both for release and non-release pipelines set to ON (see: <em>Project settings &gt; Pipelines &gt; Settings</em>)</p>
 <p><img src="images/AzureDevOps_PipelineSettings.png#center" alt="Pipeline settings"></p>
 <p>After setting the &ldquo;<em>Limit job authorization scope to current project for non-release pipelines</em>&rdquo; to OFF (in CrossProject01, as there is my pipeline) everything works. It&rsquo;s enough for me to set off for non-release because I&rsquo;m working on the build pipeline.</p>
 <h2 id="but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the <strong>YAML</strong> pipeline to work</h2>
 <p>The crucial part for the YAML pipeline is: &ldquo;<a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=yaml#systemaccesstoken">In YAML, you must explicitly map System.AccessToken into the pipeline using a variable.</a>&rdquo;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
-- <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
-  <span style="color:#f92672">displayName</span>: <span style="color:#e6db74">&#39;Get comments&#39;</span>
-  <span style="color:#f92672">inputs</span>:
-    <span style="color:#f92672">filePath</span>: <span style="color:#ae81ff">Get-WorkItemComments.ps1</span>
-  <span style="color:#f92672">env</span>:
-    <span style="color:#f92672">SYSTEM_ACCESSTOKEN</span>: <span style="color:#ae81ff">$(System.AccessToken)</span>
-</code></pre></div><p>Note to self: <strong>ALWAYS</strong> pay attention to what you write in the <code>env</code> section of the PowerShell task. <code>$(Aystem.AccesToken)</code> looks similar but does not work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">displayName</span>: <span style="color:#e6db74">&#39;Get comments&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">filePath</span>: <span style="color:#ae81ff">Get-WorkItemComments.ps1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">SYSTEM_ACCESSTOKEN</span>: <span style="color:#ae81ff">$(System.AccessToken)</span>
+</span></span></code></pre></div><p>Note to self: <strong>ALWAYS</strong> pay attention to what you write in the <code>env</code> section of the PowerShell task. <code>$(Aystem.AccesToken)</code> looks similar but does not work.</p>
 <p>So, the things to remember for the future:</p>
 <ol>
 <li>In the classic pipeline &ldquo;Allow scripts to access the OAuth token&rdquo;</li>
@@ -306,6 +316,16 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -342,16 +362,6 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -395,6 +405,9 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -408,9 +421,6 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -481,22 +491,22 @@ Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</spa
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

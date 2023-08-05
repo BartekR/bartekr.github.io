@@ -6,22 +6,31 @@
     <description>Recent content in Tags on BartekR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 31 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>cdktf</title>
-      <link>https://blog.bartekr.net/tags/cdktf/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+      <title>cidr</title>
+      <link>https://blog.bartekr.net/tags/cidr/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bartekr.net/tags/cdktf/</guid>
+      <guid>https://blog.bartekr.net/tags/cidr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>terraform</title>
       <link>https://blog.bartekr.net/tags/terraform/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cdktf</title>
+      <link>https://blog.bartekr.net/tags/cdktf/</link>
+      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bartekr.net/tags/cdktf/</guid>
       <description></description>
     </item>
     

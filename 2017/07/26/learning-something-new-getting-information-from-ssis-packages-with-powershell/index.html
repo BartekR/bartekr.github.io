@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -179,131 +189,131 @@
   </a>
         
         <p>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the <code>.dtsx</code> files and save it to the database. The whole script is presented below with comments. For more information scroll down.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it</span>
-Import-Module dbatools
-
-<span style="color:#75715e"># find recursively all Executable nodes in .dtsx file</span>
-<span style="color:#66d9ef">function</span> Find-Executables($fileName, $executable)
-{
-    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $executable)
-    {
-        <span style="color:#75715e"># are we there, yet? (if no - recursion)</span>
-        <span style="color:#66d9ef">if</span>($item.Executables)
-        {
-            Find-Executables $fileName $item.Executables.Executable
-        }
-
-        <span style="color:#75715e"># if yes - the result</span>
-        $prop = @{
-            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
-            <span style="color:#e6db74">&#39;creationName&#39;</span> = $item.CreationName
-            <span style="color:#e6db74">&#39;description&#39;</span> = $item.Description
-            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
-            <span style="color:#e6db74">&#39;executableType&#39;</span> = $item.ExecutableType
-            <span style="color:#e6db74">&#39;objectData&#39;</span> = $item.ObjectData.ExpressionTask.Expression
-        }
-
-        $prop
-
-    }
-}
-
-<span style="color:#75715e"># get all Precedence Constraints; simpler than Executables, because all of them are in single node</span>
-<span style="color:#66d9ef">function</span> Find-PrecedenceConstraints($fileName, $precedenceConstraints)
-{
-    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $precedenceConstraints)
-    {
-        $prop = @{
-            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
-            <span style="color:#e6db74">&#39;from&#39;</span> = $item.From
-            <span style="color:#e6db74">&#39;to&#39;</span> = $item.To
-            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = <span style="color:#66d9ef">[boolean]</span>$item.LogicalAnd
-            <span style="color:#e6db74">&#39;evalOp&#39;</span> = <span style="color:#66d9ef">[int]</span>$item.EvalOp
-            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
-            <span style="color:#e6db74">&#39;expression&#39;</span> = $item.Expression
-            <span style="color:#e6db74">&#39;value&#39;</span> = <span style="color:#66d9ef">[int]</span>$item.Value
-        }
-
-        $prop
-    }
-}
-
-<span style="color:#75715e"># the data collectors</span>
-$allPackagesInfo = @()
-$allExecutables = @()
-$allPrecedenceConstraints = @()
-
-<span style="color:#75715e"># loop through every .dtsx file in folder; all my packages&#39; names start with 0, so there is an example how to filter it</span>
-<span style="color:#66d9ef">foreach</span>($file <span style="color:#66d9ef">in</span> (Get-ChildItem C:\Users\brata_000\Source\Repos\SSIS_Graph\SSIS_Graph\SSIS_Graph\* -Include 0*.dtsx))
-{
-
-    <span style="color:#75715e"># read .dtsx into XML variable</span>
-    <span style="color:#66d9ef">[xml]</span> $pkg = Get-Content $file
-
-    <span style="color:#75715e"># create hash table with package information</span>
-    $pkgInfo = @{
-        <span style="color:#e6db74">&#39;Name&#39;</span> = $file.Name
-        <span style="color:#e6db74">&#39;Executables&#39;</span> = Find-Executables $file.Name $pkg.Executable
-        <span style="color:#e6db74">&#39;PrecedenceConstraints&#39;</span> = Find-PrecedenceConstraints $file.Name $pkg.Executable.PrecedenceConstraints.PrecedenceConstraint
-    }
-
-    <span style="color:#75715e"># add the table as PSobject to variable with all the package information</span>
-    $allPackagesInfo += New-Object psobject -Property $pkgInfo
-
-}
-
-<span style="color:#75715e"># I don&#39;t want to confirm TRUNCATE TABLE for Write-DbaDataTable (when I&#39;m running it few times)</span>
-$ConfirmPreference = <span style="color:#e6db74">&#39;none&#39;</span>
-
-<span style="color:#75715e"># Having all the information in one place - save it in the database; loop through all the packages (see the filter, again?)</span>
-$allPackagesInfo | Where-Object -Property Name <span style="color:#f92672">-Like</span> <span style="color:#e6db74">&#39;0*&#39;</span> | ForEach-Object {
-
-    $pkgName = $_.Name
-
-    <span style="color:#75715e"># all the Executables in the package</span>
-    $_.Executables | ForEach-Object {
-        $d = @{
-            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
-            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
-            <span style="color:#e6db74">&#39;creationName&#39;</span> = $_.creationName
-            <span style="color:#e6db74">&#39;description&#39;</span> = $_.description
-            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
-            <span style="color:#e6db74">&#39;executableType&#39;</span> = $_.executableType
-            <span style="color:#e6db74">&#39;objectData&#39;</span> = $_.objectData
-        }
-
-        $allExecutables += New-Object psobject -Property $d
-    }
-
-    <span style="color:#75715e"># all the Precedence Constraints in the package; casting to proper types will automaticaly create</span>
-    <span style="color:#75715e"># columns of types other than nvarchar(max) when using -AutoCreateTable on Write-DbaDataTable</span>
-    $_.PrecedenceConstraints | ForEach-Object {
-        $d = @{
-            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
-            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
-            <span style="color:#e6db74">&#39;from&#39;</span> = $_.from
-            <span style="color:#e6db74">&#39;to&#39;</span> = $_.to
-            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = <span style="color:#66d9ef">[boolean]</span>$_.logicalAnd
-            <span style="color:#e6db74">&#39;evalOp&#39;</span> = [int\]$_.evalOp
-            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
-            <span style="color:#e6db74">&#39;expression&#39;</span> = $_.expression
-            <span style="color:#e6db74">&#39;value&#39;</span> = <span style="color:#66d9ef">[int]</span>$_.value
-        }
-        $allPrecedenceConstraints += New-Object psobject -Property $d
-    }
-}
-
-<span style="color:#75715e"># I&#39;m using SQL Server for Linux, connecting to the VM, so I use SQL authentication (for now) - why not use &#39;sa&#39; then?</span>
-$cred = Get-Credential sa
-
-<span style="color:#75715e">#save all Executables to the database</span>
-$allExecutables | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 127.0.0.1<span style="color:#960050;background-color:#1e0010">:</span>14333 `
-                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table Executables -AutoCreateTable -Truncate
-
-<span style="color:#75715e"># save all Precedence Constraints to the database</span>
-$allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 127.0.0.1<span style="color:#960050;background-color:#1e0010">:</span>14333 `
-                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table PrecedenceConstraints -AutoCreateTable -Truncate
-</code></pre></div><p>To get all the information I loop through all the files. In Control Flow the interesting data are <code>Executable</code> elements and <code>Precedence Constraints</code>. Because one <code>Executable</code> can contain another <code>Executable</code>s (think: <code>Sequence/For/ForEach Containers</code>) I use recursion. It&rsquo;s easier with <code>Precedence Constraints</code> because all of them are located under one XML node. Both functions get <code>$fileName</code> as the first parameter that is not used later. It&rsquo;s because it&rsquo;s one of the versions of the script and I didn&rsquo;t want to remove it as I&rsquo;m doing more tests for later.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it</span>
+</span></span><span style="display:flex;"><span>Import-Module dbatools
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># find recursively all Executable nodes in .dtsx file</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Find-Executables($fileName, $executable)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $executable)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># are we there, yet? (if no - recursion)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($item.Executables)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Find-Executables $fileName $item.Executables.Executable
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># if yes - the result</span>
+</span></span><span style="display:flex;"><span>        $prop = @{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;creationName&#39;</span> = $item.CreationName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;description&#39;</span> = $item.Description
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;executableType&#39;</span> = $item.ExecutableType
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectData&#39;</span> = $item.ObjectData.ExpressionTask.Expression
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $prop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get all Precedence Constraints; simpler than Executables, because all of them are in single node</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Find-PrecedenceConstraints($fileName, $precedenceConstraints)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $precedenceConstraints)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        $prop = @{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;from&#39;</span> = $item.From
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;to&#39;</span> = $item.To
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = [<span style="color:#66d9ef">boolean</span>]$item.LogicalAnd
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;evalOp&#39;</span> = [<span style="color:#66d9ef">int</span>]$item.EvalOp
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;expression&#39;</span> = $item.Expression
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;value&#39;</span> = [<span style="color:#66d9ef">int</span>]$item.Value
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $prop
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the data collectors</span>
+</span></span><span style="display:flex;"><span>$allPackagesInfo = @()
+</span></span><span style="display:flex;"><span>$allExecutables = @()
+</span></span><span style="display:flex;"><span>$allPrecedenceConstraints = @()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># loop through every .dtsx file in folder; all my packages&#39; names start with 0, so there is an example how to filter it</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span>($file <span style="color:#66d9ef">in</span> (Get-ChildItem C:\Users\brata_000\Source\Repos\SSIS_Graph\SSIS_Graph\SSIS_Graph\* -Include <span style="color:#ae81ff">0</span>*.dtsx))
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># read .dtsx into XML variable</span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">xml</span>] $pkg = Get-Content $file
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># create hash table with package information</span>
+</span></span><span style="display:flex;"><span>    $pkgInfo = @{
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Name&#39;</span> = $file.Name
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Executables&#39;</span> = Find-Executables $file.Name $pkg.Executable
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;PrecedenceConstraints&#39;</span> = Find-PrecedenceConstraints $file.Name $pkg.Executable.PrecedenceConstraints.PrecedenceConstraint
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># add the table as PSobject to variable with all the package information</span>
+</span></span><span style="display:flex;"><span>    $allPackagesInfo += New-Object psobject -Property $pkgInfo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># I don&#39;t want to confirm TRUNCATE TABLE for Write-DbaDataTable (when I&#39;m running it few times)</span>
+</span></span><span style="display:flex;"><span>$ConfirmPreference = <span style="color:#e6db74">&#39;none&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Having all the information in one place - save it in the database; loop through all the packages (see the filter, again?)</span>
+</span></span><span style="display:flex;"><span>$allPackagesInfo | Where-Object -Property Name <span style="color:#f92672">-Like</span> <span style="color:#e6db74">&#39;0*&#39;</span> | ForEach-Object {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $pkgName = $_.Name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># all the Executables in the package</span>
+</span></span><span style="display:flex;"><span>    $_.Executables | ForEach-Object {
+</span></span><span style="display:flex;"><span>        $d = @{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;creationName&#39;</span> = $_.creationName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;description&#39;</span> = $_.description
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;executableType&#39;</span> = $_.executableType
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectData&#39;</span> = $_.objectData
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $allExecutables += New-Object psobject -Property $d
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># all the Precedence Constraints in the package; casting to proper types will automaticaly create</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># columns of types other than nvarchar(max) when using -AutoCreateTable on Write-DbaDataTable</span>
+</span></span><span style="display:flex;"><span>    $_.PrecedenceConstraints | ForEach-Object {
+</span></span><span style="display:flex;"><span>        $d = @{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;from&#39;</span> = $_.from
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;to&#39;</span> = $_.to
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = [<span style="color:#66d9ef">boolean</span>]$_.logicalAnd
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;evalOp&#39;</span> = [int\]$_.evalOp
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;expression&#39;</span> = $_.expression
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;value&#39;</span> = [<span style="color:#66d9ef">int</span>]$_.value
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $allPrecedenceConstraints += New-Object psobject -Property $d
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># I&#39;m using SQL Server for Linux, connecting to the VM, so I use SQL authentication (for now) - why not use &#39;sa&#39; then?</span>
+</span></span><span style="display:flex;"><span>$cred = Get-Credential sa
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#save all Executables to the database</span>
+</span></span><span style="display:flex;"><span>$allExecutables | Out-DbaDataTable | Write-DbaDataTable -SqlInstance <span style="color:#ae81ff">127.0</span>.0.<span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">14333</span> `
+</span></span><span style="display:flex;"><span>                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table Executables -AutoCreateTable -Truncate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># save all Precedence Constraints to the database</span>
+</span></span><span style="display:flex;"><span>$allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance <span style="color:#ae81ff">127.0</span>.0.<span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">14333</span> `
+</span></span><span style="display:flex;"><span>                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table PrecedenceConstraints -AutoCreateTable -Truncate
+</span></span></code></pre></div><p>To get all the information I loop through all the files. In Control Flow the interesting data are <code>Executable</code> elements and <code>Precedence Constraints</code>. Because one <code>Executable</code> can contain another <code>Executable</code>s (think: <code>Sequence/For/ForEach Containers</code>) I use recursion. It&rsquo;s easier with <code>Precedence Constraints</code> because all of them are located under one XML node. Both functions get <code>$fileName</code> as the first parameter that is not used later. It&rsquo;s because it&rsquo;s one of the versions of the script and I didn&rsquo;t want to remove it as I&rsquo;m doing more tests for later.</p>
 <p>Each information is collected into an array <code>$allPackagesInfo</code>. It looks a bit overcomplicated, but it works. When data is collected I prepare two arrays with objects containing <code>Executables</code> and <code>Precedence Constraints</code>. I cast some of the values to the proper data types - they will be used when preparing data for the database.</p>
 <p>That gets me to the database layer. To ease the whole process I use <a href="https://dbatools.io/">dbatools</a>. It contains a lot of great functions, but for now I will only use these two: <a href="https://dbatools.io/functions/out-dbadatatable/">Out-DbaDataTable</a> and <a href="https://dbatools.io/functions/write-dbadatatable/">Write-DbaDataTable</a>. The first one prepares data in format that is understood by the second that writes data to the database.</p>
 <p>To ease the data inserting process I use <code>-AutoCreateTable</code> switch for <code>Write-DbaDataTable</code>. It creates table in database using object created with <code>Out-DbaDataTable</code>. It uses first data row to guess data types and when not found (or it&rsquo;s a string) it creates <code>NVARCHAR(MAX)</code> columns - hence I provide extra info for fields other than string. The <code>(MAX)</code> doesn&rsquo;t bother me too much for now as I build the prototype to be expanded later. Also - I may repeat the loading process few times, so I clear the tables each time with a <code>-Truncate</code> parameter. It will ask me to confirm the data removal, so I set the <code>$ConfirmPreference</code> to <code>none</code> as I don&rsquo;t want to do it.</p>
@@ -371,6 +381,16 @@ $allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 1
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -407,16 +427,6 @@ $allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 1
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -460,6 +470,9 @@ $allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 1
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -473,9 +486,6 @@ $allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 1
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -546,22 +556,22 @@ $allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance 1
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

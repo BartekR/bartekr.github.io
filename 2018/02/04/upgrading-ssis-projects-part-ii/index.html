@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -193,14 +203,14 @@
 <p>Also – when you set up the reference to the <code>Microsoft.SqlServerManagedDTS.dll</code> (located in <code>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.SqlServer.ManagedDTS</code>) be sure to check the version you are planning to use. For example – if you check the version 14.0 (<code>v4.0_14.0.0.0__89845dcd8080cc91</code> subfolder) you will be able to migrate ONLY to SQL Server 2017. If you want to migrate to SQL Server 2016 use version 13.0 (<code>v4.0_13.0.0.0__89845dcd8080cc91</code> subfolder). The library version is important as it sets up the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.componentstorepath.aspx">Application.ComponentStorePath</a> property – the folder to tasks and components of SSIS (e.g. <code>C:\Program Files (x86)\Microsoft SQL Server\140\DTS</code> for SQL Server 2017)</p>
 <h2 id="applicationupgrade">Application.Upgrade()</h2>
 <p>First things first: take a look at the <code>Application.Upgrade()</code> at the end of the script. What are the parameters of the <code>Upgrade()</code> method:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> Microsoft.SqlServer.Dts.Runtime.UpgradeResult Upgrade (
-    System.Collections.Generic.IEnumerable&lt;Microsoft.SqlServer.Dts.Runtime.UpgradePackageInfo&gt; packages,
-    Microsoft.SqlServer.Dts.Runtime.StorageInfo source,
-    Microsoft.SqlServer.Dts.Runtime.StorageInfo destination,
-    Microsoft.SqlServer.Dts.Runtime.BatchUpgradeOptions options,
-    Microsoft.SqlServer.Dts.Runtime.IDTSEvents events
-);
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Microsoft.SqlServer.Dts.Runtime.UpgradeResult Upgrade (
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> System.Collections.Generic.IEnumerable&lt;Microsoft.SqlServer.Dts.Runtime.UpgradePackageInfo&gt; packages,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> Microsoft.SqlServer.Dts.Runtime.StorageInfo source,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> Microsoft.SqlServer.Dts.Runtime.StorageInfo destination,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> Microsoft.SqlServer.Dts.Runtime.BatchUpgradeOptions options,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> Microsoft.SqlServer.Dts.Runtime.IDTSEvents events
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><ul>
 <li>the packages we want to upgrade (packages)</li>
 <li>location of these packages (source)</li>
 <li>where we want to save the upgraded packages (destination)</li>
@@ -211,11 +221,11 @@
 <p>Why the example doesn&rsquo;t want to work? The <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.upgradepackageinfo.-ctor?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_UpgradePackageInfo__ctor">UpgradePackageInfo()</a> method documentation - states that we provide the names and the full paths of the packages. The <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo?view=sqlserver-2017">StorageInfo</a> class documentation - the property <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo.rootfolder?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_StorageInfo_RootFolder">RootFolder</a> gets or sets the path to the folder where we back up the packages. When we set the <code>RootFolder</code> property it is prepended to the package path provided in the <code>UpgradePackageInfo()</code> – so we have an invalid path. So either we have to remove either RootFolder property or leave just the names of the packages in <code>UpgradePackageInfo()</code>. When you test both options you know, you have to use RootFolder property, otherwise you get an error:</p>
 <p><em>Failed to backup the old package: A source root folder is not specified.</em></p>
 <p>I change then the <code>UpgradePackageInfo()</code> and put just the file name. To make things consistent, I will also use the <code>RootFolder</code> for the target location:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">UpgradePackageInfo packinfo1 = <span style="color:#66d9ef">new</span> UpgradePackageInfo(<span style="color:#e6db74">&#34;Package.dtsx&#34;</span>, <span style="color:#e6db74">&#34;Package.dtsx&#34;</span>, <span style="color:#66d9ef">null</span>);
-
-StorageInfo storeinfoDest = StorageInfo.NewFileStorage();
-storeinfoDest.RootFolder = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSample&#34;</span>;
-</code></pre></div><p>If you run the code, you still get an error, but this time it’s different. This time the Failures collection contains 5 error messages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>UpgradePackageInfo packinfo1 = <span style="color:#66d9ef">new</span> UpgradePackageInfo(<span style="color:#e6db74">&#34;Package.dtsx&#34;</span>, <span style="color:#e6db74">&#34;Package.dtsx&#34;</span>, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>StorageInfo storeinfoDest = StorageInfo.NewFileStorage();
+</span></span><span style="display:flex;"><span>storeinfoDest.RootFolder = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSample&#34;</span>;
+</span></span></code></pre></div><p>If you run the code, you still get an error, but this time it’s different. This time the Failures collection contains 5 error messages:</p>
 <ol>
 <li>&ldquo;The package format was migrated from version 6 to version 8. It must be saved to retain migration changes.\r\n&rdquo;</li>
 <li>&ldquo;The connection \&quot;{CE71E990-4590-4AB1-998B-E7AA9C87DE35}\&rdquo; is not found. This error is thrown by Connections collection when the specific connection element is not found.\r\n&quot;</li>
@@ -226,8 +236,8 @@ storeinfoDest.RootFolder = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSa
 <p>It looks like the package was migrated from version 6 to 8 [1], the package was upgraded with success [4], but I had the problem with the connection [2], [3] and had some problems with loading the Package.dtsx (it’s about the source package name, not the target).</p>
 <p>So – did the package upgrade or not? Not. The source package is still the same – when you check the source of the package you see <code>&lt;DTS:Property DTS:Name=&quot;PackageFormatVersion&quot;&gt;6&lt;/DTS:Property&gt;</code>.</p>
 <p>The problem with the connection is because it uses connection manager at the project level, not the package level. How can we use the information stored in the project file? The <code>BatchUpgradeOptions</code> class has the <a href="https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.batchupgradeoptions.projectpath.aspx"><code>ProjectPath</code></a> property where we can set (and get) the full path to the <code>.dtproj</code> file.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">upgradeOpts.ProjectPath = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSample\\MigrationSample.dtproj&#34;</span>;
-</code></pre></div><p>Now the example works but gives a warning instead of success. The warning contains four messages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>upgradeOpts.ProjectPath = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSample\\MigrationSample.dtproj&#34;</span>;
+</span></span></code></pre></div><p>Now the example works but gives a warning instead of success. The warning contains four messages:</p>
 <ul>
 <li>&ldquo;Failed to decrypt an encrypted XML node. Verify that the project was created by the same user. Project load will attempt to continue without the encrypted information.&rdquo;</li>
 <li>&ldquo;Failed to decrypt sensitive data in project with a user key. You may not be the user who encrypted this project, or you are not using the same machine that was used to save the project. If the sensitive data is a parameter value, the value may be required to run the package on the Integration Services server.&rdquo;</li>
@@ -238,14 +248,14 @@ storeinfoDest.RootFolder = <span style="color:#e6db74">&#34;C:\\tmp\\MigrationSa
 <h2 id="upgradeoptions">UpgradeOptions</h2>
 <p>To set some options for the upgrade process we used the <code>BatchUpgradeOptions</code> class. That’s why we have an additional SSISBackupFolder in our project’s location (we used <code>BackupOldPackages = true</code> so it creates backup copy of each package in the default subfolder). But we can also set the options for the packages using the <code>PackageUpgradeOptions</code> class.</p>
 <p>The <code>Application</code> class has the property <code>PackageUpgradeOptions</code> of type – you guessed right: <code>PackageUpgradeOptions</code>. We create new object of that class, set the properties and assign it to the <code>Application.PackageUpgradeOptions</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">PackageUpgradeOptions pkgUpgradeOpts = <span style="color:#66d9ef">new</span> PackageUpgradeOptions
-{
-    RegeneratePackageID = <span style="color:#66d9ef">true</span>,
-    UpgradeConnectionProviders = <span style="color:#66d9ef">true</span>
-};
-
-app.PackageUpgradeOptions = pkgUpgradeOpts;
-</code></pre></div><p>All of the above can be set in the <code>SSISUpgrade.exe</code> in the configuration window:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>PackageUpgradeOptions pkgUpgradeOpts = <span style="color:#66d9ef">new</span> PackageUpgradeOptions
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    RegeneratePackageID = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    UpgradeConnectionProviders = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app.PackageUpgradeOptions = pkgUpgradeOpts;
+</span></span></code></pre></div><p>All of the above can be set in the <code>SSISUpgrade.exe</code> in the configuration window:</p>
 <p><a href="images/SSISUpgradeOptions.png"><img src="images/SSISUpgradeOptions.png#center" alt="SSIS Upgrade options"></a></p>
 <h2 id="summary">Summary</h2>
 <p>The <code>Application.Upgrade()</code> method works great. It&rsquo;s the same way that we do the upgrade using <code>SSISUpgrade.exe</code>, but we have set it up a bit different than stated in the documentation.</p>
@@ -311,6 +321,16 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -347,16 +367,6 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -400,6 +410,9 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -413,9 +426,6 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -486,22 +496,22 @@ app.PackageUpgradeOptions = pkgUpgradeOpts;
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

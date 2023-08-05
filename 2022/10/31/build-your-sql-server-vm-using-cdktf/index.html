@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -195,13 +205,13 @@
 </li>
 <li>
 <p>you have to use names for identifiers and names inside the configuration (and variables, if required) - which looks redundant; an example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">VirtualNetwork n = <span style="color:#66d9ef">new</span> VirtualNetwork(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;vnet&#34;</span>, <span style="color:#66d9ef">new</span> VirtualNetworkConfig {
-    Location = rg.Location,
-    ResourceGroupName = rg.Name,
-    AddressSpace = <span style="color:#66d9ef">new</span> []{<span style="color:#e6db74">&#34;10.2.0.0/16&#34;</span>},
-    Name = <span style="color:#e6db74">&#34;vm-ssis-vnet&#34;</span>
-});
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>VirtualNetwork n = <span style="color:#66d9ef">new</span> VirtualNetwork(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;vnet&#34;</span>, <span style="color:#66d9ef">new</span> VirtualNetworkConfig {
+</span></span><span style="display:flex;"><span>    Location = rg.Location,
+</span></span><span style="display:flex;"><span>    ResourceGroupName = rg.Name,
+</span></span><span style="display:flex;"><span>    AddressSpace = <span style="color:#66d9ef">new</span> []{<span style="color:#e6db74">&#34;10.2.0.0/16&#34;</span>},
+</span></span><span style="display:flex;"><span>    Name = <span style="color:#e6db74">&#34;vm-ssis-vnet&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div></li>
 <li>
 <p>terraform&rsquo;s documentation is extensive but lacks additional examples</p>
 </li>
@@ -212,18 +222,18 @@
 <h2 id="preparing-the-environment">Preparing the environment</h2>
 <p>CDKTF allows writing infrastructure setup using TypeScript, Python, C#, Java, and Go. I will use C# for this example, but no matter which language you choose, you need to install <code>Node.js</code> 16+, <code>npm</code>, and <code>terraform</code> CLI version 1.1+.</p>
 <p>If you already have some Node.js and terraform CLI versions installed, you can check them using the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">node --version
-terraform --version
-</code></pre></div><p>Upgrade software when needed (I use Windows, so I downloaded Node.js installer and terraform binary), and then - install CDKTF typing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">npm install --global cdktf-cli@latest <span style="color:#75715e"># install cdktf</span>
-cdktf --version <span style="color:#75715e"># check that it&#39;s installed</span>
-</code></pre></div><p>Done. Now to</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>node --version
+</span></span><span style="display:flex;"><span>terraform --version
+</span></span></code></pre></div><p>Upgrade software when needed (I use Windows, so I downloaded Node.js installer and terraform binary), and then - install CDKTF typing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>npm install --global cdktf-cli@latest <span style="color:#75715e"># install cdktf</span>
+</span></span><span style="display:flex;"><span>cdktf --version <span style="color:#75715e"># check that it&#39;s installed</span>
+</span></span></code></pre></div><p>Done. Now to</p>
 <h2 id="preparing-the-code">Preparing the code</h2>
 <p>I want to build VM with SQL Server, so I created a dedicated folder <code>vm-ssis</code>, and initiated the scaffolding for the project with <code>cdktf init</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir vm-ssis
-cd vm-ssis
-cdktf init --template=csharp --local
-</code></pre></div><p>After running the above, it forces me to provide the project name, description, and whether to send crash telemetry. <code>--template</code> is for specifying the target language to generate project structure, and <code>--local</code> means that terraform will store state locally.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir vm-ssis
+</span></span><span style="display:flex;"><span>cd vm-ssis
+</span></span><span style="display:flex;"><span>cdktf init --template=csharp --local
+</span></span></code></pre></div><p>After running the above, it forces me to provide the project name, description, and whether to send crash telemetry. <code>--template</code> is for specifying the target language to generate project structure, and <code>--local</code> means that terraform will store state locally.</p>
 <p>As a result, there is a dotnet project containing:</p>
 <ul>
 <li><code>Program.cs</code>, <code>MainStack.cs</code>, <code>MyTerraformStack.csproj</code>, <code>TestProgram.cs</code>, <code>.gitignore</code>, <code>cdktf.json</code> and <code>help</code> files</li>
@@ -241,29 +251,29 @@ cdktf init --template=csharp --local
 <h2 id="starting-slowly">Starting slowly</h2>
 <p>I&rsquo;m just learning how to use CDKTF and want a simple Virtual Machine. Hence I will touch on neither the modularisation topic nor splitting the code between separate files. I will also not describe the complete source code (available at <a href="https://github.com/BartekR/blog/tree/master/202210%20Cdktf">https://github.com/BartekR/blog/tree/master/202210%20Cdktf</a>) - I will focus on the most important (for me) aspects.</p>
 <p>The file <code>MainStack.cs</code> has a placeholder that gives me a hint about where I should place the code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> System;
-<span style="color:#66d9ef">using</span> Constructs;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf;
-
-<span style="color:#66d9ef">namespace</span> MyCompany.MyApp
-{
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainStack</span> : TerraformStack
-    {
-        <span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
-        {
-            <span style="color:#75715e">// define resources here
-</span><span style="color:#75715e"></span>        }
-    }
-}
-</code></pre></div><p>I don&rsquo;t care about the namespace in this case, so I keep it as it is. Before I define the resources, I need to inform my project that I want to build the infrastructure in Azure. For that, I use the following command, suggested by CDKTF setup: <code>dotnet add package HashiCorp.Cdktf.Providers.Azurerm</code>. As a result, it adds <code>HashiCorp.Cdktf.Providers.Azurerm</code> version 3.0.12 to the package references. Now I can use Azure resources definitions and AzureRm config:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
-{
-    <span style="color:#75715e">// define resources here
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> AzurermProvider(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;azurerm&#34;</span>, <span style="color:#66d9ef">new</span> AzurermProviderConfig {
-        Features = <span style="color:#66d9ef">new</span> AzurermProviderFeatures()
-    });
-}
-</code></pre></div><p>Before I create the code for SQL Server VM, I need to familiarize myself with the process in Azure Portal. I prepared a new VM resource and reviewed the existing requirements.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Constructs;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> MyCompany.MyApp
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainStack</span> : TerraformStack
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// define resources here</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I don&rsquo;t care about the namespace in this case, so I keep it as it is. Before I define the resources, I need to inform my project that I want to build the infrastructure in Azure. For that, I use the following command, suggested by CDKTF setup: <code>dotnet add package HashiCorp.Cdktf.Providers.Azurerm</code>. As a result, it adds <code>HashiCorp.Cdktf.Providers.Azurerm</code> version 3.0.12 to the package references. Now I can use Azure resources definitions and AzureRm config:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// define resources here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> AzurermProvider(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;azurerm&#34;</span>, <span style="color:#66d9ef">new</span> AzurermProviderConfig {
+</span></span><span style="display:flex;"><span>        Features = <span style="color:#66d9ef">new</span> AzurermProviderFeatures()
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Before I create the code for SQL Server VM, I need to familiarize myself with the process in Azure Portal. I prepared a new VM resource and reviewed the existing requirements.</p>
 <p><img src="./images/AzurePortal.VM.Create.png#center" alt="Azure VM creation steps"></p>
 <p>Some things to note for future reference:</p>
 <ul>
@@ -322,44 +332,44 @@ SQL TempDb: Use local SSD drive</p>
 <p>After clicking the parameters in Azure Portal, I saved the ARM template in <code>vm.create.json</code> for reference and help when I&rsquo;m stuck. I read <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_virtual_machine"><code>mssql_virtua_machine</code></a> documentation and <a href="https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/mssql/mssqlvm">configuration sample</a>. They helped a lot, as I got more understanding of how the elements interact with each other.</p>
 <p>I will not say that writing the initial code was a breeze, but I got stuck only a few times and solved the issues with a trial-and-error approach.</p>
 <p>First, I need a resource group:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
-{
-    <span style="color:#75715e">// define resources here
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (...)
-</span><span style="color:#75715e"></span>    ResourceGroup rg = <span style="color:#66d9ef">new</span> ResourceGroup(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;rg&#34;</span>, <span style="color:#66d9ef">new</span> ResourceGroupConfig {
-        Location = <span style="color:#e6db74">&#34;West Europe&#34;</span>,
-        Name = <span style="color:#e6db74">&#34;VM-SSIS-RG&#34;</span>
-    });
-}
-</code></pre></div><p>The first annoyance: I need to define <code>id</code> for the element - <em>&ldquo;rg&rdquo;</em> (nothing special - it&rsquo;s the default behaviour of terraform), but I also need to define the variable <em>rg</em> if I want to reference it later. I understand it. I just consider it an overhead.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// define resources here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// (...)</span>
+</span></span><span style="display:flex;"><span>    ResourceGroup rg = <span style="color:#66d9ef">new</span> ResourceGroup(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;rg&#34;</span>, <span style="color:#66d9ef">new</span> ResourceGroupConfig {
+</span></span><span style="display:flex;"><span>        Location = <span style="color:#e6db74">&#34;West Europe&#34;</span>,
+</span></span><span style="display:flex;"><span>        Name = <span style="color:#e6db74">&#34;VM-SSIS-RG&#34;</span>
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first annoyance: I need to define <code>id</code> for the element - <em>&ldquo;rg&rdquo;</em> (nothing special - it&rsquo;s the default behaviour of terraform), but I also need to define the variable <em>rg</em> if I want to reference it later. I understand it. I just consider it an overhead.</p>
 <p>Then I decide to use Virtual Network. Pay attention - I reference the previously defined <em>ResourceGroup</em> <code>rg</code> variable to specify <code>Location</code> and <code>ResourceGroupName</code> parameters:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
-{
-    <span style="color:#75715e">// define resources here
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (...)
-</span><span style="color:#75715e"></span>    VirtualNetwork n = <span style="color:#66d9ef">new</span> VirtualNetwork(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;vnet&#34;</span>, <span style="color:#66d9ef">new</span> VirtualNetworkConfig {
-        Location = rg.Location,
-        ResourceGroupName = rg.Name,
-        AddressSpace = <span style="color:#66d9ef">new</span> []{<span style="color:#e6db74">&#34;10.2.0.0/16&#34;</span>},
-        Name = <span style="color:#e6db74">&#34;vm-ssis-vnet&#34;</span>
-    });
-}
-</code></pre></div><p>Second annoyance: documentation is sparse, and if not the default samples, it would take me a lot more time to figure I should use an anonymous array.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> MainStack(Construct scope, <span style="color:#66d9ef">string</span> id) : <span style="color:#66d9ef">base</span>(scope, id)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// define resources here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// (...)</span>
+</span></span><span style="display:flex;"><span>    VirtualNetwork n = <span style="color:#66d9ef">new</span> VirtualNetwork(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;vnet&#34;</span>, <span style="color:#66d9ef">new</span> VirtualNetworkConfig {
+</span></span><span style="display:flex;"><span>        Location = rg.Location,
+</span></span><span style="display:flex;"><span>        ResourceGroupName = rg.Name,
+</span></span><span style="display:flex;"><span>        AddressSpace = <span style="color:#66d9ef">new</span> []{<span style="color:#e6db74">&#34;10.2.0.0/16&#34;</span>},
+</span></span><span style="display:flex;"><span>        Name = <span style="color:#e6db74">&#34;vm-ssis-vnet&#34;</span>
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Second annoyance: documentation is sparse, and if not the default samples, it would take me a lot more time to figure I should use an anonymous array.</p>
 <p>Above I used references to <code>ResourceGroup</code> and <code>VirtualNetwork</code>, but to do that, I included the namespaces in the code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> Constructs;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.MssqlVirtualMachine;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkInterface;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkSecurityGroup;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkSecurityRule;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkInterfaceSecurityGroupAssociation;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.Provider;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.PublicIp;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.ResourceGroup;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.Subnet;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.VirtualMachine;
-<span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.VirtualNetwork;
-</code></pre></div><p><code>Constructs</code> and <code>HashiCorp.CdkTf</code> are included by default, but if I want my code to be clean - every resource has its own namespace.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Constructs;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.MssqlVirtualMachine;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkInterface;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkSecurityGroup;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkSecurityRule;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.NetworkInterfaceSecurityGroupAssociation;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.Provider;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.PublicIp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.ResourceGroup;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.Subnet;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.VirtualMachine;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> HashiCorp.Cdktf.Providers.Azurerm.VirtualNetwork;
+</span></span></code></pre></div><p><code>Constructs</code> and <code>HashiCorp.CdkTf</code> are included by default, but if I want my code to be clean - every resource has its own namespace.</p>
 <p>Once I created a resource group, virtual network, subnet, IP, etc. I got the general pattern, and I liked it. As with classic terraform - you create a resource definition and then use it in subsequent elements.</p>
 <h2 id="i-have-the-code-what-next">I have the code. What next?</h2>
 <p>When adding the code, I frequently run <code>dotnet build</code> to be sure it works as expected. To run the code - the recommended way is to use <code>cdktf</code> CLI and run <code>cdktf deploy &lt;project-name&gt;</code>, where <code>&lt;project-name&gt;</code> is the one provided during project creation. If you don&rsquo;t remember:</p>
@@ -372,34 +382,34 @@ SQL TempDb: Use local SSD drive</p>
 <p>To remove the VM, run <code>cdktf destroy &lt;project-name&gt;</code>.</p>
 <h2 id="last-annoyance">Last annoyance</h2>
 <p>CDKTF is in the early stage, and there are bugs in the AzureRm provider. One I found particularly annoying for SQL Server virtual machine was the TempDb configuration. With the classic terraform <a href="https://github.com/hashicorp/terraform-provider-azurerm/blob/main/internal/services/mssql/helper/sql_virtual_machine_storage_settings.go#L32">I have all the options from Azure Portal</a>, but CDKTF allows only the same settings as for log and data files (taken from metadata):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#75715e">#region zestaw HashiCorp.Cdktf.Providers.Azurerm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-</span><span style="color:#75715e"></span><span style="color:#75715e">// HashiCorp.Cdktf.Providers.Azurerm.dll
-</span><span style="color:#75715e"></span><span style="color:#75715e">#endregion
-</span><span style="color:#75715e"></span>
-<span style="color:#960050;background-color:#1e0010">#</span>nullable enable
-
-<span style="color:#66d9ef">using</span> Amazon.JSII.Runtime.Deputy;
-
-<span style="color:#66d9ef">namespace</span> HashiCorp.Cdktf.Providers.Azurerm.MssqlVirtualMachine
-{
-<span style="color:#a6e22e">    [JsiiInterface(typeof(IMssqlVirtualMachineStorageConfigurationTempDbSettings), &#34;@cdktf/provider-azurerm.mssqlVirtualMachine.MssqlVirtualMachineStorageConfigurationTempDbSettings&#34;)]</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IMssqlVirtualMachineStorageConfigurationTempDbSettings
-    {
-        <span style="color:#75715e">//
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Summary:
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/azurerm/r/mssql_virtual_machine#default_file_path
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     MssqlVirtualMachine#default_file_path}.
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">        [JsiiProperty(&#34;defaultFilePath&#34;, &#34;{\&#34;primitive\&#34;:\&#34;string\&#34;}&#34;, false, false)]</span>
-        <span style="color:#66d9ef">string</span> DefaultFilePath { <span style="color:#66d9ef">get</span>; }
-        <span style="color:#75715e">//
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Summary:
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/azurerm/r/mssql_virtual_machine#luns
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     MssqlVirtualMachine#luns}.
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">        [JsiiProperty(&#34;luns&#34;, &#34;{\&#34;collection\&#34;:{\&#34;elementtype\&#34;:{\&#34;primitive\&#34;:\&#34;number\&#34;},\&#34;kind\&#34;:\&#34;array\&#34;}}&#34;, false, false)]</span>
-        <span style="color:#66d9ef">double</span>[] Luns { <span style="color:#66d9ef">get</span>; }
-    }
-}
-</code></pre></div><p>I hope it will change soon, but be aware that today the problem exists.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#75715e">#region zestaw HashiCorp.Cdktf.Providers.Azurerm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// HashiCorp.Cdktf.Providers.Azurerm.dll</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span>endregion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#nullable enable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Amazon.JSII.Runtime.Deputy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> HashiCorp.Cdktf.Providers.Azurerm.MssqlVirtualMachine
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [JsiiInterface(typeof(IMssqlVirtualMachineStorageConfigurationTempDbSettings), &#34;@cdktf/provider-azurerm.mssqlVirtualMachine.MssqlVirtualMachineStorageConfigurationTempDbSettings&#34;)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IMssqlVirtualMachineStorageConfigurationTempDbSettings</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        //
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Summary:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//     Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/azurerm/r/mssql_virtual_machine#default_file_path</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//     MssqlVirtualMachine#default_file_path}.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [JsiiProperty(&#34;defaultFilePath&#34;, &#34;{\&#34;primitive\&#34;:\&#34;string\&#34;}&#34;, false, false)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> DefaultFilePath { <span style="color:#66d9ef">get</span>; }
+</span></span><span style="display:flex;"><span>        //
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Summary:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//     Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/azurerm/r/mssql_virtual_machine#luns</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//     MssqlVirtualMachine#luns}.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [JsiiProperty(&#34;luns&#34;, &#34;{\&#34;collection\&#34;:{\&#34;elementtype\&#34;:{\&#34;primitive\&#34;:\&#34;number\&#34;},\&#34;kind\&#34;:\&#34;array\&#34;}}&#34;, false, false)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span>[] Luns { <span style="color:#66d9ef">get</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I hope it will change soon, but be aware that today the problem exists.</p>
 
       </div>
       <footer>
@@ -449,6 +459,8 @@ SQL TempDb: Use local SSD drive</p>
   </article>
   <div class="pagination">
     
+      <a href="/2023/08/05/terraform-cidr-functions/" class="button left"><span>Terraform CIDR Functions</span></a>
+    
     
       <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="button right"><span>End-to-End testing with Playwright, part II</span></a>
     
@@ -461,6 +473,16 @@ SQL TempDb: Use local SSD drive</p>
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
@@ -499,16 +521,6 @@ SQL TempDb: Use local SSD drive</p>
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -552,6 +564,9 @@ SQL TempDb: Use local SSD drive</p>
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -565,9 +580,6 @@ SQL TempDb: Use local SSD drive</p>
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -638,22 +650,22 @@ SQL TempDb: Use local SSD drive</p>
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

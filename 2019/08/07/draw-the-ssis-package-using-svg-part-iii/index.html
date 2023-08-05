@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -178,40 +188,40 @@
     <img src="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
   </a>
         
-        <p>In the third part of a series, I focus on drawing the constraints' descriptions and the colours. And also a bit of PowerShell for automation.</p>
+        <p>In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation.</p>
 <h2 id="automating-the-layout-extraction">Automating the layout extraction</h2>
 <p>Previously I prepared the file with a layout by hand - I copied the <code>CDATA</code> content of the<code>/DTS:Executable/DTS:DesignTimeProperties</code> element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1">New-Diagram.ps1</a>. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Find &lt;DesignTimeProperties&gt;, CDATA section</span>
-$xpath = <span style="color:#e6db74">&#39;/DTS:Executable/DTS:DesignTimeProperties/text()&#39;</span>
-
-<span style="color:#75715e"># We have a namespace, so add a declaration; just copy the values from the .dtsx file</span>
-$namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServer/Dts&#39;</span>}
-
-<span style="color:#75715e"># The Command</span>
-(Select-Xml -Path $packagePath -XPath $xpath -Namespace $namespace | Select-Object -ExpandProperty Node).Value | Out-File $outputPath
-</code></pre></div><p><code>Select-Xml</code> gets the required information from the <code>.dtsx</code> package using an XPath expression and returns the <code>Node</code>. I take its <code>Value</code> and save to the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Find &lt;DesignTimeProperties&gt;, CDATA section</span>
+</span></span><span style="display:flex;"><span>$xpath = <span style="color:#e6db74">&#39;/DTS:Executable/DTS:DesignTimeProperties/text()&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We have a namespace, so add a declaration; just copy the values from the .dtsx file</span>
+</span></span><span style="display:flex;"><span>$namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServer/Dts&#39;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The Command</span>
+</span></span><span style="display:flex;"><span>(Select-Xml -Path $packagePath -XPath $xpath -Namespace $namespace | Select-Object -ExpandProperty Node).Value | Out-File $outputPath
+</span></span></code></pre></div><p><code>Select-Xml</code> gets the required information from the <code>.dtsx</code> package using an XPath expression and returns the <code>Node</code>. I take its <code>Value</code> and save to the file.</p>
 <p>As an addition, I also wrote the <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.ps1">diagram2svg.ps1</a> script to run everything from PowerShell console. The <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.bat">diagram2svg.bat</a> version is still available.</p>
 <h2 id="back-to-drawing">Back to drawing</h2>
 <p>To get more information, I created an extended version of the package. It has <code>Completion</code> and <code>Failure</code> constraints, as well as <code>OR</code> version. I also added more annotations.</p>
 <p><a href="images/PackageWithConstraints.png"><img src="images/PackageWithConstraints.png" alt="Package with constraints"></a></p>
 <p>I know that I have to draw the descriptions if I see an <code>&lt;EdgeLayout.Labels&gt;</code> element within the <code>&lt;EdgeLayout&gt;</code>. It contains an empty tag <code>&lt;mssgm:EdgeLabel&gt;</code> with two attributes: <code>@BoundingBox</code> and <code>@RelativePosition</code>. Only the first is interesting (the second always has a fixed value <em>Any</em>) - it defines the area for the description. It looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;EdgeLayout.Labels&gt;</span>
-    <span style="color:#f92672">&lt;mssgm:EdgeLabel</span>
-        <span style="color:#a6e22e">BoundingBox=</span><span style="color:#e6db74">&#34;-176.548522135417,29.4736842105263,161.7637109375,16&#34;</span>
-        <span style="color:#a6e22e">RelativePosition=</span><span style="color:#e6db74">&#34;Any&#34;</span> <span style="color:#f92672">/&gt;</span>
-<span style="color:#f92672">&lt;/EdgeLayout.Labels&gt;</span>
-</code></pre></div><p><a href="https://docs.microsoft.com/en-us/openspecs/sql_data_portability/ms-dtsx2/973d4479-435a-43ce-b789-61b2174eee6b">According to the documentation</a>, the <code>@BoundingBox</code> contains &ldquo;<em>value that specifies the coordinates of the four vertices of the bounding box for the edge label</em>&rdquo;. It&rsquo;s not. The numbers are <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> of the box, so I can draw it in SVG using a <code>&lt;rect&gt;</code> element.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;EdgeLayout.Labels&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;mssgm:EdgeLabel</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">BoundingBox=</span><span style="color:#e6db74">&#34;-176.548522135417,29.4736842105263,161.7637109375,16&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">RelativePosition=</span><span style="color:#e6db74">&#34;Any&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/EdgeLayout.Labels&gt;</span>
+</span></span></code></pre></div><p><a href="https://docs.microsoft.com/en-us/openspecs/sql_data_portability/ms-dtsx2/973d4479-435a-43ce-b789-61b2174eee6b">According to the documentation</a>, the <code>@BoundingBox</code> contains &ldquo;<em>value that specifies the coordinates of the four vertices of the bounding box for the edge label</em>&rdquo;. It&rsquo;s not. The numbers are <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> of the box, so I can draw it in SVG using a <code>&lt;rect&gt;</code> element.</p>
 <p>But should I draw them? In the beginning - yes. Just like with the rectangle around the annotation area - to get used to the diagram structure and get the idea of what the values mean.</p>
 <p>OK. I know <strong>where</strong> I have to write the descriptions. Now it&rsquo;s time to get <strong>what</strong> I have to write. Scrolling to the bottom of the <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/Package.Diagram.xml">Package.Diagram.xml</a> I see only two pieces of information:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;PrecedenceConstraint</span>
-    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint\]&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintOptions<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
-<span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
-<span style="color:#f92672">&lt;PrecedenceConstraint</span>
-    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint 1\]&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintDescription<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
-<span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
-</code></pre></div><p>The <code>&lt;ShowAnnotation&gt;</code> values come from <a href="https://docs.microsoft.com/en-us/sql/integration-services/control-flow/precedence-constraints?view=sql-server-2017#set-the-properties-of-a-precedence-constraint-in-properties-window">the Properties of the precedence constraints</a>. So, for the <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint]</code> constraint I need to write the <code>ConstraintOptions</code>, which means &ldquo;<em>automatically annotate using the values of the Value and Expression properties</em>&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;PrecedenceConstraint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint\]&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintOptions<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;PrecedenceConstraint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint 1\]&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintDescription<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
+</span></span></code></pre></div><p>The <code>&lt;ShowAnnotation&gt;</code> values come from <a href="https://docs.microsoft.com/en-us/sql/integration-services/control-flow/precedence-constraints?view=sql-server-2017#set-the-properties-of-a-precedence-constraint-in-properties-window">the Properties of the precedence constraints</a>. So, for the <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint]</code> constraint I need to write the <code>ConstraintOptions</code>, which means &ldquo;<em>automatically annotate using the values of the Value and Expression properties</em>&rdquo;.</p>
 <h2 id="reading-from-the-dtsx-file">Reading from the .dtsx file</h2>
 <p>To get the <code>Value</code> and <code>Expression</code> properties I need to find the precedence constraint in the <code>.dtsx</code> file during the XSL transformations. It requires three changes in the <code>package2svg.xsl</code>:</p>
 <ul>
@@ -220,30 +230,30 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
 <li>I have to use the <code>DTS</code> namespace because it&rsquo;s the namespace of the .dtsx file</li>
 </ul>
 <p>The Saxon XSLT processor has a nice feature - after all the switches for the <code>Transform</code> command I can set the parameters defined at the top level of the XSL file using the key=value pairs. So I define the <code>&lt;xsl:param name=&quot;packagePath&quot; as=&quot;xs:string&quot; required=&quot;yes&quot; /&gt;</code> within the XSL file and extend the command (lines split for readability) to pass the <code>packagePath</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Transform `
-  -s<span style="color:#960050;background-color:#1e0010">:</span>Package.Diagram.xml `
-  -xsl<span style="color:#960050;background-color:#1e0010">:</span>package2svg.xsl `
-  -o<span style="color:#960050;background-color:#1e0010">:</span>Package.Diagram.svg `
-  packagePath=DTSX2SVG\\Package.dtsx
-</code></pre></div><p>To get the content of the <code>.dtsx</code> file I use the XSLT <code>document()</code> function:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:variable</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;packageContent&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;document($packagePath)&#34;</span> /&gt;
-</code></pre></div><p>The last thing is to add the DTS namespace to the stylesheet declaration:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:stylesheet</span> <span style="color:#a6e22e">version</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2.0&#34;</span>
-  <span style="color:#a6e22e">xmlns:xsl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-  <span style="color:#a6e22e">xmlns:xs</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span>
-  <span style="color:#a6e22e">xmlns:gl</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
-  <span style="color:#a6e22e">xmlns:mssgle</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
-  <span style="color:#a6e22e">xmlns:mssgm</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph&#34;</span>
-  <span style="color:#a6e22e">xmlns:DTS</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.microsoft.com/SqlServer/Dts&#34;</span>
-&gt;
-</code></pre></div><p><img src="images/XSLParameters.png" alt="XSL parameters"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Transform `
+</span></span><span style="display:flex;"><span>  -s:Package.Diagram.xml `
+</span></span><span style="display:flex;"><span>  -xsl:package2svg.xsl `
+</span></span><span style="display:flex;"><span>  -o:Package.Diagram.svg `
+</span></span><span style="display:flex;"><span>  packagePath=DTSX2SVG\\Package.dtsx
+</span></span></code></pre></div><p>To get the content of the <code>.dtsx</code> file I use the XSLT <code>document()</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;packageContent&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;document($packagePath)&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span></code></pre></div><p>The last thing is to add the DTS namespace to the stylesheet declaration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.0&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:gl=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:mssgm=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:DTS=</span><span style="color:#e6db74">&#34;www.microsoft.com/SqlServer/Dts&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><p><img src="images/XSLParameters.png" alt="XSL parameters"></p>
 <p>To read the values from the <code>.dtsx</code> file I just use the <code>packageContent</code> variable as the starting point and pass the XPath, like <code>$packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:Expression.</code></p>
 <p>The descriptions for the constraints are explicit (<code>ShowAnnotation</code>) or implicit (the SSIS defaults, like the annotation for <code>Completion</code> or <code>Failure</code> constraints). I define two variables: <code>precedenceConstraintValue</code> and <code>value</code>. The first contains the description based on the layout file information, the second based on the default SSIS behaviour. The algorithm to present the proper information uses the series of <code>xsl:choose</code>/<code>xsl:when</code> commands that read the <code>$packageContent</code>.</p>
 <p>Using the same technique, I set the colour for the constraint reading the <code>DTS:Value</code> and the type of the constraint (OR/AND). For the latter I analyse the <code>DTS:LogicalAnd</code> attribute - if it exists I add the <code>stroke-dasharray</code> SVG attribute:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xslt" data-lang="xslt">&lt;<span style="color:#f92672">xsl:if</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;count($packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:LogicalAnd) = 0&#34;</span>&gt;
-  &lt;<span style="color:#f92672">xsl:attributename</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">stroke-dasharray</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;5&lt;/<span style="color:#f92672">xsl:attribute</span>&gt;
-&lt;/<span style="color:#f92672">xsl:if</span>&gt;
-</code></pre></div><p>And that&rsquo;s it! Now I have the package with the constraint descriptions, colours and shapes. There are still some uncovered parts, but I will deal with them later.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;count($packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:LogicalAnd) = 0&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attributename</span><span style="color:#960050;background-color:#1e0010">=&#34;stroke-dasharray&#34;</span><span style="color:#f92672">&gt;</span>5<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:if&gt;</span>
+</span></span></code></pre></div><p>And that&rsquo;s it! Now I have the package with the constraint descriptions, colours and shapes. There are still some uncovered parts, but I will deal with them later.</p>
 <p><a href="images/Package.Diagram.png"><img src="images/Package.Diagram.png" alt="Package diagram"></a></p>
 <p>Up to now, I drew the Control Flow. The next part will focus on the Data Flow and Event Handlers.</p>
 
@@ -311,6 +321,16 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -347,16 +367,6 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -400,6 +410,9 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -413,9 +426,6 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -486,22 +496,22 @@ $namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServe
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

@@ -31,7 +31,7 @@
       <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
-      <description>In the third part of a series, I focus on drawing the constraints&#39; descriptions and the colours. And also a bit of PowerShell for automation.
+      <description>In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.
 Automating the layout extraction Previously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.</description>
     </item>
     

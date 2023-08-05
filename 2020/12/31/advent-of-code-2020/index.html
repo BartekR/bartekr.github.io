@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -186,270 +196,270 @@
 <p>This post summarises what I learned (or reminded) during the AoC, sometimes with links for the broader explanation.</p>
 <h2 id="1-reading-files">1. Reading files</h2>
 <p>Not much new stuff. As usual - use <code>Get-Content</code>, but become more familiar with <code>-Raw</code> parameter to read all data as one piece of text instead a <code>string[]</code> array. The <code>-Raw</code> parameter allows easy splitting data in the file that has to be separated via empty line. Like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">line1;val1;val2
-line2;val1;val2
-
-part2:val1,val2
-part2:val3:val4
-
-part3|abc
-part3|def
-</code></pre></div><p>To separate the above code into three separate elements, use &ldquo;-split &ldquo;`r&rsquo;n&rsquo;r&rsquo;n&rdquo;  &ldquo;. <strong>Remember to use double quotes</strong>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$customDeclarations = Get-Content <span style="color:#e6db74">&#34;$PSScriptRoot\CustomDeclarations.txt&#34;</span> -Raw
-$cd = $customDeclarations -split <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">`r`n`r`n</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><h2 id="2-named-regex">2. Named regex</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>line1;val1;val2
+</span></span><span style="display:flex;"><span>line2;val1;val2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>part2:val1,val2
+</span></span><span style="display:flex;"><span>part2:val3:val4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>part3|abc
+</span></span><span style="display:flex;"><span>part3|def
+</span></span></code></pre></div><p>To separate the above code into three separate elements, use &ldquo;-split &ldquo;`r&rsquo;n&rsquo;r&rsquo;n&rdquo;  &ldquo;. <strong>Remember to use double quotes</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$customDeclarations = Get-Content <span style="color:#e6db74">&#34;</span>$PSScriptRoot<span style="color:#e6db74">\CustomDeclarations.txt&#34;</span> -Raw
+</span></span><span style="display:flex;"><span>$cd = $customDeclarations -split <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">`r`n`r`n</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h2 id="2-named-regex">2. Named regex</h2>
 <p>When using <code>-match</code> we get <code>$Matches</code> array with the numbered matches. Say we have these lines (taken from my Day02 puzzle input):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">3-7 r: mxvlzcjrsqst
-1-3 c: ccpc
-6-12 f: mqcccdhxfbrhfpf
-</code></pre></div><p>The task was to check if the letter appears between X and Y number of times in the password. Looking at the first line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>3-7 r: mxvlzcjrsqst
+</span></span><span style="display:flex;"><span>1-3 c: ccpc
+</span></span><span style="display:flex;"><span>6-12 f: mqcccdhxfbrhfpf
+</span></span></code></pre></div><p>The task was to check if the letter appears between X and Y number of times in the password. Looking at the first line:</p>
 <ul>
 <li><code>3-7</code> min/max appearances</li>
 <li><code>r</code> letter</li>
 <li><code>mxvlzcjrsqst</code> password</li>
 </ul>
 <p>We can read data using regex like <code>(\d+)-(\d+) ([a-z]): ([a-z]+)</code>, but we have to remember the indices of the groups, like <code>$Matches[3]</code> means the third group (the letter a-z).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$passwords = Get-Content .\Passwords.txt -First 3
-$passwords | ForEach-Object {
-    $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(\d+)-(\d+) ([a-z]): ([a-z]+)&#39;</span> | Out-Null
-    $Matches
-}
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">Name                           Value
-</span><span style="color:#75715e">----                           -----
-</span><span style="color:#75715e">4                              mxvlzcjrsqst
-</span><span style="color:#75715e">3                              r
-</span><span style="color:#75715e">2                              7
-</span><span style="color:#75715e">1                              3
-</span><span style="color:#75715e">0                              3-7 r: mxvlzcjrsqst
-</span><span style="color:#75715e">4                              ccpc
-</span><span style="color:#75715e">3                              c
-</span><span style="color:#75715e">2                              3
-</span><span style="color:#75715e">1                              1
-</span><span style="color:#75715e">0                              1-3 c: ccpc
-</span><span style="color:#75715e">4                              mqcccdhxfbrhfpf
-</span><span style="color:#75715e">3                              f
-</span><span style="color:#75715e">2                              12
-</span><span style="color:#75715e">1                              6
-</span><span style="color:#75715e">0                              6-12 f: mqcccdhxfbrhfpf
-</span><span style="color:#75715e">#&gt;</span>
-</code></pre></div><p>Instead, we can use named references in regexes using <code>?&lt;name&gt;</code> construction before the pattern, like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$passwords = Get-Content .\Passwords.txt -First <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>$passwords | ForEach-Object {
+</span></span><span style="display:flex;"><span>    $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(\d+)-(\d+) ([a-z]): ([a-z]+)&#39;</span> | Out-Null
+</span></span><span style="display:flex;"><span>    $Matches
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Name                           Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">----                           -----
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4                              mxvlzcjrsqst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3                              r
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2                              7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1                              3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              3-7 r: mxvlzcjrsqst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4                              ccpc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3                              c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2                              3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1                              1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              1-3 c: ccpc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4                              mqcccdhxfbrhfpf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3                              f
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2                              12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1                              6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              6-12 f: mqcccdhxfbrhfpf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span></code></pre></div><p>Instead, we can use named references in regexes using <code>?&lt;name&gt;</code> construction before the pattern, like:</p>
 <p><code>(?&lt;minLength&gt;\d+)-(?&lt;maxLength&gt;\d+) (?&lt;letter&gt;[a-z]): (?&lt;password&gt;[a-z]+)</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$passwords = Get-Content .\Passwords.txt -First 3
-$passwords | ForEach-Object {
-    $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(?&lt;minLength&gt;\d+)-(?&lt;maxLength&gt;\d+) (?&lt;letter&gt;[a-z]): (?&lt;password&gt;[a-z]+)&#39;</span> | Out-Null
-    $Matches
-}
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">Name                           Value
-</span><span style="color:#75715e">----                           -----
-</span><span style="color:#75715e">minLength                      3
-</span><span style="color:#75715e">maxLength                      7
-</span><span style="color:#75715e">letter                         r
-</span><span style="color:#75715e">password                       mxvlzcjrsqst
-</span><span style="color:#75715e">0                              3-7 r: mxvlzcjrsqst
-</span><span style="color:#75715e">minLength                      1
-</span><span style="color:#75715e">maxLength                      3
-</span><span style="color:#75715e">letter                         c
-</span><span style="color:#75715e">password                       ccpc
-</span><span style="color:#75715e">0                              1-3 c: ccpc
-</span><span style="color:#75715e">minLength                      6
-</span><span style="color:#75715e">maxLength                      12
-</span><span style="color:#75715e">letter                         f
-</span><span style="color:#75715e">password                       mqcccdhxfbrhfpf
-</span><span style="color:#75715e">0                              6-12 f: mqcccdhxfbrhfpf
-</span><span style="color:#75715e">#&gt;</span>
-</code></pre></div><p>The <code>Out-Null</code> prevents the <code>-match</code> result to appear on the screen (<code>True</code> or <code>False</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$passwords = Get-Content .\Passwords.txt -First <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>$passwords | ForEach-Object {
+</span></span><span style="display:flex;"><span>    $_ <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;(?&lt;minLength&gt;\d+)-(?&lt;maxLength&gt;\d+) (?&lt;letter&gt;[a-z]): (?&lt;password&gt;[a-z]+)&#39;</span> | Out-Null
+</span></span><span style="display:flex;"><span>    $Matches
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Name                           Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">----                           -----
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">minLength                      3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">maxLength                      7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">letter                         r
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">password                       mxvlzcjrsqst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              3-7 r: mxvlzcjrsqst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">minLength                      1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">maxLength                      3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">letter                         c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">password                       ccpc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              1-3 c: ccpc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">minLength                      6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">maxLength                      12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">letter                         f
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">password                       mqcccdhxfbrhfpf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0                              6-12 f: mqcccdhxfbrhfpf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span></code></pre></div><p>The <code>Out-Null</code> prevents the <code>-match</code> result to appear on the screen (<code>True</code> or <code>False</code>)</p>
 <h2 id="3-join-lines">3. Join lines</h2>
 <p>How to join a few lines in one? Use <code>-replace</code>. <strong>Again - remember about double quotes</strong>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$lines = <span style="color:#e6db74">&#39;
-</span><span style="color:#e6db74">hgt:176cm
-</span><span style="color:#e6db74">iyr:2013
-</span><span style="color:#e6db74">hcl:#fffffd ecl:amb
-</span><span style="color:#e6db74">byr:2000
-</span><span style="color:#e6db74">eyr:2034
-</span><span style="color:#e6db74">cid:89 pid:934693255
-</span><span style="color:#e6db74">&#39;</span>
-
-$lines <span style="color:#f92672">-replace</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">`n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#39;;&#39;</span>
-<span style="color:#75715e"># or: $lines -replace &#34;`r`n&#34;, &#39;;&#39;</span>
-
-<span style="color:#75715e"># hgt:176cm;iyr:2013;hcl:#fffffd ecl:amb;byr:2000;eyr:2034;cid:89 pid:934693255</span>
-</code></pre></div><h2 id="4-sort-array-of-strings-as-numbers">4. Sort array of strings as numbers</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$lines = <span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">hgt:176cm
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">iyr:2013
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">hcl:#fffffd ecl:amb
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">byr:2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">eyr:2034
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cid:89 pid:934693255
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$lines <span style="color:#f92672">-replace</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">`n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#39;;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or: $lines -replace &#34;`r`n&#34;, &#39;;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># hgt:176cm;iyr:2013;hcl:#fffffd ecl:amb;byr:2000;eyr:2034;cid:89 pid:934693255</span>
+</span></span></code></pre></div><h2 id="4-sort-array-of-strings-as-numbers">4. Sort array of strings as numbers</h2>
 <p>AoC had almost all the puzzle inputs in the separate files. So I created the input files for each day and read it using <code>Get-Content</code>. Some files contained a series of numbers, and when we read data from a file, we get all as a string. So when I wanted to sort the array I read from the file, I got unexpected results.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># simulating array read from file</span>
-$a = <span style="color:#66d9ef">[string[]]</span>@(2, 3, 1, 11, 15, 21)
-$a | Sort-Object
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">1
-</span><span style="color:#75715e">11
-</span><span style="color:#75715e">15
-</span><span style="color:#75715e">2
-</span><span style="color:#75715e">21
-</span><span style="color:#75715e">3
-</span><span style="color:#75715e">#&gt;</span>
-</code></pre></div><p>PowerShell is not aware that those strings are numbers, so it orders them as strings. To sort as the number <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/sort-object?view=powershell-7.1#example-8--sort-a-string-as-an-integer">take a look in the documentation</a> and use ScriptBlock as the <code>-Parameter</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># simulating array read from file</span>
-$a = <span style="color:#66d9ef">[string[]]</span>@(2, 3, 1, 11, 15, 21)
-
-$a | Sort-Object  { <span style="color:#66d9ef">[int]</span>$_ }
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">1
-</span><span style="color:#75715e">2
-</span><span style="color:#75715e">3
-</span><span style="color:#75715e">11
-</span><span style="color:#75715e">15
-</span><span style="color:#75715e">21
-</span><span style="color:#75715e">#&gt;</span>
-</code></pre></div><p>The <a href="https://stackoverflow.com/questions/15040460/sort-object-and-integers">Stack Overflow answer</a> has a bit more about it and led me to the documentation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># simulating array read from file</span>
+</span></span><span style="display:flex;"><span>$a = [<span style="color:#66d9ef">string[]</span>]@(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">21</span>)
+</span></span><span style="display:flex;"><span>$a | Sort-Object
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">11
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">21
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span></code></pre></div><p>PowerShell is not aware that those strings are numbers, so it orders them as strings. To sort as the number <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/sort-object?view=powershell-7.1#example-8--sort-a-string-as-an-integer">take a look in the documentation</a> and use ScriptBlock as the <code>-Parameter</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># simulating array read from file</span>
+</span></span><span style="display:flex;"><span>$a = [<span style="color:#66d9ef">string[]</span>]@(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">21</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$a | Sort-Object  { [<span style="color:#66d9ef">int</span>]$_ }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">11
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">21
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span></code></pre></div><p>The <a href="https://stackoverflow.com/questions/15040460/sort-object-and-integers">Stack Overflow answer</a> has a bit more about it and led me to the documentation.</p>
 <h2 id="5-expanding-arrays">5. Expanding arrays</h2>
 <p>It&rsquo;s not a PowerShell trick or feature. <a href="https://adventofcode.com/2020/day/11">Day 11</a> had a calculation of seats, and one of the tricks was getting info around the corners and edges. Like on a chequerboard - you have 64 squares. Each of them - excluding the edges - have 8 adjacent fields. The corner has three, and the edge has five. To check all the fields, you have to consider edges and corners as a different case. And it adds an overhead to the code.</p>
 <p>It&rsquo;s easier to add a &ldquo;border&rdquo; to the lattice (again: think chequerboard), and analyse the original data. Like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd"># original, 10 x 10
-L.LL.LL.LL
-LLLLLLL.LL
-L.L.L..L..
-LLLL.LL.LL
-L.LL.LL.LL
-L.LLLLL.LL
-..L.L.....
-LLLLLLLLLL
-L.LLLLLL.L
-L.LLLLL.LL
-
-# with border (using dots), 12 x 12
-............
-.L.LL.LL.LL.
-.LLLLLLL.LL.
-.L.L.L..L...
-.LLLL.LL.LL.
-.L.LL.LL.LL.
-.L.LLLLL.LL.
-...L.L......
-.LLLLLLLLLL.
-.L.LLLLLL.L.
-.L.LLLLL.LL.
-............
-</code></pre></div><p>Now my code will look clearer as I don&rsquo;t use additional <code>if</code>s or <code>switch</code>es.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span># original, 10 x 10
+</span></span><span style="display:flex;"><span>L.LL.LL.LL
+</span></span><span style="display:flex;"><span>LLLLLLL.LL
+</span></span><span style="display:flex;"><span>L.L.L..L..
+</span></span><span style="display:flex;"><span>LLLL.LL.LL
+</span></span><span style="display:flex;"><span>L.LL.LL.LL
+</span></span><span style="display:flex;"><span>L.LLLLL.LL
+</span></span><span style="display:flex;"><span>..L.L.....
+</span></span><span style="display:flex;"><span>LLLLLLLLLL
+</span></span><span style="display:flex;"><span>L.LLLLLL.L
+</span></span><span style="display:flex;"><span>L.LLLLL.LL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># with border (using dots), 12 x 12
+</span></span><span style="display:flex;"><span>............
+</span></span><span style="display:flex;"><span>.L.LL.LL.LL.
+</span></span><span style="display:flex;"><span>.LLLLLLL.LL.
+</span></span><span style="display:flex;"><span>.L.L.L..L...
+</span></span><span style="display:flex;"><span>.LLLL.LL.LL.
+</span></span><span style="display:flex;"><span>.L.LL.LL.LL.
+</span></span><span style="display:flex;"><span>.L.LLLLL.LL.
+</span></span><span style="display:flex;"><span>...L.L......
+</span></span><span style="display:flex;"><span>.LLLLLLLLLL.
+</span></span><span style="display:flex;"><span>.L.LLLLLL.L.
+</span></span><span style="display:flex;"><span>.L.LLLLL.LL.
+</span></span><span style="display:flex;"><span>............
+</span></span></code></pre></div><p>Now my code will look clearer as I don&rsquo;t use additional <code>if</code>s or <code>switch</code>es.</p>
 <p>To add the border, I used this code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># $seats0 is the original lattice</span>
-
-<span style="color:#75715e"># add top and bottom border, the same length as the original row</span>
-$seats = @(<span style="color:#e6db74">&#39;.&#39;</span> * $columns) + $seats0 + @(<span style="color:#e6db74">&#39;.&#39;</span> * $columns)
-
-<span style="color:#75715e"># add left and right border to each row (including boundaries)</span>
-<span style="color:#66d9ef">for</span>($i = 0; $i <span style="color:#f92672">-le</span> $rows + 1; $i ++)
-{
-    $seats[$i] = <span style="color:#e6db74">&#39;.&#39;</span> + $seats[$i] + <span style="color:#e6db74">&#39;.&#39;</span>
-}
-</code></pre></div><h2 id="6-hashtables-and-keys">6. Hashtables and keys</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># $seats0 is the original lattice</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add top and bottom border, the same length as the original row</span>
+</span></span><span style="display:flex;"><span>$seats = @(<span style="color:#e6db74">&#39;.&#39;</span> * $columns) + $seats0 + @(<span style="color:#e6db74">&#39;.&#39;</span> * $columns)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add left and right border to each row (including boundaries)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>($i = <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">-le</span> $rows + <span style="color:#ae81ff">1</span>; $i ++)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    $seats[$i] = <span style="color:#e6db74">&#39;.&#39;</span> + $seats[$i] + <span style="color:#e6db74">&#39;.&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="6-hashtables-and-keys">6. Hashtables and keys</h2>
 <p>Always be aware of the datatypes. A standard case with numbers:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$n = @(65, 66, 67, 68, 69)
-$h = @{}
-$n | ForEach-Object {$h[$_] = <span style="color:#66d9ef">[char]</span>$_}
-$h
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">Name                           Value
-</span><span style="color:#75715e">----                           -----
-</span><span style="color:#75715e">69                             E
-</span><span style="color:#75715e">68                             D
-</span><span style="color:#75715e">67                             C
-</span><span style="color:#75715e">66                             B
-</span><span style="color:#75715e">65                             A
-</span><span style="color:#75715e">#&gt;</span>
-
-$h[69]
-<span style="color:#75715e"># E</span>
-$h.69
-<span style="color:#75715e"># E</span>
-$h.<span style="color:#e6db74">&#39;69&#39;</span>
-<span style="color:#75715e">#(nothing)</span>
-</code></pre></div><p>But with the array of numbers as strings:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$n1 = @(<span style="color:#e6db74">&#39;65&#39;</span>, <span style="color:#e6db74">&#39;66&#39;</span>, <span style="color:#e6db74">&#39;67&#39;</span>, <span style="color:#e6db74">&#39;68&#39;</span>, <span style="color:#e6db74">&#39;69&#39;</span>)
-$h1 = @{}
-$n1 | ForEach-Object {$h1[$_] = <span style="color:#66d9ef">[char][int]</span>$_}
-
-<span style="color:#75715e">&lt;#
-</span><span style="color:#75715e">Name                           Value
-</span><span style="color:#75715e">----                           -----
-</span><span style="color:#75715e">67                             C
-</span><span style="color:#75715e">66                             B
-</span><span style="color:#75715e">65                             A
-</span><span style="color:#75715e">68                             D
-</span><span style="color:#75715e">69                             E
-</span><span style="color:#75715e">#&gt;</span>
-
-$h1[67]
-<span style="color:#75715e"># (nothing)</span>
-$h1.67
-<span style="color:#75715e"># (nothing)</span>
-$h1.<span style="color:#e6db74">&#39;67&#39;</span>
-<span style="color:#75715e"># C</span>
-$h1[<span style="color:#e6db74">&#39;67&#39;</span>]
-<span style="color:#75715e"># C</span>
-</code></pre></div><p>Looks the same, but I had to use a string key, not a numeric, because of a different type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$n = @(<span style="color:#ae81ff">65</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">68</span>, <span style="color:#ae81ff">69</span>)
+</span></span><span style="display:flex;"><span>$h = @{}
+</span></span><span style="display:flex;"><span>$n | ForEach-Object {$h[$_] = [<span style="color:#66d9ef">char</span>]$_}
+</span></span><span style="display:flex;"><span>$h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Name                           Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">----                           -----
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">69                             E
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">68                             D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">67                             C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">66                             B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">65                             A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$h[<span style="color:#ae81ff">69</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># E</span>
+</span></span><span style="display:flex;"><span>$h.69
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># E</span>
+</span></span><span style="display:flex;"><span>$h.<span style="color:#e6db74">&#39;69&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#(nothing)</span>
+</span></span></code></pre></div><p>But with the array of numbers as strings:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$n1 = @(<span style="color:#e6db74">&#39;65&#39;</span>, <span style="color:#e6db74">&#39;66&#39;</span>, <span style="color:#e6db74">&#39;67&#39;</span>, <span style="color:#e6db74">&#39;68&#39;</span>, <span style="color:#e6db74">&#39;69&#39;</span>)
+</span></span><span style="display:flex;"><span>$h1 = @{}
+</span></span><span style="display:flex;"><span>$n1 | ForEach-Object {$h1[$_] = [<span style="color:#66d9ef">char][int</span>]$_}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Name                           Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">----                           -----
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">67                             C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">66                             B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">65                             A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">68                             D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">69                             E
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$h1[<span style="color:#ae81ff">67</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (nothing)</span>
+</span></span><span style="display:flex;"><span>$h1.67
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (nothing)</span>
+</span></span><span style="display:flex;"><span>$h1.<span style="color:#e6db74">&#39;67&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># C</span>
+</span></span><span style="display:flex;"><span>$h1[<span style="color:#e6db74">&#39;67&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># C</span>
+</span></span></code></pre></div><p>Looks the same, but I had to use a string key, not a numeric, because of a different type.</p>
 <h2 id="7-pre-fill-an-array-with-values">7. Pre-fill an array with values</h2>
 <p>Sometimes I wanted to have an array with prefilled values. Like 10 values of 0:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$a = @(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-</code></pre></div><p>What if I know only the number of elements in an array (as a variable)? <a href="https://stackoverflow.com/questions/17875852/how-to-fill-an-array-efficiently-in-powershell/17877292#17877292">The fastest version</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$n = 57
-$a = ,0 * $n
-</code></pre></div><p>Also worth reading - <a href="https://www.red-gate.com/simple-talk/sysadmin/powershell/powershell-one-liners--collections,-hashtables,-arrays-and-strings/">an article on SimpleTalk</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$a = @(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+</span></span></code></pre></div><p>What if I know only the number of elements in an array (as a variable)? <a href="https://stackoverflow.com/questions/17875852/how-to-fill-an-array-efficiently-in-powershell/17877292#17877292">The fastest version</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$n = <span style="color:#ae81ff">57</span>
+</span></span><span style="display:flex;"><span>$a = ,<span style="color:#ae81ff">0</span> * $n
+</span></span></code></pre></div><p>Also worth reading - <a href="https://www.red-gate.com/simple-talk/sysadmin/powershell/powershell-one-liners--collections,-hashtables,-arrays-and-strings/">an article on SimpleTalk</a>.</p>
 <h2 id="8-convert-a-number-to-a-binary-string">8. Convert a number to a binary string</h2>
 <p>Use <code>[Convert]::ToString($number, 2)</code>. Works with other bases too.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#66d9ef">[Convert]</span>::ToString(15, 2)
-<span style="color:#75715e"># 1111</span>
-
-<span style="color:#66d9ef">[Convert]</span>::ToString(15, 8)
-<span style="color:#75715e"># 17</span>
-
-<span style="color:#66d9ef">[Convert]</span>::ToString(15, 16)
-<span style="color:#75715e"># f</span>
-</code></pre></div><h2 id="9-pad-numbers-with-zeroes">9. Pad numbers with zeroes</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">Convert</span>]::ToString(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1111</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Convert</span>]::ToString(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 17</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Convert</span>]::ToString(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># f</span>
+</span></span></code></pre></div><h2 id="9-pad-numbers-with-zeroes">9. Pad numbers with zeroes</h2>
 <p>I want to prefix my number(s) with leading zeroes (like: <code>000000015</code>), and keep the lengths consistent - all prefixed numbers should have a length of 10. I used it to visualise a bitmask but works for every number.</p>
 <ol>
 <li>
 <p>Use formatting: <code>'{0:d10}' -f $number</code>; important: it has to be <strong>a number</strong>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$a = <span style="color:#e6db74">&#39;15&#39;</span>
-<span style="color:#e6db74">&#39;{0:d10}&#39;</span> <span style="color:#f92672">-f</span> $a
-<span style="color:#75715e"># 15</span>
-
-<span style="color:#e6db74">&#39;{0:d10}&#39;</span> <span style="color:#f92672">-f</span> <span style="color:#66d9ef">[int]</span>$a
-<span style="color:#75715e"># 0000000015</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$a = <span style="color:#e6db74">&#39;15&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;{0:d10}&#39;</span> <span style="color:#f92672">-f</span> $a
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 15</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;{0:d10}&#39;</span> <span style="color:#f92672">-f</span> [<span style="color:#66d9ef">int</span>]$a
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0000000015</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Use <code>$number.PadLeft(10, '0')</code>; this time <code>$number</code> has to be <strong>a string</strong>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#e6db74">&#39;15&#39;</span>.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
-<span style="color:#75715e"># 0000000015</span>
-
-$b = 15
-$b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
-<span style="color:#75715e"># InvalidOperation: Method invocation failed because [System.Int32] does not contain a method named &#39;PadLeft&#39;.</span>
-
-15.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
-<span style="color:#75715e"># 15.PadLeft: The term &#39;15.PadLeft&#39; is not recognized as a name of a cmdlet, function, script file, or executable program.</span>
-<span style="color:#75715e"># Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>
-
-(15).PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
-<span style="color:#75715e">#InvalidOperation: Method invocation failed because [System.Int32] does not contain a method named &#39;PadLeft&#39;.</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#e6db74">&#39;15&#39;</span>.PadLeft(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0000000015</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$b = <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>$b.PadLeft(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># InvalidOperation: Method invocation failed because [System.Int32] does not contain a method named &#39;PadLeft&#39;.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>.PadLeft(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 15.PadLeft: The term &#39;15.PadLeft&#39; is not recognized as a name of a cmdlet, function, script file, or executable program.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">15</span>).PadLeft(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#InvalidOperation: Method invocation failed because [System.Int32] does not contain a method named &#39;PadLeft&#39;.</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Use <code>ToString('0000000000')</code>; works only with <strong>numbers</strong>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">15.ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
-<span style="color:#75715e"># 15.ToString: The term &#39;15.ToString&#39; is not recognized as a name of a cmdlet, function, script file, or executable program.</span>
-<span style="color:#75715e"># Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>
-
-(15).ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
-<span style="color:#75715e"># 0000000015</span>
-
-<span style="color:#e6db74">&#39;15&#39;</span>.ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
-<span style="color:#75715e"># MethodException: Cannot find an overload for &#34;ToString&#34; and the argument count: &#34;1&#34;.</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#ae81ff">15</span>.ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 15.ToString: The term &#39;15.ToString&#39; is not recognized as a name of a cmdlet, function, script file, or executable program.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">15</span>).ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0000000015</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;15&#39;</span>.ToString(<span style="color:#e6db74">&#39;0000000000&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MethodException: Cannot find an overload for &#34;ToString&#34; and the argument count: &#34;1&#34;.</span>
+</span></span></code></pre></div></li>
 </ol>
 <p>The list may expand in the future, as I plan to finish Advent of Code 2020, hopefully before AoC 2021.</p>
 
@@ -511,6 +521,16 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -547,16 +567,6 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -600,6 +610,9 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -613,9 +626,6 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -686,22 +696,22 @@ $b.PadLeft(10, <span style="color:#e6db74">&#39;0&#39;</span>)
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

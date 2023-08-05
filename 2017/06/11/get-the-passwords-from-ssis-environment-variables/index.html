@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -183,83 +193,83 @@
 <p>If you&rsquo;re not curious what happens under the hood then scroll down to see that you can get all the information in few lines of T-SQL code (max 3 if you know the environment&rsquo;s ID and compress <code>SELECT</code> statement). If you want to know more - let&rsquo;s start with investigating environment creation with SQL Profiler. I will create environment <em>ENV1</em> in folder <em>DWH_ETL</em>.</p>
 <p><a href="images/CreateEnvironment.png"><img src="images/CreateEnvironment.png#center" alt="Create an SSIS environment"></a></p>
 <p>SSIS makes few standard calls before each operation (take a look at <a href="http://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/">deployment details</a>), but the most important thing is this part:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXEC</span> [SSISDB].[<span style="color:#66d9ef">catalog</span>].[create_environment]
-    <span style="color:#f92672">@</span>environment_name <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;ENV1&#39;</span>,
-    <span style="color:#f92672">@</span>environment_description <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#f92672">@</span>folder_name <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;DWH_ETL&#39;</span>
-</code></pre></div><p>Nothing surprising. But have you seen the <code>catalog.create_environment</code>&rsquo;s body? Yeah, me too. So - we have to go deeper. Scrolling down 120 lines of code (user validation, environment existence check) we get to the point. It starts slowly:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> [internal].[environments]
-    <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_name, <span style="color:#f92672">@</span>folder_id, <span style="color:#f92672">@</span>environment_description, <span style="color:#f92672">@</span>caller_sid, <span style="color:#f92672">@</span>caller_name, SYSDATETIMEOFFSET())
-
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>environment_id <span style="color:#f92672">=</span> SCOPE_IDENTITY()
-</code></pre></div><p>But then gets interesting:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>encryption_algorithm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">SELECT</span> [internal].[get_encryption_algorithm]())
-<span style="color:#75715e">-- ... skip some code ...
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Enckey_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>certificate_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Cert_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
-
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CREATE CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
-<span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH SUBJECT = &#39;&#39;ISServerCertificate&#39;&#39;&#39;</span>
-
-<span style="color:#66d9ef">IF</span>  <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> [name] <span style="color:#66d9ef">FROM</span> [sys].[certificates] <span style="color:#66d9ef">WHERE</span> [name] <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>certificate_name)
-    <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
-
-<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CREATE SYMMETRIC KEY &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">+</span><span style="color:#e6db74">&#39; WITH ALGORITHM = &#39;</span>
-                    <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>encryption_algorithm <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ENCRYPTION BY CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
-
-<span style="color:#66d9ef">IF</span>  <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> [name] <span style="color:#66d9ef">FROM</span> [sys].[symmetric_keys] <span style="color:#66d9ef">WHERE</span> [name] <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>key_name)
-    <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
-</code></pre></div><p>Aha! So, it&rsquo;s creating the certificate and the symmetric key for the environment. Ergo - all encryption within the environment uses dedicated symmetric key encrypted using dedicated certificate.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXEC</span> [SSISDB].[<span style="color:#66d9ef">catalog</span>].[create_environment]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>environment_name <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;ENV1&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>environment_description <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>folder_name <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;DWH_ETL&#39;</span>
+</span></span></code></pre></div><p>Nothing surprising. But have you seen the <code>catalog.create_environment</code>&rsquo;s body? Yeah, me too. So - we have to go deeper. Scrolling down 120 lines of code (user validation, environment existence check) we get to the point. It starts slowly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> [internal].[environments]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_name, <span style="color:#f92672">@</span>folder_id, <span style="color:#f92672">@</span>environment_description, <span style="color:#f92672">@</span>caller_sid, <span style="color:#f92672">@</span>caller_name, SYSDATETIMEOFFSET())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>environment_id <span style="color:#f92672">=</span> SCOPE_IDENTITY()
+</span></span></code></pre></div><p>But then gets interesting:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>encryption_algorithm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">SELECT</span> [internal].[get_encryption_algorithm]())
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- ... skip some code ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Enckey_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>certificate_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Cert_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CREATE CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH SUBJECT = &#39;&#39;ISServerCertificate&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">IF</span><span style="color:#960050;background-color:#1e0010"> </span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> [name] <span style="color:#66d9ef">FROM</span> [sys].[certificates] <span style="color:#66d9ef">WHERE</span> [name] <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>certificate_name)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CREATE SYMMETRIC KEY &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">+</span><span style="color:#e6db74">&#39; WITH ALGORITHM = &#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">                   </span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>encryption_algorithm <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ENCRYPTION BY CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">IF</span><span style="color:#960050;background-color:#1e0010"> </span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> [name] <span style="color:#66d9ef">FROM</span> [sys].[symmetric_keys] <span style="color:#66d9ef">WHERE</span> [name] <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>key_name)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
+</span></span></code></pre></div><p>Aha! So, it&rsquo;s creating the certificate and the symmetric key for the environment. Ergo - all encryption within the environment uses dedicated symmetric key encrypted using dedicated certificate.</p>
 <p>Great - the second step - add a sensitive variable to this environment (using SSMS, let&rsquo;s skip the screenshot). I&rsquo;ll call it <em><code>VAR1</code></em>, type - <code>string</code>, value: <code>123</code>. Dot excluded. SQL Profiler still running - we get this piece of code (of course there&rsquo;s more, but I cut down to the interesting part):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">DECLARE</span> <span style="color:#f92672">@</span>var sql_variant <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;123&#39;</span>
-<span style="color:#66d9ef">EXEC</span> [SSISDB].[<span style="color:#66d9ef">catalog</span>].[create_environment_variable]
-    <span style="color:#f92672">@</span>variable_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;VAR1&#39;</span>,
-    <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span><span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
-    <span style="color:#f92672">@</span>description<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#f92672">@</span>environment_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;ENV1&#39;</span>,
-    <span style="color:#f92672">@</span>folder_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;DWH_ETL&#39;</span>,
-    <span style="color:#f92672">@</span>value<span style="color:#f92672">=@</span>var,
-    <span style="color:#f92672">@</span>data_type<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;String&#39;</span>
-</code></pre></div><p>First conclusion - the value provided has no strong type. It&rsquo;s <code>sql_variant</code>. The <em>String</em> type is just an attribute to this value. It has its consequences later, but for now, it&rsquo;s not that important. As earlier - we have to go deeper - how does <code>catalog.create_environment_variable</code> work?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">DECLARE</span> <span style="color:#f92672">@</span>var sql_variant <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;123&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXEC</span> [SSISDB].[<span style="color:#66d9ef">catalog</span>].[create_environment_variable]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>variable_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;VAR1&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span><span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>description<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>environment_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;ENV1&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>folder_name<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;DWH_ETL&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>value<span style="color:#f92672">=@</span>var,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">@</span>data_type<span style="color:#f92672">=</span>N<span style="color:#e6db74">&#39;String&#39;</span>
+</span></span></code></pre></div><p>First conclusion - the value provided has no strong type. It&rsquo;s <code>sql_variant</code>. The <em>String</em> type is just an attribute to this value. It has its consequences later, but for now, it&rsquo;s not that important. As earlier - we have to go deeper - how does <code>catalog.create_environment_variable</code> work?</p>
 <p>Again - when we take a look inside of the procedure we see user validation, data type validation, environment and folder validation, permission checking and so on. And then we get to this piece of code for encrypted values (EncryptByKey, OPEN SYMMETRIC KEY, CLOSE SYMMETRIC KEY):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">IF</span> (<span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">BEGIN</span>
-        <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Enckey_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
-        <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>certificate_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Cert_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
-
-        <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;OPEN SYMMETRIC KEY &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name
-                            <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; DECRYPTION BY CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
-        <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
-
-        <span style="color:#66d9ef">IF</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;datetime&#39;</span>
-        <span style="color:#66d9ef">BEGIN</span>
-            <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#66d9ef">CONVERT</span>(datetime2,<span style="color:#f92672">@</span>value)))
-        <span style="color:#66d9ef">END</span>
-
-        <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">IF</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;single&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;double&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;decimal&#39;</span>
-        <span style="color:#66d9ef">BEGIN</span>
-            <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#66d9ef">CONVERT</span>(decimal(<span style="color:#ae81ff">38</span>,<span style="color:#ae81ff">18</span>),<span style="color:#f92672">@</span>value)))
-        <span style="color:#66d9ef">END</span>
-
-        <span style="color:#66d9ef">ELSE</span>
-        <span style="color:#66d9ef">BEGIN</span>
-            <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#f92672">@</span>value))
-        <span style="color:#66d9ef">END</span>
-
-        <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CLOSE SYMMETRIC KEY &#39;</span><span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name
-        <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
-
-        <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span>  [internal].[environment_variables] ([environment_id], [name], [description], [<span style="color:#66d9ef">type</span>], [<span style="color:#66d9ef">sensitive</span>], [value], [sensitive_value], [base_data_type])
-            <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_id, <span style="color:#f92672">@</span>variable_name, <span style="color:#f92672">@</span>description, <span style="color:#f92672">@</span>data_type, <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span>, <span style="color:#66d9ef">null</span>, <span style="color:#f92672">@</span>binary_value, <span style="color:#f92672">@</span>variable_type)
-    <span style="color:#66d9ef">END</span>
-
-    <span style="color:#66d9ef">ELSE</span>
-    <span style="color:#66d9ef">BEGIN</span>
-        <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span>  [internal].[environment_variables] ([environment_id], [name], [description], [<span style="color:#66d9ef">type</span>], [<span style="color:#66d9ef">sensitive</span>], [value], [sensitive_value], [base_data_type])
-            <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_id, <span style="color:#f92672">@</span>variable_name, <span style="color:#f92672">@</span>description, <span style="color:#f92672">@</span>data_type, <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span>, <span style="color:#f92672">@</span>value, <span style="color:#66d9ef">null</span>, <span style="color:#f92672">@</span>variable_type)
-    <span style="color:#66d9ef">END</span>
-</code></pre></div><p>The sensitive variable is encrypted by symmetric key created during the environment creation. The value is converted to <code>varbinary(4000)</code> and encrypted using the <code>EncryptByKey()</code> function, but with three different paths, according to the type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">IF</span> (<span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>key_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Enckey_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>certificate_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MS_Cert_Env_&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">CONVERT</span>(varchar,<span style="color:#f92672">@</span>environment_id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;OPEN SYMMETRIC KEY &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">                           </span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; DECRYPTION BY CERTIFICATE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>certificate_name
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">IF</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;datetime&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">           </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#66d9ef">CONVERT</span>(datetime2,<span style="color:#f92672">@</span>value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">ELSE</span> <span style="color:#66d9ef">IF</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;single&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;double&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#f92672">@</span>data_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;decimal&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">           </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#66d9ef">CONVERT</span>(decimal(<span style="color:#ae81ff">38</span>,<span style="color:#ae81ff">18</span>),<span style="color:#f92672">@</span>value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">ELSE</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">           </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>binary_value <span style="color:#f92672">=</span> EncryptByKey(KEY_GUID(<span style="color:#f92672">@</span>key_name),<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">4000</span>),<span style="color:#f92672">@</span>value))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CLOSE SYMMETRIC KEY &#39;</span><span style="color:#f92672">+</span> <span style="color:#f92672">@</span>key_name
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">EXECUTE</span> sp_executesql <span style="color:#f92672">@</span>sqlString
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span><span style="color:#960050;background-color:#1e0010"> </span> [internal].[environment_variables] ([environment_id], [name], [description], [<span style="color:#66d9ef">type</span>], [<span style="color:#66d9ef">sensitive</span>], [value], [sensitive_value], [base_data_type])
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">           </span> <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_id, <span style="color:#f92672">@</span>variable_name, <span style="color:#f92672">@</span>description, <span style="color:#f92672">@</span>data_type, <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span>, <span style="color:#66d9ef">null</span>, <span style="color:#f92672">@</span>binary_value, <span style="color:#f92672">@</span>variable_type)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">ELSE</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span><span style="color:#960050;background-color:#1e0010"> </span> [internal].[environment_variables] ([environment_id], [name], [description], [<span style="color:#66d9ef">type</span>], [<span style="color:#66d9ef">sensitive</span>], [value], [sensitive_value], [base_data_type])
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">           </span> <span style="color:#66d9ef">VALUES</span> (<span style="color:#f92672">@</span>environment_id, <span style="color:#f92672">@</span>variable_name, <span style="color:#f92672">@</span>description, <span style="color:#f92672">@</span>data_type, <span style="color:#f92672">@</span><span style="color:#66d9ef">sensitive</span>, <span style="color:#f92672">@</span>value, <span style="color:#66d9ef">null</span>, <span style="color:#f92672">@</span>variable_type)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">END</span>
+</span></span></code></pre></div><p>The sensitive variable is encrypted by symmetric key created during the environment creation. The value is converted to <code>varbinary(4000)</code> and encrypted using the <code>EncryptByKey()</code> function, but with three different paths, according to the type:</p>
 <ul>
 <li><em>datetime</em> - converts the value to <code>datetime2</code>, and then to <code>varbinary(4000)</code></li>
 <li><em>number</em> - converts the value to <code>decimal(38, 18)</code>, and then to <code>varbinary(4000)</code></li>
@@ -271,63 +281,63 @@
 </blockquote>
 <p>Looks easy - to decrypt the variable we need to do almost the same thing as with encryption, but instead of the <code>EncryptByKey()</code> function we have to use <code>DecryptByKey()</code>. Also - as with encryption - we have to consider different paths for data decryption - we&rsquo;ll see why in a moment.</p>
 <p>To simplify the code I&rsquo;m assuming that my <code>environment_id = 10</code>. Then my encryption key and certificate have <em>_10</em> suffix. First try: convert all to <code>NVARCHAR(1000)</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
-    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
-
-<span style="color:#66d9ef">SELECT</span>
-    <span style="color:#f92672">*</span>,
-    val <span style="color:#f92672">=</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#ae81ff">1000</span>), DECRYPTBYKEY(sensitive_value))
-<span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
-<span style="color:#66d9ef">WHERE</span>
-    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-
-<span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
-</code></pre></div><p>Easy. But - it&rsquo;s only one simple string variable. What happens when we have sensitive data of type - let&rsquo;s say - int? Or float? Because - why not? Sensitive is an attribute of all types of data. Then we have to convert to the proper type. Let&rsquo;s say we have an environment with lots of encrypted variables:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
+</span></span><span style="display:flex;"><span>    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>,
+</span></span><span style="display:flex;"><span>    val <span style="color:#f92672">=</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#ae81ff">1000</span>), DECRYPTBYKEY(sensitive_value))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span>
+</span></span><span style="display:flex;"><span>    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
+</span></span></code></pre></div><p>Easy. But - it&rsquo;s only one simple string variable. What happens when we have sensitive data of type - let&rsquo;s say - int? Or float? Because - why not? Sensitive is an attribute of all types of data. Then we have to convert to the proper type. Let&rsquo;s say we have an environment with lots of encrypted variables:</p>
 <p><a href="images/EncrypteVariablesInEnvironment.png"><img src="images/EncrypteVariablesInEnvironment.png" alt="Encrypted variables"></a></p>
 <p>If we try to do something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
-    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
-
-<span style="color:#66d9ef">SELECT</span>
-    <span style="color:#f92672">*</span>,
-    value    <span style="color:#f92672">=</span> <span style="color:#66d9ef">CASE</span> base_data_type
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;nvarchar&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), DECRYPTBYKEY(sensitive_value))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bit&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(bit, DECRYPTBYKEY(sensitive_value))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;datetime&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(datetime2(<span style="color:#ae81ff">0</span>), DECRYPTBYKEY(sensitive_value))
-        <span style="color:#75715e">-- some data types skipped
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">END</span>
-<span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
-<span style="color:#66d9ef">WHERE</span>
-    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-
-<span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
-</code></pre></div><p>we get the errors of operand clash:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">Msg 206, Level 16, State 2, Line 2
-Operand type clash: bit is incompatible with datetime2
-</code></pre></div><p>It&rsquo;s because we try to put more than one type in one column (value). We have to do one more conversion to common type. Let&rsquo;s use <code>NVARCHAR(MAX)</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
-    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
-
-<span style="color:#66d9ef">SELECT</span>
-    <span style="color:#f92672">*</span>,
-    value    <span style="color:#f92672">=</span> <span style="color:#66d9ef">CASE</span> base_data_type
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;nvarchar&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), DECRYPTBYKEY(sensitive_value))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bit&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(bit, DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;datetime&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(datetime2(<span style="color:#ae81ff">0</span>), DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;single&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;float&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;decimal&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;tinyint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(tinyint, DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;smallint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(smallint, DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;int&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(INT, DECRYPTBYKEY(sensitive_value)))
-        <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bigint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(bigint, DECRYPTBYKEY(sensitive_value)))
-    <span style="color:#66d9ef">END</span>,
-<span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
-<span style="color:#66d9ef">WHERE</span>
-    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-
-<span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
-</code></pre></div><p>I used only 10 types of variables, but we all know there is more of the types. But - when I checked the base data type for each variable I used (and every type was used there) I got only these 10 types. So I&rsquo;ll stick with them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
+</span></span><span style="display:flex;"><span>    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>,
+</span></span><span style="display:flex;"><span>    value<span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#f92672">=</span> <span style="color:#66d9ef">CASE</span> base_data_type
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;nvarchar&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), DECRYPTBYKEY(sensitive_value))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bit&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(bit, DECRYPTBYKEY(sensitive_value))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;datetime&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(datetime2(<span style="color:#ae81ff">0</span>), DECRYPTBYKEY(sensitive_value))
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- some data types skipped
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span>
+</span></span><span style="display:flex;"><span>    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
+</span></span></code></pre></div><p>we get the errors of operand clash:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Msg 206, Level 16, State 2, Line 2
+</span></span><span style="display:flex;"><span>Operand type clash: bit is incompatible with datetime2
+</span></span></code></pre></div><p>It&rsquo;s because we try to put more than one type in one column (value). We have to do one more conversion to common type. Let&rsquo;s use <code>NVARCHAR(MAX)</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">OPEN</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10
+</span></span><span style="display:flex;"><span>    DECRYPTION <span style="color:#66d9ef">BY</span> CERTIFICATE MS_Cert_Env_10;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>,
+</span></span><span style="display:flex;"><span>    value<span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#f92672">=</span> <span style="color:#66d9ef">CASE</span> base_data_type
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;nvarchar&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), DECRYPTBYKEY(sensitive_value))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bit&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(bit, DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;datetime&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(datetime2(<span style="color:#ae81ff">0</span>), DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;single&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;float&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;decimal&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(DECIMAL(<span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">18</span>), DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;tinyint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(tinyint, DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;smallint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(smallint, DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;int&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(INT, DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">       </span> <span style="color:#66d9ef">WHEN</span> <span style="color:#e6db74">&#39;bigint&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#66d9ef">MAX</span>), <span style="color:#66d9ef">CONVERT</span>(bigint, DECRYPTBYKEY(sensitive_value)))
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">   </span> <span style="color:#66d9ef">END</span>,
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> SSISDB.internal.environment_variables
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span>
+</span></span><span style="display:flex;"><span>    environment_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOSE</span> <span style="color:#66d9ef">SYMMETRIC</span> <span style="color:#66d9ef">KEY</span> MS_Enckey_Env_10;
+</span></span></code></pre></div><p>I used only 10 types of variables, but we all know there is more of the types. But - when I checked the base data type for each variable I used (and every type was used there) I got only these 10 types. So I&rsquo;ll stick with them.</p>
 <p>Bottomline: to decrypt environment variable you need to:</p>
 <ol>
 <li>know your environment&rsquo;s Id</li>
@@ -384,7 +394,7 @@ Operand type clash: bit is incompatible with datetime2
   </article>
   <div class="pagination">
     
-      <a href="/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/" class="button left"><span>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</span></a>
+      <a href="/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/" class="button left"><span>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</span></a>
     
     
       <a href="/2017/05/03/what-happens-during-ssis-deployments/" class="button right"><span>What happens during SSIS deployments?</span></a>
@@ -398,6 +408,16 @@ Operand type clash: bit is incompatible with datetime2
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
@@ -436,16 +456,6 @@ Operand type clash: bit is incompatible with datetime2
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -489,6 +499,9 @@ Operand type clash: bit is incompatible with datetime2
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -502,9 +515,6 @@ Operand type clash: bit is incompatible with datetime2
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -575,22 +585,22 @@ Operand type clash: bit is incompatible with datetime2
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;

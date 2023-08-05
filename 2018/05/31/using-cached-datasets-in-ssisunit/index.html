@@ -20,10 +20,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
 
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.111.3">
   
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.1bfccf86359e3de974865922b006112447a52f942c2a9c2bf93d159980ae641b.css" integrity="sha256-G/zPhjWePel0hlkisAYRJEelL5QsKpwr&#43;T0VmYCuZBs="><link rel="stylesheet" href="/css/add-on.css">
+          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -52,17 +52,27 @@
       
         
           
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
           <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
         
       
         
           
+          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
+        
+      
+        
+          
           <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
+        
+      
+        
+          
+          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
         
       
       
@@ -93,7 +103,7 @@
     <h1>BartekR</h1>
   </header>
   <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 4 dogs. 10 cats.</p>
+    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
   </main>
   
     <footer>
@@ -139,7 +149,7 @@
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
@@ -184,102 +194,102 @@
 <p>To find out more about it, take a look at the source code. Open the <code>Dataset.cs</code> file and go to the line 126. There is a method <code>PersistToXml()</code> that writes the <code>Dataset</code> as XML.</p>
 <p><a href="images/PersistToXml.png"><img src="images/PersistToXml.png#center" alt="PersistToXml source code"></a></p>
 <p>In the lines 146 - 158 it verifies existance of the <code>Results</code> element. If it exists, the XML node <code>results</code> is prepared, and the content of the <code>Results</code> element is saved as CDATA.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">if</span> (Results != <span style="color:#66d9ef">null</span>)
-{
-    xmlWriter.WriteStartElement(<span style="color:#e6db74">&#34;results&#34;</span>);
-
-    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> stringWriter = <span style="color:#66d9ef">new</span> StringWriter())
-    {
-        Results.WriteXml(stringWriter, XmlWriteMode.WriteSchema, <span style="color:#66d9ef">true</span>);
-
-        xmlWriter.WriteCData(stringWriter.ToString());
-    }
-
-    xmlWriter.WriteEndElement();
-}
-</code></pre></div><p>The <code>Results</code> object is defined in line 186 - it&rsquo;s stored internally as the <code>DataTable</code> object. So, it must be serialised to store and retrieve it from the saved XML file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Browsable(false)]</span>
-<span style="color:#66d9ef">public</span> DataTable Results { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">set</span>; }
-</code></pre></div><p>The recipe for the cached/stored result is easy: use the <code>&lt;results /&gt;</code> element in your <code>.ssisUnit</code> file and fill it with the serialised <code>DataTable</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (Results != <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    xmlWriter.WriteStartElement(<span style="color:#e6db74">&#34;results&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> stringWriter = <span style="color:#66d9ef">new</span> StringWriter())
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Results.WriteXml(stringWriter, XmlWriteMode.WriteSchema, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        xmlWriter.WriteCData(stringWriter.ToString());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    xmlWriter.WriteEndElement();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>Results</code> object is defined in line 186 - it&rsquo;s stored internally as the <code>DataTable</code> object. So, it must be serialised to store and retrieve it from the saved XML file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#a6e22e">[Browsable(false)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> DataTable Results { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">set</span>; }
+</span></span></code></pre></div><p>The recipe for the cached/stored result is easy: use the <code>&lt;results /&gt;</code> element in your <code>.ssisUnit</code> file and fill it with the serialised <code>DataTable</code>.</p>
 <h2 id="preparing-the-datatable">Preparing the datatable</h2>
 <p>I will again use the <code>15_Users_Dataset.dtsx</code> package for testing. I will create <code>15_Users_Dataset_Persisted.ssisUnit</code> file as a copy of the <code>15_Users_Dataset.ssisUnit</code> file and replace the <em>Empty table test: expected dataset</em> as the cached result. To prepare the serialised datatable I used parts of <a href="https://docs.microsoft.com/pl-pl/dotnet/api/system.data.dataset.writexml?view=netframework-4.7.2#System_Data_DataSet_WriteXml_System_Xml_XmlWriter_System_Data_XmlWriteMode_">an example from the documentation</a> and <a href="http://www.linqpad.net/">Linqpad</a>. <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Scripts">Go to the <code>Scripts</code> folder</a> and open the script <code>15_Users_Dataset_Persisted.linq</code>. The file has some comments, so it should be easy to understand. The main part is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">DataColumn name = <span style="color:#66d9ef">new</span> DataColumn(<span style="color:#e6db74">&#34;Name&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.String));
-name.MaxLength = <span style="color:#ae81ff">50</span>;
-table.Columns.Add(name);
-
-DataColumn login = <span style="color:#66d9ef">new</span> DataColumn(<span style="color:#e6db74">&#34;Login&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.String));
-login.MaxLength = <span style="color:#ae81ff">12</span>;
-table.Columns.Add(login);
-
-table.Columns.Add(<span style="color:#e6db74">&#34;IsActive&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Boolean));
-table.Columns.Add(<span style="color:#e6db74">&#34;Id&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Int32));
-table.Columns.Add(<span style="color:#e6db74">&#34;SourceSystemId&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Byte));
-table.Columns.Add(<span style="color:#e6db74">&#34;IsDeleted&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Boolean));
-
-<span style="color:#75715e">// Login is char(12), the database has ANSI_PADDING = ON, so pad the string with spaces
-</span><span style="color:#75715e"></span>table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 1&#34;</span>, <span style="color:#e6db74">&#34;Login 1     &#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
-table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 2&#34;</span>, <span style="color:#e6db74">&#34;Login 2     &#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
-table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 3&#34;</span>, <span style="color:#e6db74">&#34;Login 3     &#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
-</code></pre></div><p>If you want to use Linqpad - remember to set the language as <em>C# Statement(s)</em> and hit <em>Execute</em> button. The result of the script is as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;NewDataSet&gt;</span>
-  <span style="color:#f92672">&lt;xs:schema</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;NewDataSet&#34;</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span> <span style="color:#a6e22e">xmlns:msdata=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:xml-msdata&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;NewDataSet&#34;</span> <span style="color:#a6e22e">msdata:IsDataSet=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#a6e22e">msdata:MainDataTable=</span><span style="color:#e6db74">&#34;Results&#34;</span> <span style="color:#a6e22e">msdata:UseCurrentLocale=</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">&gt;</span>
-      <span style="color:#f92672">&lt;xs:complexType&gt;</span>
-        <span style="color:#f92672">&lt;xs:choice</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">maxOccurs=</span><span style="color:#e6db74">&#34;unbounded&#34;</span><span style="color:#f92672">&gt;</span>
-          <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Results&#34;</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;xs:complexType&gt;</span>
-              <span style="color:#f92672">&lt;xs:sequence&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Name&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
-                  <span style="color:#f92672">&lt;xs:simpleType&gt;</span>
-                    <span style="color:#f92672">&lt;xs:restriction</span> <span style="color:#a6e22e">base=</span><span style="color:#e6db74">&#34;xs:string&#34;</span><span style="color:#f92672">&gt;</span>
-                      <span style="color:#f92672">&lt;xs:maxLength</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;50&#34;</span> <span style="color:#f92672">/&gt;</span>
-                    <span style="color:#f92672">&lt;/xs:restriction&gt;</span>
-                  <span style="color:#f92672">&lt;/xs:simpleType&gt;</span>
-                <span style="color:#f92672">&lt;/xs:element&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Login&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
-                  <span style="color:#f92672">&lt;xs:simpleType&gt;</span>
-                    <span style="color:#f92672">&lt;xs:restriction</span> <span style="color:#a6e22e">base=</span><span style="color:#e6db74">&#34;xs:string&#34;</span><span style="color:#f92672">&gt;</span>
-                      <span style="color:#f92672">&lt;xs:maxLength</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;12&#34;</span> <span style="color:#f92672">/&gt;</span>
-                    <span style="color:#f92672">&lt;/xs:restriction&gt;</span>
-                  <span style="color:#f92672">&lt;/xs:simpleType&gt;</span>
-                <span style="color:#f92672">&lt;/xs:element&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IsActive&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:boolean&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Id&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:int&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:unsignedByte&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
-                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IsDeleted&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:boolean&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
-              <span style="color:#f92672">&lt;/xs:sequence&gt;</span>
-            <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
-          <span style="color:#f92672">&lt;/xs:element&gt;</span>
-        <span style="color:#f92672">&lt;/xs:choice&gt;</span>
-      <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
-    <span style="color:#f92672">&lt;/xs:element&gt;</span>
-  <span style="color:#f92672">&lt;/xs:schema&gt;</span>
-  <span style="color:#f92672">&lt;Results&gt;</span>
-    <span style="color:#f92672">&lt;Name&gt;</span>Name 1<span style="color:#f92672">&lt;/Name&gt;</span>
-    <span style="color:#f92672">&lt;Login&gt;</span>Login 1     <span style="color:#f92672">&lt;/Login&gt;</span>
-    <span style="color:#f92672">&lt;IsActive&gt;</span>true<span style="color:#f92672">&lt;/IsActive&gt;</span>
-    <span style="color:#f92672">&lt;Id&gt;</span>1<span style="color:#f92672">&lt;/Id&gt;</span>
-    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
-    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
-  <span style="color:#f92672">&lt;/Results&gt;</span>
-  <span style="color:#f92672">&lt;Results&gt;</span>
-    <span style="color:#f92672">&lt;Name&gt;</span>Name 2<span style="color:#f92672">&lt;/Name&gt;</span>
-    <span style="color:#f92672">&lt;Login&gt;</span>Login 2     <span style="color:#f92672">&lt;/Login&gt;</span>
-    <span style="color:#f92672">&lt;IsActive&gt;</span>true<span style="color:#f92672">&lt;/IsActive&gt;</span>
-    <span style="color:#f92672">&lt;Id&gt;</span>2<span style="color:#f92672">&lt;/Id&gt;</span>
-    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
-    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
-  <span style="color:#f92672">&lt;/Results&gt;</span>
-  <span style="color:#f92672">&lt;Results&gt;</span>
-    <span style="color:#f92672">&lt;Name&gt;</span>Name 3<span style="color:#f92672">&lt;/Name&gt;</span>
-    <span style="color:#f92672">&lt;Login&gt;</span>Login 3     <span style="color:#f92672">&lt;/Login&gt;</span>
-    <span style="color:#f92672">&lt;IsActive&gt;</span>false<span style="color:#f92672">&lt;/IsActive&gt;</span>
-    <span style="color:#f92672">&lt;Id&gt;</span>3<span style="color:#f92672">&lt;/Id&gt;</span>
-    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
-    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
-  <span style="color:#f92672">&lt;/Results&gt;</span>
-<span style="color:#f92672">&lt;/NewDataSet&gt;</span>
-</code></pre></div><p>In the <code>.ssisUnit</code> test file, the <code>&lt;NewDataSet /&gt;</code> element should be wrapped in the <code>&lt;result /&gt;</code> as <code>CDATA</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>DataColumn name = <span style="color:#66d9ef">new</span> DataColumn(<span style="color:#e6db74">&#34;Name&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.String));
+</span></span><span style="display:flex;"><span>name.MaxLength = <span style="color:#ae81ff">50</span>;
+</span></span><span style="display:flex;"><span>table.Columns.Add(name);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DataColumn login = <span style="color:#66d9ef">new</span> DataColumn(<span style="color:#e6db74">&#34;Login&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.String));
+</span></span><span style="display:flex;"><span>login.MaxLength = <span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span>table.Columns.Add(login);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>table.Columns.Add(<span style="color:#e6db74">&#34;IsActive&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Boolean));
+</span></span><span style="display:flex;"><span>table.Columns.Add(<span style="color:#e6db74">&#34;Id&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Int32));
+</span></span><span style="display:flex;"><span>table.Columns.Add(<span style="color:#e6db74">&#34;SourceSystemId&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Byte));
+</span></span><span style="display:flex;"><span>table.Columns.Add(<span style="color:#e6db74">&#34;IsDeleted&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Boolean));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Login is char(12), the database has ANSI_PADDING = ON, so pad the string with spaces</span>
+</span></span><span style="display:flex;"><span>table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 1&#34;</span>, <span style="color:#e6db74">&#34;Login 1     &#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
+</span></span><span style="display:flex;"><span>table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 2&#34;</span>, <span style="color:#e6db74">&#34;Login 2     &#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
+</span></span><span style="display:flex;"><span>table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { <span style="color:#e6db74">&#34;Name 3&#34;</span>, <span style="color:#e6db74">&#34;Login 3     &#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span> });
+</span></span></code></pre></div><p>If you want to use Linqpad - remember to set the language as <em>C# Statement(s)</em> and hit <em>Execute</em> button. The result of the script is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;NewDataSet&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xs:schema</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;NewDataSet&#34;</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span> <span style="color:#a6e22e">xmlns:msdata=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:xml-msdata&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;NewDataSet&#34;</span> <span style="color:#a6e22e">msdata:IsDataSet=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#a6e22e">msdata:MainDataTable=</span><span style="color:#e6db74">&#34;Results&#34;</span> <span style="color:#a6e22e">msdata:UseCurrentLocale=</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xs:choice</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">maxOccurs=</span><span style="color:#e6db74">&#34;unbounded&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Results&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Name&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;xs:simpleType&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;xs:restriction</span> <span style="color:#a6e22e">base=</span><span style="color:#e6db74">&#34;xs:string&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&lt;xs:maxLength</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;50&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;/xs:restriction&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;/xs:simpleType&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Login&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;xs:simpleType&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;xs:restriction</span> <span style="color:#a6e22e">base=</span><span style="color:#e6db74">&#34;xs:string&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&lt;xs:maxLength</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;12&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;/xs:restriction&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;/xs:simpleType&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IsActive&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:boolean&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Id&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:int&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:unsignedByte&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IsDeleted&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:boolean&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;/xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/xs:choice&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xs:schema&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Results&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Name&gt;</span>Name 1<span style="color:#f92672">&lt;/Name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Login&gt;</span>Login 1     <span style="color:#f92672">&lt;/Login&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsActive&gt;</span>true<span style="color:#f92672">&lt;/IsActive&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Id&gt;</span>1<span style="color:#f92672">&lt;/Id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/Results&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Results&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Name&gt;</span>Name 2<span style="color:#f92672">&lt;/Name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Login&gt;</span>Login 2     <span style="color:#f92672">&lt;/Login&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsActive&gt;</span>true<span style="color:#f92672">&lt;/IsActive&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Id&gt;</span>2<span style="color:#f92672">&lt;/Id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/Results&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Results&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Name&gt;</span>Name 3<span style="color:#f92672">&lt;/Name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Login&gt;</span>Login 3     <span style="color:#f92672">&lt;/Login&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsActive&gt;</span>false<span style="color:#f92672">&lt;/IsActive&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Id&gt;</span>3<span style="color:#f92672">&lt;/Id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;SourceSystemId&gt;</span>2<span style="color:#f92672">&lt;/SourceSystemId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;IsDeleted&gt;</span>false<span style="color:#f92672">&lt;/IsDeleted&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/Results&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/NewDataSet&gt;</span>
+</span></span></code></pre></div><p>In the <code>.ssisUnit</code> test file, the <code>&lt;NewDataSet /&gt;</code> element should be wrapped in the <code>&lt;result /&gt;</code> as <code>CDATA</code>:</p>
 <p><a href="images/PersistedDatasetInSsisUnitFile.png"><img src="images/PersistedDatasetInSsisUnitFile.png#center" alt="Persisted dataset in ssisUnit file"></a></p>
 <p>The part that took me a lot of time to figure out was the <em>Login</em> column. In the database, it has <code>char(12)</code> data type. It is very dependent on the <a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/set-ansi-padding-transact-sql?view=sql-server-2017"><code>ANSI_PADDING</code></a> setting. The recommended setting is <code>ANSI_PADDING ON</code>, which means it pads the strings with trailing spaces for the char data type columns. And that&rsquo;s the setting for the <em>ssisUnitLearningDB</em> - the database used for this blog post series.</p>
 <p>How does it affect the test? When you persist the char column in the test file, you have to also pad the string with spaces if the column was created with <code>ANSI_PADDING ON</code> setting. If you don&rsquo;t pad the string column, the test will not pass. To illustrate it I prepared some additional datasets and assertions.</p>
@@ -287,31 +297,31 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
 <p>I&rsquo;m testing different dataset settings and how it affects the assertions results. Even if you set the dataset as persisted, ssisUnit expects the query, so I&rsquo;m mostly using T-SQL&rsquo;s comment <code>--</code>as a placeholder. But I also checked if it has to be the same query as I used to prepare the persisted dataset. Running the test you will see, that without padding the <em>Login</em> column data the assertions don&rsquo;t return <em>True</em>.</p>
 <h2 id="the-data-types">The data types</h2>
 <p>When you create the <code>DataTable</code> object you add the columns of the specific type, like</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">table.Columns.Add(<span style="color:#e6db74">&#34;Id&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Int32))
-</code></pre></div><p>How do you know what types you should use? You can guess of course (I did!), but you don&rsquo;t have to. Take a look at the <code>RetrieveDataTable()</code> method in the <code>DataTable.cs</code> file (especially the lines 216 - 237). This is how ssisUnit converts the query result to the <code>DataTable</code> object for further comparison:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">if</span> (!IsResultsStored)
-{
-    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> command = Helper.GetCommand(ConnectionRef, Query))
-    {
-        command.Connection.Open();
-        <span style="color:#66d9ef">using</span> (IDataReader expectedReader = command.ExecuteReader())
-        {
-            <span style="color:#66d9ef">var</span> ds = <span style="color:#66d9ef">new</span> DataSet();
-
-            ds.Load(expectedReader, LoadOption.OverwriteChanges, <span style="color:#66d9ef">new</span>[] { <span style="color:#e6db74">&#34;Results&#34;</span> });
-
-            <span style="color:#66d9ef">if</span> (ds.Tables.Count &lt; <span style="color:#ae81ff">1</span>)
-            {
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ApplicationException(
-                    <span style="color:#66d9ef">string</span>.Format(
-                        CultureInfo.CurrentCulture, <span style="color:#e6db74">&#34;The dataset (\&#34;{0}\&#34;) did not retrieve any data.&#34;</span>, Name));
-            }
-
-            <span style="color:#66d9ef">return</span> ds.Tables[<span style="color:#ae81ff">0</span>];
-        }
-    }
-}
-</code></pre></div><p>I took this part of the code (along with the <code>Helper.GetCommand()</code>) and expanded it with writing metadata of the <code>DataTable</code> object. I use Linqpad and its <code>Dump()</code> method to quickly see the content. The full script <code>GetDataTableMetadata.linq</code> is located <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Scripts">in the <code>Scripts</code> directory</a> of the project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>table.Columns.Add(<span style="color:#e6db74">&#34;Id&#34;</span>, <span style="color:#66d9ef">typeof</span>(System.Int32))
+</span></span></code></pre></div><p>How do you know what types you should use? You can guess of course (I did!), but you don&rsquo;t have to. Take a look at the <code>RetrieveDataTable()</code> method in the <code>DataTable.cs</code> file (especially the lines 216 - 237). This is how ssisUnit converts the query result to the <code>DataTable</code> object for further comparison:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (!IsResultsStored)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> command = Helper.GetCommand(ConnectionRef, Query))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        command.Connection.Open();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">using</span> (IDataReader expectedReader = command.ExecuteReader())
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> ds = <span style="color:#66d9ef">new</span> DataSet();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            ds.Load(expectedReader, LoadOption.OverwriteChanges, <span style="color:#66d9ef">new</span>[] { <span style="color:#e6db74">&#34;Results&#34;</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (ds.Tables.Count &lt; <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ApplicationException(
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">string</span>.Format(
+</span></span><span style="display:flex;"><span>                        CultureInfo.CurrentCulture, <span style="color:#e6db74">&#34;The dataset (\&#34;{0}\&#34;) did not retrieve any data.&#34;</span>, Name));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ds.Tables[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I took this part of the code (along with the <code>Helper.GetCommand()</code>) and expanded it with writing metadata of the <code>DataTable</code> object. I use Linqpad and its <code>Dump()</code> method to quickly see the content. The full script <code>GetDataTableMetadata.linq</code> is located <a href="https://github.com/BartekR/ssisUnitLearning/tree/master/Scripts">in the <code>Scripts</code> directory</a> of the project.</p>
 <p><a href="images/GetDataTableMetadata.png"><img src="images/GetDataTableMetadata.png#center" alt="GetTableMetadata output"></a></p>
 <p>As you can see, the <em>Login</em> column has Length == 12 and MaxLength == 12. It means, that string is padded with blanks. Also notice, that the <em>bit</em> column is mapped to <em>System.Boolean</em> and the <em>tinyint</em> column is mapped to <em>System.Int32</em> - just like <em>Int</em>.</p>
 <h2 id="to-sum-up">To sum up</h2>
@@ -377,6 +387,16 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
       </header>
       
       <article class="mini-post">
+          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
+    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
+  </a>
+        <header>
+          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
+          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
     <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
   </a>
@@ -413,16 +433,6 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
         <header>
           <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
           <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/02/28/build-yourself-a-web-app-in-azure/" class="image" style="--bg-image: url('/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png');">
-    <img src="/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/02/28/build-yourself-a-web-app-in-azure/">Build Yourself a Web App in Azure</a></h2>
-          <time class="published" datetime="2021-02-28 00:00:00 &#43;0000 UTC">February 28, 2021</time>
         </header>
       </article>
       
@@ -466,6 +476,9 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
               <a href="/categories/admin/">admin<span class="count">2</span></a>
           
           <li>
+              <a href="/categories/iac/">iac<span class="count">2</span></a>
+          
+          <li>
               <a href="/categories/internals/">internals<span class="count">2</span></a>
           
           <li>
@@ -479,9 +492,6 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
           
           <li>
               <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">1</span></a>
           
           <li>
               <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
@@ -552,22 +562,22 @@ table.Rows.Add(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef
 
 
 
-<li><a href="//dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
+<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
 
 
       </ul>
   
   <p class="copyright">
-    © 2022 BartekR
+    © 2023 BartekR
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.84.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.02d767a6e81a96e407433383e9cefe38183bfd6185e7ca9dae8c460dd062e2d7.js" integrity="sha256-AtdnpugaluQHQzOD6c7&#43;OBg7/WGF58qdroxGDdBi4tc="></script>
+    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
     <script src="/js/add-on.js"></script>
 <script type="application/javascript">
 var doNotTrack = false;
