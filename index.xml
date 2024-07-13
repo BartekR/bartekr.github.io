@@ -6,7 +6,15 @@
         <description>Recent content on BartekR</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
-        <lastBuildDate>Sat, 26 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 13 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Sample Archive</title>
+        <link>https://blog.bartekr.net/search/</link>
+        <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/search/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Terraform CIDR Functions</title>
         <link>https://blog.bartekr.net/2023/08/05/terraform-cidr-functions/</link>
         <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
@@ -636,14 +644,6 @@ SQL TempDb: Use local SSD drive&lt;/p&gt;
         <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/archives/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Sample Archive</title>
-        <link>https://blog.bartekr.net/search/</link>
-        <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://blog.bartekr.net/search/</guid>
         <description></description>
         </item>
         <item>
@@ -3976,7 +3976,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;li&gt;Paweł Kopijer &amp;ldquo;Czempion Semaela&amp;rdquo; (PL) 13.06.2024.&lt;/li&gt;
 &lt;li&gt;Paweł Kopijer &amp;ldquo;Sploty przeznaczenia&amp;rdquo; (PL) 19.06.2024.&lt;/li&gt;
 &lt;li&gt;T. Kingfisher &amp;ldquo;Thornhedge&amp;rdquo; (PL: &amp;ldquo;Cierń) 21.06.2024.&lt;/li&gt;
-&lt;li&gt;A. C. Cobble &amp;ldquo;Dark Territory&amp;rdquo; (PL: &amp;ldquo;Wogie terytorium&amp;rdquo;) 28.06.2024.&lt;/li&gt;
+&lt;li&gt;A. C. Cobble &amp;ldquo;Dark Territory&amp;rdquo; (PL: &amp;ldquo;Wrogie terytorium&amp;rdquo;) 28.06.2024.&lt;/li&gt;
 &lt;li&gt;A. C. Cobble &amp;ldquo;Empty Horizon&amp;rdquo; (PL: &amp;ldquo;Pusty horyzont&amp;rdquo;) 10.06.2024.&lt;/li&gt;
 &lt;li&gt;William Zinsser &amp;ldquo;Writing to learn&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;Michael J. Sullivan &amp;ldquo;Age of War&amp;rdquo; (PL: &amp;ldquo;Epoka wojny&amp;rdquo;)&lt;/li&gt;
