@@ -1,40 +1,419 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SQL Server 2017 on BartekR</title>
-    <link>https://blog.bartekr.net/tags/sql-server-2017/</link>
-    <description>Recent content in SQL Server 2017 on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/sql-server-2017/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Testing SSIS Projects with ssisUnit</title>
-      <link>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
-      <description>During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&amp;rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.</description>
-    </item>
-    
-    <item>
-      <title>So, you want to migrate SSIS(DB)?</title>
-      <link>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
-      <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
-      <description>Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.
-The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017.</description>
-    </item>
-    
-    <item>
-      <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
-      <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</link>
-      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</guid>
-      <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&amp;rsquo; relations using graphs and Power BI?
-Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>SQL Server 2017 on BartekR</title>
+        <link>https://blog.bartekr.net/tags/sql-server-2017/</link>
+        <description>Recent content in SQL Server 2017 on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/sql-server-2017/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Testing SSIS Projects with ssisUnit</title>
+        <link>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</link>
+        <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
+        <description>&lt;p&gt;During the upcoming &lt;a class=&#34;link&#34; href=&#34;http://sqlday.pl/en/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SQLDay 2018&lt;/a&gt; conference (10th edition of SQLDay!) I&amp;rsquo;ll be &lt;a class=&#34;link&#34; href=&#34;https://sqlday.pl/en/session/start-testing-your-ssis-packages/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;speaking about testing SSIS packages and projects&lt;/a&gt;. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.&lt;/p&gt;
+&lt;p&gt;I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the &lt;a class=&#34;link&#34; href=&#34;https://github.com/johnwelch/ssisUnit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ssisUnit&lt;/a&gt; framework by John Welch.&lt;/p&gt;
+&lt;p&gt;The ssisUnit project started &lt;a class=&#34;link&#34; href=&#34;http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;a long time ago&lt;/a&gt; and was &lt;a class=&#34;link&#34; href=&#34;https://archive.codeplex.com/?p=ssisunit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;hosted on CodePlex&lt;/a&gt;, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (&lt;a class=&#34;link&#34; href=&#34;https://pragmaticworks.com/Products/BI-xPress&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BiXpress&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://pragmaticworks.com/Products/LegiTest&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LegiTest&lt;/a&gt;). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.&lt;/p&gt;
+&lt;h2 id=&#34;but-why&#34;&gt;But why?
+&lt;/h2&gt;&lt;p&gt;Why would we even think about SSIS testing? Most of the times we already check our work during development, don&amp;rsquo;t we? We carefully craft our packages, run them many times to see the outcome, sometimes we even disable some Control Flow elements and check how the moving parts work alone. We write some SQL to review the data before and after the process. And it&amp;rsquo;s good!&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s nothing wrong in testing the packages this way. If it&amp;rsquo;s done at the beginning of your journey to ETL with SSIS. When you work with it for some time you probably see the main three cons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;it&amp;rsquo;s a manual job&lt;/li&gt;
+&lt;li&gt;it&amp;rsquo;s a manual job&lt;/li&gt;
+&lt;li&gt;it&amp;rsquo;s a manual job&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(also error-prone, makes you work harder during debugging and you have a headache when you are forced to work with the package looking like a giant spider of tasks, constraints and data flows).&lt;/p&gt;
+&lt;p&gt;And probably the most important thing: lots of the times you THINK you are testing the package. If it&amp;rsquo;s a simple package for staging the data it&amp;rsquo;s often hard to do something wrong, but what with the more advanced logic? Are you sure you know the data you work with? Do you have some use cases? Probably not. You have some requirements that you discuss with the team (or analyst), and you put the code using the best knowledge you have. And then it starts - data duplicates on some joins, there are nulls when you want to insert data to NOT NULL column, divide by zero, MERGE tries to update the row twice, primary key violations. Sounds familiar?&lt;/p&gt;
+&lt;h2 id=&#34;why-do-i-test&#34;&gt;Why do I test?
+&lt;/h2&gt;&lt;p&gt;Because of all the above. And more. Because I write a lot of tests when I&amp;rsquo;m programming with PowerShell or C#. Because I&amp;rsquo;ve made all those mistakes and have seen other team members facing them. Because just data quality testing before and after the package run is not enough for me. I want to know if my package is ready to deal with some problems. I want to be sure, that when I change the package in a future, the test will show me the issues before they hit production testing environment. Because someone could change the table I&amp;rsquo;m using in the package (like, say - adding a NOT NULL column at the end) and my package will stop working. Because writing the tests makes me think more about the data and forces me to understand the requirements.&lt;/p&gt;
+&lt;h2 id=&#34;last-thing-before-we-start&#34;&gt;Last thing before we start
+&lt;/h2&gt;&lt;p&gt;Testing SSIS packages is hard. The more complex tasks the package is supposed to do, the more complicated testing is. It can take a lot of time to build the tests for the package (and sometimes we can&amp;rsquo;t afford it).&lt;/p&gt;
+&lt;p&gt;But - as with the programming - thinking &amp;ldquo;how could I test this part?&amp;rdquo; impacts your package design. You make it more modular, you start improving logging, creating the tables that hold temporary data for diagnostic purposes. It gives you the comfort of well-done work. Probably you won&amp;rsquo;t test everything, but you have to begin with something. Start with something simple, test one thing. Then test second, third thing. Don&amp;rsquo;t think &amp;ldquo;it&amp;rsquo;s a hell of a job to write the tests for the whole package&amp;rdquo;. It is, but it&amp;rsquo;s like eating an elephant - one piece at a time.&lt;/p&gt;
+&lt;p&gt;After you start testing, you will change your mindset, and the tests will become the standard tool in your work.&lt;/p&gt;
+&lt;h2 id=&#34;lets-start&#34;&gt;Let&amp;rsquo;s start
+&lt;/h2&gt;&lt;p&gt;When I started using ssisUnit, I knew almost nothing about it. I just said to myself &amp;ldquo;I will finally start testing SSIS packages, and I will use that thing I&amp;rsquo;ve read about a while ago - ssisUnit&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;I remembered that it&amp;rsquo;s one of the few tools that help to test the SSIS packages. And that it uses XML to define those tests. Nothing more. There are two simple examples of testing individual packages in the documentation (and they are a good entry point), but I wanted to start with testing the packages in the SSIS projects, not the individual packages. Also - you have only the source code that you have to compile yourself so the entry point is not as easy as you might think. But - it&amp;rsquo;s not that complicated. I will show you how to compile ssisUnit in the next posts. For now - you can &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/ssisUnit/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;download the compiled version for SSIS 2017 here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When you compile it, you have the ssisUnit library, the test runner (command line) and the Test Suite Builder (that also can run the tests in a GUI). The GUI is simple and helps you get started - pick the &lt;em&gt;File &amp;gt; New From Package&amp;hellip;&lt;/em&gt; option, choose the package and its tasks, and you&amp;rsquo;re good to write the tests.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ssisUnit_NewFromPackage.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ssisUnit_NewFromPackage.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;New SSISUnit test from package&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I started with the simple staging package. I&amp;rsquo;ve analysed the examples, watched the recorded sessions by John during the SQLBits (&lt;a class=&#34;link&#34; href=&#34;http://sqlbits.com/Sessions/Event12/Practical_Unit_Testing_for_SSIS_Packages&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;there&lt;/a&gt; and &lt;a class=&#34;link&#34; href=&#34;http://sqlbits.com/Sessions/Event10/Unit_Testing_SSIS_Packages&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;there&lt;/a&gt;) and prepared my first test for the SQL Task element. And it passed as expected! Wow me! Then I made a second test. And it didn&amp;rsquo;t pass. The program started to throw errors with connection managers (that worked with the previous test). I wrote the third test. It didn&amp;rsquo;t pass, but also didn&amp;rsquo;t throw the engine errors.&lt;/p&gt;
+&lt;p&gt;I got confused. And angry - why it doesn&amp;rsquo;t want to work? I also checked the tests in BiXpress - and it gave me exactly the same errors. So I started the project that would help me learn ssisUnit starting with simple tests. Getting the data from a variable, from a variable with an expression, in a container, with a different scope. Each test gave me more insight into the way the ssisUnit works.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ssisUnit_TestExample.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ssisUnit_TestExample.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSISUnit test example&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The picture above is an example of the basic tests I made to learn how to use ssisUnit. I will tell more about them in the next posts. For now, let&amp;rsquo;s talk a bit about&lt;/p&gt;
+&lt;h2 id=&#34;the-ssisunit-test-structure&#34;&gt;The ssisUnit test structure
+&lt;/h2&gt;&lt;p&gt;ssisUnit follows the convention known from another testing frameworks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;you can set up individual test, run it, and clean up after it (teardown)&lt;/li&gt;
+&lt;li&gt;the tests are organised in a test suite, that can also have setup and teardown phases&lt;/li&gt;
+&lt;li&gt;the tests execution is automated and repeatable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you create an empty test in the GUI and then save it you have the following content:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34; ?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;TestSuite&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://tempuri.org/SsisUnit.xsd&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;ConnectionList&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;PackageList&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;DatasetList&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;TestSuiteSetup&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;Setup&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;Tests&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;Teardown&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;TestSuiteTeardown&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/TestSuite&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;&amp;lt;TestSuite&amp;gt;&lt;/code&gt; groups all the elements. You can set up and tear down the whole suite with - surprise - &lt;code&gt;&amp;lt;TestSuiteSetup&amp;gt;&lt;/code&gt; / &lt;code&gt;&amp;lt;TestSuiteTeardown&amp;gt;&lt;/code&gt; elements. It&amp;rsquo;s the place where you run all the preparations for the tests to run and clean up after the job is done. The code is run only once. The tests are stored it the &lt;code&gt;&amp;lt;Tests&amp;gt;&lt;/code&gt; element, and you can &lt;code&gt;&amp;lt;Setup&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;Teardown&amp;gt;&lt;/code&gt; the code that will be applied &lt;strong&gt;before and after each test&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;There are also helper objects:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;ConnectionList&amp;gt;&lt;/code&gt; will hold all the database connections you can use during the testing,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;PackageList&amp;gt;&lt;/code&gt; contains references to all the packages used within the test suite,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;DatasetList&amp;gt;&lt;/code&gt; has all the datasets you need for your data compare tests&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you start adding the tests you fill the &lt;code&gt;&amp;lt;Tests&amp;gt;&lt;/code&gt; element with &lt;code&gt;&amp;lt;Test&amp;gt;&lt;/code&gt; elements (you also do the &lt;code&gt;&amp;lt;PackageList&amp;gt;&lt;/code&gt; and the &lt;code&gt;&amp;lt;ConnectionList&amp;gt;&lt;/code&gt;, but let&amp;rsquo;s skip it for now). The &lt;code&gt;&amp;lt;Test&amp;gt;&lt;/code&gt; element contains &lt;code&gt;&amp;lt;Assert&amp;gt;&lt;/code&gt;s (how do we expect the result of the test to be), and each assert contains the &lt;code&gt;&amp;lt;Command&amp;gt;&lt;/code&gt; element, where we tell the engine what operation it should it do.&lt;/p&gt;
+&lt;p&gt;Well, the &lt;code&gt;&amp;lt;Command&amp;gt;&lt;/code&gt; element is my global term to the eight possible commands you can run with ssisUnit, but you get the idea.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ssisUnit_Commands.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ssisUnit_Commands.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Add command&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The outcome of the command is then compared with assertions. If they match - the test passes, if not - the test fails. That simple. Below you find an example how the test with one assertion definition looks like (you can have more than one assertion per test).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;Test&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Container test&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;package=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;01\_OnlyParametersAndVariables&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;task=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{E4C43E00-EC90-4C0D-92CB-CC3D5CD44236}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;taskResult=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Success&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;Assert&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Assert: Container Variable == 42&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;expectedResult=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;42&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;testBefore=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;expression=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;VariableCommand&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ContainerVariable&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;operation=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Get&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/Assert&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/Test&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can run the test using the GUI or the console test runner. In both situations, you have the simple report of the test suite outcome.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ssisUnit_TestResults.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ssisUnit_TestResults.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Test results&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The assertion error you see above is expected to fail as I check the variable out of the test&amp;rsquo;s scope.&lt;/p&gt;
+&lt;h2 id=&#34;testing-is-useful&#34;&gt;Testing is useful
+&lt;/h2&gt;&lt;p&gt;Working more and more with the tests I found them easy to write and my brain started to think about more and more things I could test. And it helped me to correct my testing package. I started not just testing the existing part of the package - I started test-driven development.&lt;/p&gt;
+&lt;p&gt;I wrote the test for SQL Task that didn&amp;rsquo;t exist yet, then I prepared that task using Ctrl+C, Ctrl+V form another SQL Task (don&amp;rsquo;t tell me that you don&amp;rsquo;t do it!), edited the parts of it and run the tests. And the test failed. Because it found, that I didn&amp;rsquo;t change the variable name for the outcome of the script.&lt;/p&gt;
+&lt;p&gt;This post is just an introduction to SSIS testing. In the next posts, I will show you how to start with writing the first ssisUnit tests and slowly beginning to do something more complicated.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>So, you want to migrate SSIS(DB)?</title>
+        <link>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</link>
+        <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
+        <description>&lt;p&gt;Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.&lt;/p&gt;
+&lt;p&gt;The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).&lt;/p&gt;
+&lt;p&gt;I won&amp;rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&amp;rsquo;t use &lt;a class=&#34;link&#34; href=&#34;https://dbatools.io/functions/copy-dbassiscatalog/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Copy-DbaSsisCatalog&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;http://dbatools.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;dbatools&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;the-setup&#34;&gt;The setup
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s do an example setup. I have Integration Services catalog with one folder (Test) that contains one environment (no projects) with two variables:&lt;/p&gt;
+&lt;p&gt;String1 (type: String) = 123 String2 (type: String) = 123 (sensitive, encrypted)&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISEnvironment.png&#34; &gt;
+&lt;img src=&#34;images/SSISEnvironment.png&#34;
+	width=&#34;758&#34;
+	height=&#34;507&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSIS environment&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;First thing - the backup and restore procedure works fine. You can see the folders and projects in Integration services catalog and SSISDB database. The problem starts when you run the package, start validation or want to check the sensitive variables. I will check the last one using &lt;strong&gt;dbatools&lt;/strong&gt; and &lt;a class=&#34;link&#34; href=&#34;https://dbatools.io/Get-DbaSsisEnvironmentVariable&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Get-DbaSsisEnvironmentVariable&lt;/a&gt; command (replace &amp;lt;instancename&amp;gt; with your instance if you&amp;rsquo;re using named instances):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;Get-DbaSsisEnvironmentVariable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-SqlInstance&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;instancename&amp;gt;\\SQL2016&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-Environment&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PROD&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Select-Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IsSensitive&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;  &lt;span class=&#34;nb&#34;&gt;Format-Table&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The result:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Get-DbaSsisEnvironmentVariableOK.png&#34; &gt;
+&lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableOK-1024x84.png&#34;
+	width=&#34;1024&#34;
+	height=&#34;84&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Get-DbaSsisEnvironmentVariable&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1219&#34;
+		data-flex-basis=&#34;2925px&#34;
+	
+&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I selected only four attributes presented as a table for better readability. Everything is OK. So - back up the database on source instance (.\SQL2016), restore on another instance (.\SQL2017) and run again the &lt;code&gt;Get-DbaSsisEnvironmentVariable&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- .\SQL2016
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BACKUP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DATABASE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SSISDB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISK&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\tmp\SSISDB2016.bak&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WITH&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB Migration demo - SQL2016&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOFORMAT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOINIT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NAME&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB-Full Database Backup&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SKIP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOREWIND&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOUNLOAD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMPRESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STATS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CHECKSUM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- .\SQL2017
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESTORE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DATABASE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SSISDB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISK&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\tmp\SSISDB2016.bak&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WITH&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FILE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;MOVE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;MOVE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;log&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOUNLOAD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STATS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The result:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Get-DbaSsisEnvironmentVariableERROR.png&#34; &gt;
+&lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png&#34;
+	width=&#34;1024&#34;
+	height=&#34;127&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Get-DbaSsisEnvironmentVariable error&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;806&#34;
+		data-flex-basis=&#34;1935px&#34;
+	
+&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To get the error message in PowerShell I used a trick I found on &lt;a class=&#34;link&#34; href=&#34;https://nocolumnname.wordpress.com/2017/03/02/powershell-getting-more-from-generic-error-messages/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Shane&amp;rsquo;s blog post&lt;/a&gt; a while ago and just printed the full exception:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$Error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;ToString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Get-DbaSsisEnvironmentVariableERRORDetails.png&#34; &gt;
+&lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png&#34;
+	width=&#34;1024&#34;
+	height=&#34;51&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Error details&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;2007&#34;
+		data-flex-basis=&#34;4818px&#34;
+	
+&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hmm, what should we do?&lt;/p&gt;
+&lt;h2 id=&#34;database-master-key&#34;&gt;Database Master Key
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running &lt;code&gt;[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)&lt;/code&gt; procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - &lt;em&gt;Database Master Key&lt;/em&gt;. You can take a backup of that key and use it after restoring on another instance, but let&amp;rsquo;s skip this for now.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISCatalogCreation.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/SSISCatalogCreation.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Create SSIS Catalog&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;What is a Database Master Key (DMK)? It&amp;rsquo;s the main key used for encryption in the database. It&amp;rsquo;s a symmetric key, which means it uses one password to encrypt and decrypt the objects. By default it is encrypted using &lt;em&gt;Service Master Key&lt;/em&gt; (SMK) and a password - that&amp;rsquo;s why we provide the password. In SSISDB the DMK is used to encrypt certificates used in the projects and the environments.&lt;/p&gt;
+&lt;p&gt;We are encouraged to write down the password somewhere, but sometimes we forget where we put it. Or the person responsible for administration doesn&amp;rsquo;t work in the company any longer? What do we do, when we need to move the database to another server and we have no pasword for the key?&lt;/p&gt;
+&lt;p&gt;We panic.&lt;/p&gt;
+&lt;p&gt;Or not. There is a nice thing &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;in the documentation&lt;/a&gt; (my &lt;strong&gt;emphasis&lt;/strong&gt;):&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and &lt;strong&gt;at least one password&lt;/strong&gt;. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it &lt;strong&gt;encrypted by each password&lt;/strong&gt; specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We can use more than one password to encrypt DMK. It&amp;rsquo;s a great help for us if we don&amp;rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.&lt;/p&gt;
+&lt;p&gt;We may also remove the encryption with Service Master Key and use only the password, but then we always have to use &lt;code&gt;OPEN MASTER KEY&lt;/code&gt; before decrypting the data. Using SMK performs this operation for us in the background.&lt;/p&gt;
+&lt;h2 id=&#34;back-to-the-migration&#34;&gt;Back to the migration
+&lt;/h2&gt;&lt;p&gt;The database backup contains also the DMK with all its passwords. And if we didn&amp;rsquo;t change the defaults (I didn&amp;rsquo;t) the DMK is also encrypted with SMK. The SSISDB restore operation is made on another instance with different SMK, so there is a problem with decrypting the DMK - it&amp;rsquo;s encrypted with SMK from original server and we try to decrypt DMK with SMK from new server - it doesn&amp;rsquo;t work. One more time - part of the error:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;If we can&amp;rsquo;t open the DMK with the SMK, we have to open it manually using &lt;code&gt;OPEN MASTER KEY&lt;/code&gt; with the password. Then we can sign the DMK with the SMK from the new server. If you know the password - just use it. If not - alter the DMK on the original server by adding new password (optionally removing the binding from SMK) before taking the backup and use it on new server. The T-SQL code looks like this (let&amp;rsquo;s say I don&amp;rsquo; t remember/know the password for the DMK in SSISDB):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- .\SQL2016
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SSISDB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- I forgot the password, add a new one
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ALTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ADD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENCRYPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PASSWORD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Migration_Password123!&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- backup the database with DMK signed with new password
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BACKUP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DATABASE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SSISDB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISK&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\tmp\SSISDB2016.bak&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WITH&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB Migration demo - SQL2016&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOFORMAT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOINIT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NAME&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB-Full Database Backup&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SKIP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOREWIND&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOUNLOAD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMPRESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STATS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CHECKSUM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- .\SQL2017
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- restore from backup, nothing new
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESTORE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DATABASE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SSISDB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DISK&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\tmp\SSISDB2016.bak&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WITH&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FILE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;MOVE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;MOVE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;log&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NOUNLOAD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STATS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- open the DMK using the password I just added on original server
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;OPEN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DECRYPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PASSWORD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Migration_Password123!&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- encrypt the DMK with SMK of the new server
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ALTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ADD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENCRYPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SERVICE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- tidy up
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;CLOSE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now I can read SSIS environment variables on the new server. Congratulations, migration successful.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;Get-DbaSsisEnvironmentVariable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-SqlInstance&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;\SQL2017&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-Environment&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PROD&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Select-Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IsSensitive&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;  &lt;span class=&#34;nb&#34;&gt;Format-Table&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Last thing - at the end we should drop the password we used for migration. We can do this using command&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ALTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MASTER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;DROP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENCRYPTION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PASSWORD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Migration_Password123!&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is just a migration of SSISDB. Running the packages, upgrading them, solving problems - it&amp;rsquo;s something to cover in another post.&lt;/p&gt;
+&lt;h2 id=&#34;dbatools&#34;&gt;dbatools
+&lt;/h2&gt;&lt;p&gt;There is a &lt;a class=&#34;link&#34; href=&#34;https://dbatools.io/functions/copy-dbassiscatalog/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Copy-DbaSsisCatalog&lt;/a&gt; command in dbatools. It copies the data from one SSIS catalog to another. The thing is - it reads the objects on source server and recreates them on destination server without some things that are crucial to me:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;it creates new objects in the target server, meaning they (may) have different identifiers than in source SSISDB&lt;/li&gt;
+&lt;li&gt;it does not copy environment references - I have to recreate them manually - and I also have to fix my jobs that use the environment reference id in the definition&lt;/li&gt;
+&lt;li&gt;it does not copy encrypted variables; well it does, but it does not copy the sensitive value (the decrypted value is an empty string)&lt;/li&gt;
+&lt;li&gt;I have noticed problems with copying projects on few occasions, but haven&amp;rsquo;t looked into it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So the backup/restore/alter DMK procedure is OK for me.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
+        <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</link>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</guid>
+        <description>&lt;p&gt;Recently I attended the AppDev PASS Virtual Group &lt;a class=&#34;link&#34; href=&#34;http://appdev.pass.org/?EventID=8085&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;webinar about graphs in SQL Server 2017&lt;/a&gt;. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using &lt;a class=&#34;link&#34; href=&#34;https://powerbi.microsoft.com/en-us/blog/visual-awesomeness-unlocked-the-force-directed-graph/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Force-directed graph plugin&lt;/a&gt;) the idea struck: how about visualising SSIS packages&amp;rsquo; relations using graphs and Power BI?&lt;/p&gt;
+&lt;p&gt;Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.&lt;/p&gt;
+&lt;p&gt;For a time of writing I know there are some limitations about graph querying for hierarchical data - &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/arvisam/status/873312748142080000&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;but only until next CTP&lt;/a&gt;, so I will start slow - with defining the sample project and a graph itself. The rough roadmap below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;creating sample SSIS project with Sequence Containers, Execute Package Tasks, different precedence constraints&lt;/li&gt;
+&lt;li&gt;internal SSIS package structure analysis - how to turn that data into graphs&lt;/li&gt;
+&lt;li&gt;graph structure modelling and transforming the SSIS package data into graph data&lt;/li&gt;
+&lt;li&gt;visualising it all in Power BI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Looks surprisingly easy. Waiting for the first hurdle.&lt;/p&gt;
+&lt;p&gt;Series parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learn something new – Power BI + SSIS + SQL Server 2017 Graphs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learning something new: connections in SSIS package&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learning something new: getting information from SSIS packages with PowerShell&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(on hold)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

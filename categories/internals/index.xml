@@ -1,31 +1,278 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>internals on BartekR</title>
-    <link>https://blog.bartekr.net/categories/internals/</link>
-    <description>Recent content in internals on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sun, 04 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/internals/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Upgrading SSIS projects, part II</title>
-      <link>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
-      <description>The problem I want to solve is automation of the SSIS project upgrade. Previously I wrote about the options to use Application.Upgrade() or Application.SaveAndUpdateVersionToXml() methods. This post is about the first of those options.
-If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: https://msdn.</description>
-    </item>
-    
-    <item>
-      <title>Upgrading SSIS projects, part I</title>
-      <link>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</link>
-      <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
-      <description>In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;
-This information is written to the log no matter which logging level we choose (also with None).</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Internals on BartekR</title>
+        <link>https://blog.bartekr.net/categories/internals/</link>
+        <description>Recent content in Internals on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sun, 04 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/internals/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Upgrading SSIS projects, part II</title>
+        <link>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</link>
+        <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
+        <description>&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Previously&lt;/a&gt; I wrote about the options to use &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Application.Upgrade()&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt; methods. This post is about the first of those options.&lt;/p&gt;
+&lt;p&gt;If you take a look at the documentation link provided above you will see just the information about the function and its parameters, nothing more. Luckily, at the time of writing there is another version of the documentation on MSDN: &lt;a class=&#34;link&#34; href=&#34;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.upgrade.aspx&lt;/a&gt; with the example of upgrading the packages stored in the filesystem. If the page disappears, I have a &lt;a class=&#34;link&#34; href=&#34;https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;backup copy on my&lt;/a&gt; GitHub:&lt;/p&gt;
+&lt;script src=&#34;https://gist.github.com/BartekR/c32ccac38321811b7277cce87c2ee976.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Great! So, we just copy the example, change the filenames and folders to reflect our project location, and that&amp;rsquo;s it!&lt;/p&gt;
+&lt;p&gt;No, it isn’t. It doesn&amp;rsquo;t work.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Failed to backup the old package: The given path&amp;rsquo;s format is not supported.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The method works, but we need to tweak it a bit. Let&amp;rsquo;s dig a bit more into the API and the example.&lt;/p&gt;
+&lt;p&gt;I will use a sample migration project with one package, that creates a table, generates some numbers and inserts them into the created table and at the end, it drops the table. It uses one project connection manager to the &lt;code&gt;tempdb&lt;/code&gt; database. The link to the download is at the end of the post.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Package.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/Package.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Package&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Side note: when I test the following code I set up the breakpoint on the &lt;code&gt;app.Upgrade()&lt;/code&gt; line and analyse the output object, mostly looking at the Failures collection.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Debugging.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/Debugging.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Debugging app.Upgrade&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Also – when you set up the reference to the &lt;code&gt;Microsoft.SqlServerManagedDTS.dll&lt;/code&gt; (located in &lt;code&gt;C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.SqlServer.ManagedDTS&lt;/code&gt;) be sure to check the version you are planning to use. For example – if you check the version 14.0 (&lt;code&gt;v4.0_14.0.0.0__89845dcd8080cc91&lt;/code&gt; subfolder) you will be able to migrate ONLY to SQL Server 2017. If you want to migrate to SQL Server 2016 use version 13.0 (&lt;code&gt;v4.0_13.0.0.0__89845dcd8080cc91&lt;/code&gt; subfolder). The library version is important as it sets up the &lt;a class=&#34;link&#34; href=&#34;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.componentstorepath.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Application.ComponentStorePath&lt;/a&gt; property – the folder to tasks and components of SSIS (e.g. &lt;code&gt;C:\Program Files (x86)\Microsoft SQL Server\140\DTS&lt;/code&gt; for SQL Server 2017)&lt;/p&gt;
+&lt;h2 id=&#34;applicationupgrade&#34;&gt;Application.Upgrade()
+&lt;/h2&gt;&lt;p&gt;First things first: take a look at the &lt;code&gt;Application.Upgrade()&lt;/code&gt; at the end of the script. What are the parameters of the &lt;code&gt;Upgrade()&lt;/code&gt; method:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UpgradeResult&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Upgrade&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Collections&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Generic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IEnumerable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UpgradePackageInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;packages&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StorageInfo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;source&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StorageInfo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BatchUpgradeOptions&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Microsoft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SqlServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IDTSEvents&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;events&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;the packages we want to upgrade (packages)&lt;/li&gt;
+&lt;li&gt;location of these packages (source)&lt;/li&gt;
+&lt;li&gt;where we want to save the upgraded packages (destination)&lt;/li&gt;
+&lt;li&gt;some options for the upgrading process (options)&lt;/li&gt;
+&lt;li&gt;an object for the events that happened during the process (events)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The method returns the &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.upgraderesult?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UpgradeResult&lt;/a&gt; object with the results of the upgrade for each package. The earlier parts of the script are preparing the Application object and all parameters for the &lt;code&gt;Upgrade()&lt;/code&gt; method.&lt;/p&gt;
+&lt;p&gt;Why the example doesn&amp;rsquo;t want to work? The &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.upgradepackageinfo.-ctor?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_UpgradePackageInfo__ctor&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UpgradePackageInfo()&lt;/a&gt; method documentation - states that we provide the names and the full paths of the packages. The &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;StorageInfo&lt;/a&gt; class documentation - the property &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.storageinfo.rootfolder?view=sqlserver-2017#Microsoft_SqlServer_Dts_Runtime_StorageInfo_RootFolder&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;RootFolder&lt;/a&gt; gets or sets the path to the folder where we back up the packages. When we set the &lt;code&gt;RootFolder&lt;/code&gt; property it is prepended to the package path provided in the &lt;code&gt;UpgradePackageInfo()&lt;/code&gt; – so we have an invalid path. So either we have to remove either RootFolder property or leave just the names of the packages in &lt;code&gt;UpgradePackageInfo()&lt;/code&gt;. When you test both options you know, you have to use RootFolder property, otherwise you get an error:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Failed to backup the old package: A source root folder is not specified.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;I change then the &lt;code&gt;UpgradePackageInfo()&lt;/code&gt; and put just the file name. To make things consistent, I will also use the &lt;code&gt;RootFolder&lt;/code&gt; for the target location:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;UpgradePackageInfo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;packinfo1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UpgradePackageInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Package.dtsx&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Package.dtsx&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;StorageInfo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;storeinfoDest&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StorageInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NewFileStorage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;storeinfoDest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RootFolder&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;C:\\tmp\\MigrationSample&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you run the code, you still get an error, but this time it’s different. This time the Failures collection contains 5 error messages:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;The package format was migrated from version 6 to version 8. It must be saved to retain migration changes.\r\n&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;The connection \&amp;quot;{CE71E990-4590-4AB1-998B-E7AA9C87DE35}\&amp;rdquo; is not found. This error is thrown by Connections collection when the specific connection element is not found.\r\n&amp;quot;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;The connection \&amp;quot;{CE71E990-4590-4AB1-998B-E7AA9C87DE35}\&amp;rdquo; is not found. This error is thrown by Connections collection when the specific connection element is not found.\r\n&amp;quot;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Succeeded in upgrading the package.\r\n&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;The loading of the package Package.dtsx has failed.&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It looks like the package was migrated from version 6 to 8 [1], the package was upgraded with success [4], but I had the problem with the connection [2], [3] and had some problems with loading the Package.dtsx (it’s about the source package name, not the target).&lt;/p&gt;
+&lt;p&gt;So – did the package upgrade or not? Not. The source package is still the same – when you check the source of the package you see &lt;code&gt;&amp;lt;DTS:Property DTS:Name=&amp;quot;PackageFormatVersion&amp;quot;&amp;gt;6&amp;lt;/DTS:Property&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The problem with the connection is because it uses connection manager at the project level, not the package level. How can we use the information stored in the project file? The &lt;code&gt;BatchUpgradeOptions&lt;/code&gt; class has the &lt;a class=&#34;link&#34; href=&#34;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.batchupgradeoptions.projectpath.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;ProjectPath&lt;/code&gt;&lt;/a&gt; property where we can set (and get) the full path to the &lt;code&gt;.dtproj&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;upgradeOpts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ProjectPath&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;C:\\tmp\\MigrationSample\\MigrationSample.dtproj&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now the example works but gives a warning instead of success. The warning contains four messages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Failed to decrypt an encrypted XML node. Verify that the project was created by the same user. Project load will attempt to continue without the encrypted information.&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Failed to decrypt sensitive data in project with a user key. You may not be the user who encrypted this project, or you are not using the same machine that was used to save the project. If the sensitive data is a parameter value, the value may be required to run the package on the Integration Services server.&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;The package format was migrated from version 6 to version 8. It must be saved to retain migration changes.\r\n&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Succeeded in upgrading the package.\r\n&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The source SSIS project was created with default protection level &lt;code&gt;EncryptSensitiveWithUserKey&lt;/code&gt;. The user key is created for the user and the machine that package was created (or edited), so when we try to open the package on another machine, it has the problem with decryption of the sensitive data. This project has no sensitive data, so it’s just a standard behaviour of SSIS and we can ignore the warnings.&lt;/p&gt;
+&lt;h2 id=&#34;upgradeoptions&#34;&gt;UpgradeOptions
+&lt;/h2&gt;&lt;p&gt;To set some options for the upgrade process we used the &lt;code&gt;BatchUpgradeOptions&lt;/code&gt; class. That’s why we have an additional SSISBackupFolder in our project’s location (we used &lt;code&gt;BackupOldPackages = true&lt;/code&gt; so it creates backup copy of each package in the default subfolder). But we can also set the options for the packages using the &lt;code&gt;PackageUpgradeOptions&lt;/code&gt; class.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Application&lt;/code&gt; class has the property &lt;code&gt;PackageUpgradeOptions&lt;/code&gt; of type – you guessed right: &lt;code&gt;PackageUpgradeOptions&lt;/code&gt;. We create new object of that class, set the properties and assign it to the &lt;code&gt;Application.PackageUpgradeOptions&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;PackageUpgradeOptions&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pkgUpgradeOpts&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PackageUpgradeOptions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;RegeneratePackageID&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;UpgradeConnectionProviders&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;app&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PackageUpgradeOptions&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pkgUpgradeOpts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All of the above can be set in the &lt;code&gt;SSISUpgrade.exe&lt;/code&gt; in the configuration window:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISUpgradeOptions.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/SSISUpgradeOptions.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSIS Upgrade options&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary
+&lt;/h2&gt;&lt;p&gt;The &lt;code&gt;Application.Upgrade()&lt;/code&gt; method works great. It&amp;rsquo;s the same way that we do the upgrade using &lt;code&gt;SSISUpgrade.exe&lt;/code&gt;, but we have set it up a bit different than stated in the documentation.&lt;/p&gt;
+&lt;p&gt;One thing to watch - the package may be migrated with success, but the info about it can be stated in the Warnings section of the output.&lt;/p&gt;
+&lt;h2 id=&#34;additional-materials&#34;&gt;Additional materials
+&lt;/h2&gt;&lt;p&gt;All source files are available on &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/tree/master/201802%20Upgrading%20SSIS%20Projects%20part%20II&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Upgrading SSIS projects, part I</title>
+        <link>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</link>
+        <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
+        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;the previous post&lt;/a&gt;, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISCatalog_UpgradePackage.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/SSISCatalog_UpgradePackage.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Package upgrade info&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This information is written to the log no matter which logging level we choose (also with &lt;em&gt;None&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;The question is: &lt;del&gt;will it blend&lt;/del&gt; should we upgrade the packages (or better – the projects)? And if the answer is &amp;lsquo;yes&amp;rsquo; – why should we do it and what are the options?&lt;/p&gt;
+&lt;h2 id=&#34;should-we-upgrade-the-packages&#34;&gt;Should we upgrade the packages?
+&lt;/h2&gt;&lt;p&gt;Yes. Read on.&lt;/p&gt;
+&lt;h2 id=&#34;why-should-we-do-it&#34;&gt;Why should we do it?
+&lt;/h2&gt;&lt;p&gt;Looking at the times of the upgrade (it takes milliseconds) we can live with automatic version migrations during thousands of executions. So – is there any gain if we retain it?&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a closer look at the SSIS Toolbox. We are migrating to SSIS 2017 from the lower version, let’s say the source is SSIS 2012. Open SQL Server Data Tools (for Visual Studio 2015 or 2017, does not matter for now) and load your project. I will use SSDT for VS 2017 with sample project created for SSIS 2012. See the SSIS Toolbox for the project in version SSIS 2012? There is a &lt;em&gt;Script Task&lt;/em&gt; following an &lt;em&gt;FTP&lt;/em&gt; &lt;em&gt;Task&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/VS_SSIS_Toolbox_2012.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/VS_SSIS_Toolbox_2012.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSIS2012 toolbox&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I will upgrade the SSIS project to the latest version (and write more about it in few lines) and take a look at the SSIS Toolbox now.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/VS_SSIS_Toolbox_2017.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/VS_SSIS_Toolbox_2017.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSIS2017 toolbox&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now we can see additional tasks for Hadoop. Upgrading the project does at least two things that are interesting to us: it uses the latest versions of the tasks and components, but also introduces the new elements to use.&lt;/p&gt;
+&lt;h2 id=&#34;ok-what-are-the-options&#34;&gt;OK, what are the options?
+&lt;/h2&gt;&lt;p&gt;Basically, you have two:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Use &amp;ldquo;Upgrade All Packages&amp;rdquo; option when you right-click the &amp;ldquo;SSIS Packages&amp;rdquo; node in the project – it starts the &lt;em&gt;SSIS Package Upgrade Wizard&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/UpgradeAllPackages.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/UpgradeAllPackages.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Upgrade all packages option&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set &amp;ldquo;Target Server Version&amp;rdquo; to SQL Server 2017 when you use &amp;ldquo;Properties &amp;gt; Configuration properties &amp;gt; General&amp;rdquo; page of the project configuration&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/TargetServerVersion2017.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/TargetServerVersion2017.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Target server version&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;What is the difference and what are the potential problems? You can read more &lt;a class=&#34;link&#34; href=&#34;https://www.hansmichiels.com/2016/10/23/how-to-upgrade-your-ssis-packages-from-sql-server-2012-to-2016-ssis-series/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;in the blog post by Hans Michiels&lt;/a&gt;, but from my perspective, it sums up to those situations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if you set target server version, you also upgrade the .dtproj file and the connection managers (if needed)&lt;/li&gt;
+&lt;li&gt;if you use target server version you don’t see the upgrade errors – you know them when you try to open the package&lt;/li&gt;
+&lt;li&gt;if you use target server version, you don’t have the automatic backup of the packages (but you are warned before the upgrade)&lt;/li&gt;
+&lt;li&gt;you won’t upgrade the package when there is even one error when you use the SSIS Package Upgrade Wizard&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Personally, I use the setting the Target Server Version approach as I also want to upgrade the &lt;code&gt;.dtproj&lt;/code&gt; file. When you use the wizard, you have to change the project file by hand – if you don’t SSDT will automatically downgrade the packages to the lower version to be in line with the project version.&lt;/p&gt;
+&lt;h2 id=&#34;the-problem&#34;&gt;The problem
+&lt;/h2&gt;&lt;p&gt;Great, we can migrate the packages using SSDT. But what if you have a lot of projects (say – 50) and there is a chance you will have to do the process few times? There is no external tool to migrate the project from the command line (&lt;del&gt;the wizard has no options to run from the cmd - it just opens the application&lt;/del&gt; &lt;strong&gt;EDIT 29.12.2017&lt;/strong&gt;: &lt;code&gt;SSISUpgrade.exe&lt;/code&gt; has commandline switches, but only for automatic setting of the wizard options), so I started a small investigation.&lt;/p&gt;
+&lt;p&gt;Under the hood, the two processes are a bit different. For now, it looks like using Target Server Version way uses the same mechanism as automatic migration, and the SSIS Package Upgrade Wizard might use methods from the &lt;a class=&#34;link&#34; href=&#34;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.application.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;Application&lt;/code&gt;&lt;/a&gt; class from the &lt;a class=&#34;link&#34; href=&#34;https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dts.runtime.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;Microsoft.SqlServer.Dts.Runtime&lt;/code&gt;&lt;/a&gt; namespace. I&amp;rsquo;m not 100% sure about it, but after some time with observations of those two processes, I think this is it. I don&amp;rsquo;t use sophisticated tools, don&amp;rsquo;t know yet how to use WinDbg to observe the Windows processes, I just watched the assemblies loaded using the &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Process Explorer&lt;/a&gt; and read methods of the files in the Visual Studio (added references to assemblies or executables and analysed them with Object Browser).&lt;/p&gt;
+&lt;p&gt;If you observe the libraries loaded to SSDT during the setting the target version, you will see it loads &lt;code&gt;Microsoft.SqlServer.PackageFormatUpdate.dll&lt;/code&gt; (of course it uses a lot more, but this one has a significant name) that relies on &lt;code&gt;Microsoft.SqlServer.DTSRuntimeWrap&lt;/code&gt;. The wizard does not use this library. It uses (besides other .dll files) &lt;code&gt;Microsoft.SqlServer.ManagedDTS&lt;/code&gt; and &lt;code&gt;Microsoft.SqlServer.DTSRuntimeWrap&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After reading the documentation of the &lt;code&gt;Application&lt;/code&gt; class, I think there is quite an easy way to upgrade the packages automatically with the &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Application.Upgrade()&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt; methods. But this is the subject of the second part of the SSIS migration posts.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

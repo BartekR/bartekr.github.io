@@ -1,31 +1,149 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Admin on BartekR</title>
-    <link>https://blog.bartekr.net/categories/admin/</link>
-    <description>Recent content in Admin on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/admin/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Testing Utterances Comments</title>
-      <link>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</link>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</guid>
-      <description>When I switched to Hugo, I knew my new blog would not have the comments enabled. I planned it &amp;ldquo;for later&amp;rdquo;, as I didn&amp;rsquo;t want to use Disqus (available by default in Hugo).
-When I chose the hugo-future-imperfect-slim theme, I saw I could integrate Staticman, which creates the comments as the Pull Request in GitHub. Brilliant idea, but it involves some additional setup (either authorising Staticman GitHub account or hosting an own API instance).</description>
-    </item>
-    
-    <item>
-      <title>Migrating to GitHub Pages with Hugo</title>
-      <link>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</link>
-      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</guid>
-      <description>Decision was made. And announced. And deadline set - so I will look stupid if I don&amp;rsquo;t do it. Something that was a strong decision started weakening. But setting a goal, and telling your friends about it is a strong motivator. Not to mention the WordPress annoyances during the transition period.
-First hurdles I chose Hugo by accident. At first I wanted to use Jekyll - I worked with Ruby long time ago and thought it might be a good idea to return to those times and refresh knowledge a bit.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Admin on BartekR</title>
+        <link>https://blog.bartekr.net/categories/admin/</link>
+        <description>Recent content in Admin on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/admin/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Testing Utterances Comments</title>
+        <link>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</link>
+        <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</guid>
+        <description>&lt;p&gt;When I switched to Hugo, I knew my new blog would not have the comments enabled. I planned it &amp;ldquo;for later&amp;rdquo;, as I didn&amp;rsquo;t want to use Disqus (available by default in Hugo).&lt;/p&gt;
+&lt;p&gt;When I chose the &lt;a class=&#34;link&#34; href=&#34;https://github.com/pacollins/hugo-future-imperfect-slim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;hugo-future-imperfect-slim&lt;/a&gt; theme, I saw I could integrate Staticman, which creates the comments as the Pull Request in GitHub. Brilliant idea, but it involves some additional setup (either authorising Staticman GitHub account or hosting an own API instance). That&amp;rsquo;s why I skipped it when I migrated to Hugo. I decided to go back to the comments once I am more prepared for it.&lt;/p&gt;
+&lt;h2 id=&#34;a-month-later&#34;&gt;A month later
+&lt;/h2&gt;&lt;p&gt;I started reading more about &lt;a class=&#34;link&#34; href=&#34;https://travisdowns.github.io/blog/2020/02/05/now-with-comments.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Staticman integration&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://yasoob.me/posts/running_staticman_on_static_hugo_blog_with_nested_comments/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;nested&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://dancwilliams.com/hugo-staticman-nested-replies-and-email-notifications/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;comments&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://hajekj.net/2020/04/15/staticman-setup-in-app-service/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;using an Azure App Service&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://github.com/UliPlabst/staticman-azure-fn&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;converting to Azure Function&lt;/a&gt; (excellent idea) and so on. But - after some internal tests, I was not amazed. Even more - I didn&amp;rsquo;t like it. Yes, it was doing what it was supposed to do, but I wanted a Wow effect. Something easy to set up, looking nice and something that makes me feel comfortable - &amp;ldquo;yes, this one fits perfectly&amp;rdquo;. So I started looking &lt;a class=&#34;link&#34; href=&#34;https://lisakov.com/projects/open-source-comments/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;for&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://fedidat.com/530-blog-comments/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;the&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://cavelab.dev/wiki/Commenting_systems_for_websites&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;alternatives&lt;/a&gt; and this time I found something - use GitHub Issues system as the comments.&lt;/p&gt;
+&lt;p&gt;The pros - I want something out-of-the-box, what works, what would be easy to use by the technical people and give me no headaches.
+The cons - tight GitHub integration, to comment, users must use a GitHub account.&lt;/p&gt;
+&lt;p&gt;I found two implementations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://utteranc.es/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;utterances&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://donw.io/post/github-comments/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;custom API calls&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first is something I decided to try. The second is something to have in mind for the future.&lt;/p&gt;
+&lt;h2 id=&#34;the-setup&#34;&gt;The setup
+&lt;/h2&gt;&lt;p&gt;The documentation is clear:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install the app in the repository used for the comments (must be public)&lt;/li&gt;
+&lt;li&gt;Decide what the issue name will look like (I chose the full post URL)&lt;/li&gt;
+&lt;li&gt;Optionally set the (already existing) label for the issue (I use &lt;code&gt;blog-comment&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Optionally select a theme&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All those steps fill the template to paste in the comments page. In my case - I have overwritten the &lt;code&gt;comments.html&lt;/code&gt; used in the theme.&lt;/p&gt;
+&lt;p&gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/LayoutCommentsPartial.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;custom layout partial&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://utteranc.es/client.js&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;[ENTER REPO HERE]&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;issue-term&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;pathname&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github-light&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;crossorigin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;anonymous&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;async&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My setup:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://utteranc.es/client.js&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;BartekR/bartekr.github.io&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;issue-term&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;blog-comment&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github-light&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;crossorigin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;anonymous&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;async&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For now - it&amp;rsquo;s to check whether it&amp;rsquo;s useful, maintainable and so on. I still wonder if I should port the comments from the previous WordPress blog (I think I should) and how to do it. I&amp;rsquo;ll wait to see how the situation develops.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Migrating to GitHub Pages with Hugo</title>
+        <link>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</link>
+        <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</guid>
+        <description>&lt;p&gt;Decision was made. And announced. And deadline set - so I will look stupid if I don&amp;rsquo;t do it. Something that was a strong decision started weakening. But setting a goal, and telling your friends about it is a strong motivator. Not to mention the WordPress annoyances during the transition period.&lt;/p&gt;
+&lt;h2 id=&#34;first-hurdles&#34;&gt;First hurdles
+&lt;/h2&gt;&lt;p&gt;I chose Hugo by accident. At first I wanted to use Jekyll - I worked with Ruby long time ago and thought it might be a good idea to return to those times and refresh knowledge a bit. So I started reading how to migrate my WordPress blog to Jekyll. And I found a comment about Hugo - that it&amp;rsquo;s a lot faster. Pff. &lt;em&gt;&amp;ldquo;It&amp;rsquo;s written in Go&amp;rdquo;&lt;/em&gt;. Say no more! Go is very high on my list &amp;ldquo;learn to use it in the next two years&amp;rdquo; - Hugo then!&lt;/p&gt;
+&lt;p&gt;I started reading how Hugo works, how the themes are used, how is it built, how to use shortcodes, how to &amp;hellip; Wow. It was a lot to read. And I thought &amp;ldquo;well, maybe it was not as great idea as I thought first&amp;rdquo;? Yeah. I see you understand. But I &lt;strong&gt;wanted&lt;/strong&gt; to do it, so I started following some tutorials, read more about the transition, chose few themes and tested it.&lt;/p&gt;
+&lt;p&gt;One thing I have to say about the themes: they are the big pain in the ass.&lt;/p&gt;
+&lt;p&gt;As I tested one theme and found some things i did not like - I tested another theme. And suddenly all stopped working. I read the docs, analysed source code and examples, adjusted - tadam! It works. But I&amp;rsquo;m not 100% convinced. Third theme - again, a lot of digging in the code, changing the settings, front matter (the page metadata), different custom shortcodes, &amp;hellip; F*ck!&lt;/p&gt;
+&lt;p&gt;But then I found &lt;a class=&#34;link&#34; href=&#34;https://yeokhengmeng.com/2020/04/migrating-my-blog-from-wordpress-to-hugo/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;a migration guide&lt;/a&gt; from Yeo Kheng Meng. Nice, easy, not 100% bulletproof but manageable. And the theme looks nice. And it finally clicked.&lt;/p&gt;
+&lt;p&gt;So I followed the steps from the tutorial&lt;/p&gt;
+&lt;h2 id=&#34;step-1-export&#34;&gt;Step 1. Export
+&lt;/h2&gt;&lt;p&gt;Export the XML content of the blog. Go to &lt;em&gt;Tools &amp;gt; Export / Choose what to export: All content&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/WordPress_Tools-Export.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Export WordPress content&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/p&gt;
+&lt;h2 id=&#34;step-2-conversion-to-markdown&#34;&gt;Step 2. Conversion to Markdown
+&lt;/h2&gt;&lt;p&gt;I converted the posts to the Markdown format using &lt;a class=&#34;link&#34; href=&#34;https://github.com/lonekorean/wordpress-export-to-markdown&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;wordpress-export-to-markdown&lt;/a&gt; by lonekorean and &lt;a class=&#34;link&#34; href=&#34;https://github.com/palaniraja/blog2md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;blog2md&lt;/a&gt; by palaniraja.&lt;/p&gt;
+&lt;p&gt;Why two conversions? The first easily converts to Markdown, can save in year/month/name hierarchy and download all images. It also has some issues, like not extracting categories or tags. Also it did not extract Pages - only Posts. I used the second to get the taxonomy and the Pages content. Also - each template I tried had a different set of front matter tags. I had to review and prepare them on my own.&lt;/p&gt;
+&lt;p&gt;I had to also find a way how to handle centering images, or make them float left or right. &lt;a class=&#34;link&#34; href=&#34;http://www.ebadf.net/2016/10/19/centering-images-in-hugo/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;I found a way using CSS&lt;/a&gt; and adding #something in image&amp;rsquo;s &lt;code&gt;src&lt;/code&gt; attribute.&lt;/p&gt;
+&lt;h2 id=&#34;step-3-fixing-the-markdown&#34;&gt;Step 3. Fixing the Markdown
+&lt;/h2&gt;&lt;p&gt;The tools convert the WordPress content to Markdown format to a certain degree. I had to review and fix some content, but as I wrote less post than I expected it did not take long to re-read all of them and apply the fixes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;escaped underscore and star - every time I&amp;rsquo;ve seen &lt;code&gt;\_&lt;/code&gt; in place of &lt;code&gt;_&lt;/code&gt;, and &lt;code&gt;\*&lt;/code&gt; instead of &lt;code&gt;*&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;flawed source code snippets - not always the &lt;code&gt;&amp;lt;pre&amp;gt;...&amp;lt;/pre&amp;gt;&lt;/code&gt; section was transformed correctly; but it was an easy fix (yet, required careful analysis where it starts and ends)&lt;/li&gt;
+&lt;li&gt;image links always targeted the WordPress blog addres - removed the blog url&lt;/li&gt;
+&lt;li&gt;tables had to be prepared form scratch - the data was converted to separate rows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step-4-fix-permalinks&#34;&gt;Step 4. Fix permalinks
+&lt;/h2&gt;&lt;p&gt;My blog used YYYY/MM/DD/slug format for posts - like &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/&lt;/a&gt;. The conversion and the theme by default create the post/YYYY/MM/slug folder structure, like &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/post/2020/11/automate-state-transitions-in-azure-devops/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.bartekr.net/post/2020/11/automate-state-transitions-in-azure-devops/&lt;/a&gt;. To make it work I added the &lt;code&gt;permalinks&lt;/code&gt; section to the &lt;code&gt;config.toml&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;permalinks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;post&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;:year/:month/:day/:title&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And - from conversion perspective - that was basically it! Last thing to do - the comments. A lot of migration posts suggest to use Disqus, but I did not want to use an external source for the comments. So I&amp;rsquo;ve read about &lt;a class=&#34;link&#34; href=&#34;https://staticman.net/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Staticman&lt;/a&gt; - something I saw in the theme configuration. And as I have only 40 approved comments - I thought I give it a try after I will finish the transition.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-point-the-domain-to-github&#34;&gt;Step 5. Point the domain to GitHub
+&lt;/h2&gt;&lt;p&gt;A two-step process.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add CNAME record to the domain configuration&lt;/li&gt;
+&lt;li&gt;Add the domain name to GitHub Pages configuration&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Done.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

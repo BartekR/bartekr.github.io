@@ -1,440 +1,603 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>docker desktop - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="SQL Server. SSIS. PowerShell. Azure.\n1 wife. 1 kid. 5 dogs. 10 cats.">
+<title>Tag: Docker Desktop - BartekR</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/tags/docker-desktop/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="docker desktop">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/tags/docker-desktop/">
-  <meta property="og:image" content="https://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Tag: Docker Desktop - BartekR">
+<meta property='og:description' content="SQL Server. SSIS. PowerShell. Azure.\n1 wife. 1 kid. 5 dogs. 10 cats.">
+<meta property='og:url' content='https://blog.bartekr.net/tags/docker-desktop/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2023-08-26T00:00:00&#43;00:00 '/>
+<meta name="twitter:title" content="Tag: Docker Desktop - BartekR">
+<meta name="twitter:description" content="SQL Server. SSIS. PowerShell. Azure.\n1 wife. 1 kid. 5 dogs. 10 cats."><link rel="alternate" type="application/rss&#43;xml" href="https://blog.bartekr.net/tags/docker-desktop/index.xml">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
     
-
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
-        
-    <li><a href="/tags/docker-desktop/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
-
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-    </footer>
-  
-</section>
-
-      <main id="site-main">
-        
-  
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">Have problems with Docker Desktop for Windows Home? Yeah, me too!</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-09-01 00:00:00 &#43;0000 UTC">September 1, 2020</time>
-    
-    
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="image" style="--bg-image: url('/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png');">
-    <img src="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="">
-  </a>
-    
-    <p>Last week finally came that day: &ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.</p>
-  </div>
-  <footer>
-    <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/troubleshooting/">Troubleshooting</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/docker/">docker</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/docker-desktop/">docker desktop</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/wsl2/">WSL2</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-  <div class="pagination">
-    
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
-</section>
-
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
-        
-    <li><a href="/tags/docker-desktop/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
-
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
-</footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
-
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
+        document.head.appendChild(customFont);
+    }());
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>Search</label>
+            <input name="keyword" required placeholder="Type something..." />
+        
+            <button title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Archives</h2>
+
+        
+        
+        
+        
+        
+        <div class="widget-archive--list">
+            <div class="archives-year">
+                    <a href="/archives/#2023">
+                        
+                            <span class="year">2023</span>
+                            <span class="count">1</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/archives/#2022">
+                        
+                            <span class="year">2022</span>
+                            <span class="count">1</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/archives/#2021">
+                        
+                            <span class="year">2021</span>
+                            <span class="count">5</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/archives/#2020">
+                        
+                            <span class="year">2020</span>
+                            <span class="count">7</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/archives/#2019">
+                        
+                            <span class="year">2019</span>
+                            <span class="count">3</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/archives/#2018">
+                        
+                            <span class="year">More</span>
+                        
+                    </a> 
+                </div>
+            
+        </div>
+    </section>
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
 
     </div>
-  </body>
+    <h2 class="widget-title section-title">Categories</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/categories/learning/" class="font_size_17">
+                Learning
+            </a>
+        
+            <a href="/categories/series/" class="font_size_13">
+                Series
+            </a>
+        
+            <a href="/categories/testing/" class="font_size_13">
+                Testing
+            </a>
+        
+            <a href="/categories/ssis-internals/" class="font_size_5">
+                SSIS Internals
+            </a>
+        
+            <a href="/categories/azure/" class="font_size_3">
+                Azure
+            </a>
+        
+            <a href="/categories/sql-server/" class="font_size_3">
+                SQL Server
+            </a>
+        
+            <a href="/categories/admin/" class="font_size_2">
+                Admin
+            </a>
+        
+            <a href="/categories/iac/" class="font_size_2">
+                IaC
+            </a>
+        
+            <a href="/categories/internals/" class="font_size_2">
+                Internals
+            </a>
+        
+            <a href="/categories/programming/" class="font_size_2">
+                Programming
+            </a>
+        
+            <a href="/categories/troubleshooting/" class="font_size_2">
+                Troubleshooting
+            </a>
+        
+            <a href="/categories/advent-of-code/" class="font_size_1">
+                Advent of Code
+            </a>
+        
+            <a href="/categories/conferences/" class="font_size_1">
+                Conferences
+            </a>
+        
+            <a href="/categories/not-so-technical/" class="font_size_1">
+                Not-So-Technical
+            </a>
+        
+            <a href="/categories/tfs/" class="font_size_1">
+                TFS
+            </a>
+        
+    </div>
+</section>
+
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">Tags</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/tags/ssis/" class="font_size_20">
+                SSIS
+            </a>
+        
+            <a href="/tags/ssisunit/" class="font_size_11">
+                SsisUnit
+            </a>
+        
+            <a href="/tags/internals/" class="font_size_4">
+                Internals
+            </a>
+        
+            <a href="/tags/migration/" class="font_size_4">
+                Migration
+            </a>
+        
+            <a href="/tags/powershell/" class="font_size_4">
+                PowerShell
+            </a>
+        
+            <a href="/tags/xml/" class="font_size_4">
+                XML
+            </a>
+        
+            <a href="/tags/c%23/" class="font_size_3">
+                C#
+            </a>
+        
+            <a href="/tags/hugo/" class="font_size_3">
+                Hugo
+            </a>
+        
+            <a href="/tags/sql-server-2017/" class="font_size_3">
+                SQL Server 2017
+            </a>
+        
+            <a href="/tags/svg/" class="font_size_3">
+                SVG
+            </a>
+        
+            <a href="/tags/xslt/" class="font_size_3">
+                XSLT
+            </a>
+        
+            <a href="/tags/azure-devops/" class="font_size_2">
+                Azure DevOps
+            </a>
+        
+            <a href="/tags/mstest/" class="font_size_2">
+                MSTest
+            </a>
+        
+            <a href="/tags/nunit/" class="font_size_2">
+                Nunit
+            </a>
+        
+            <a href="/tags/playwright/" class="font_size_2">
+                Playwright
+            </a>
+        
+            <a href="/tags/ssis-internals/" class="font_size_2">
+                SSIS Internals
+            </a>
+        
+            <a href="/tags/terraform/" class="font_size_2">
+                Terraform
+            </a>
+        
+            <a href="/tags/tfs/" class="font_size_2">
+                TFS
+            </a>
+        
+            <a href="/tags/vm/" class="font_size_2">
+                Vm
+            </a>
+        
+            <a href="/tags/aoc2020/" class="font_size_1">
+                AoC2020
+            </a>
+        
+    </div>
+</section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <header>
+        <h3 class="section-title">
+            
+                Tags
+            
+        </h3>
+
+        <div class="section-card">
+            <div class="section-details">
+                <h3 class="section-count">1 page</h3>
+                <h1 class="section-term">Docker Desktop</h1>
+                
+            </div>
+        </div>
+    </header>
+    
+    <section class="article-list--compact">
+        
+            <article>
+    <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">
+        <div class="article-details">
+            <h2 class="article-title">Have problems with Docker Desktop for Windows Home? Yeah, me too!</h2>
+            <footer class="article-time">
+                <time datetime='2020-09-01T00:00:00Z'>Sep 01, 2020</time>
+            </footer>
+        </div>
+    </a>
+</article>
+        
+    </section>
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

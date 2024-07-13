@@ -1,529 +1,715 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Draw the SSIS Package using SVG - part III - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.">
+<title>Draw the SSIS Package using SVG - part III</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Draw the SSIS Package using SVG - part III">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">
-    <meta property="og:image" content="https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Draw the SSIS Package using SVG - part III">
+<meta property='og:description' content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.">
+<meta property='og:url' content='https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PowerShell' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-08-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-08-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Draw the SSIS Package using SVG - part III">
+<meta name="twitter:description" content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#automating-the-layout-extraction">Automating the layout extraction</a></li>
+    <li><a href="#back-to-drawing">Back to drawing</a></li>
+    <li><a href="#reading-from-the-dtsx-file">Reading from the .dtsx file</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+            <a href="/categories/series/" >
+                Series
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 07, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">Draw the SSIS Package using SVG - part III</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2019-08-07 00:00:00 &#43;0000 UTC">August 7, 2019</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="image" style="--bg-image: url('/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png');">
-    <img src="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="">
-  </a>
-        
-        <p>In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation.</p>
-<h2 id="automating-the-layout-extraction">Automating the layout extraction</h2>
-<p>Previously I prepared the file with a layout by hand - I copied the <code>CDATA</code> content of the<code>/DTS:Executable/DTS:DesignTimeProperties</code> element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1">New-Diagram.ps1</a>. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Find &lt;DesignTimeProperties&gt;, CDATA section</span>
-</span></span><span style="display:flex;"><span>$xpath = <span style="color:#e6db74">&#39;/DTS:Executable/DTS:DesignTimeProperties/text()&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># We have a namespace, so add a declaration; just copy the values from the .dtsx file</span>
-</span></span><span style="display:flex;"><span>$namespace = @{DTS = <span style="color:#e6db74">&#39;www.microsoft.com/SqlServer/Dts&#39;</span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># The Command</span>
-</span></span><span style="display:flex;"><span>(Select-Xml -Path $packagePath -XPath $xpath -Namespace $namespace | Select-Object -ExpandProperty Node).Value | Out-File $outputPath
+    <section class="article-content">
+    
+    
+    <p>In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation.</p>
+<h2 id="automating-the-layout-extraction">Automating the layout extraction
+</h2><p>Previously I prepared the file with a layout by hand - I copied the <code>CDATA</code> content of the<code>/DTS:Executable/DTS:DesignTimeProperties</code> element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script <a class="link" href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1"  target="_blank" rel="noopener"
+    >New-Diagram.ps1</a>. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Find &lt;DesignTimeProperties&gt;, CDATA section</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$xpath</span> <span class="p">=</span> <span class="s1">&#39;/DTS:Executable/DTS:DesignTimeProperties/text()&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># We have a namespace, so add a declaration; just copy the values from the .dtsx file</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$namespace</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span><span class="n">DTS</span> <span class="p">=</span> <span class="s1">&#39;www.microsoft.com/SqlServer/Dts&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># The Command</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">Select-Xml</span> <span class="n">-Path</span> <span class="nv">$packagePath</span> <span class="n">-XPath</span> <span class="nv">$xpath</span> <span class="n">-Namespace</span> <span class="nv">$namespace</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Node</span><span class="p">).</span><span class="py">Value</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="nv">$outputPath</span>
 </span></span></code></pre></div><p><code>Select-Xml</code> gets the required information from the <code>.dtsx</code> package using an XPath expression and returns the <code>Node</code>. I take its <code>Value</code> and save to the file.</p>
-<p>As an addition, I also wrote the <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.ps1">diagram2svg.ps1</a> script to run everything from PowerShell console. The <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.bat">diagram2svg.bat</a> version is still available.</p>
-<h2 id="back-to-drawing">Back to drawing</h2>
-<p>To get more information, I created an extended version of the package. It has <code>Completion</code> and <code>Failure</code> constraints, as well as <code>OR</code> version. I also added more annotations.</p>
-<p><a href="images/PackageWithConstraints.png"><img src="images/PackageWithConstraints.png" alt="Package with constraints"></a></p>
+<p>As an addition, I also wrote the <a class="link" href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.ps1"  target="_blank" rel="noopener"
+    >diagram2svg.ps1</a> script to run everything from PowerShell console. The <a class="link" href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/diagram2svg.bat"  target="_blank" rel="noopener"
+    >diagram2svg.bat</a> version is still available.</p>
+<h2 id="back-to-drawing">Back to drawing
+</h2><p>To get more information, I created an extended version of the package. It has <code>Completion</code> and <code>Failure</code> constraints, as well as <code>OR</code> version. I also added more annotations.</p>
+<p><a class="link" href="images/PackageWithConstraints.png" >
+<img src="images/PackageWithConstraints.png"
+	width="1290"
+	height="415"
+	srcset="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu5cc28b4fecea7fda3f29c9f2bd29a446_38681_480x0_resize_box_3.png 480w, /2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu5cc28b4fecea7fda3f29c9f2bd29a446_38681_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Package with constraints"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="310"
+		data-flex-basis="746px"
+	
+>
+
+</a></p>
 <p>I know that I have to draw the descriptions if I see an <code>&lt;EdgeLayout.Labels&gt;</code> element within the <code>&lt;EdgeLayout&gt;</code>. It contains an empty tag <code>&lt;mssgm:EdgeLabel&gt;</code> with two attributes: <code>@BoundingBox</code> and <code>@RelativePosition</code>. Only the first is interesting (the second always has a fixed value <em>Any</em>) - it defines the area for the description. It looks like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;EdgeLayout.Labels&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;mssgm:EdgeLabel</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">BoundingBox=</span><span style="color:#e6db74">&#34;-176.548522135417,29.4736842105263,161.7637109375,16&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">RelativePosition=</span><span style="color:#e6db74">&#34;Any&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/EdgeLayout.Labels&gt;</span>
-</span></span></code></pre></div><p><a href="https://docs.microsoft.com/en-us/openspecs/sql_data_portability/ms-dtsx2/973d4479-435a-43ce-b789-61b2174eee6b">According to the documentation</a>, the <code>@BoundingBox</code> contains &ldquo;<em>value that specifies the coordinates of the four vertices of the bounding box for the edge label</em>&rdquo;. It&rsquo;s not. The numbers are <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> of the box, so I can draw it in SVG using a <code>&lt;rect&gt;</code> element.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;EdgeLayout.Labels&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;mssgm:EdgeLabel</span>
+</span></span><span class="line"><span class="cl">        <span class="na">BoundingBox=</span><span class="s">&#34;-176.548522135417,29.4736842105263,161.7637109375,16&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">RelativePosition=</span><span class="s">&#34;Any&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/EdgeLayout.Labels&gt;</span>
+</span></span></code></pre></div><p><a class="link" href="https://docs.microsoft.com/en-us/openspecs/sql_data_portability/ms-dtsx2/973d4479-435a-43ce-b789-61b2174eee6b"  target="_blank" rel="noopener"
+    >According to the documentation</a>, the <code>@BoundingBox</code> contains &ldquo;<em>value that specifies the coordinates of the four vertices of the bounding box for the edge label</em>&rdquo;. It&rsquo;s not. The numbers are <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> of the box, so I can draw it in SVG using a <code>&lt;rect&gt;</code> element.</p>
 <p>But should I draw them? In the beginning - yes. Just like with the rectangle around the annotation area - to get used to the diagram structure and get the idea of what the values mean.</p>
-<p>OK. I know <strong>where</strong> I have to write the descriptions. Now it&rsquo;s time to get <strong>what</strong> I have to write. Scrolling to the bottom of the <a href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/Package.Diagram.xml">Package.Diagram.xml</a> I see only two pieces of information:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;PrecedenceConstraint</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint\]&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintOptions<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;PrecedenceConstraint</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">design-time-name=</span><span style="color:#e6db74">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint 1\]&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ShowAnnotation&gt;</span>ConstraintDescription<span style="color:#f92672">&lt;/ShowAnnotation&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/PrecedenceConstraint&gt;</span>
-</span></span></code></pre></div><p>The <code>&lt;ShowAnnotation&gt;</code> values come from <a href="https://docs.microsoft.com/en-us/sql/integration-services/control-flow/precedence-constraints?view=sql-server-2017#set-the-properties-of-a-precedence-constraint-in-properties-window">the Properties of the precedence constraints</a>. So, for the <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint]</code> constraint I need to write the <code>ConstraintOptions</code>, which means &ldquo;<em>automatically annotate using the values of the Value and Expression properties</em>&rdquo;.</p>
-<h2 id="reading-from-the-dtsx-file">Reading from the .dtsx file</h2>
-<p>To get the <code>Value</code> and <code>Expression</code> properties I need to find the precedence constraint in the <code>.dtsx</code> file during the XSL transformations. It requires three changes in the <code>package2svg.xsl</code>:</p>
+<p>OK. I know <strong>where</strong> I have to write the descriptions. Now it&rsquo;s time to get <strong>what</strong> I have to write. Scrolling to the bottom of the <a class="link" href="https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/Package.Diagram.xml"  target="_blank" rel="noopener"
+    >Package.Diagram.xml</a> I see only two pieces of information:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;PrecedenceConstraint</span>
+</span></span><span class="line"><span class="cl">    <span class="na">design-time-name=</span><span class="s">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint\]&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ShowAnnotation&gt;</span>ConstraintOptions<span class="nt">&lt;/ShowAnnotation&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/PrecedenceConstraint&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;PrecedenceConstraint</span>
+</span></span><span class="line"><span class="cl">    <span class="na">design-time-name=</span><span class="s">&#34;Package\\SEQC MAIN\\FLC Tree.PrecedenceConstraints\[Constraint 1\]&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ShowAnnotation&gt;</span>ConstraintDescription<span class="nt">&lt;/ShowAnnotation&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/PrecedenceConstraint&gt;</span>
+</span></span></code></pre></div><p>The <code>&lt;ShowAnnotation&gt;</code> values come from <a class="link" href="https://docs.microsoft.com/en-us/sql/integration-services/control-flow/precedence-constraints?view=sql-server-2017#set-the-properties-of-a-precedence-constraint-in-properties-window"  target="_blank" rel="noopener"
+    >the Properties of the precedence constraints</a>. So, for the <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint]</code> constraint I need to write the <code>ConstraintOptions</code>, which means &ldquo;<em>automatically annotate using the values of the Value and Expression properties</em>&rdquo;.</p>
+<h2 id="reading-from-the-dtsx-file">Reading from the .dtsx file
+</h2><p>To get the <code>Value</code> and <code>Expression</code> properties I need to find the precedence constraint in the <code>.dtsx</code> file during the XSL transformations. It requires three changes in the <code>package2svg.xsl</code>:</p>
 <ul>
 <li>I have to pass the name of the <code>.dtsx</code> file</li>
 <li>I have to read the XML from the <code>.dtsx</code> file</li>
 <li>I have to use the <code>DTS</code> namespace because it&rsquo;s the namespace of the .dtsx file</li>
 </ul>
 <p>The Saxon XSLT processor has a nice feature - after all the switches for the <code>Transform</code> command I can set the parameters defined at the top level of the XSL file using the key=value pairs. So I define the <code>&lt;xsl:param name=&quot;packagePath&quot; as=&quot;xs:string&quot; required=&quot;yes&quot; /&gt;</code> within the XSL file and extend the command (lines split for readability) to pass the <code>packagePath</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Transform `
-</span></span><span style="display:flex;"><span>  -s:Package.Diagram.xml `
-</span></span><span style="display:flex;"><span>  -xsl:package2svg.xsl `
-</span></span><span style="display:flex;"><span>  -o:Package.Diagram.svg `
-</span></span><span style="display:flex;"><span>  packagePath=DTSX2SVG\\Package.dtsx
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Transform</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">-s:Package</span><span class="p">.</span><span class="py">Diagram</span><span class="p">.</span><span class="py">xml</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">-xsl:package2svg</span><span class="p">.</span><span class="py">xsl</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">-o:Package</span><span class="p">.</span><span class="py">Diagram</span><span class="p">.</span><span class="py">svg</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">packagePath</span><span class="p">=</span><span class="n">DTSX2SVG</span><span class="p">\\</span><span class="n">Package</span><span class="p">.</span><span class="py">dtsx</span>
 </span></span></code></pre></div><p>To get the content of the <code>.dtsx</code> file I use the XSLT <code>document()</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;packageContent&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;document($packagePath)&#34;</span> <span style="color:#f92672">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;packageContent&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;document($packagePath)&#34;</span> <span class="p">/&gt;</span>
 </span></span></code></pre></div><p>The last thing is to add the DTS namespace to the stylesheet declaration:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.0&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:gl=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:mssgle=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:mssgm=</span><span style="color:#e6db74">&#34;clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xmlns:DTS=</span><span style="color:#e6db74">&#34;www.microsoft.com/SqlServer/Dts&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span>
-</span></span></code></pre></div><p><img src="images/XSLParameters.png" alt="XSL parameters"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:stylesheet</span> <span class="na">version</span><span class="o">=</span><span class="s">&#34;2.0&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:xsl</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:xs</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:gl</span><span class="o">=</span><span class="s">&#34;clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:mssgle</span><span class="o">=</span><span class="s">&#34;clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:mssgm</span><span class="o">=</span><span class="s">&#34;clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">xmlns:DTS</span><span class="o">=</span><span class="s">&#34;www.microsoft.com/SqlServer/Dts&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>
+</span></span></code></pre></div><p>
+<img src="images/XSLParameters.png"
+	width="843"
+	height="239"
+	srcset="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu88363d3e687aace4caddd40ee4827fb2_14501_480x0_resize_box_3.png 480w, /2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu88363d3e687aace4caddd40ee4827fb2_14501_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="XSL parameters"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="352"
+		data-flex-basis="846px"
+	
+>
+
+</p>
 <p>To read the values from the <code>.dtsx</code> file I just use the <code>packageContent</code> variable as the starting point and pass the XPath, like <code>$packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:Expression.</code></p>
 <p>The descriptions for the constraints are explicit (<code>ShowAnnotation</code>) or implicit (the SSIS defaults, like the annotation for <code>Completion</code> or <code>Failure</code> constraints). I define two variables: <code>precedenceConstraintValue</code> and <code>value</code>. The first contains the description based on the layout file information, the second based on the default SSIS behaviour. The algorithm to present the proper information uses the series of <code>xsl:choose</code>/<code>xsl:when</code> commands that read the <code>$packageContent</code>.</p>
 <p>Using the same technique, I set the colour for the constraint reading the <code>DTS:Value</code> and the type of the constraint (OR/AND). For the latter I analyse the <code>DTS:LogicalAnd</code> attribute - if it exists I add the <code>stroke-dasharray</code> SVG attribute:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;count($packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:LogicalAnd) = 0&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attributename</span><span style="color:#960050;background-color:#1e0010">=&#34;stroke-dasharray&#34;</span><span style="color:#f92672">&gt;</span>5<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:if&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;count($packageContent//DTS:PrecedenceConstraint[@DTS:refId=$localId]/@DTS:LogicalAnd) = 0&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:attributename</span><span class="err">=&#34;</span><span class="na">stroke-dasharray</span><span class="err">&#34;</span><span class="p">&gt;</span>5<span class="p">&lt;/</span><span class="nt">xsl:attribute</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">xsl:if</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>And that&rsquo;s it! Now I have the package with the constraint descriptions, colours and shapes. There are still some uncovered parts, but I will deal with them later.</p>
-<p><a href="images/Package.Diagram.png"><img src="images/Package.Diagram.png" alt="Package diagram"></a></p>
+<p><a class="link" href="images/Package.Diagram.png" >
+<img src="images/Package.Diagram.png"
+	width="1829"
+	height="525"
+	srcset="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hubd412de52ddbdd17671c6ec48975acb6_22843_480x0_resize_box_3.png 480w, /2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hubd412de52ddbdd17671c6ec48975acb6_22843_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Package diagram"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="348"
+		data-flex-basis="836px"
+	
+>
+
+</a></p>
 <p>Up to now, I drew the Control Flow. The next part will focus on the Data Flow and Event Handlers.</p>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/powershell/">PowerShell</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/svg/">SVG</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/xml/">XML</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/xslt/">XSLT</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/" class="button left"><span>Adding a new Task in TFS using C#</span></a>
-    
-    
-      <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/" class="button right"><span>Draw the SSIS Package using SVG - part II</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/powershell/">PowerShell</a>
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/svg/">SVG</a>
+        
+            <a href="/tags/xml/">XML</a>
+        
+            <a href="/tags/xslt/">XSLT</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Draw the SSIS Package using SVG - part II</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Draw the SSIS package using SVG - part I</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: getting information from SSIS packages with PowerShell</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/08/13/writing-ssisunit-test-using-api/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Writing ssisUnit test using API</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/07/10/testing-the-loops-in-ssisunit/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Testing the loops in ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

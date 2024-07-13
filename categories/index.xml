@@ -1,146 +1,131 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on BartekR</title>
-    <link>https://blog.bartekr.net/categories/</link>
-    <description>Recent content in Categories on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>IaC</title>
-      <link>https://blog.bartekr.net/categories/iac/</link>
-      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/iac/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure</title>
-      <link>https://blog.bartekr.net/categories/azure/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/azure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Learning</title>
-      <link>https://blog.bartekr.net/categories/learning/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SQL Server</title>
-      <link>https://blog.bartekr.net/categories/sql-server/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/sql-server/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Testing</title>
-      <link>https://blog.bartekr.net/categories/testing/</link>
-      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/testing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Admin</title>
-      <link>https://blog.bartekr.net/categories/admin/</link>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/admin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Advent of Code</title>
-      <link>https://blog.bartekr.net/categories/advent-of-code/</link>
-      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/advent-of-code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming</title>
-      <link>https://blog.bartekr.net/categories/programming/</link>
-      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Not-So-Technical</title>
-      <link>https://blog.bartekr.net/categories/not-so-technical/</link>
-      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/not-so-technical/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Troubleshooting</title>
-      <link>https://blog.bartekr.net/categories/troubleshooting/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/troubleshooting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TFS</title>
-      <link>https://blog.bartekr.net/categories/tfs/</link>
-      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/tfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Series</title>
-      <link>https://blog.bartekr.net/categories/series/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/series/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SSIS internals</title>
-      <link>https://blog.bartekr.net/categories/ssis-internals/</link>
-      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/ssis-internals/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>internals</title>
-      <link>https://blog.bartekr.net/categories/internals/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/internals/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Conferences</title>
-      <link>https://blog.bartekr.net/categories/conferences/</link>
-      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/categories/conferences/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Categories on BartekR</title>
+        <link>https://blog.bartekr.net/categories/</link>
+        <description>Recent content in Categories on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>IaC</title>
+        <link>https://blog.bartekr.net/categories/iac/</link>
+        <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/iac/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Azure</title>
+        <link>https://blog.bartekr.net/categories/azure/</link>
+        <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/azure/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Learning</title>
+        <link>https://blog.bartekr.net/categories/learning/</link>
+        <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/learning/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SQL Server</title>
+        <link>https://blog.bartekr.net/categories/sql-server/</link>
+        <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/sql-server/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Testing</title>
+        <link>https://blog.bartekr.net/categories/testing/</link>
+        <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/testing/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Admin</title>
+        <link>https://blog.bartekr.net/categories/admin/</link>
+        <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/admin/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Advent of Code</title>
+        <link>https://blog.bartekr.net/categories/advent-of-code/</link>
+        <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/advent-of-code/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Programming</title>
+        <link>https://blog.bartekr.net/categories/programming/</link>
+        <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/programming/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Not-So-Technical</title>
+        <link>https://blog.bartekr.net/categories/not-so-technical/</link>
+        <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/not-so-technical/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Troubleshooting</title>
+        <link>https://blog.bartekr.net/categories/troubleshooting/</link>
+        <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/troubleshooting/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>TFS</title>
+        <link>https://blog.bartekr.net/categories/tfs/</link>
+        <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/tfs/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Series</title>
+        <link>https://blog.bartekr.net/categories/series/</link>
+        <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/series/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SSIS Internals</title>
+        <link>https://blog.bartekr.net/categories/ssis-internals/</link>
+        <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/ssis-internals/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Internals</title>
+        <link>https://blog.bartekr.net/categories/internals/</link>
+        <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/internals/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Conferences</title>
+        <link>https://blog.bartekr.net/categories/conferences/</link>
+        <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/categories/conferences/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
 </rss>

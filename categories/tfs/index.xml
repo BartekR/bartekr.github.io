@@ -1,21 +1,216 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TFS on BartekR</title>
-    <link>https://blog.bartekr.net/categories/tfs/</link>
-    <description>Recent content in TFS on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/tfs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
-      <link>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
-      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
-      <description>In the previous post, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.
-First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to https://visualstudio.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>TFS on BartekR</title>
+        <link>https://blog.bartekr.net/categories/tfs/</link>
+        <description>Recent content in TFS on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/tfs/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Adding a new task in TFS (Azure DevOps) using Excel</title>
+        <link>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</link>
+        <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;In the previous post&lt;/a&gt;, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.&lt;/p&gt;
+&lt;p&gt;First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to &lt;a class=&#34;link&#34; href=&#34;https://visualstudio.microsoft.com/downloads/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://visualstudio.microsoft.com/downloads/&lt;/a&gt; and pick it from the &lt;em&gt;Other Tools and Frameworks&lt;/em&gt; section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/AzureDevOps_TeamPlugin.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/AzureDevOps_TeamPlugin.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Team plugin&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This time I will use my Azure DevOps collection &lt;a class=&#34;link&#34; href=&#34;https://bartekr.visualstudio.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;bartekr&lt;/a&gt; and the &lt;em&gt;AzureDevOps_APITests&lt;/em&gt; project. It uses a &lt;em&gt;Basic&lt;/em&gt; process, but I also tested the process on an &lt;em&gt;Agile&lt;/em&gt; workflow. To add the elements click &lt;em&gt;New List&lt;/em&gt; and connect to the project. If it&amp;rsquo;s the first time you connect to Azure DevOps or TFS you will be prompted to set up the connection to the collection. After you connect pick the &lt;em&gt;Input list&lt;/em&gt; from the options&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelNewList_InputList.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelNewList_InputList.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Input list&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now you should see an empty list with information about the connection. The list is ready and you could start filling the columns Title, Work Item Type, State, Reason, Assigned To (ID is read-only).&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelEmptyList.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelEmptyList.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Empty list&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;But - we want to add not only the tasks but also the connection to a parent element. In this case, tasks should be connected to the Issue (in a &lt;em&gt;Basic&lt;/em&gt; process) or the User Story (an &lt;em&gt;Agile&lt;/em&gt; process). To do it we have to work with the tree, not a flat list (notice: List type: Flat on the right side of the yellow header). Click on the list and you should see an enabled &lt;em&gt;Add Tree Level&lt;/em&gt; button. Click it.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelAddTreeLevel.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelAddTreeLevel.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Add tree level&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the &lt;em&gt;Convert to Tree List&lt;/em&gt; select Parent-Child (the default option)&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelConvertToTreeList.png&#34; &gt;![Convert to tree](images/ExcelConvertToTreeList.png#center&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now you should see the columns - &lt;em&gt;Title 1&lt;/em&gt; and &lt;em&gt;Title 2&lt;/em&gt; and the &lt;em&gt;List type: tree&lt;/em&gt;. The first title is for the parent item, the second for the child.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelEmptyWorkitemsTree-1.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelEmptyWorkitemsTree-1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Empty work items list&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now - I want to add the new tasks for the Issue 2&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/AzureDevOps_BacklogBefore.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/AzureDevOps_BacklogBefore.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Backlog before&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the &lt;em&gt;Team&lt;/em&gt; toolbar click &lt;em&gt;Get Work Items&lt;/em&gt;, find the &lt;em&gt;Issue 2&lt;/em&gt; in the opened window, select it and click &lt;em&gt;OK&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelFindWorkItem.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelFindWorkItem.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Find work item&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The spreadsheet looks like below:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelIssue2Tree.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelIssue2Tree.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Issue 2 as tree&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Nothing unusual. Now - in the &lt;em&gt;Title 2&lt;/em&gt; column add new tasks with Work Item Type == &lt;em&gt;Task&lt;/em&gt; and push the button &lt;em&gt;Publish&lt;/em&gt;. And that&amp;rsquo;s it!&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/ExcelIssue2Tree_NewWorkItems.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/ExcelIssue2Tree_NewWorkItems.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Issue 2 - new work items&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In Azure DevOps:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/AzureDevOps_BacklogAfter.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/AzureDevOps_BacklogAfter.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Backlog after&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If I wanted to fill more columns (like Assigned To, Sprint, Estimated time and so on) - I click &lt;em&gt;Choose columns&lt;/em&gt; button and add them to the list.&lt;/p&gt;
+&lt;p&gt;One more small thing for the end. Let&amp;rsquo;s say you have a lot of Tasks with one parent Issue / User Story. &lt;strong&gt;Do not delete them from the list&lt;/strong&gt; &lt;em&gt;&amp;ldquo;because you want to have a clean sheet with just the Issue / User Story&amp;rdquo;&lt;/em&gt;. Deleting the tasks from the list does not delete the tasks (of course), but it removes the Parent-Child hierarchy for the deleted elements.&lt;/p&gt;
+&lt;p&gt;If you repeat the steps to get the tasks for Issue 2 and delete them, you will see they lost the connection:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/AzureDevOps_WorkitemDeletedLink.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/AzureDevOps_WorkitemDeletedLink.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Work item delete&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In short: adding work items to TFS / Azure DevOps using Excel is easy. The trick is &lt;del&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=GwKtszQ8Ejo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;to keep breathing&lt;/a&gt;&lt;/del&gt; to use the &lt;em&gt;Add Tree Level&lt;/em&gt; button.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

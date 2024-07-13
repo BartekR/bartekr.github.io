@@ -1,198 +1,390 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Testing SSIS Projects with ssisUnit - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.">
+<title>Testing SSIS Projects with ssisUnit</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Testing SSIS Projects with ssisUnit">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">
-    <meta property="og:image" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Testing SSIS Projects with ssisUnit">
+<meta property='og:description' content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.">
+<meta property='og:url' content='https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SQL Server 2017' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-03-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-03-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Testing SSIS Projects with ssisUnit">
+<meta name="twitter:description" content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#but-why">But why?</a></li>
+    <li><a href="#why-do-i-test">Why do I test?</a></li>
+    <li><a href="#last-thing-before-we-start">Last thing before we start</a></li>
+    <li><a href="#lets-start">Let&rsquo;s start</a></li>
+    <li><a href="#the-ssisunit-test-structure">The ssisUnit test structure</a></li>
+    <li><a href="#testing-is-useful">Testing is useful</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+            <a href="/categories/series/" >
+                Series
+            </a>
+        
+            <a href="/categories/testing/" >
+                Testing
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">Testing SSIS Projects with ssisUnit</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 19, 2018</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    9 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">Testing SSIS Projects with ssisUnit</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2018-03-19 00:00:00 &#43;0000 UTC">March 19, 2018</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="image" style="--bg-image: url('/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
-    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
-  </a>
-        
-        <p>During the upcoming <a href="http://sqlday.pl/en/">SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/">speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
-<p>I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the <a href="https://github.com/johnwelch/ssisUnit">ssisUnit</a> framework by John Welch.</p>
-<p>The ssisUnit project started <a href="http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/">a long time ago</a> and was <a href="https://archive.codeplex.com/?p=ssisunit">hosted on CodePlex</a>, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (<a href="https://pragmaticworks.com/Products/BI-xPress">BiXpress</a>, <a href="https://pragmaticworks.com/Products/LegiTest">LegiTest</a>). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.</p>
-<h2 id="but-why">But why?</h2>
-<p>Why would we even think about SSIS testing? Most of the times we already check our work during development, don&rsquo;t we? We carefully craft our packages, run them many times to see the outcome, sometimes we even disable some Control Flow elements and check how the moving parts work alone. We write some SQL to review the data before and after the process. And it&rsquo;s good!</p>
+    <section class="article-content">
+    
+    
+    <p>During the upcoming <a class="link" href="http://sqlday.pl/en/"  target="_blank" rel="noopener"
+    >SQLDay 2018</a> conference (10th edition of SQLDay!) I&rsquo;ll be <a class="link" href="https://sqlday.pl/en/session/start-testing-your-ssis-packages/"  target="_blank" rel="noopener"
+    >speaking about testing SSIS packages and projects</a>. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.</p>
+<p>I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the <a class="link" href="https://github.com/johnwelch/ssisUnit"  target="_blank" rel="noopener"
+    >ssisUnit</a> framework by John Welch.</p>
+<p>The ssisUnit project started <a class="link" href="http://agilebi.com/jwelch/2008/03/12/ssisunit-a-unit-testing-tool-for-ssis/"  target="_blank" rel="noopener"
+    >a long time ago</a> and was <a class="link" href="https://archive.codeplex.com/?p=ssisunit"  target="_blank" rel="noopener"
+    >hosted on CodePlex</a>, then moved to GitHub. As John works now for Pragmatic Works, the project is also incorporated in the commercial tools and is being developed mainly for their products (<a class="link" href="https://pragmaticworks.com/Products/BI-xPress"  target="_blank" rel="noopener"
+    >BiXpress</a>, <a class="link" href="https://pragmaticworks.com/Products/LegiTest"  target="_blank" rel="noopener"
+    >LegiTest</a>). The last version of ssisUnit is compiled for SSIS 2014, but you are welcome to use the source code and make all desired changes that will suit your needs.</p>
+<h2 id="but-why">But why?
+</h2><p>Why would we even think about SSIS testing? Most of the times we already check our work during development, don&rsquo;t we? We carefully craft our packages, run them many times to see the outcome, sometimes we even disable some Control Flow elements and check how the moving parts work alone. We write some SQL to review the data before and after the process. And it&rsquo;s good!</p>
 <p>It&rsquo;s nothing wrong in testing the packages this way. If it&rsquo;s done at the beginning of your journey to ETL with SSIS. When you work with it for some time you probably see the main three cons:</p>
 <ul>
 <li>it&rsquo;s a manual job</li>
@@ -201,40 +393,73 @@
 </ul>
 <p>(also error-prone, makes you work harder during debugging and you have a headache when you are forced to work with the package looking like a giant spider of tasks, constraints and data flows).</p>
 <p>And probably the most important thing: lots of the times you THINK you are testing the package. If it&rsquo;s a simple package for staging the data it&rsquo;s often hard to do something wrong, but what with the more advanced logic? Are you sure you know the data you work with? Do you have some use cases? Probably not. You have some requirements that you discuss with the team (or analyst), and you put the code using the best knowledge you have. And then it starts - data duplicates on some joins, there are nulls when you want to insert data to NOT NULL column, divide by zero, MERGE tries to update the row twice, primary key violations. Sounds familiar?</p>
-<h2 id="why-do-i-test">Why do I test?</h2>
-<p>Because of all the above. And more. Because I write a lot of tests when I&rsquo;m programming with PowerShell or C#. Because I&rsquo;ve made all those mistakes and have seen other team members facing them. Because just data quality testing before and after the package run is not enough for me. I want to know if my package is ready to deal with some problems. I want to be sure, that when I change the package in a future, the test will show me the issues before they hit production testing environment. Because someone could change the table I&rsquo;m using in the package (like, say - adding a NOT NULL column at the end) and my package will stop working. Because writing the tests makes me think more about the data and forces me to understand the requirements.</p>
-<h2 id="last-thing-before-we-start">Last thing before we start</h2>
-<p>Testing SSIS packages is hard. The more complex tasks the package is supposed to do, the more complicated testing is. It can take a lot of time to build the tests for the package (and sometimes we can&rsquo;t afford it).</p>
+<h2 id="why-do-i-test">Why do I test?
+</h2><p>Because of all the above. And more. Because I write a lot of tests when I&rsquo;m programming with PowerShell or C#. Because I&rsquo;ve made all those mistakes and have seen other team members facing them. Because just data quality testing before and after the package run is not enough for me. I want to know if my package is ready to deal with some problems. I want to be sure, that when I change the package in a future, the test will show me the issues before they hit production testing environment. Because someone could change the table I&rsquo;m using in the package (like, say - adding a NOT NULL column at the end) and my package will stop working. Because writing the tests makes me think more about the data and forces me to understand the requirements.</p>
+<h2 id="last-thing-before-we-start">Last thing before we start
+</h2><p>Testing SSIS packages is hard. The more complex tasks the package is supposed to do, the more complicated testing is. It can take a lot of time to build the tests for the package (and sometimes we can&rsquo;t afford it).</p>
 <p>But - as with the programming - thinking &ldquo;how could I test this part?&rdquo; impacts your package design. You make it more modular, you start improving logging, creating the tables that hold temporary data for diagnostic purposes. It gives you the comfort of well-done work. Probably you won&rsquo;t test everything, but you have to begin with something. Start with something simple, test one thing. Then test second, third thing. Don&rsquo;t think &ldquo;it&rsquo;s a hell of a job to write the tests for the whole package&rdquo;. It is, but it&rsquo;s like eating an elephant - one piece at a time.</p>
 <p>After you start testing, you will change your mindset, and the tests will become the standard tool in your work.</p>
-<h2 id="lets-start">Let&rsquo;s start</h2>
-<p>When I started using ssisUnit, I knew almost nothing about it. I just said to myself &ldquo;I will finally start testing SSIS packages, and I will use that thing I&rsquo;ve read about a while ago - ssisUnit&rdquo;.</p>
-<p>I remembered that it&rsquo;s one of the few tools that help to test the SSIS packages. And that it uses XML to define those tests. Nothing more. There are two simple examples of testing individual packages in the documentation (and they are a good entry point), but I wanted to start with testing the packages in the SSIS projects, not the individual packages. Also - you have only the source code that you have to compile yourself so the entry point is not as easy as you might think. But - it&rsquo;s not that complicated. I will show you how to compile ssisUnit in the next posts. For now - you can <a href="https://github.com/BartekR/ssisUnit/releases">download the compiled version for SSIS 2017 here</a>.</p>
+<h2 id="lets-start">Let&rsquo;s start
+</h2><p>When I started using ssisUnit, I knew almost nothing about it. I just said to myself &ldquo;I will finally start testing SSIS packages, and I will use that thing I&rsquo;ve read about a while ago - ssisUnit&rdquo;.</p>
+<p>I remembered that it&rsquo;s one of the few tools that help to test the SSIS packages. And that it uses XML to define those tests. Nothing more. There are two simple examples of testing individual packages in the documentation (and they are a good entry point), but I wanted to start with testing the packages in the SSIS projects, not the individual packages. Also - you have only the source code that you have to compile yourself so the entry point is not as easy as you might think. But - it&rsquo;s not that complicated. I will show you how to compile ssisUnit in the next posts. For now - you can <a class="link" href="https://github.com/BartekR/ssisUnit/releases"  target="_blank" rel="noopener"
+    >download the compiled version for SSIS 2017 here</a>.</p>
 <p>When you compile it, you have the ssisUnit library, the test runner (command line) and the Test Suite Builder (that also can run the tests in a GUI). The GUI is simple and helps you get started - pick the <em>File &gt; New From Package&hellip;</em> option, choose the package and its tasks, and you&rsquo;re good to write the tests.</p>
-<p><a href="images/ssisUnit_NewFromPackage.png"><img src="images/ssisUnit_NewFromPackage.png#center" alt="New SSISUnit test from package"></a></p>
-<p>I started with the simple staging package. I&rsquo;ve analysed the examples, watched the recorded sessions by John during the SQLBits (<a href="http://sqlbits.com/Sessions/Event12/Practical_Unit_Testing_for_SSIS_Packages">there</a> and <a href="http://sqlbits.com/Sessions/Event10/Unit_Testing_SSIS_Packages">there</a>) and prepared my first test for the SQL Task element. And it passed as expected! Wow me! Then I made a second test. And it didn&rsquo;t pass. The program started to throw errors with connection managers (that worked with the previous test). I wrote the third test. It didn&rsquo;t pass, but also didn&rsquo;t throw the engine errors.</p>
+<p><a class="link" href="images/ssisUnit_NewFromPackage.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/ssisUnit_NewFromPackage.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="New SSISUnit test from package"
+	
+	
+>
+  </p>
+
+</a></p>
+<p>I started with the simple staging package. I&rsquo;ve analysed the examples, watched the recorded sessions by John during the SQLBits (<a class="link" href="http://sqlbits.com/Sessions/Event12/Practical_Unit_Testing_for_SSIS_Packages"  target="_blank" rel="noopener"
+    >there</a> and <a class="link" href="http://sqlbits.com/Sessions/Event10/Unit_Testing_SSIS_Packages"  target="_blank" rel="noopener"
+    >there</a>) and prepared my first test for the SQL Task element. And it passed as expected! Wow me! Then I made a second test. And it didn&rsquo;t pass. The program started to throw errors with connection managers (that worked with the previous test). I wrote the third test. It didn&rsquo;t pass, but also didn&rsquo;t throw the engine errors.</p>
 <p>I got confused. And angry - why it doesn&rsquo;t want to work? I also checked the tests in BiXpress - and it gave me exactly the same errors. So I started the project that would help me learn ssisUnit starting with simple tests. Getting the data from a variable, from a variable with an expression, in a container, with a different scope. Each test gave me more insight into the way the ssisUnit works.</p>
-<p><a href="images/ssisUnit_TestExample.png"><img src="images/ssisUnit_TestExample.png#center" alt="SSISUnit test example"></a></p>
+<p><a class="link" href="images/ssisUnit_TestExample.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/ssisUnit_TestExample.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="SSISUnit test example"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The picture above is an example of the basic tests I made to learn how to use ssisUnit. I will tell more about them in the next posts. For now, let&rsquo;s talk a bit about</p>
-<h2 id="the-ssisunit-test-structure">The ssisUnit test structure</h2>
-<p>ssisUnit follows the convention known from another testing frameworks:</p>
+<h2 id="the-ssisunit-test-structure">The ssisUnit test structure
+</h2><p>ssisUnit follows the convention known from another testing frameworks:</p>
 <ul>
 <li>you can set up individual test, run it, and clean up after it (teardown)</li>
 <li>the tests are organised in a test suite, that can also have setup and teardown phases</li>
 <li>the tests execution is automated and repeatable</li>
 </ul>
 <p>If you create an empty test in the GUI and then save it you have the following content:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;TestSuite</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://tempuri.org/SsisUnit.xsd&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;ConnectionList</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;PackageList</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;DatasetList</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;TestSuiteSetup</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Setup</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Tests</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;Teardown</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;TestSuiteTeardown</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/TestSuite&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34; ?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;TestSuite</span> <span class="na">xmlns=</span><span class="s">&#34;http://tempuri.org/SsisUnit.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;ConnectionList</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;PackageList</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;DatasetList</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;TestSuiteSetup</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Setup</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Tests</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Teardown</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;TestSuiteTeardown</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/TestSuite&gt;</span>
 </span></span></code></pre></div><p><code>&lt;TestSuite&gt;</code> groups all the elements. You can set up and tear down the whole suite with - surprise - <code>&lt;TestSuiteSetup&gt;</code> / <code>&lt;TestSuiteTeardown&gt;</code> elements. It&rsquo;s the place where you run all the preparations for the tests to run and clean up after the job is done. The code is run only once. The tests are stored it the <code>&lt;Tests&gt;</code> element, and you can <code>&lt;Setup&gt;</code> and <code>&lt;Teardown&gt;</code> the code that will be applied <strong>before and after each test</strong>.</p>
 <p>There are also helper objects:</p>
 <ul>
@@ -244,286 +469,268 @@
 </ul>
 <p>When you start adding the tests you fill the <code>&lt;Tests&gt;</code> element with <code>&lt;Test&gt;</code> elements (you also do the <code>&lt;PackageList&gt;</code> and the <code>&lt;ConnectionList&gt;</code>, but let&rsquo;s skip it for now). The <code>&lt;Test&gt;</code> element contains <code>&lt;Assert&gt;</code>s (how do we expect the result of the test to be), and each assert contains the <code>&lt;Command&gt;</code> element, where we tell the engine what operation it should it do.</p>
 <p>Well, the <code>&lt;Command&gt;</code> element is my global term to the eight possible commands you can run with ssisUnit, but you get the idea.</p>
-<p><a href="images/ssisUnit_Commands.png"><img src="images/ssisUnit_Commands.png#center" alt="Add command"></a></p>
+<p><a class="link" href="images/ssisUnit_Commands.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/ssisUnit_Commands.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Add command"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The outcome of the command is then compared with assertions. If they match - the test passes, if not - the test fails. That simple. Below you find an example how the test with one assertion definition looks like (you can have more than one assertion per test).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Container test&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{E4C43E00-EC90-4C0D-92CB-CC3D5CD44236}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Container Variable == 42&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;42&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ContainerVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Test</span> <span class="na">name=</span><span class="s">&#34;Container test&#34;</span> <span class="na">package=</span><span class="s">&#34;01\_OnlyParametersAndVariables&#34;</span> <span class="na">task=</span><span class="s">&#34;{E4C43E00-EC90-4C0D-92CB-CC3D5CD44236}&#34;</span> <span class="na">taskResult=</span><span class="s">&#34;Success&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: Container Variable == 42&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;42&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;ContainerVariable&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Test&gt;</span>
 </span></span></code></pre></div><p>You can run the test using the GUI or the console test runner. In both situations, you have the simple report of the test suite outcome.</p>
-<p><a href="images/ssisUnit_TestResults.png"><img src="images/ssisUnit_TestResults.png#center" alt="Test results"></a></p>
+<p><a class="link" href="images/ssisUnit_TestResults.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/ssisUnit_TestResults.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Test results"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The assertion error you see above is expected to fail as I check the variable out of the test&rsquo;s scope.</p>
-<h2 id="testing-is-useful">Testing is useful</h2>
-<p>Working more and more with the tests I found them easy to write and my brain started to think about more and more things I could test. And it helped me to correct my testing package. I started not just testing the existing part of the package - I started test-driven development.</p>
+<h2 id="testing-is-useful">Testing is useful
+</h2><p>Working more and more with the tests I found them easy to write and my brain started to think about more and more things I could test. And it helped me to correct my testing package. I started not just testing the existing part of the package - I started test-driven development.</p>
 <p>I wrote the test for SQL Task that didn&rsquo;t exist yet, then I prepared that task using Ctrl+C, Ctrl+V form another SQL Task (don&rsquo;t tell me that you don&rsquo;t do it!), edited the parts of it and run the tests. And the test failed. Because it found, that I didn&rsquo;t change the variable name for the outcome of the script.</p>
 <p>This post is just an introduction to SSIS testing. In the next posts, I will show you how to start with writing the first ssisUnit tests and slowly beginning to do something more complicated.</p>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="button left"><span>Writing first tests with ssisUnit</span></a>
-    
-    
-      <a href="/2018/02/28/upgrading-ssis-projects-part-iii/" class="button right"><span>Upgrading SSIS projects - part III</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sql-server-2017/">SQL Server 2017</a>
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/ssisunit/">SsisUnit</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">So, you want to migrate SSIS(DB)?</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects - part III</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part II</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part I</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

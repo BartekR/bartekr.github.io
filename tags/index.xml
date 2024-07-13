@@ -1,425 +1,379 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on BartekR</title>
-    <link>https://blog.bartekr.net/tags/</link>
-    <description>Recent content in Tags on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>cidr</title>
-      <link>https://blog.bartekr.net/tags/cidr/</link>
-      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/cidr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>terraform</title>
-      <link>https://blog.bartekr.net/tags/terraform/</link>
-      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/terraform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cdktf</title>
-      <link>https://blog.bartekr.net/tags/cdktf/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/cdktf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>VM</title>
-      <link>https://blog.bartekr.net/tags/vm/</link>
-      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/vm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>C#</title>
-      <link>https://blog.bartekr.net/tags/c#/</link>
-      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/c#/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nunit</title>
-      <link>https://blog.bartekr.net/tags/nunit/</link>
-      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/nunit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>playwright</title>
-      <link>https://blog.bartekr.net/tags/playwright/</link>
-      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/playwright/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Azure Blob Storage</title>
-      <link>https://blog.bartekr.net/tags/azure-blob-storage/</link>
-      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/azure-blob-storage/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Azure SQL Database</title>
-      <link>https://blog.bartekr.net/tags/azure-sql-database/</link>
-      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/azure-sql-database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>application gateway</title>
-      <link>https://blog.bartekr.net/tags/application-gateway/</link>
-      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/application-gateway/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>architecture</title>
-      <link>https://blog.bartekr.net/tags/architecture/</link>
-      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/architecture/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web app</title>
-      <link>https://blog.bartekr.net/tags/web-app/</link>
-      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/web-app/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Comments</title>
-      <link>https://blog.bartekr.net/tags/comments/</link>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/comments/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://blog.bartekr.net/tags/hugo/</link>
-      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>AoC2020</title>
-      <link>https://blog.bartekr.net/tags/aoc2020/</link>
-      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/aoc2020/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PowerShell</title>
-      <link>https://blog.bartekr.net/tags/powershell/</link>
-      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/powershell/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GitHub</title>
-      <link>https://blog.bartekr.net/tags/github/</link>
-      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>WordPress</title>
-      <link>https://blog.bartekr.net/tags/wordpress/</link>
-      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/wordpress/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Azure DevOps</title>
-      <link>https://blog.bartekr.net/tags/azure-devops/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/azure-devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OAuth</title>
-      <link>https://blog.bartekr.net/tags/oauth/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/oauth/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>security</title>
-      <link>https://blog.bartekr.net/tags/security/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>https://blog.bartekr.net/tags/docker/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker desktop</title>
-      <link>https://blog.bartekr.net/tags/docker-desktop/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/docker-desktop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>WSL2</title>
-      <link>https://blog.bartekr.net/tags/wsl2/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/wsl2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Excel</title>
-      <link>https://blog.bartekr.net/tags/excel/</link>
-      <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/excel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TFS</title>
-      <link>https://blog.bartekr.net/tags/tfs/</link>
-      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/tfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SSIS</title>
-      <link>https://blog.bartekr.net/tags/ssis/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/ssis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SVG</title>
-      <link>https://blog.bartekr.net/tags/svg/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/svg/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>XML</title>
-      <link>https://blog.bartekr.net/tags/xml/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/xml/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>XSLT</title>
-      <link>https://blog.bartekr.net/tags/xslt/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/xslt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ssisUnit</title>
-      <link>https://blog.bartekr.net/tags/ssisunit/</link>
-      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/ssisunit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MSTest</title>
-      <link>https://blog.bartekr.net/tags/mstest/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/mstest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SQL Server 2017</title>
-      <link>https://blog.bartekr.net/tags/sql-server-2017/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/sql-server-2017/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>internals</title>
-      <link>https://blog.bartekr.net/tags/internals/</link>
-      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/internals/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>migration</title>
-      <link>https://blog.bartekr.net/tags/migration/</link>
-      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/migration/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SSIS internals</title>
-      <link>https://blog.bartekr.net/tags/ssis-internals/</link>
-      <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/ssis-internals/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>T-SQL Tuesday</title>
-      <link>https://blog.bartekr.net/tags/t-sql-tuesday/</link>
-      <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/t-sql-tuesday/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://blog.bartekr.net/tags/linux/</link>
-      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://blog.bartekr.net/tags/ubuntu/</link>
-      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>VirtualBox</title>
-      <link>https://blog.bartekr.net/tags/virtualbox/</link>
-      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/virtualbox/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Graph</title>
-      <link>https://blog.bartekr.net/tags/graph/</link>
-      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/graph/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Power BI</title>
-      <link>https://blog.bartekr.net/tags/power-bi/</link>
-      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/power-bi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>encryption</title>
-      <link>https://blog.bartekr.net/tags/encryption/</link>
-      <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/encryption/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>IsDeploymentWizard</title>
-      <link>https://blog.bartekr.net/tags/isdeploymentwizard/</link>
-      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/isdeploymentwizard/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ISServerExec</title>
-      <link>https://blog.bartekr.net/tags/isserverexec/</link>
-      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/isserverexec/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sqlbits</title>
-      <link>https://blog.bartekr.net/tags/sqlbits/</link>
-      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/tags/sqlbits/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Tags on BartekR</title>
+        <link>https://blog.bartekr.net/tags/</link>
+        <description>Recent content in Tags on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Cidr</title>
+        <link>https://blog.bartekr.net/tags/cidr/</link>
+        <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/cidr/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Terraform</title>
+        <link>https://blog.bartekr.net/tags/terraform/</link>
+        <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/terraform/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Cdktf</title>
+        <link>https://blog.bartekr.net/tags/cdktf/</link>
+        <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/cdktf/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Vm</title>
+        <link>https://blog.bartekr.net/tags/vm/</link>
+        <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/vm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>C#</title>
+        <link>https://blog.bartekr.net/tags/c%23/</link>
+        <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/c%23/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Nunit</title>
+        <link>https://blog.bartekr.net/tags/nunit/</link>
+        <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/nunit/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Playwright</title>
+        <link>https://blog.bartekr.net/tags/playwright/</link>
+        <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/playwright/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Azure Blob Storage</title>
+        <link>https://blog.bartekr.net/tags/azure-blob-storage/</link>
+        <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/azure-blob-storage/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Azure SQL Database</title>
+        <link>https://blog.bartekr.net/tags/azure-sql-database/</link>
+        <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/azure-sql-database/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Application Gateway</title>
+        <link>https://blog.bartekr.net/tags/application-gateway/</link>
+        <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/application-gateway/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Architecture</title>
+        <link>https://blog.bartekr.net/tags/architecture/</link>
+        <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/architecture/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Web App</title>
+        <link>https://blog.bartekr.net/tags/web-app/</link>
+        <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/web-app/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Comments</title>
+        <link>https://blog.bartekr.net/tags/comments/</link>
+        <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/comments/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Hugo</title>
+        <link>https://blog.bartekr.net/tags/hugo/</link>
+        <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/hugo/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>AoC2020</title>
+        <link>https://blog.bartekr.net/tags/aoc2020/</link>
+        <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/aoc2020/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>PowerShell</title>
+        <link>https://blog.bartekr.net/tags/powershell/</link>
+        <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/powershell/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>GitHub</title>
+        <link>https://blog.bartekr.net/tags/github/</link>
+        <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/github/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>WordPress</title>
+        <link>https://blog.bartekr.net/tags/wordpress/</link>
+        <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/wordpress/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Azure DevOps</title>
+        <link>https://blog.bartekr.net/tags/azure-devops/</link>
+        <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/azure-devops/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>OAuth</title>
+        <link>https://blog.bartekr.net/tags/oauth/</link>
+        <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/oauth/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Security</title>
+        <link>https://blog.bartekr.net/tags/security/</link>
+        <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/security/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Docker</title>
+        <link>https://blog.bartekr.net/tags/docker/</link>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Docker Desktop</title>
+        <link>https://blog.bartekr.net/tags/docker-desktop/</link>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/docker-desktop/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>WSL2</title>
+        <link>https://blog.bartekr.net/tags/wsl2/</link>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/wsl2/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Excel</title>
+        <link>https://blog.bartekr.net/tags/excel/</link>
+        <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/excel/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>TFS</title>
+        <link>https://blog.bartekr.net/tags/tfs/</link>
+        <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/tfs/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SSIS</title>
+        <link>https://blog.bartekr.net/tags/ssis/</link>
+        <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/ssis/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SVG</title>
+        <link>https://blog.bartekr.net/tags/svg/</link>
+        <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/svg/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>XML</title>
+        <link>https://blog.bartekr.net/tags/xml/</link>
+        <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/xml/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>XSLT</title>
+        <link>https://blog.bartekr.net/tags/xslt/</link>
+        <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/xslt/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SsisUnit</title>
+        <link>https://blog.bartekr.net/tags/ssisunit/</link>
+        <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/ssisunit/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MSTest</title>
+        <link>https://blog.bartekr.net/tags/mstest/</link>
+        <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/mstest/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SQL Server 2017</title>
+        <link>https://blog.bartekr.net/tags/sql-server-2017/</link>
+        <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/sql-server-2017/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Internals</title>
+        <link>https://blog.bartekr.net/tags/internals/</link>
+        <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/internals/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Migration</title>
+        <link>https://blog.bartekr.net/tags/migration/</link>
+        <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/migration/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SSIS Internals</title>
+        <link>https://blog.bartekr.net/tags/ssis-internals/</link>
+        <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/ssis-internals/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>T-SQL Tuesday</title>
+        <link>https://blog.bartekr.net/tags/t-sql-tuesday/</link>
+        <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/t-sql-tuesday/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Linux</title>
+        <link>https://blog.bartekr.net/tags/linux/</link>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/linux/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Ubuntu</title>
+        <link>https://blog.bartekr.net/tags/ubuntu/</link>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/ubuntu/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>VirtualBox</title>
+        <link>https://blog.bartekr.net/tags/virtualbox/</link>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/virtualbox/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Graph</title>
+        <link>https://blog.bartekr.net/tags/graph/</link>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/graph/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Power BI</title>
+        <link>https://blog.bartekr.net/tags/power-bi/</link>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/power-bi/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Encryption</title>
+        <link>https://blog.bartekr.net/tags/encryption/</link>
+        <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/encryption/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>IsDeploymentWizard</title>
+        <link>https://blog.bartekr.net/tags/isdeploymentwizard/</link>
+        <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/isdeploymentwizard/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>ISServerExec</title>
+        <link>https://blog.bartekr.net/tags/isserverexec/</link>
+        <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/isserverexec/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Sqlbits</title>
+        <link>https://blog.bartekr.net/tags/sqlbits/</link>
+        <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/sqlbits/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
 </rss>

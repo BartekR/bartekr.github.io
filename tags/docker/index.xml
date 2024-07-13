@@ -1,21 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>docker on BartekR</title>
-    <link>https://blog.bartekr.net/tags/docker/</link>
-    <description>Recent content in docker on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Have problems with Docker Desktop for Windows Home? Yeah, me too!</title>
-      <link>https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</guid>
-      <description>Last week finally came that day: &amp;ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&amp;rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.
-Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Docker on BartekR</title>
+        <link>https://blog.bartekr.net/tags/docker/</link>
+        <description>Recent content in Docker on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Have problems with Docker Desktop for Windows Home? Yeah, me too!</title>
+        <link>https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</link>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</guid>
+        <description>&lt;p&gt;Last week finally came that day: &amp;ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&amp;rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.&lt;/p&gt;
+&lt;p&gt;Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional. Also at home, I prepared a working environment consisting of Windows 10 Home + WSL + VirtualBox. The last one for hosting an Ubuntu virtual machine, as it&amp;rsquo;s not possible to run Docker Desktop on Windows 10 Home or run a docker daemon in WSL. I configured it with a very helpful posts from Nick Janetakis (&lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&lt;/a&gt;). Now, with WSL2 I could eliminate VirtualBox from the ecosystem.&lt;/p&gt;
+&lt;p&gt;After the installation and some restarts I opened the PowerShell, wrote &lt;code&gt;docker version&lt;/code&gt; and got the message: &lt;em&gt;&amp;ldquo;unable to resolve docker endpoint: open C:\Users\&lt;!-- raw HTML omitted --&gt;\.docker\machine\machines\default\ca.pem: The system cannot find the path specified&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The problem might occur because I was testing a Docker Toolbox a long time ago, and the uninstaller might not delete all the settings. The solution: change the &lt;code&gt;DOCKER_CERT_PATH&lt;/code&gt; environment variable. To list all docker related variables I run this in PowerShell:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;Get-ChildItem&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Where-Object&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-like&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;DOCKER\*&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Name&lt;/span&gt;                 &lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;----&lt;/span&gt;                 &lt;span class=&#34;p&#34;&gt;-----&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_CERT_PATH&lt;/span&gt;     &lt;span class=&#34;n&#34;&gt;C:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BartekR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;docker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;machine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;machines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_HOST&lt;/span&gt;          &lt;span class=&#34;n&#34;&gt;tcp&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;192.168&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;99&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;2376&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_MACHINE_NAME&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_TLS_VERIFY&lt;/span&gt;    &lt;span class=&#34;mf&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The correct value is &lt;code&gt;(...)\.docker\machine\certs&lt;/code&gt;, so I changed to &lt;code&gt;C:\Users\BartekR\.docker\machine\certs&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Excellent. Again: &lt;code&gt;docker version&lt;/code&gt;: &lt;em&gt;&amp;ldquo;error during connect: Post &lt;a class=&#34;link&#34; href=&#34;http://192.168.99.100:2376/v1.40/containers/create&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://192.168.99.100:2376/v1.40/containers/create&lt;/a&gt;: dial tcp [::1]:2376: connectex: No connection could be made because the target machine actively refused it&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Again - most probably - Docker Toolbox (see: &lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/toolbox/faqs/troubleshoot/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.docker.com/toolbox/faqs/troubleshoot/&lt;/a&gt;) - it uses the &lt;code&gt;(...).100:2376&lt;/code&gt; theme for the docker daemon. So I changed the &lt;code&gt;DOCKER_HOST&lt;/code&gt; address to &lt;code&gt;tcp://localhost:2375&lt;/code&gt; and now it should work.&lt;/p&gt;
+&lt;p&gt;Should it?&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker version&lt;/code&gt;: &lt;em&gt;&amp;ldquo;error during connect: Get https://localhost:2375/v1.40/containers/json: http: server gave HTTP response to HTTPS client&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;What now? On Windows, you have to check the checkbox &lt;em&gt;&amp;ldquo;Expose daemon on &amp;lt;DOCKER_HOST&amp;gt; without TLS&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/DockerDesktopEnableTLSWithoutTLS.png&#34; &gt;
+&lt;img src=&#34;images/DockerDesktopEnableTLSWithoutTLS-600x92.png&#34;
+	width=&#34;600&#34;
+	height=&#34;92&#34;
+	srcset=&#34;https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu50f7b448bf1a007e8c9db3dfd4634698_4601_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu50f7b448bf1a007e8c9db3dfd4634698_4601_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Enable TLS&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;652&#34;
+		data-flex-basis=&#34;1565px&#34;
+	
+&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Yeah, that &amp;ldquo;vulnerable to remote code execution attacks&amp;rdquo; does not encourage to check it. After making the change you have to restart Docker Desktop.&lt;/p&gt;
+&lt;p&gt;Now, is it all?&lt;/p&gt;
+&lt;p&gt;No. One last thing *). If the switching does not help (and it did not in my case) the problem is in the &lt;code&gt;DOCKER_TLS_VERIFY&lt;/code&gt; environment variable. I had it set to 1 (meaning: enabled), and I had to remove it.&lt;/p&gt;
+&lt;p&gt;Then - finally - it started working.&lt;/p&gt;
+&lt;p&gt;My final &lt;code&gt;DOCKER_*&lt;/code&gt; environment variables setup:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Name&lt;/span&gt;                           &lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;----&lt;/span&gt;                           &lt;span class=&#34;p&#34;&gt;-----&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_CERT_PATH&lt;/span&gt;               &lt;span class=&#34;n&#34;&gt;C:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BartekR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;docker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;machine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;certs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_HOST&lt;/span&gt;                    &lt;span class=&#34;n&#34;&gt;tcp&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;localhost&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;2375&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;DOCKER_MACHINE_NAME&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now I can also work from VSCode + docker extension.&lt;/p&gt;
+&lt;p&gt;*) I&amp;rsquo;ve read, that sometimes changing the &lt;code&gt;DOCKER_HOST&lt;/code&gt; to &lt;code&gt;tcp://localhost:2375&lt;/code&gt; did not help, but setting it to &lt;code&gt;tcp://127.0.0.1:2375&lt;/code&gt; did.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

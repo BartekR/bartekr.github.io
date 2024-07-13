@@ -1,532 +1,942 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Writing first tests with ssisUnit - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package. Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:">
+<title>Writing first tests with ssisUnit</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Writing first tests with ssisUnit">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">
-    <meta property="og:image" content="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Writing first tests with ssisUnit">
+<meta property='og:description' content="Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package. Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:">
+<meta property='og:url' content='https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-03-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-03-26T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Writing first tests with ssisUnit">
+<meta name="twitter:description" content="Previously I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package. Create a new SSIS project and use the automatically generated Package.dtsx. Open it and add two parameters:">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#but-first">But first</a></li>
+    <li><a href="#the-package-reference">The package reference</a></li>
+    <li><a href="#the-first-test">The first test</a></li>
+    <li><a href="#next-tests">Next tests</a></li>
+    <li><a href="#the-scope">The scope</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+            <a href="/categories/series/" >
+                Series
+            </a>
+        
+            <a href="/categories/testing/" >
+                Testing
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2018/03/26/writing-first-tests-with-ssisunit/">Writing first tests with ssisUnit</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 26, 2018</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2018/03/26/writing-first-tests-with-ssisunit/">Writing first tests with ssisUnit</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2018-03-26 00:00:00 &#43;0000 UTC">March 26, 2018</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="image" style="--bg-image: url('/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png');">
-    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="">
-  </a>
-        
-        <p><a href="http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/">Previously</a> I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package.</p>
+    <section class="article-content">
+    
+    
+    <p><a class="link" href="http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/"  target="_blank" rel="noopener"
+    >Previously</a> I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&rsquo;t write your first tests for the most complicated part of the package.</p>
 <p>Create a new SSIS project and use the automatically generated <code>Package.dtsx</code>. Open it and add two parameters:</p>
 <ul>
 <li>first, a regular parameter, an <code>Int32</code> type with value <code>10</code></li>
 <li>second, an encrypted <code>String</code> parameter, with value <code>123qwe!@#</code> marked as sensitive</li>
 </ul>
-<p><a href="images/PackageParameters.png"><img src="images/PackageParameters.png#center" alt="Package parameters"></a></p>
+<p><a class="link" href="images/PackageParameters.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/PackageParameters.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Package parameters"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>Then create two variables with the package scope (by default all variables get the package scope):</p>
 <ul>
 <li>first - the <code>String</code> with <code>G10</code> value</li>
 <li>second - also the <code>String</code>, but this time we use an expression to get value &ldquo;E&rdquo; and the value of the <code>Int32</code> package parameter: <code>&quot;E&quot; + (DT_WSTR, 2)@[$Package::pPackageParameter]</code></li>
 </ul>
-<p><a href="images/Variables01.png"><img src="images/Variables01.png#center" alt="Variables"></a></p>
+<p><a class="link" href="images/Variables01.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Variables01.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Variables"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>Now let&rsquo;s write the tests for parameters and variables.</p>
-<h2 id="but-first">But first</h2>
-<p>If you have read the <a href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Getting%20Started.md">Getting Started</a> and the <a href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Product%20Sample%20Package%20and%20Test.md">Product Sample Package</a> from the ssisUnit docs you probably saw, that they use the <em>Package Deployment Model</em>, not the <em>Project Deployment Model</em> we use and love since SQL Server 2012. But it&rsquo;s no problem for us, as ssisUnit also supports the projects. It&rsquo;s not the <code>.dtproj</code> files though, but the <code>.ispac</code> files. So - before we prepare our tests we have to compile the project.</p>
-<h2 id="the-package-reference">The package reference</h2>
-<p>We will start from scratch and won&rsquo;t use the <em>New From Package&hellip;</em> option. After the compilation, open the Test Suite Builder, choose <em>File &gt; New&hellip;</em> (or Ctrl + N, or pick the first icon on the toolbar from the left) and go to the <em>Package List</em> node. To test the packages we have to reference them in the test file, and we do that by _PackageRef_s. Right-click on the node and select <em>Add PackageRef</em>. On the right side, click the <em>ProjectPath</em> line and then click the ellipsis to set the <code>.ispac</code> file.</p>
-<p><a href="images/AddPackageRef_Before.png"><img src="images/AddPackageRef_Before.png#center" alt="Add package reference - before"></a></p>
+<h2 id="but-first">But first
+</h2><p>If you have read the <a class="link" href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Getting%20Started.md"  target="_blank" rel="noopener"
+    >Getting Started</a> and the <a class="link" href="https://github.com/johnwelch/ssisUnit/blob/master/docs/Product%20Sample%20Package%20and%20Test.md"  target="_blank" rel="noopener"
+    >Product Sample Package</a> from the ssisUnit docs you probably saw, that they use the <em>Package Deployment Model</em>, not the <em>Project Deployment Model</em> we use and love since SQL Server 2012. But it&rsquo;s no problem for us, as ssisUnit also supports the projects. It&rsquo;s not the <code>.dtproj</code> files though, but the <code>.ispac</code> files. So - before we prepare our tests we have to compile the project.</p>
+<h2 id="the-package-reference">The package reference
+</h2><p>We will start from scratch and won&rsquo;t use the <em>New From Package&hellip;</em> option. After the compilation, open the Test Suite Builder, choose <em>File &gt; New&hellip;</em> (or Ctrl + N, or pick the first icon on the toolbar from the left) and go to the <em>Package List</em> node. To test the packages we have to reference them in the test file, and we do that by _PackageRef_s. Right-click on the node and select <em>Add PackageRef</em>. On the right side, click the <em>ProjectPath</em> line and then click the ellipsis to set the <code>.ispac</code> file.</p>
+<p><a class="link" href="images/AddPackageRef_Before.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/AddPackageRef_Before.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Add package reference - before"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>For my ssisUnitLearning project, I have it in the <code>ssisUnitLearning\bin\Development</code> subfolder. Now pick the package you created - go to the <em>PackagePath</em> line, click the ellipsis and select the package. Leave the rest of the fields with the default values. The last part, for now, is to give the PackageRef a name. I choose the name of the package. In the end, you should have something similar to the picture below. Save the test.</p>
-<p><a href="images/AddPackageRef_After.png"><img src="images/AddPackageRef_After.png#center" alt="Add package reference - after"></a></p>
-<h2 id="the-first-test">The first test</h2>
-<p>Now we can start testing the package. Go to the <em>Tests</em> node, right-click and select <em>Add Test</em>. On the <em>PackageLocation</em> line pick the package to test (the list is populated from the _PackageRef_s). Now go to the <em>Task</em> line, and click the ellipsis. If you did everything with the instructions above you should see an error like this:</p>
-<p><a href="images/Test_TaskSelectionError.png"><img src="images/Test_TaskSelectionError.png#center" alt="Task selection error"></a></p>
+<p><a class="link" href="images/AddPackageRef_After.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/AddPackageRef_After.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Add package reference - after"
+	
+	
+>
+  </p>
+
+</a></p>
+<h2 id="the-first-test">The first test
+</h2><p>Now we can start testing the package. Go to the <em>Tests</em> node, right-click and select <em>Add Test</em>. On the <em>PackageLocation</em> line pick the package to test (the list is populated from the _PackageRef_s). Now go to the <em>Task</em> line, and click the ellipsis. If you did everything with the instructions above you should see an error like this:</p>
+<p><a class="link" href="images/Test_TaskSelectionError.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Test_TaskSelectionError.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Task selection error"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The error states that it can&rsquo;t find our package within the compiled project. And it&rsquo;s correct. When we want to test the package contained in the project we have to give just a name of the package, not the path to the package on disk. Go to the package reference and delete the path to the package file leaving just the name of the package file. Like this:</p>
-<p><a href="images/PackageRef_Corrected.png"><img src="images/PackageRef_Corrected.png#center" alt="Package reference - corrected"></a></p>
+<p><a class="link" href="images/PackageRef_Corrected.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/PackageRef_Corrected.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Package reference - corrected"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>Now go back to the test node, click the ellipsis you should see the window with the package name. Pick it and click OK. Give your test a name (I use the package or task name), and save the test file. On the left side, the node still has a name <em>Test1</em> and is in red. The test name will refresh after you pick a different node on the tree. And the colour is red because you didn&rsquo;t finish the test.</p>
-<p><a href="images/Test_Definition.png"><img src="images/Test_Definition.png#center" alt="Test definition"></a></p>
+<p><a class="link" href="images/Test_Definition.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Test_Definition.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Test definition"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The test node is just the container for the assertions. Let&rsquo;s build first - we will check if the <em>pProjectParameter</em> has the value of 10. Right-click the test name node on the tree, select <em>Add Assert</em> and define the <em>ExpectedResult</em> as 10. To remember that I&rsquo;m writing an assert I add &lsquo;Assert:&rsquo; before each assertion. So I end up with something like below (or in the post&rsquo;s header):</p>
-<p><a href="images/Assert_Definition.png"><img src="images/Assert_Definition.png#center" alt="Assert definition"></a></p>
+<p><a class="link" href="images/Assert_Definition.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Assert_Definition.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Assert definition"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The name of the assert refreshes in the tree after you select a different node and it will also be red. We have an assertion (what we expect the test to return) and now we have to run a command to return some kind of the result. We are testing the package parameter, so pick the <em>ParameterCommand</em> right-clicking the assert&rsquo;s name.</p>
-<p><a href="images/SelectingParameterCommand.png"><img src="images/SelectingParameterCommand.png#center" alt="Add ParameterCommand"></a></p>
+<p><a class="link" href="images/SelectingParameterCommand.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SelectingParameterCommand.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Add ParameterCommand"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>We will test the <em>pPackageParameter</em> in the package, so select Package from the drop-down list as the ParameterType and write the parameter&rsquo;s name in the <em>ParameterName</em> line. Leave the rest with the default values.</p>
-<p><a href="images/ParameterCommand.png"><img src="images/ParameterCommand.png#center" alt="ParameterCommand"></a></p>
+<p><a class="link" href="images/ParameterCommand.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/ParameterCommand.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="ParameterCommand"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The test is now ready. Hit the play button on the bar (or use <em>Ctrl + R</em> or use <em>Test Suite &gt; Run Suite</em> from the menu). Tada! Your first test passes!</p>
-<p><a href="images/TestResults.png"><img src="images/TestResults.png#center" alt="Test results"></a></p>
+<p><a class="link" href="images/TestResults.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/TestResults.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Test results"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>The result shows 1 test run, 1 test passed, 2 asserts run, 2 asserts passed.</p>
 <p>Wait, what? We have prepared only one assert, why does it show two?</p>
 <p>The second assert is: &ldquo;<em>Task Completed: Actual result (Success) was equal to the expected result (Success).</em>&rdquo;. Great. Where does it come from? Let&rsquo;s find out.</p>
 <p>We have two places (up to now) that use &ldquo;Task completed&rdquo; setting: the test and the command. I will set <em>TaskResult = Failure</em> for the <em>ParameterCommand</em>, save and run again. The test still passes, so it must be the setting on the test node.</p>
 <p>But before setting up the test node a quick verification: save the test file and open it again. Go to the <em>ParameterCommand</em> node and check the value of <em>TestResult</em> line. It should be <em>Success</em> again, even when you set it to a different value. If you take a look at the source of the <code>.ssisUnit</code> file, you will see, that TestResult setting isn&rsquo;t stored in the configuration.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;01\_OnlyParametersAndVariables.dtsx&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{5A229C3E-AE1F-48D1-AEF4-0EEB5C9E081E}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assertname</span><span style="color:#960050;background-color:#1e0010">=&#34;Assert:</span> <span style="color:#960050;background-color:#1e0010">pPackageParameter</span> <span style="color:#960050;background-color:#1e0010">should</span> <span style="color:#960050;background-color:#1e0010">be</span> <span style="color:#960050;background-color:#1e0010">10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;ParameterCommandname</span><span style="color:#960050;background-color:#1e0010">=&#34;&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">parameterName=</span><span style="color:#e6db74">&#34;pPackageParameter&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;Package&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Test</span> <span class="na">name=</span><span class="s">&#34;01\_OnlyParametersAndVariables&#34;</span> <span class="na">package=</span><span class="s">&#34;01\_OnlyParametersAndVariables.dtsx&#34;</span> <span class="na">task=</span><span class="s">&#34;{5A229C3E-AE1F-48D1-AEF4-0EEB5C9E081E}&#34;</span> <span class="na">taskResult=</span><span class="s">&#34;Success&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Assertname</span><span class="err">=&#34;Assert:</span> <span class="err">pPackageParameter</span> <span class="err">should</span> <span class="err">be</span> <span class="err">10&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;10&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;ParameterCommandname</span><span class="err">=&#34;&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">parameterName=</span><span class="s">&#34;pPackageParameter&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;Package&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Test&gt;</span>
 </span></span></code></pre></div><p>Now change the setting for the test and run the suite. The package test didn&rsquo;t finish with a Failure (it ended with the Success), so the other assert didn&rsquo;t even run.</p>
-<p><a href="images/FailedAssert_Package.png"><img src="images/FailedAssert_Package.png#center" alt="Failed Assert - Package"></a></p>
+<p><a class="link" href="images/FailedAssert_Package.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/FailedAssert_Package.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Failed Assert - Package"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>As a homework - check how will the test suite run, when you change <em>TestResult</em> to <em>Cancelled</em> or <em>Completed</em>.</p>
-<h2 id="next-tests">Next tests</h2>
-<p>You successfully completed the first test. Now write the test for the second parameter that is sensible. Take a moment, think about it and try to write on your own. Then compare to the assert and the command below.</p>
-<p><a href="images/SensitiveParameterAssert.png"><img src="images/SensitiveParameterAssert.png#center" alt="Sensitive parameter assert"></a>
-<a href="images/SensitiveParameterCommand.png"><img src="images/SensitiveParameterCommand.png#center" alt="Sensitive parameter command"></a></p>
+<h2 id="next-tests">Next tests
+</h2><p>You successfully completed the first test. Now write the test for the second parameter that is sensible. Take a moment, think about it and try to write on your own. Then compare to the assert and the command below.</p>
+<p><a class="link" href="images/SensitiveParameterAssert.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SensitiveParameterAssert.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Sensitive parameter assert"
+	
+	
+>
+  </p>
+
+</a>
+<a class="link" href="images/SensitiveParameterCommand.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SensitiveParameterCommand.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Sensitive parameter command"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>A note here. By default, I have <em>the EncryptSensitiveWithUserKey</em> security setting for my packages, and I run the tests on the same machine I have prepared the packages. So the UserKey security is not an issue. But what if we would run the tests on another computer? Or with <em>the EncryptAllWithPassword</em> setting for example? I will show you in the following posts.</p>
 <p>Now let&rsquo;s switch to the variables. You know how to test the package parameters, the variables are similar so there should be no problem for you to prepare the tests by yourself. It&rsquo;s also easier because when you use VariableCommand, you don&rsquo;t set the Project/Package scope.</p>
 <p>One question that may come to your mind when testing the variable calculated with an expression is &ldquo;should I use the Expression line setting when testing the expressions?&rdquo;. The answer is NO. The expression is to evaluate some .NET code expression, and it&rsquo;s something to check in the next blog posts, but for now just leave it always as <em>false</em>.</p>
 <p>If you want to compare your tests for the variables open the source code of your <code>.ssisUnit</code> test file (or switch to the XML tab on the Assert node) and take a look below.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable == G10&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;G10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariable&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Global variable with expression&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;E10&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;GlobalVariableWithExpression&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Assert&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: Global variable == G10&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;G10&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;GlobalVariable&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: Global variable with expression&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;E10&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;GlobalVariableWithExpression&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Assert&gt;</span>
 </span></span></code></pre></div><p>Congratulations. You now know how o write simple tests for parameters and variables.</p>
-<h2 id="the-scope">The scope</h2>
-<p>The last thing to check today is the variable&rsquo;s scope. You have checked the variables with the default scope of the package. Now test the variable with the scope of a container.</p>
+<h2 id="the-scope">The scope
+</h2><p>The last thing to check today is the variable&rsquo;s scope. You have checked the variables with the default scope of the package. Now test the variable with the scope of a container.</p>
 <p>Create an empty Sequence Container <em>SEQC Some container</em> and add a new variable <em>ContainerVariable</em>. Then change the scope of the variable to the container. To do it click the <em>Move Variable</em> button in the Variables window and pick the <em>SEQC Some container</em> node in the <em>Select New Scope</em> window. Then click OK.</p>
-<p><a href="images/MoveVariable.png"><img src="images/MoveVariable.png#center" alt="Move variable"></a>
-<a href="images/SelectNewScope.png"><img src="images/SelectNewScope.png#center" alt="Select New Scope"></a></p>
+<p><a class="link" href="images/MoveVariable.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/MoveVariable.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Move variable"
+	
+	
+>
+  </p>
+
+</a>
+<a class="link" href="images/SelectNewScope.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SelectNewScope.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Select New Scope"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>Now write the test for the <em>ContainerVariable</em> just as you wrote the test for the previous variables. Be sure to add the assert and the command at the SEQC Some container level. You should get a test similar to this one:</p>
-<p><a href="images/Assert_VariableWithScope.png"><img src="images/Assert_VariableWithScope.png#center" alt="Assert variable with scope"></a></p>
+<p><a class="link" href="images/Assert_VariableWithScope.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Assert_VariableWithScope.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Assert variable with scope"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>What would happen if we tried to test the variable on the package level? After you define the same test but in the previous test tree that is made on the package level (<em>01_OnlyParametersAndVariables</em> from the picture above), you will get an error. The assert command failed with the following exception: <em>Failed to lock variable &ldquo;ContainerVariable&rdquo; for read access with error 0xC0010001 &ldquo;The variable cannot be found. This occurs when an attempt is made to retrieve a variable from the Variables collection on a container during execution of the package, and the variable is not there. The variable name may have changed or the variable is not being created</em>.</p>
-<p><a href="images/Assert_VarableScopeError.png"><img src="images/Assert_VarableScopeError.png#center" alt="Assert - variable scope error"></a></p>
+<p><a class="link" href="images/Assert_VarableScopeError.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/Assert_VarableScopeError.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Assert - variable scope error"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>That&rsquo;s all for now. We started from the very beginning with parameters and variables. We checked the variables scope, saw that we can test the sensitive parameters (in some circumstances) and we are ready to test the project parameters. The last one is your homework: create the project parameter and test it with ssisUnit.</p>
-<p>You can find the sample package <code>01_OnlyParametersAndVariables.dtsx</code> and ssisUnit test for it <a href="https://github.com/BartekR/ssisUnitLearning">on my GitHub</a>.</p>
+<p>You can find the sample package <code>01_OnlyParametersAndVariables.dtsx</code> and ssisUnit test for it <a class="link" href="https://github.com/BartekR/ssisUnitLearning"  target="_blank" rel="noopener"
+    >on my GitHub</a>.</p>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="button left"><span>Testing database connections with ssisUnit</span></a>
-    
-    
-      <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/" class="button right"><span>Testing SSIS Projects with ssisUnit</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/ssisunit/">SsisUnit</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Testing SSIS Projects with ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects - part III</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part II</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part I</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">So, you want to migrate SSIS(DB)?</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

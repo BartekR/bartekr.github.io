@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux on BartekR</title>
-    <link>https://blog.bartekr.net/tags/linux/</link>
-    <description>Recent content in Linux on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Wed, 28 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Connect to SQL Server on Ubuntu Linux VirtualBox machine</title>
-      <link>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>
-      <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
-      <description>For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.
-I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Linux on BartekR</title>
+        <link>https://blog.bartekr.net/tags/linux/</link>
+        <description>Recent content in Linux on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Wed, 28 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Connect to SQL Server on Ubuntu Linux VirtualBox machine</title>
+        <link>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</link>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
+        <description>&lt;p&gt;For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.&lt;/p&gt;
+&lt;p&gt;I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?) and selecting almost only the default options. I don&amp;rsquo;t want to build a cluster or do sophisticated things - I just want the Linux Server to be up and running.&lt;/p&gt;
+&lt;p&gt;It takes just few minutes to install Ubuntu Linux Server (16.04) . The next step is to install SQL Server. Following &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-ubuntu&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;the official&lt;/a&gt; documentation I run just 5 commands to set up and one to verify if the service works well:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl https://packages.microsoft.com/keys/microsoft.asc &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo apt-key add -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/mssql-server.list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install -y mssql-server
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo /opt/mssql/bin/mssql-conf setup
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl status mssql-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;OK, looks easy (and it is!). It really takes few minutes to have SQL Server on Linux experience. Now: I want to connect to SQL Server on VM from my Host machine (Windows). I have my SSMS there, with SQLPrompt (so you understand why I want to use it) - I want to connect to the VM.&lt;/p&gt;
+&lt;p&gt;But.&lt;/p&gt;
+&lt;p&gt;My internal network is 192.168.x.x and Ubuntu Linux creates 10.0.2.15 IP address for the machine. I don&amp;rsquo;t use Linux that often (also not that often on VirtualBox) and I don&amp;rsquo;t want to try allthis things with iptables, ifconfig setup and so on. Is there some magic switch I could use?&lt;/p&gt;
+&lt;p&gt;The internet says: yes, there is - Port Forwarding.&lt;/p&gt;
+&lt;p&gt;Open the settings for the virtual machine, switch to &lt;em&gt;Network&lt;/em&gt; tab and expand &lt;em&gt;Advanced&lt;/em&gt; part. There is a &lt;em&gt;Port Forwarding&lt;/em&gt; button. Don&amp;rsquo;t be shy, just click it.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/PortForwarding01.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/PortForwarding01.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Port forwarding option&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;On the Port Forwarding Rules setup window set things as on the picture: Host IP == 127.0.0.1, Host port - one of your choice - this is the port you will connect from Host VM. Guest IP means virtual machine IP and Guest Port is the port of service on VM. SQL Server runs on port 1433 on the Ubuntu Linux with address 10.0.2.15 and I forward it to my local machine to port 14333 (because I want to). The rule name is MSSQL to be clear what is it about, you can give any name you want.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/PortForwarding02.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/PortForwarding02.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Port forwarding setup&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Best with VM turned off as I&amp;rsquo;ve read to restart the machine after the change (and didn&amp;rsquo;t check it too much, just followed the instructions).&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s it! Now I use port 14333 (remember to use a comma!) in SSMS and I&amp;rsquo;m connected to VM with SQL Server on Linux.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/PortForwarding03.png&#34; &gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;images/PortForwarding03.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SSMS connect dialog&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

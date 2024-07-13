@@ -1,486 +1,652 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Testing database connections with ssisUnit - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.">
+<title>Testing database connections with ssisUnit</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Testing database connections with ssisUnit">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/">
-    <meta property="og:image" content="https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Testing database connections with ssisUnit">
+<meta property='og:description' content="Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.">
+<meta property='og:url' content='https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-04-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Testing database connections with ssisUnit">
+<meta name="twitter:description" content="Previously we successfully prepared tests for variables and parameters using VariableCommandand and ParameterCommand. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package 10_ProjectCM.dtsx - it is just getting a single value from the table in a database and storing it in a variable.">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-database">The database</a></li>
+    <li><a href="#the-tests">The tests</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/series/" >
+                Series
+            </a>
+        
+            <a href="/categories/testing/" >
+                Testing
+            </a>
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2018/04/13/testing-database-connections-with-ssisunit/">Testing database connections with ssisUnit</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 13, 2018</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
-
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2018/04/13/testing-database-connections-with-ssisunit/">Testing database connections with ssisUnit</a></h2>
+
     
-    
-  </div>
-  <div class="meta">
-    <time datetime="2018-04-13 00:00:00 &#43;0000 UTC">April 13, 2018</time>
-    
-    
-  </div>
-</header>
-
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2018/04/13/testing-database-connections-with-ssisunit/" class="image" style="--bg-image: url('/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png');">
-    <img src="/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" alt="">
-  </a>
-        
-        <p><a href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/">Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on <a href="https://github.com/BartekR/ssisUnit">my GitHub</a>.</p>
-<p>The package contains three SQL Tasks: the first just checks if we can communicate with the database using <code>SELECT 1</code> statement, the second gets the information from the table, and the third repeats the second on the container level.</p>
-<p><a href="images/PackageOutline.png"><img src="images/PackageOutline.png#center" alt="Package outline"></a></p>
-<h2 id="the-database">The database</h2>
-<p>I&rsquo;m not using database projects in SSDT on a daily basis. This learning project is an excellent reason to use it more, so I&rsquo;m building the database using the SSDT database project. The details of using them are not part of this series, so if you are not familiar with database projects just use the SQL files to create the required objects. The data is stored in the <code>Scripts</code> subfolder.</p>
-<h2 id="the-tests">The tests</h2>
-<p>The package <code>10_ProjectCM.dtsx</code> uses the <code>meta.SourceSystems</code> table to get <code>SourceSystemId</code> value for the package. After retrieval, it stores the value in the variable. So again I&rsquo;m using <code>VariableCommand</code> in my tests. But this time it&rsquo;s for values from the SQL commands.</p>
-<p>First - just verify if a connection to the database engine works correctly. It&rsquo;s enough to do just <code>SELECT one = 1</code> - if it works it means the communication with the database engine works well.</p>
-<p><a href="images/Select1.png"><img src="images/Select1.png#center" alt="SELECT 1"></a></p>
-<p>To verify it I&rsquo;m writing a test:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL SELECT 1&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{6781FCBA-83D7-45E3-B946-A8894B6BF924}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: Returns 1&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Value&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
-</span></span></code></pre></div><p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Package Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span> <span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{CA3E01B3-A958-4A12-81C9-1CB8F40410AF}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId == 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_Package&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Test</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SQL Get SourceSystemId (Container Scope)&#34;</span> <span style="color:#a6e22e">package=</span><span style="color:#e6db74">&#34;10\_ProjectCM&#34;</span><span style="color:#a6e22e">task=</span><span style="color:#e6db74">&#34;{64643f10-70c3-49e3-85b8-7b3ddebbe377}&#34;</span> <span style="color:#a6e22e">taskResult=</span><span style="color:#e6db74">&#34;Success&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Assert</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Assert: SourceSystemId = 2&#34;</span> <span style="color:#a6e22e">expectedResult=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">testBefore=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">expression=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;VariableCommand</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SourceSystemId\_ContainerScope&#34;</span> <span style="color:#a6e22e">operation=</span><span style="color:#e6db74">&#34;Get&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Assert&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Test&gt;</span>
-</span></span></code></pre></div><p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
-<h2 id="summary">Summary</h2>
-<p>Project level connection managers work well at the package and container level. Out of the box. You don&rsquo;t have to set up the <code>ConnectionRef</code> elements - they are for different purposes (as you will see in the following posts). You deal with the results the same way as with the other variables.</p>
-
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/testing/">Testing</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssisunit/">ssisUnit</a></li>
-        
-      
-    </ul>
-  
 </div>
 
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/" class="button left"><span>Using Connections and Datasets in ssisUnit</span></a>
-    
-    
-      <a href="/2018/03/26/writing-first-tests-with-ssisunit/" class="button right"><span>Writing first tests with ssisUnit</span></a>
-    
-  </div>
+</header>
 
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
+    <section class="article-content">
     
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
     
+    <p><a class="link" href="http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/"  target="_blank" rel="noopener"
+    >Previously</a> we successfully prepared tests for variables and parameters using <code>VariableCommandand</code> and <code>ParameterCommand</code>. Now it&rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&rsquo;s time to verify it against the projects. I will test the package <code>10_ProjectCM.dtsx</code> - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on <a class="link" href="https://github.com/BartekR/ssisUnit"  target="_blank" rel="noopener"
+    >my GitHub</a>.</p>
+<p>The package contains three SQL Tasks: the first just checks if we can communicate with the database using <code>SELECT 1</code> statement, the second gets the information from the table, and the third repeats the second on the container level.</p>
+<p><a class="link" href="images/PackageOutline.png" >
   
+  <p style="text-align: center;">
+    <img src="images/PackageOutline.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Package outline"
+	
+	
+>
+  </p>
 
+</a></p>
+<h2 id="the-database">The database
+</h2><p>I&rsquo;m not using database projects in SSDT on a daily basis. This learning project is an excellent reason to use it more, so I&rsquo;m building the database using the SSDT database project. The details of using them are not part of this series, so if you are not familiar with database projects just use the SQL files to create the required objects. The data is stored in the <code>Scripts</code> subfolder.</p>
+<h2 id="the-tests">The tests
+</h2><p>The package <code>10_ProjectCM.dtsx</code> uses the <code>meta.SourceSystems</code> table to get <code>SourceSystemId</code> value for the package. After retrieval, it stores the value in the variable. So again I&rsquo;m using <code>VariableCommand</code> in my tests. But this time it&rsquo;s for values from the SQL commands.</p>
+<p>First - just verify if a connection to the database engine works correctly. It&rsquo;s enough to do just <code>SELECT one = 1</code> - if it works it means the communication with the database engine works well.</p>
+<p><a class="link" href="images/Select1.png" >
   
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
+  <p style="text-align: center;">
+    <img src="images/Select1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="SELECT 1"
+	
+	
+>
+  </p>
+
+</a></p>
+<p>To verify it I&rsquo;m writing a test:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Test</span> <span class="na">name=</span><span class="s">&#34;SQL SELECT 1&#34;</span> <span class="na">package=</span><span class="s">&#34;10\_ProjectCM&#34;</span> <span class="na">task=</span><span class="s">&#34;{6781FCBA-83D7-45E3-B946-A8894B6BF924}&#34;</span> <span class="na">taskResult=</span><span class="s">&#34;Success&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: Returns 1&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;1&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;Value&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Test&gt;</span>
+</span></span></code></pre></div><p>The expected result is <code>1</code> - I&rsquo;m assigning the result to the variable named <code>Value</code> so - as I mentioned earlier - I will use the <code>VariableCommand</code>. The two remaining tests work similar - <em>SQL Task</em> executes the <code>SELECT</code> statement against the database and assigns the results to the variables. I&rsquo;m also testing the statement within a container to check if everything works when I&rsquo;m not at the package level scope. The tests are:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Test</span> <span class="na">name=</span><span class="s">&#34;SQL Get SourceSystemId (Package Scope)&#34;</span> <span class="na">package=</span><span class="s">&#34;10\_ProjectCM&#34;</span> <span class="na">task=</span><span class="s">&#34;{CA3E01B3-A958-4A12-81C9-1CB8F40410AF}&#34;</span> <span class="na">taskResult=</span><span class="s">&#34;Success&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: SourceSystemId == 2&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;2&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;SourceSystemId\_Package&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Test&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Test</span> <span class="na">name=</span><span class="s">&#34;SQL Get SourceSystemId (Container Scope)&#34;</span> <span class="na">package=</span><span class="s">&#34;10\_ProjectCM&#34;</span><span class="na">task=</span><span class="s">&#34;{64643f10-70c3-49e3-85b8-7b3ddebbe377}&#34;</span> <span class="na">taskResult=</span><span class="s">&#34;Success&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Assert</span> <span class="na">name=</span><span class="s">&#34;Assert: SourceSystemId = 2&#34;</span> <span class="na">expectedResult=</span><span class="s">&#34;2&#34;</span> <span class="na">testBefore=</span><span class="s">&#34;false&#34;</span> <span class="na">expression=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;VariableCommand</span> <span class="na">name=</span><span class="s">&#34;SourceSystemId\_ContainerScope&#34;</span> <span class="na">operation=</span><span class="s">&#34;Get&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Assert&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Test&gt;</span>
+</span></span></code></pre></div><p>Nothing extraordinary. As you see - verifying if the task returns the expected value for the variable just repeat the step from the previous post.</p>
+<h2 id="summary">Summary
+</h2><p>Project level connection managers work well at the package and container level. Out of the box. You don&rsquo;t have to set up the <code>ConnectionRef</code> elements - they are for different purposes (as you will see in the following posts). You deal with the results the same way as with the other variables.</p>
+
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/ssisunit/">SsisUnit</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2018/03/26/writing-first-tests-with-ssisunit/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Writing first tests with ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Testing SSIS Projects with ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects - part III</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part II</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Upgrading SSIS projects, part I</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

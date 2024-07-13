@@ -1,322 +1,586 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>So, you want to migrate SSIS(DB)? - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017.">
+<title>So, you want to migrate SSIS(DB)?</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="So, you want to migrate SSIS(DB)?">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/">
-    <meta property="og:image" content="https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="So, you want to migrate SSIS(DB)?">
+<meta property='og:description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017.">
+<meta property='og:url' content='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SQL Server 2017' /><meta property='article:tag' content='SSIS' /><meta property='article:published_time' content='2017-11-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2017-11-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="So, you want to migrate SSIS(DB)?">
+<meta name="twitter:description" content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017.">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-setup">The setup</a></li>
+    <li><a href="#database-master-key">Database Master Key</a></li>
+    <li><a href="#back-to-the-migration">Back to the migration</a></li>
+    <li><a href="#dbatools">dbatools</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/sql-server/" >
+                SQL Server
+            </a>
+        
+            <a href="/categories/ssis-internals/" >
+                SSIS Internals
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">So, you want to migrate SSIS(DB)?</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 06, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">So, you want to migrate SSIS(DB)?</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2017-11-06 00:00:00 &#43;0000 UTC">November 6, 2017</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="image" style="--bg-image: url('/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png');">
-    <img src="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="">
-  </a>
-        
-        <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
+    <section class="article-content">
+    
+    
+    <p>Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.</p>
 <p>The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).</p>
-<p>I won&rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&rsquo;t use <a href="https://dbatools.io/functions/copy-dbassiscatalog/">Copy-DbaSsisCatalog</a> from <a href="http://dbatools.io">dbatools</a>.</p>
-<h2 id="the-setup">The setup</h2>
-<p>Let&rsquo;s do an example setup. I have Integration Services catalog with one folder (Test) that contains one environment (no projects) with two variables:</p>
+<p>I won&rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&rsquo;t use <a class="link" href="https://dbatools.io/functions/copy-dbassiscatalog/"  target="_blank" rel="noopener"
+    >Copy-DbaSsisCatalog</a> from <a class="link" href="http://dbatools.io"  target="_blank" rel="noopener"
+    >dbatools</a>.</p>
+<h2 id="the-setup">The setup
+</h2><p>Let&rsquo;s do an example setup. I have Integration Services catalog with one folder (Test) that contains one environment (no projects) with two variables:</p>
 <p>String1 (type: String) = 123 String2 (type: String) = 123 (sensitive, encrypted)</p>
-<p><a href="images/SSISEnvironment.png"><img src="images/SSISEnvironment.png" alt="SSIS environment"></a></p>
-<p>First thing - the backup and restore procedure works fine. You can see the folders and projects in Integration services catalog and SSISDB database. The problem starts when you run the package, start validation or want to check the sensitive variables. I will check the last one using <strong>dbatools</strong> and <a href="https://dbatools.io/Get-DbaSsisEnvironmentVariable">Get-DbaSsisEnvironmentVariable</a> command (replace &lt;instancename&gt; with your instance if you&rsquo;re using named instances):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-DbaSsisEnvironmentVariable -SqlInstance <span style="color:#e6db74">&#39;&lt;instancename&gt;\\SQL2016&#39;</span> -Environment PROD | Select-Object Name,Type,IsSensitive,Value |<span style="color:#960050;background-color:#1e0010"> </span> Format-Table
+<p><a class="link" href="images/SSISEnvironment.png" >
+<img src="images/SSISEnvironment.png"
+	width="758"
+	height="507"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SSIS environment"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="358px"
+	
+>
+
+</a></p>
+<p>First thing - the backup and restore procedure works fine. You can see the folders and projects in Integration services catalog and SSISDB database. The problem starts when you run the package, start validation or want to check the sensitive variables. I will check the last one using <strong>dbatools</strong> and <a class="link" href="https://dbatools.io/Get-DbaSsisEnvironmentVariable"  target="_blank" rel="noopener"
+    >Get-DbaSsisEnvironmentVariable</a> command (replace &lt;instancename&gt; with your instance if you&rsquo;re using named instances):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-DbaSsisEnvironmentVariable</span> <span class="n">-SqlInstance</span> <span class="s1">&#39;&lt;instancename&gt;\\SQL2016&#39;</span> <span class="n">-Environment</span> <span class="n">PROD</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span><span class="n">Type</span><span class="p">,</span><span class="n">IsSensitive</span><span class="p">,</span><span class="n">Value</span> <span class="p">|</span>  <span class="nb">Format-Table</span>
 </span></span></code></pre></div><p>The result:</p>
-<p><a href="images/Get-DbaSsisEnvironmentVariableOK.png"><img src="images/Get-DbaSsisEnvironmentVariableOK-1024x84.png" alt="Get-DbaSsisEnvironmentVariable"></a></p>
+<p><a class="link" href="images/Get-DbaSsisEnvironmentVariableOK.png" >
+<img src="images/Get-DbaSsisEnvironmentVariableOK-1024x84.png"
+	width="1024"
+	height="84"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Get-DbaSsisEnvironmentVariable"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1219"
+		data-flex-basis="2925px"
+	
+>
+
+</a></p>
 <p>I selected only four attributes presented as a table for better readability. Everything is OK. So - back up the database on source instance (.\SQL2016), restore on another instance (.\SQL2017) and run again the <code>Get-DbaSsisEnvironmentVariable</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- .\SQL2016
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>USE [master]
-</span></span><span style="display:flex;"><span>BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TO</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>DESCRIPTION <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB Migration demo - SQL2016&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOFORMAT,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOINIT,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NAME <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB-Full Database Backup&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>SKIP,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOREWIND,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOUNLOAD,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>COMPRESSION,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>CHECKSUM
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- .\SQL2017
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>USE [master]
-</span></span><span style="display:flex;"><span>RESTORE <span style="color:#66d9ef">DATABASE</span> [SSISDB]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>FILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;data&#39;</span> <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;log&#39;</span><span style="color:#960050;background-color:#1e0010"> </span> <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOUNLOAD,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">25</span>
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
-</span></span></code></pre></div><p>The result:</p>
-<p><a href="images/Get-DbaSsisEnvironmentVariableERROR.png"><img src="images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png" alt="Get-DbaSsisEnvironmentVariable error"></a></p>
-<p>To get the error message in PowerShell I used a trick I found on <a href="https://nocolumnname.wordpress.com/2017/03/02/powershell-getting-more-from-generic-error-messages/">Shane&rsquo;s blog post</a> a while ago and just printed the full exception:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$Error[<span style="color:#ae81ff">0</span>].Exception.ToString()
-</span></span></code></pre></div><p><a href="images/Get-DbaSsisEnvironmentVariableERRORDetails.png"><img src="images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png" alt="Error details"></a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- .\SQL2016
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="p">[</span><span class="n">master</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">BACKUP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">SSISDB</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\tmp\SSISDB2016.bak&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WITH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">DESCRIPTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;SSISDB Migration demo - SQL2016&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOFORMAT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOINIT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;SSISDB-Full Database Backup&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SKIP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOREWIND</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOUNLOAD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">COMPRESSION</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">STATS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">CHECKSUM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- .\SQL2017
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="p">[</span><span class="n">master</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">RESTORE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">SSISDB</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\tmp\SSISDB2016.bak&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WITH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">FILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MOVE</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;data&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MOVE</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;log&#39;</span><span class="w">  </span><span class="k">TO</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOUNLOAD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">STATS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span></code></pre></div><p>The result:</p>
+<p><a class="link" href="images/Get-DbaSsisEnvironmentVariableERROR.png" >
+<img src="images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png"
+	width="1024"
+	height="127"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Get-DbaSsisEnvironmentVariable error"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="806"
+		data-flex-basis="1935px"
+	
+>
+
+</a></p>
+<p>To get the error message in PowerShell I used a trick I found on <a class="link" href="https://nocolumnname.wordpress.com/2017/03/02/powershell-getting-more-from-generic-error-messages/"  target="_blank" rel="noopener"
+    >Shane&rsquo;s blog post</a> a while ago and just printed the full exception:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$Error</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">Exception</span><span class="p">.</span><span class="py">ToString</span><span class="p">()</span>
+</span></span></code></pre></div><p><a class="link" href="images/Get-DbaSsisEnvironmentVariableERRORDetails.png" >
+<img src="images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png"
+	width="1024"
+	height="51"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Error details"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2007"
+		data-flex-basis="4818px"
+	
+>
+
+</a></p>
 <blockquote>
 <p><em>Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.</em></p>
 </blockquote>
 <p>Hmm, what should we do?</p>
-<h2 id="database-master-key">Database Master Key</h2>
-<p>Let&rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running <code>[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)</code> procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - <em>Database Master Key</em>. You can take a backup of that key and use it after restoring on another instance, but let&rsquo;s skip this for now.</p>
-<p><a href="images/SSISCatalogCreation.png"><img src="images/SSISCatalogCreation.png#center" alt="Create SSIS Catalog"></a></p>
+<h2 id="database-master-key">Database Master Key
+</h2><p>Let&rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running <code>[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)</code> procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - <em>Database Master Key</em>. You can take a backup of that key and use it after restoring on another instance, but let&rsquo;s skip this for now.</p>
+<p><a class="link" href="images/SSISCatalogCreation.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SSISCatalogCreation.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Create SSIS Catalog"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>What is a Database Master Key (DMK)? It&rsquo;s the main key used for encryption in the database. It&rsquo;s a symmetric key, which means it uses one password to encrypt and decrypt the objects. By default it is encrypted using <em>Service Master Key</em> (SMK) and a password - that&rsquo;s why we provide the password. In SSISDB the DMK is used to encrypt certificates used in the projects and the environments.</p>
 <p>We are encouraged to write down the password somewhere, but sometimes we forget where we put it. Or the person responsible for administration doesn&rsquo;t work in the company any longer? What do we do, when we need to move the database to another server and we have no pasword for the key?</p>
 <p>We panic.</p>
-<p>Or not. There is a nice thing <a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql">in the documentation</a> (my <strong>emphasis</strong>):</p>
+<p>Or not. There is a nice thing <a class="link" href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql"  target="_blank" rel="noopener"
+    >in the documentation</a> (my <strong>emphasis</strong>):</p>
 <blockquote>
 <p>For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and <strong>at least one password</strong>. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it <strong>encrypted by each password</strong> specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.</p>
 </blockquote>
 <p>We can use more than one password to encrypt DMK. It&rsquo;s a great help for us if we don&rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.</p>
 <p>We may also remove the encryption with Service Master Key and use only the password, but then we always have to use <code>OPEN MASTER KEY</code> before decrypting the data. Using SMK performs this operation for us in the background.</p>
-<h2 id="back-to-the-migration">Back to the migration</h2>
-<p>The database backup contains also the DMK with all its passwords. And if we didn&rsquo;t change the defaults (I didn&rsquo;t) the DMK is also encrypted with SMK. The SSISDB restore operation is made on another instance with different SMK, so there is a problem with decrypting the DMK - it&rsquo;s encrypted with SMK from original server and we try to decrypt DMK with SMK from new server - it doesn&rsquo;t work. One more time - part of the error:</p>
+<h2 id="back-to-the-migration">Back to the migration
+</h2><p>The database backup contains also the DMK with all its passwords. And if we didn&rsquo;t change the defaults (I didn&rsquo;t) the DMK is also encrypted with SMK. The SSISDB restore operation is made on another instance with different SMK, so there is a problem with decrypting the DMK - it&rsquo;s encrypted with SMK from original server and we try to decrypt DMK with SMK from new server - it doesn&rsquo;t work. One more time - part of the error:</p>
 <p><em>Please create a master key in the database or open the master key in the session before performing this operation.</em></p>
 <p>If we can&rsquo;t open the DMK with the SMK, we have to open it manually using <code>OPEN MASTER KEY</code> with the password. Then we can sign the DMK with the SMK from the new server. If you know the password - just use it. If not - alter the DMK on the original server by adding new password (optionally removing the binding from SMK) before taking the backup and use it on new server. The T-SQL code looks like this (let&rsquo;s say I don&rsquo; t remember/know the password for the DMK in SSISDB):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- .\SQL2016
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>USE SSISDB;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- I forgot the password, add a new one
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#66d9ef">ADD</span> ENCRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- backup the database with DMK signed with new password
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>USE [master]
-</span></span><span style="display:flex;"><span>BACKUP <span style="color:#66d9ef">DATABASE</span> [SSISDB]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">TO</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>DESCRIPTION <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB Migration demo - SQL2016&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOFORMAT,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOINIT,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NAME <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;SSISDB-Full Database Backup&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>SKIP,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOREWIND,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>NOUNLOAD,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>COMPRESSION,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span>CHECKSUM
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- .\SQL2017
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>USE [master]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- restore from backup, nothing new
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>RESTORE <span style="color:#66d9ef">DATABASE</span> [SSISDB]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> DISK <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;C:\tmp\SSISDB2016.bak&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
-</span></span><span style="display:flex;"><span>    FILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;data&#39;</span> <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">MOVE</span> N<span style="color:#e6db74">&#39;log&#39;</span>  <span style="color:#66d9ef">TO</span> N<span style="color:#e6db74">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span>,
-</span></span><span style="display:flex;"><span>    NOUNLOAD,
-</span></span><span style="display:flex;"><span>    STATS <span style="color:#f92672">=</span> <span style="color:#ae81ff">25</span>
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- open the DMK using the password I just added on original server
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">OPEN</span> MASTER <span style="color:#66d9ef">KEY</span> DECRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- encrypt the DMK with SMK of the new server
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ADD</span> ENCRYPTION <span style="color:#66d9ef">BY</span> SERVICE MASTER <span style="color:#66d9ef">KEY</span>
-</span></span><span style="display:flex;"><span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">-- tidy up
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CLOSE</span> MASTER <span style="color:#66d9ef">KEY</span>
-</span></span><span style="display:flex;"><span>;
-</span></span></code></pre></div><p>Now I can read SSIS environment variables on the new server. Congratulations, migration successful.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-DbaSsisEnvironmentVariable -SqlInstance <span style="color:#e6db74">&#39;\SQL2017&#39;</span> -Environment PROD | Select-Object Name,Type,IsSensitive,Value |  Format-Table
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- .\SQL2016
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="n">SSISDB</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- I forgot the password, add a new one
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">ADD</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Migration_Password123!&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- backup the database with DMK signed with new password
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="p">[</span><span class="n">master</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">BACKUP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">SSISDB</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\tmp\SSISDB2016.bak&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WITH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">DESCRIPTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;SSISDB Migration demo - SQL2016&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOFORMAT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOINIT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;SSISDB-Full Database Backup&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SKIP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOREWIND</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOUNLOAD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">COMPRESSION</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">STATS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">CHECKSUM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- .\SQL2017
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="p">[</span><span class="n">master</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- restore from backup, nothing new
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">RESTORE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="p">[</span><span class="n">SSISDB</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\tmp\SSISDB2016.bak&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WITH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">FILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MOVE</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;data&#39;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.mdf&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MOVE</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;log&#39;</span><span class="w">  </span><span class="k">TO</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;C:\Program Files\Microsoft SQL Server\MSSQL14.SQL2017\MSSQL\DATA\SSISDB.ldf&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NOUNLOAD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">STATS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- open the DMK using the password I just added on original server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">OPEN</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">DECRYPTION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Migration_Password123!&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- encrypt the DMK with SMK of the new server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">ADD</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">SERVICE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- tidy up
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CLOSE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>Now I can read SSIS environment variables on the new server. Congratulations, migration successful.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-DbaSsisEnvironmentVariable</span> <span class="n">-SqlInstance</span> <span class="s1">&#39;\SQL2017&#39;</span> <span class="n">-Environment</span> <span class="n">PROD</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span><span class="n">Type</span><span class="p">,</span><span class="n">IsSensitive</span><span class="p">,</span><span class="n">Value</span> <span class="p">|</span>  <span class="nb">Format-Table</span>
 </span></span></code></pre></div><p>Last thing - at the end we should drop the password we used for migration. We can do this using command</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> MASTER <span style="color:#66d9ef">KEY</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  </span> <span style="color:#960050;background-color:#1e0010"> </span><span style="color:#66d9ef">DROP</span> ENCRYPTION <span style="color:#66d9ef">BY</span> PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Migration_Password123!&#39;</span>
-</span></span><span style="display:flex;"><span>;
-</span></span></code></pre></div><p>This is just a migration of SSISDB. Running the packages, upgrading them, solving problems - it&rsquo;s something to cover in another post.</p>
-<h2 id="dbatools">dbatools</h2>
-<p>There is a <a href="https://dbatools.io/functions/copy-dbassiscatalog/">Copy-DbaSsisCatalog</a> command in dbatools. It copies the data from one SSIS catalog to another. The thing is - it reads the objects on source server and recreates them on destination server without some things that are crucial to me:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DROP</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Migration_Password123!&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>This is just a migration of SSISDB. Running the packages, upgrading them, solving problems - it&rsquo;s something to cover in another post.</p>
+<h2 id="dbatools">dbatools
+</h2><p>There is a <a class="link" href="https://dbatools.io/functions/copy-dbassiscatalog/"  target="_blank" rel="noopener"
+    >Copy-DbaSsisCatalog</a> command in dbatools. It copies the data from one SSIS catalog to another. The thing is - it reads the objects on source server and recreates them on destination server without some things that are crucial to me:</p>
 <ul>
 <li>it creates new objects in the target server, meaning they (may) have different identifiers than in source SSISDB</li>
 <li>it does not copy environment references - I have to recreate them manually - and I also have to fix my jobs that use the environment reference id in the definition</li>
@@ -325,269 +589,223 @@
 </ul>
 <p>So the backup/restore/alter DMK procedure is OK for me.</p>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/sql-server/">SQL Server</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/ssis-internals/">SSIS internals</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/migration/">migration</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/sql-server-2017/">SQL Server 2017</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/" class="button left"><span>T-SQL Tuesday #96: Folks Who Have Made a Difference</span></a>
-    
-    
-      <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/" class="button right"><span>Learning something new: getting information from SSIS packages with PowerShell</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/migration/">Migration</a>
+        
+            <a href="/tags/sql-server-2017/">SQL Server 2017</a>
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: getting information from SSIS packages with PowerShell</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: connections in SSIS package</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Get the passwords from SSIS Environment variables</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/05/03/what-happens-during-ssis-deployments/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">What happens during SSIS deployments?</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

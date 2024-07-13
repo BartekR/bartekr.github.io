@@ -1,254 +1,459 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Using the system OAuth token in Azure DevOps - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):">
+<title>Using the system OAuth token in Azure DevOps</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Using the system OAuth token in Azure DevOps">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/">
-    <meta property="og:image" content="https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Using the system OAuth token in Azure DevOps">
+<meta property='og:description' content="One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):">
+<meta property='og:url' content='https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Azure DevOps' /><meta property='article:tag' content='OAuth' /><meta property='article:tag' content='PowerShell' /><meta property='article:tag' content='security' /><meta property='article:published_time' content='2020-09-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-09-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Using the system OAuth token in Azure DevOps">
+<meta name="twitter:description" content="One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing Invoke-WebRequest (with try/catch logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#so-build-me-a-classic-pipeline">So, build me a classic pipeline</a></li>
+    <li><a href="#but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the <strong>YAML</strong> pipeline to work</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/troubleshooting/" >
+                Troubleshooting
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 24, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/">Using the system OAuth token in Azure DevOps</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-09-24 00:00:00 &#43;0000 UTC">September 24, 2020</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2020/09/24/using-the-system-oauth-token-in-azure-devops/" class="image" style="--bg-image: url('/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png');">
-    <img src="/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="">
-  </a>
-        
-        <p>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing <code>Invoke-WebRequest</code> (with <code>try/catch</code> logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>StatusCode : 203
-</span></span><span style="display:flex;"><span>StatusDescription : NonAuthoritativeInformation
+    <section class="article-content">
+    
+    
+    <p>One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing <code>Invoke-WebRequest</code> (with <code>try/catch</code> logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">StatusCode : 203
+</span></span><span class="line"><span class="cl">StatusDescription : NonAuthoritativeInformation
 </span></span></code></pre></div><p>The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.</p>
 <p>To better understand the problem I created a two brand new separate Azure DevOps projects and built two pipelines: one using the classic interface, the second using YAML. Also, I made the testing easier and I just read all the comments.</p>
 <p>Why two projects? To test how it works when I call to the task in the same project and the task outside the project. The initial problem I wanted to solve was running the build pipeline in project X and add the comments to the task in the project Y. But if I wanted to understand the mechanics from the ground up and find the solution I had to begin with smaller steps.</p>
-<h2 id="so-build-me-a-classic-pipeline">So, build me a classic pipeline</h2>
-<p>My setup is just one PowerShell script calling the task address using <code>Invoke-WebRequest</code> (or <code>Invoke-RestMethod</code>). The script uses two parameters - project name and task id, as I will test two cases and don&rsquo;t want to prepare hardcoded values for both tests.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">param</span>(
-</span></span><span style="display:flex;"><span>    $project = <span style="color:#e6db74">&#39;CrossProjectTest01&#39;</span>,
-</span></span><span style="display:flex;"><span>    $workitem = <span style="color:#ae81ff">26</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$uri = <span style="color:#e6db74">&#34;https://dev.azure.com/bartekr/</span>$project<span style="color:#e6db74">/_apis/wit/workItems/</span>$workitem<span style="color:#e6db74">/comments?api-version=6.0-preview.3&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Write-Host <span style="color:#e6db74">&#34;Uri </span>$uri<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>Write-Host <span style="color:#e6db74">&#34;AccessToken: </span>$env:SYSTEM_ACCESSTOKEN<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$result = Invoke-WebRequest \`
-</span></span><span style="display:flex;"><span>    -Uri $uri \`
-</span></span><span style="display:flex;"><span>    -Method GET \`
-</span></span><span style="display:flex;"><span>    -Headers @{ Authorization = <span style="color:#e6db74">&#34;Bearer </span>$env:SYSTEM_ACCESSTOKEN<span style="color:#e6db74">&#34;</span> } \`
-</span></span><span style="display:flex;"><span>    -UseBasicParsing
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$result
-</span></span></code></pre></div><p>The most important part of the code is <code>-Headers @{ Authorization = &quot;Bearer $env:SYSTEM_ACCESSTOKEN&quot; }</code>. It involves <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=classic#systemaccesstoken">a special system OAuth token</a> available during the job execution. We could use a PAT (Personal Access Token) with required privileges to do the same, but why create one if we have already one at hand? Also pay attention that there is a <strong>Bearer</strong> keyword, not a Basic auth.</p>
+<h2 id="so-build-me-a-classic-pipeline">So, build me a classic pipeline
+</h2><p>My setup is just one PowerShell script calling the task address using <code>Invoke-WebRequest</code> (or <code>Invoke-RestMethod</code>). The script uses two parameters - project name and task id, as I will test two cases and don&rsquo;t want to prepare hardcoded values for both tests.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="k">param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$project</span> <span class="p">=</span> <span class="s1">&#39;CrossProjectTest01&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$workitem</span> <span class="p">=</span> <span class="mf">26</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$uri</span> <span class="p">=</span> <span class="s2">&#34;https://dev.azure.com/bartekr/</span><span class="nv">$project</span><span class="s2">/_apis/wit/workItems/</span><span class="nv">$workitem</span><span class="s2">/comments?api-version=6.0-preview.3&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Uri </span><span class="nv">$uri</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;AccessToken: </span><span class="nv">$env:SYSTEM_ACCESSTOKEN</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="p">\`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Uri</span> <span class="nv">$uri</span> <span class="p">\`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Method</span> <span class="n">GET</span> <span class="p">\`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Headers</span> <span class="vm">@</span><span class="p">{</span> <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Bearer </span><span class="nv">$env:SYSTEM_ACCESSTOKEN</span><span class="s2">&#34;</span> <span class="p">}</span> <span class="p">\`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-UseBasicParsing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span>
+</span></span></code></pre></div><p>The most important part of the code is <code>-Headers @{ Authorization = &quot;Bearer $env:SYSTEM_ACCESSTOKEN&quot; }</code>. It involves <a class="link" href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=classic#systemaccesstoken"  target="_blank" rel="noopener"
+    >a special system OAuth token</a> available during the job execution. We could use a PAT (Personal Access Token) with required privileges to do the same, but why create one if we have already one at hand? Also pay attention that there is a <strong>Bearer</strong> keyword, not a Basic auth.</p>
 <p>Using a default setup (create an empty classic pipeline, add steps) I get the output as described at the beginning of the post:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
-</span></span><span style="display:flex;"><span>AccessToken:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>StatusCode : 203
-</span></span><span style="display:flex;"><span>StatusDescription : Non-Authoritative Information
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
+</span></span><span class="line"><span class="cl">AccessToken:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">StatusCode : 203
+</span></span><span class="line"><span class="cl">StatusDescription : Non-Authoritative Information
 </span></span></code></pre></div><p>The access token has no value - that explains why there is no access (203 code). To fix it - edit the pipeline, go to &ldquo;<em>Run on agent</em>&rdquo; job settings, scroll down and check the &ldquo;<em>Allow scripts to access the OAuth token</em>&rdquo; option.</p>
-<p><img src="images/AzureDevOps_SystemAccessToken_ClassicPipeline.png#center" alt="Allow scripts to access the OAuth token"></p>
+<p>
+  
+  <p style="text-align: center;">
+    <img src="images/AzureDevOps_SystemAccessToken_ClassicPipeline.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Allow scripts to access the OAuth token"
+	
+	
+>
+  </p>
+
+</p>
 <p>Now the job will finish as expected - the <code>System.AccessToken</code> is visible to the process.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
-</span></span><span style="display:flex;"><span>AccessToken: ***
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>StatusCode        : 200
-</span></span><span style="display:flex;"><span>StatusDescription : OK
-</span></span><span style="display:flex;"><span>Content           : {<span style="color:#e6db74">&#34;totalCount&#34;</span>:1,<span style="color:#e6db74">&#34;count&#34;</span>:1,<span style="color:#e6db74">&#34;comments&#34;</span>:[{<span style="color:#e6db74">&#34;workItemId&#34;</span>:26,<span style="color:#e6db74">&#34;id&#34;</span>:2806326,<span style="color:#e6db74">&#34;version&#34;</span>:1,<span style="color:#e6db74">&#34;text&#34;</span>:<span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Uri https://dev.azure.com/bartekr/CrossProjectTest01/_apis/wit/workItems/26/comments?api-version=6.0-preview.3
+</span></span><span class="line"><span class="cl">AccessToken: ***
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">StatusCode        : 200
+</span></span><span class="line"><span class="cl">StatusDescription : OK
+</span></span><span class="line"><span class="cl">Content           : {<span class="s2">&#34;totalCount&#34;</span>:1,<span class="s2">&#34;count&#34;</span>:1,<span class="s2">&#34;comments&#34;</span>:[{<span class="s2">&#34;workItemId&#34;</span>:26,<span class="s2">&#34;id&#34;</span>:2806326,<span class="s2">&#34;version&#34;</span>:1,<span class="s2">&#34;text&#34;</span>:<span class="s2">&#34;</span>
 </span></span></code></pre></div><p>This worked when the pipeline and the work item were in the same project. When I set the parameters for the PowerShell script to call the task from another project (CrossProjectTest02) I got the error &ldquo;<em>project with id (&hellip;) does not exist, or you do not have permission to access it</em>&rdquo;:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Uri https://dev.azure.com/bartekr/CrossProjectTest02/_apis/wit/workItems/27/comments?api-version=6.0-preview.3
-</span></span><span style="display:flex;"><span>AccessToken: ***
-</span></span><span style="display:flex;"><span>Invoke-WebRequest : {<span style="color:#e6db74">&#34;$id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;innerException&#34;</span>:null,<span style="color:#e6db74">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;VS800075: The project with id</span>
-</span></span><span style="display:flex;"><span>&#39;vstfs:///Classification/TeamProject/8634ba98-f13c-46c4-a30c-eedc6dbeb32b&#39; does not exist, or you do not have
-</span></span><span style="display:flex;"><span>permission to access it.<span style="color:#e6db74">&#34;,&#34;</span>typeName<span style="color:#e6db74">&#34;:&#34;</span>Microsoft.TeamFoundation.Core.WebApi.ProjectDoesNotExistException,
-</span></span><span style="display:flex;"><span>Microsoft.TeamFoundation.Core.WebApi<span style="color:#e6db74">&#34;,&#34;</span>typeKey<span style="color:#e6db74">&#34;:&#34;</span>ProjectDoesNotExistException<span style="color:#e6db74">&#34;,&#34;</span>errorCode<span style="color:#e6db74">&#34;:0,&#34;</span>eventId<span style="color:#e6db74">&#34;:3000}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Uri https://dev.azure.com/bartekr/CrossProjectTest02/_apis/wit/workItems/27/comments?api-version=6.0-preview.3
+</span></span><span class="line"><span class="cl">AccessToken: ***
+</span></span><span class="line"><span class="cl">Invoke-WebRequest : {<span class="s2">&#34;$id&#34;</span>:<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;innerException&#34;</span>:null,<span class="s2">&#34;message&#34;</span>:<span class="s2">&#34;VS800075: The project with id</span>
+</span></span><span class="line"><span class="cl">&#39;vstfs:///Classification/TeamProject/8634ba98-f13c-46c4-a30c-eedc6dbeb32b&#39; does not exist, or you do not have
+</span></span><span class="line"><span class="cl">permission to access it.<span class="s2">&#34;,&#34;</span>typeName<span class="s2">&#34;:&#34;</span>Microsoft.TeamFoundation.Core.WebApi.ProjectDoesNotExistException,
+</span></span><span class="line"><span class="cl">Microsoft.TeamFoundation.Core.WebApi<span class="s2">&#34;,&#34;</span>typeKey<span class="s2">&#34;:&#34;</span>ProjectDoesNotExistException<span class="s2">&#34;,&#34;</span>errorCode<span class="s2">&#34;:0,&#34;</span>eventId<span class="s2">&#34;:3000}</span>
 </span></span></code></pre></div><p>It&rsquo;s because I have &ldquo;<em>Limit job authorization scope to current project</em>&rdquo; both for release and non-release pipelines set to ON (see: <em>Project settings &gt; Pipelines &gt; Settings</em>)</p>
-<p><img src="images/AzureDevOps_PipelineSettings.png#center" alt="Pipeline settings"></p>
+<p>
+  
+  <p style="text-align: center;">
+    <img src="images/AzureDevOps_PipelineSettings.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Pipeline settings"
+	
+	
+>
+  </p>
+
+</p>
 <p>After setting the &ldquo;<em>Limit job authorization scope to current project for non-release pipelines</em>&rdquo; to OFF (in CrossProject01, as there is my pipeline) everything works. It&rsquo;s enough for me to set off for non-release because I&rsquo;m working on the build pipeline.</p>
-<h2 id="but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the <strong>YAML</strong> pipeline to work</h2>
-<p>The crucial part for the YAML pipeline is: &ldquo;<a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=yaml#systemaccesstoken">In YAML, you must explicitly map System.AccessToken into the pipeline using a variable.</a>&rdquo;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">steps</span>:
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">task</span>: <span style="color:#ae81ff">PowerShell@2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">displayName</span>: <span style="color:#e6db74">&#39;Get comments&#39;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">inputs</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">filePath</span>: <span style="color:#ae81ff">Get-WorkItemComments.ps1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">env</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">SYSTEM_ACCESSTOKEN</span>: <span style="color:#ae81ff">$(System.AccessToken)</span>
-</span></span></code></pre></div><p>Note to self: <strong>ALWAYS</strong> pay attention to what you write in the <code>env</code> section of the PowerShell task. <code>$(Aystem.AccesToken)</code> looks similar but does not work.</p>
+<h2 id="but-but-i-wanted-the-yaml-pipeline-to-work">But&hellip; but I wanted the <strong>YAML</strong> pipeline to work
+</h2><p>The crucial part for the YAML pipeline is: &ldquo;<a class="link" href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=yaml#systemaccesstoken"  target="_blank" rel="noopener"
+    >In YAML, you must explicitly map System.AccessToken into the pipeline using a variable.</a>&rdquo;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Get comments&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">filePath</span><span class="p">:</span><span class="w"> </span><span class="l">Get-WorkItemComments.ps1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SYSTEM_ACCESSTOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">$(System.AccessToken)</span><span class="w">
+</span></span></span></code></pre></div><p>Note to self: <strong>ALWAYS</strong> pay attention to what you write in the <code>env</code> section of the PowerShell task. <code>$(Aystem.AccesToken)</code> looks similar but does not work.</p>
 <p>So, the things to remember for the future:</p>
 <ol>
 <li>In the classic pipeline &ldquo;Allow scripts to access the OAuth token&rdquo;</li>
@@ -256,269 +461,199 @@
 <li>Disable the &ldquo;Limit job authorization scope to current project&rdquo; options to access different projects than the current one</li>
 </ol>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/troubleshooting/">Troubleshooting</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/azure-devops/">Azure DevOps</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/oauth/">OAuth</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/powershell/">PowerShell</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/security/">security</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2020/11/01/migrating-to-github-pages/" class="button left"><span>Migrating to GitHub Pages</span></a>
-    
-    
-      <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/" class="button right"><span>Have problems with Docker Desktop for Windows Home? Yeah, me too!</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/azure-devops/">Azure DevOps</a>
+        
+            <a href="/tags/oauth/">OAuth</a>
+        
+            <a href="/tags/powershell/">PowerShell</a>
+        
+            <a href="/tags/security/">Security</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Adding a new task in TFS (Azure DevOps) using Excel</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Draw the SSIS Package using SVG - part III</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: getting information from SSIS packages with PowerShell</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

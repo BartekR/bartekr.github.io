@@ -1,589 +1,695 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Learning something new: getting information from SSIS packages with PowerShell - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down. # I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools # find recursively all Executable nodes in .">
+<title>Learning something new: getting information from SSIS packages with PowerShell</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Learning something new: getting information from SSIS packages with PowerShell">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">
-    <meta property="og:image" content="https://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/images/SSISParsingScript.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Learning something new: getting information from SSIS packages with PowerShell">
+<meta property='og:description' content="In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down. # I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools # find recursively all Executable nodes in .">
+<meta property='og:url' content='https://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PowerShell' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='XML' /><meta property='article:published_time' content='2017-07-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2017-07-26T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Learning something new: getting information from SSIS packages with PowerShell">
+<meta name="twitter:description" content="In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the .dtsx files and save it to the database. The whole script is presented below with comments. For more information scroll down. # I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it Import-Module dbatools # find recursively all Executable nodes in .">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
+    <header class="article-category">
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+    </header>
     
-      
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">Learning something new: getting information from SSIS packages with PowerShell</a>
+        </h2>
     
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 26, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
-
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">Learning something new: getting information from SSIS packages with PowerShell</a></h2>
+
     
-    
-  </div>
-  <div class="meta">
-    <time datetime="2017-07-26 00:00:00 &#43;0000 UTC">July 26, 2017</time>
-    
-    
-  </div>
-</header>
-
-      <div id="socnet-share">
-        
-
-
-
-
-
-      </div>
-      <div class="content">
-        <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/" class="image" style="--bg-image: url('/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/images/SSISParsingScript.png');">
-    <img src="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/images/SSISParsingScript.png" alt="">
-  </a>
-        
-        <p>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the <code>.dtsx</code> files and save it to the database. The whole script is presented below with comments. For more information scroll down.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it</span>
-</span></span><span style="display:flex;"><span>Import-Module dbatools
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># find recursively all Executable nodes in .dtsx file</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Find-Executables($fileName, $executable)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $executable)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># are we there, yet? (if no - recursion)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($item.Executables)
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            Find-Executables $fileName $item.Executables.Executable
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># if yes - the result</span>
-</span></span><span style="display:flex;"><span>        $prop = @{
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;creationName&#39;</span> = $item.CreationName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;description&#39;</span> = $item.Description
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;executableType&#39;</span> = $item.ExecutableType
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectData&#39;</span> = $item.ObjectData.ExpressionTask.Expression
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        $prop
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># get all Precedence Constraints; simpler than Executables, because all of them are in single node</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Find-PrecedenceConstraints($fileName, $precedenceConstraints)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>($item <span style="color:#66d9ef">in</span> $precedenceConstraints)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        $prop = @{
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $item.refId
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;from&#39;</span> = $item.From
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;to&#39;</span> = $item.To
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = [<span style="color:#66d9ef">boolean</span>]$item.LogicalAnd
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;evalOp&#39;</span> = [<span style="color:#66d9ef">int</span>]$item.EvalOp
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $item.ObjectName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;expression&#39;</span> = $item.Expression
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;value&#39;</span> = [<span style="color:#66d9ef">int</span>]$item.Value
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        $prop
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># the data collectors</span>
-</span></span><span style="display:flex;"><span>$allPackagesInfo = @()
-</span></span><span style="display:flex;"><span>$allExecutables = @()
-</span></span><span style="display:flex;"><span>$allPrecedenceConstraints = @()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># loop through every .dtsx file in folder; all my packages&#39; names start with 0, so there is an example how to filter it</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span>($file <span style="color:#66d9ef">in</span> (Get-ChildItem C:\Users\brata_000\Source\Repos\SSIS_Graph\SSIS_Graph\SSIS_Graph\* -Include <span style="color:#ae81ff">0</span>*.dtsx))
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># read .dtsx into XML variable</span>
-</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">xml</span>] $pkg = Get-Content $file
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># create hash table with package information</span>
-</span></span><span style="display:flex;"><span>    $pkgInfo = @{
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Name&#39;</span> = $file.Name
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Executables&#39;</span> = Find-Executables $file.Name $pkg.Executable
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;PrecedenceConstraints&#39;</span> = Find-PrecedenceConstraints $file.Name $pkg.Executable.PrecedenceConstraints.PrecedenceConstraint
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># add the table as PSobject to variable with all the package information</span>
-</span></span><span style="display:flex;"><span>    $allPackagesInfo += New-Object psobject -Property $pkgInfo
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># I don&#39;t want to confirm TRUNCATE TABLE for Write-DbaDataTable (when I&#39;m running it few times)</span>
-</span></span><span style="display:flex;"><span>$ConfirmPreference = <span style="color:#e6db74">&#39;none&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Having all the information in one place - save it in the database; loop through all the packages (see the filter, again?)</span>
-</span></span><span style="display:flex;"><span>$allPackagesInfo | Where-Object -Property Name <span style="color:#f92672">-Like</span> <span style="color:#e6db74">&#39;0*&#39;</span> | ForEach-Object {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    $pkgName = $_.Name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># all the Executables in the package</span>
-</span></span><span style="display:flex;"><span>    $_.Executables | ForEach-Object {
-</span></span><span style="display:flex;"><span>        $d = @{
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;creationName&#39;</span> = $_.creationName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;description&#39;</span> = $_.description
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;executableType&#39;</span> = $_.executableType
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectData&#39;</span> = $_.objectData
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        $allExecutables += New-Object psobject -Property $d
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># all the Precedence Constraints in the package; casting to proper types will automaticaly create</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># columns of types other than nvarchar(max) when using -AutoCreateTable on Write-DbaDataTable</span>
-</span></span><span style="display:flex;"><span>    $_.PrecedenceConstraints | ForEach-Object {
-</span></span><span style="display:flex;"><span>        $d = @{
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;pkgName&#39;</span> = $pkgName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;refId&#39;</span> = $_.refId
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;from&#39;</span> = $_.from
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;to&#39;</span> = $_.to
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;logicalAnd&#39;</span> = [<span style="color:#66d9ef">boolean</span>]$_.logicalAnd
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;evalOp&#39;</span> = [int\]$_.evalOp
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;objectName&#39;</span> = $_.objectName
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;expression&#39;</span> = $_.expression
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;value&#39;</span> = [<span style="color:#66d9ef">int</span>]$_.value
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        $allPrecedenceConstraints += New-Object psobject -Property $d
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># I&#39;m using SQL Server for Linux, connecting to the VM, so I use SQL authentication (for now) - why not use &#39;sa&#39; then?</span>
-</span></span><span style="display:flex;"><span>$cred = Get-Credential sa
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#save all Executables to the database</span>
-</span></span><span style="display:flex;"><span>$allExecutables | Out-DbaDataTable | Write-DbaDataTable -SqlInstance <span style="color:#ae81ff">127.0</span>.0.<span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">14333</span> `
-</span></span><span style="display:flex;"><span>                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table Executables -AutoCreateTable -Truncate
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># save all Precedence Constraints to the database</span>
-</span></span><span style="display:flex;"><span>$allPrecedenceConstraints | Out-DbaDataTable | Write-DbaDataTable -SqlInstance <span style="color:#ae81ff">127.0</span>.0.<span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">14333</span> `
-</span></span><span style="display:flex;"><span>                    -SqlCredential $cred -Database SSISGraph -Schema dbo -Table PrecedenceConstraints -AutoCreateTable -Truncate
-</span></span></code></pre></div><p>To get all the information I loop through all the files. In Control Flow the interesting data are <code>Executable</code> elements and <code>Precedence Constraints</code>. Because one <code>Executable</code> can contain another <code>Executable</code>s (think: <code>Sequence/For/ForEach Containers</code>) I use recursion. It&rsquo;s easier with <code>Precedence Constraints</code> because all of them are located under one XML node. Both functions get <code>$fileName</code> as the first parameter that is not used later. It&rsquo;s because it&rsquo;s one of the versions of the script and I didn&rsquo;t want to remove it as I&rsquo;m doing more tests for later.</p>
-<p>Each information is collected into an array <code>$allPackagesInfo</code>. It looks a bit overcomplicated, but it works. When data is collected I prepare two arrays with objects containing <code>Executables</code> and <code>Precedence Constraints</code>. I cast some of the values to the proper data types - they will be used when preparing data for the database.</p>
-<p>That gets me to the database layer. To ease the whole process I use <a href="https://dbatools.io/">dbatools</a>. It contains a lot of great functions, but for now I will only use these two: <a href="https://dbatools.io/functions/out-dbadatatable/">Out-DbaDataTable</a> and <a href="https://dbatools.io/functions/write-dbadatatable/">Write-DbaDataTable</a>. The first one prepares data in format that is understood by the second that writes data to the database.</p>
-<p>To ease the data inserting process I use <code>-AutoCreateTable</code> switch for <code>Write-DbaDataTable</code>. It creates table in database using object created with <code>Out-DbaDataTable</code>. It uses first data row to guess data types and when not found (or it&rsquo;s a string) it creates <code>NVARCHAR(MAX)</code> columns - hence I provide extra info for fields other than string. The <code>(MAX)</code> doesn&rsquo;t bother me too much for now as I build the prototype to be expanded later. Also - I may repeat the loading process few times, so I clear the tables each time with a <code>-Truncate</code> parameter. It will ask me to confirm the data removal, so I set the <code>$ConfirmPreference</code> to <code>none</code> as I don&rsquo;t want to do it.</p>
-<p>There is one thing I don&rsquo;t like. When using <code>-AutoCreateTable</code> one of the parameters you have to provide is schema of the table to be created. There is <a href="https://github.com/sqlcollaborative/dbatools/issues/1845">a bug that sometimes prevents <code>Write-DbaDataTable</code></a> from finding the schema in target database. So for now I use <code>dbo</code> schema.</p>
-<p>OK. When I run the script I get populated tables dbo.Executables and dbo.PrecedenceConstraints with fresh data.</p>
-<p><a href="images/InsertedSSISData.png"><img src="images/InsertedSSISData.png#center" alt="Inserted SSIS data"></a></p>
-<p>If you want to go deeper into the <code>.dtsx</code> internals watch André Kamman&rsquo;s (<a href="http://andrekamman.com">b</a> | <a href="https://twitter.com/AndreKamman">t</a>) PASS Summit 2015 session &ldquo;Analyzing your ETL Solution with PowerShell&rdquo; (available to you for free on the <a href="http://www.pass.org/Learning/Recordings/Listing.aspx?oRecording=1092&amp;category=conferences">PASS</a> site).</p>
-<p>The next step is to transform the gathered SSIS data to the graph format.</p>
-
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/powershell/">PowerShell</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/xml/">XML</a></li>
-        
-      
-    </ul>
-  
 </div>
 
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/" class="button left"><span>So, you want to migrate SSIS(DB)?</span></a>
-    
-    
-      <a href="/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/" class="button right"><span>Connect to SQL Server on Ubuntu Linux VirtualBox machine</span></a>
-    
-  </div>
+</header>
 
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
+    <section class="article-content">
     
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
     
+    <p>In the series of learning something new, I started with analysing of the SSIS package XML. I know what I want to extract, so let the fun begin. I will use Powershell to get the data from the <code>.dtsx</code> files and save it to the database. The whole script is presented below with comments. For more information scroll down.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># I will use Out-DbaDataTable and Write-DbaDataTable from dbatools, so import it</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">dbatools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># find recursively all Executable nodes in .dtsx file</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Find-Executables($fileName</span><span class="p">,</span> <span class="nv">$executable</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span><span class="p">(</span><span class="nv">$item</span> <span class="k">in</span> <span class="nv">$executable</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># are we there, yet? (if no - recursion)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nv">$item</span><span class="p">.</span><span class="n">Executables</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">Find-Executables</span> <span class="nv">$fileName</span> <span class="nv">$item</span><span class="p">.</span><span class="py">Executables</span><span class="p">.</span><span class="py">Executable</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c"># if yes - the result</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$prop</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;refId&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">refId</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;creationName&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">CreationName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;description&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">Description</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectName&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">ObjectName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;executableType&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">ExecutableType</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectData&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">ObjectData</span><span class="p">.</span><span class="py">ExpressionTask</span><span class="p">.</span><span class="py">Expression</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$prop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># get all Precedence Constraints; simpler than Executables, because all of them are in single node</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Find-PrecedenceConstraints($fileName</span><span class="p">,</span> <span class="nv">$precedenceConstraints</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span><span class="p">(</span><span class="nv">$item</span> <span class="k">in</span> <span class="nv">$precedenceConstraints</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$prop</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;refId&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">refId</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;from&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">From</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;to&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">To</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;logicalAnd&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="no">boolean</span><span class="p">]</span><span class="nv">$item</span><span class="p">.</span><span class="py">LogicalAnd</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;evalOp&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span><span class="nv">$item</span><span class="p">.</span><span class="py">EvalOp</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectName&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">ObjectName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;expression&#39;</span> <span class="p">=</span> <span class="nv">$item</span><span class="p">.</span><span class="py">Expression</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;value&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span><span class="nv">$item</span><span class="p">.</span><span class="py">Value</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$prop</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># the data collectors</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allPackagesInfo</span> <span class="p">=</span> <span class="vm">@</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allExecutables</span> <span class="p">=</span> <span class="vm">@</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allPrecedenceConstraints</span> <span class="p">=</span> <span class="vm">@</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># loop through every .dtsx file in folder; all my packages&#39; names start with 0, so there is an example how to filter it</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$file</span> <span class="k">in</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">C:</span><span class="p">\</span><span class="n">Users</span><span class="p">\</span><span class="n">brata_000</span><span class="p">\</span><span class="n">Source</span><span class="p">\</span><span class="n">Repos</span><span class="p">\</span><span class="n">SSIS_Graph</span><span class="p">\</span><span class="n">SSIS_Graph</span><span class="p">\</span><span class="n">SSIS_Graph</span><span class="p">\*</span> <span class="n">-Include</span> <span class="mf">0</span><span class="p">*.</span><span class="n">dtsx</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># read .dtsx into XML variable</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="no">xml</span><span class="p">]</span> <span class="nv">$pkg</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="nv">$file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># create hash table with package information</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$pkgInfo</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;Name&#39;</span> <span class="p">=</span> <span class="nv">$file</span><span class="p">.</span><span class="py">Name</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;Executables&#39;</span> <span class="p">=</span> <span class="nb">Find-Executables</span> <span class="nv">$file</span><span class="p">.</span><span class="py">Name</span> <span class="nv">$pkg</span><span class="p">.</span><span class="py">Executable</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;PrecedenceConstraints&#39;</span> <span class="p">=</span> <span class="nb">Find-PrecedenceConstraints</span> <span class="nv">$file</span><span class="p">.</span><span class="py">Name</span> <span class="nv">$pkg</span><span class="p">.</span><span class="py">Executable</span><span class="p">.</span><span class="py">PrecedenceConstraints</span><span class="p">.</span><span class="py">PrecedenceConstraint</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># add the table as PSobject to variable with all the package information</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$allPackagesInfo</span> <span class="p">+=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$pkgInfo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># I don&#39;t want to confirm TRUNCATE TABLE for Write-DbaDataTable (when I&#39;m running it few times)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ConfirmPreference</span> <span class="p">=</span> <span class="s1">&#39;none&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Having all the information in one place - save it in the database; loop through all the packages (see the filter, again?)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allPackagesInfo</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">-Property</span> <span class="n">Name</span> <span class="o">-Like</span> <span class="s1">&#39;0*&#39;</span> <span class="p">|</span> <span class="nb">ForEach-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$pkgName</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">Name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># all the Executables in the package</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_</span><span class="p">.</span><span class="py">Executables</span> <span class="p">|</span> <span class="nb">ForEach-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$d</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;pkgName&#39;</span> <span class="p">=</span> <span class="nv">$pkgName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;refId&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">refId</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;creationName&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">creationName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;description&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">description</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectName&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">objectName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;executableType&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">executableType</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectData&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">objectData</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$allExecutables</span> <span class="p">+=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$d</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># all the Precedence Constraints in the package; casting to proper types will automaticaly create</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># columns of types other than nvarchar(max) when using -AutoCreateTable on Write-DbaDataTable</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_</span><span class="p">.</span><span class="py">PrecedenceConstraints</span> <span class="p">|</span> <span class="nb">ForEach-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$d</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;pkgName&#39;</span> <span class="p">=</span> <span class="nv">$pkgName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;refId&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">refId</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;from&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">from</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;to&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">to</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;logicalAnd&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="no">boolean</span><span class="p">]</span><span class="nv">$_</span><span class="p">.</span><span class="py">logicalAnd</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;evalOp&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="n">int</span><span class="p">\]</span><span class="nv">$_</span><span class="p">.</span><span class="py">evalOp</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;objectName&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">objectName</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;expression&#39;</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="py">expression</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;value&#39;</span> <span class="p">=</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span><span class="nv">$_</span><span class="p">.</span><span class="py">value</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$allPrecedenceConstraints</span> <span class="p">+=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$d</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># I&#39;m using SQL Server for Linux, connecting to the VM, so I use SQL authentication (for now) - why not use &#39;sa&#39; then?</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cred</span> <span class="p">=</span> <span class="nb">Get-Credential</span> <span class="n">sa</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#save all Executables to the database</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allExecutables</span> <span class="p">|</span> <span class="nb">Out-DbaDataTable</span> <span class="p">|</span> <span class="nb">Write-DbaDataTable</span> <span class="n">-SqlInstance</span> <span class="mf">127.0</span><span class="p">.</span><span class="py">0</span><span class="p">.</span><span class="mf">1</span><span class="err">:</span><span class="mf">14333</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">-SqlCredential</span> <span class="nv">$cred</span> <span class="n">-Database</span> <span class="n">SSISGraph</span> <span class="n">-Schema</span> <span class="n">dbo</span> <span class="n">-Table</span> <span class="n">Executables</span> <span class="n">-AutoCreateTable</span> <span class="n">-Truncate</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># save all Precedence Constraints to the database</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$allPrecedenceConstraints</span> <span class="p">|</span> <span class="nb">Out-DbaDataTable</span> <span class="p">|</span> <span class="nb">Write-DbaDataTable</span> <span class="n">-SqlInstance</span> <span class="mf">127.0</span><span class="p">.</span><span class="py">0</span><span class="p">.</span><span class="mf">1</span><span class="err">:</span><span class="mf">14333</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">-SqlCredential</span> <span class="nv">$cred</span> <span class="n">-Database</span> <span class="n">SSISGraph</span> <span class="n">-Schema</span> <span class="n">dbo</span> <span class="n">-Table</span> <span class="n">PrecedenceConstraints</span> <span class="n">-AutoCreateTable</span> <span class="n">-Truncate</span>
+</span></span></code></pre></div><p>To get all the information I loop through all the files. In Control Flow the interesting data are <code>Executable</code> elements and <code>Precedence Constraints</code>. Because one <code>Executable</code> can contain another <code>Executable</code>s (think: <code>Sequence/For/ForEach Containers</code>) I use recursion. It&rsquo;s easier with <code>Precedence Constraints</code> because all of them are located under one XML node. Both functions get <code>$fileName</code> as the first parameter that is not used later. It&rsquo;s because it&rsquo;s one of the versions of the script and I didn&rsquo;t want to remove it as I&rsquo;m doing more tests for later.</p>
+<p>Each information is collected into an array <code>$allPackagesInfo</code>. It looks a bit overcomplicated, but it works. When data is collected I prepare two arrays with objects containing <code>Executables</code> and <code>Precedence Constraints</code>. I cast some of the values to the proper data types - they will be used when preparing data for the database.</p>
+<p>That gets me to the database layer. To ease the whole process I use <a class="link" href="https://dbatools.io/"  target="_blank" rel="noopener"
+    >dbatools</a>. It contains a lot of great functions, but for now I will only use these two: <a class="link" href="https://dbatools.io/functions/out-dbadatatable/"  target="_blank" rel="noopener"
+    >Out-DbaDataTable</a> and <a class="link" href="https://dbatools.io/functions/write-dbadatatable/"  target="_blank" rel="noopener"
+    >Write-DbaDataTable</a>. The first one prepares data in format that is understood by the second that writes data to the database.</p>
+<p>To ease the data inserting process I use <code>-AutoCreateTable</code> switch for <code>Write-DbaDataTable</code>. It creates table in database using object created with <code>Out-DbaDataTable</code>. It uses first data row to guess data types and when not found (or it&rsquo;s a string) it creates <code>NVARCHAR(MAX)</code> columns - hence I provide extra info for fields other than string. The <code>(MAX)</code> doesn&rsquo;t bother me too much for now as I build the prototype to be expanded later. Also - I may repeat the loading process few times, so I clear the tables each time with a <code>-Truncate</code> parameter. It will ask me to confirm the data removal, so I set the <code>$ConfirmPreference</code> to <code>none</code> as I don&rsquo;t want to do it.</p>
+<p>There is one thing I don&rsquo;t like. When using <code>-AutoCreateTable</code> one of the parameters you have to provide is schema of the table to be created. There is <a class="link" href="https://github.com/sqlcollaborative/dbatools/issues/1845"  target="_blank" rel="noopener"
+    >a bug that sometimes prevents <code>Write-DbaDataTable</code></a> from finding the schema in target database. So for now I use <code>dbo</code> schema.</p>
+<p>OK. When I run the script I get populated tables dbo.Executables and dbo.PrecedenceConstraints with fresh data.</p>
+<p><a class="link" href="images/InsertedSSISData.png" >
   
+  <p style="text-align: center;">
+    <img src="images/InsertedSSISData.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Inserted SSIS data"
+	
+	
+>
+  </p>
 
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
+</a></p>
+<p>If you want to go deeper into the <code>.dtsx</code> internals watch André Kamman&rsquo;s (<a class="link" href="http://andrekamman.com"  target="_blank" rel="noopener"
+    >b</a> | <a class="link" href="https://twitter.com/AndreKamman"  target="_blank" rel="noopener"
+    >t</a>) PASS Summit 2015 session &ldquo;Analyzing your ETL Solution with PowerShell&rdquo; (available to you for free on the <a class="link" href="http://www.pass.org/Learning/Recordings/Listing.aspx?oRecording=1092&amp;category=conferences"  target="_blank" rel="noopener"
+    >PASS</a> site).</p>
+<p>The next step is to transform the gathered SSIS data to the graph format.</p>
+
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/powershell/">PowerShell</a>
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/xml/">XML</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: connections in SSIS package</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Get the passwords from SSIS Environment variables</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/05/03/what-happens-during-ssis-deployments/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">What happens during SSIS deployments?</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

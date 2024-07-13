@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Power BI on BartekR</title>
-    <link>https://blog.bartekr.net/tags/power-bi/</link>
-    <description>Recent content in Power BI on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/power-bi/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
-      <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</link>
-      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</guid>
-      <description>Recently I attended the AppDev PASS Virtual Group webinar about graphs in SQL Server 2017. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using Force-directed graph plugin) the idea struck: how about visualising SSIS packages&amp;rsquo; relations using graphs and Power BI?
-Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Power BI on BartekR</title>
+        <link>https://blog.bartekr.net/tags/power-bi/</link>
+        <description>Recent content in Power BI on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/power-bi/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Learn something new - Power BI &#43; SSIS &#43; SQL Server 2017 Graphs</title>
+        <link>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</link>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/06/14/learn-something-new-power-bi--ssis--sql-server-2017-graphs/</guid>
+        <description>&lt;p&gt;Recently I attended the AppDev PASS Virtual Group &lt;a class=&#34;link&#34; href=&#34;http://appdev.pass.org/?EventID=8085&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;webinar about graphs in SQL Server 2017&lt;/a&gt;. When the demo about car manufacturing structure appeared in Power BI (49th minute of the recording - using &lt;a class=&#34;link&#34; href=&#34;https://powerbi.microsoft.com/en-us/blog/visual-awesomeness-unlocked-the-force-directed-graph/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Force-directed graph plugin&lt;/a&gt;) the idea struck: how about visualising SSIS packages&amp;rsquo; relations using graphs and Power BI?&lt;/p&gt;
+&lt;p&gt;Maybe it won&amp;rsquo;t work, maybe there are limitations I&amp;rsquo;m not aware right now, but I have to try. This post will serve as the gateway to the series of post where I will write about my findings on graphs in SQL Server, their visualisations, querying, structure defining, Power BI embracement and - of course - SSIS.&lt;/p&gt;
+&lt;p&gt;For a time of writing I know there are some limitations about graph querying for hierarchical data - &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/arvisam/status/873312748142080000&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;but only until next CTP&lt;/a&gt;, so I will start slow - with defining the sample project and a graph itself. The rough roadmap below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;creating sample SSIS project with Sequence Containers, Execute Package Tasks, different precedence constraints&lt;/li&gt;
+&lt;li&gt;internal SSIS package structure analysis - how to turn that data into graphs&lt;/li&gt;
+&lt;li&gt;graph structure modelling and transforming the SSIS package data into graph data&lt;/li&gt;
+&lt;li&gt;visualising it all in Power BI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Looks surprisingly easy. Waiting for the first hurdle.&lt;/p&gt;
+&lt;p&gt;Series parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learn something new – Power BI + SSIS + SQL Server 2017 Graphs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learning something new: connections in SSIS package&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learning something new: getting information from SSIS packages with PowerShell&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(on hold)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

@@ -1,225 +1,469 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Draw the SSIS Package using SVG - part II - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it. The sequence problem\rThe main issue is with the alignment of the elements in the Sequence object (no matter if it&rsquo;s the default one, the ForEachLoop or the ForLoop).">
+<title>Draw the SSIS Package using SVG - part II</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Draw the SSIS Package using SVG - part II">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">
-    <meta property="og:image" content="https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png">
-    <meta property="og:image:alt" content="">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Draw the SSIS Package using SVG - part II">
+<meta property='og:description' content="The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it. The sequence problem\rThe main issue is with the alignment of the elements in the Sequence object (no matter if it&rsquo;s the default one, the ForEachLoop or the ForLoop).">
+<meta property='og:url' content='https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-07-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-07-16T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Draw the SSIS Package using SVG - part II">
+<meta name="twitter:description" content="The post is a second part of the series. In the previous one, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it. The sequence problem\rThe main issue is with the alignment of the elements in the Sequence object (no matter if it&rsquo;s the default one, the ForEachLoop or the ForLoop).">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
   
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
 
-  <body>
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-sequence-problem">The sequence problem</a></li>
+    <li><a href="#the-analysis">The analysis</a></li>
+    <li><a href="#find-all-the-outer-nodes">Find all the outer nodes</a></li>
+    <li><a href="#getting-the-offsets">Getting the offsets</a></li>
+    <li><a href="#containerlayout-is-only-the-beginning">&lt;ContainerLayout&gt; is only the beginning</a></li>
+    <li><a href="#drawing-the-objects">Drawing the objects</a></li>
+    <li><a href="#xsltemplate-matchgledgelayout">&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/learning/" >
+                Learning
+            </a>
+        
+            <a href="/categories/series/" >
+                Series
+            </a>
+        
+    </header>
     
 
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">Draw the SSIS Package using SVG - part II</a>
+        </h2>
     
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
-
-  
-</header>
-
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 16, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
 
 
 
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
+                <time class="article-time--reading">
+                    11 minute read
+                </time>
+            </div>
+        
     </footer>
-  
-</section>
+    
 
-      <main id="site-main">
-        
-  <article>
-    <div class="post">
-      <header>
-  <div class="title">
     
-      <h2><a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">Draw the SSIS Package using SVG - part II</a></h2>
-    
-    
-  </div>
-  <div class="meta">
-    <time datetime="2019-07-16 00:00:00 &#43;0000 UTC">July 16, 2019</time>
-    
-    
-  </div>
+</div>
+
 </header>
 
-      <div id="socnet-share">
-        
+    <section class="article-content">
+    
+    
+    <p>The post is a second part of the series. <a class="link" href="http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/"  target="_blank" rel="noopener"
+    >In the previous one</a>, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it.</p>
+<p><a class="link" href="images/SequencesExample.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SequencesExample.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Sequence example"
+	
+	
+>
+  </p>
 
+</a>
+<a class="link" href="images/UnexpectedSample2.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/UnexpectedSample2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Unexpected output"
+	
+	
+>
+  </p>
 
+</a></p>
+<h2 id="the-sequence-problem">The sequence problem
+</h2><p>The main issue is with the alignment of the elements in the <em>Sequence</em> object (no matter if it&rsquo;s the default one, the <em>ForEachLoop</em> or the <em>ForLoop</em>). Let&rsquo;s take a look at the <a class="link" href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sequences.xml"  target="_blank" rel="noopener"
+    >Sequences.xml</a> file. Here are the first three <code>&lt;ContainerLayout&gt;</code> elements and the layout of the package:</p>
+<p><a class="link" href="images/SequencesInSequences.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/SequencesInSequences.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Sequences in sequences"
+	
+	
+>
+  </p>
 
-
-
-      </div>
-      <div class="content">
-        <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/" class="image" style="--bg-image: url('/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png');">
-    <img src="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png" alt="">
-  </a>
-        
-        <p>The post is a second part of the series. <a href="http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/">In the previous one</a>, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&rsquo;ll fix it.</p>
-<p><a href="images/SequencesExample.png"><img src="images/SequencesExample.png#center" alt="Sequence example"></a>
-<a href="images/UnexpectedSample2.png"><img src="images/UnexpectedSample2.png#center" alt="Unexpected output"></a></p>
-<h2 id="the-sequence-problem">The sequence problem</h2>
-<p>The main issue is with the alignment of the elements in the <em>Sequence</em> object (no matter if it&rsquo;s the default one, the <em>ForEachLoop</em> or the <em>ForLoop</em>). Let&rsquo;s take a look at the <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sequences.xml">Sequences.xml</a> file. Here are the first three <code>&lt;ContainerLayout&gt;</code> elements and the layout of the package:</p>
-<p><a href="images/SequencesInSequences.png"><img src="images/SequencesInSequences.png#center" alt="Sequences in sequences"></a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ContainerLayout</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;205,55&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;205,98&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.5,5.5&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ContainerLayout</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;216,158&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;216,202&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000003,5.5&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ContainerLayout</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HeaderHeight=</span><span style="color:#e6db74">&#34;43&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">IsExpanded=</span><span style="color:#e6db74">&#34;True&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PanelSize=</span><span style="color:#e6db74">&#34;227,262&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Size=</span><span style="color:#e6db74">&#34;227,306&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Id=</span><span style="color:#e6db74">&#34;Package\SEQC MAIN\SEQC 01&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TopLeft=</span><span style="color:#e6db74">&#34;5.50000000000006,5.49999999999989&#34;</span><span style="color:#f92672">/&gt;</span>
+</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;ContainerLayout</span>
+</span></span><span class="line"><span class="cl">    <span class="na">HeaderHeight=</span><span class="s">&#34;43&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">IsExpanded=</span><span class="s">&#34;True&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">PanelSize=</span><span class="s">&#34;205,55&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Size=</span><span class="s">&#34;205,98&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Id=</span><span class="s">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">TopLeft=</span><span class="s">&#34;5.5,5.5&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;ContainerLayout</span>
+</span></span><span class="line"><span class="cl">    <span class="na">HeaderHeight=</span><span class="s">&#34;43&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">IsExpanded=</span><span class="s">&#34;True&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">PanelSize=</span><span class="s">&#34;216,158&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Size=</span><span class="s">&#34;216,202&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Id=</span><span class="s">&#34;Package\SEQC MAIN\SEQC 01\SEQC 011&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">TopLeft=</span><span class="s">&#34;5.50000000000003,5.5&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;ContainerLayout</span>
+</span></span><span class="line"><span class="cl">    <span class="na">HeaderHeight=</span><span class="s">&#34;43&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">IsExpanded=</span><span class="s">&#34;True&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">PanelSize=</span><span class="s">&#34;227,262&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Size=</span><span class="s">&#34;227,306&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Id=</span><span class="s">&#34;Package\SEQC MAIN\SEQC 01&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">TopLeft=</span><span class="s">&#34;5.50000000000006,5.49999999999989&#34;</span><span class="nt">/&gt;</span>
 </span></span></code></pre></div><p>All of them have (almost) the same values of the <code>TopLeft</code> attribute - <code>5.5,5.5</code>. They cannot be drawn in the same place, so that means that each sequence object - or better, each container - starts its own coordinates system (with the <code>Package</code> being the outermost container). I need to know which elements belong to which container. Challenge accepted.</p>
-<h2 id="the-analysis">The analysis</h2>
-<p><a href="images/XMLElementsAlinment.png"><img src="images/XMLElementsAlinment.png#center" alt="XML elements alignment"></a></p>
+<h2 id="the-analysis">The analysis
+</h2><p><a class="link" href="images/XMLElementsAlinment.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/XMLElementsAlinment.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="XML elements alignment"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>To make things harder, the layout of the sequences and tasks is not some nested XML structure. All of the elements have the same parent - <code>&lt;GraphLayout&gt;</code>, meaning all of them are at the same tree level. Also - there is no attribute showing where a particular object belongs. Almost. In the example with the sequences, I see two regularities:</p>
 <ul>
 <li>the outer container is placed later in the XML, than the inner container</li>
@@ -249,25 +493,26 @@
 </li>
 </ul>
 <p>Great. I know how it should look like using the paper, the pencil, and the head. Now I have to explain all of it to the computer.</p>
-<h2 id="find-all-the-outer-nodes">Find all the outer nodes</h2>
-<p>The biggest challenge for me was to find all the ancestor nodes, based on the <code>@Id</code> attribute of the current node. For example - when I work with the <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&quot;</code>, I need to find the nodes with:</p>
+<h2 id="find-all-the-outer-nodes">Find all the outer nodes
+</h2><p>The biggest challenge for me was to find all the ancestor nodes, based on the <code>@Id</code> attribute of the current node. For example - when I work with the <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111&quot;</code>, I need to find the nodes with:</p>
 <ul>
 <li><code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011&quot;</code></li>
 <li><code>Id=&quot;Package\SEQC MAIN\SEQC 01&quot;</code></li>
 <li><code>Id=&quot;Package\SEQC MAIN&quot;</code></li>
 </ul>
-<p>Then I take the <code>@TopLeft</code> and <code>@HeaderHeight</code> attributes from all of them, to calculate the offset of the upper-left corner for the element I&rsquo;m currently working with. The trick is <a href="https://www.youtube.com/watch?v=GwKtszQ8Ejo">to keep breathing</a> to work with sequences. However, first - I have to add processing of the sequences to the XSLT file:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:GraphLayout&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:ContainerLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:NodeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:EdgeLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:apply-templates</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;gl:AnnotationLayout&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;gl:ContainerLayout&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;</span>/xsl:template match=&#34;gl:ContainerLayout&#34;&gt;
+<p>Then I take the <code>@TopLeft</code> and <code>@HeaderHeight</code> attributes from all of them, to calculate the offset of the upper-left corner for the element I&rsquo;m currently working with. The trick is <a class="link" href="https://www.youtube.com/watch?v=GwKtszQ8Ejo"  target="_blank" rel="noopener"
+    >to keep breathing</a> to work with sequences. However, first - I have to add processing of the sequences to the XSLT file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:template</span> <span class="na">match</span><span class="o">=</span><span class="s">&#34;gl:GraphLayout&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">xsl:apply-templates</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;gl:ContainerLayout&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">xsl:apply-templates</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;gl:NodeLayout&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">xsl:apply-templates</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;gl:EdgeLayout&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">xsl:apply-templates</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;gl:AnnotationLayout&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">xsl:template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:template</span> <span class="na">match</span><span class="o">=</span><span class="s">&#34;gl:ContainerLayout&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">&lt;</span>/xsl:template match=&#34;gl:ContainerLayout&#34;&gt;
 </span></span></code></pre></div><p>Then, inside of the <code>gl:ContainerLayout</code> template I calculate the tokens for the <code>@Id</code> of the container with the <code>tokenize()</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IdTokens&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> <span style="color:#f92672">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;IdTokens&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;tokenize(@Id, &#39;\\&#39;)&#34;</span> <span class="p">/&gt;</span>
 </span></span></code></pre></div><p>The variable <code>IdTokens</code> has the sequence of the elements separated by the backslash, like for <code>Id=&quot;Package\SEQC MAIN\SEQC 01\SEQC 011</code> I have the tokens: <code>Package</code>, <code>SEQC MAIN</code>, <code>SEQC 01</code>, <code>SEQC 011</code> (in this order). You can think of it as some kind of array (but it&rsquo;s not the array, it&rsquo;s the sequence). Now I calculate the &ldquo;subpaths&rdquo; for <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code> and I will use the <code>IdTokens</code> variable. Again - I need to find the paths:</p>
 <ul>
 <li><code>Package\SEQC MAIN\SEQC 01\SEQC 011</code></li>
@@ -275,378 +520,366 @@
 <li><code>Package\SEQC MAIN</code></li>
 </ul>
 <p>I don&rsquo;t need the <code>Package</code> path, as it does not exist. So, I need to concatenate the elements from the sequence for a few times. To be precise: that many times as I have the number of the elements in the sequence. Minus one. For this, I use XPath&rsquo;s <code>for</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IdPaths&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;for $x in (2 to count($IdTokens)) 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            return string-join(subsequence($IdTokens, 1, $x), &#39;\\&#39;)&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span>
+</span></span><span class="line"><span class="cl">    <span class="na">name</span><span class="o">=</span><span class="s">&#34;IdPaths&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">select</span><span class="o">=</span><span class="s">&#34;for $x in (2 to count($IdTokens)) 
+</span></span></span><span class="line"><span class="cl"><span class="s">            return string-join(subsequence($IdTokens, 1, $x), &#39;\\&#39;)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">/&gt;</span>
 </span></span></code></pre></div><p>It&rsquo;s a bit hard to read at first, so I will split it to the bits and pieces using the example of <code>Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111</code>.</p>
 <p>To concatenate the elements of the sequence I use the <code>string-join()</code> function. To point out the elements to concatenate I use the <code>subsequence()</code> function. It takes the source sequence (here - the <code>$IdTokens</code> variable) from the starting position to the ending position. To get the subpath <code>Package\SEQC MAIN\SEQC 01</code> I need to get the first three elements - <code>subsequence($IdTokens, 1, 3)</code> - and concatenate them with a backslash - <code>string-join(subsequence($IdTokens, 1, 3), '\')</code>. To get the subpath <code>Package\SEQC MAIN</code> I need to get the first two elements - <code>subsequence($IdTokens, 1, 2)</code> - and concatenate them with a backslash - <code>string-join(subsequence($IdTokens, 1, 2), '\')</code>. And so on, and so forth.</p>
-<p>Because I want to do it in the loop, I use the <code>for()</code> function. But there&rsquo;s a thing - <code>for()</code> in XPath works like <code>foreach()</code> in other languages, and if I used <code>for $x in $IdTokens</code> - each time <code>$x</code> would contain the token. But I don&rsquo;t want the token - I want the position of the token. So I use the trick <a href="http://xsltbyexample.blogspot.com/2010/05/obtain-position-from-for-expression-in.html">I found on the blog by Miguel de Melo</a>: count the number of the elements (<code>count($IdTokens)</code>) and use the <code>to</code> operator, to generate the sequence of the numbers. The construction <code>1 to 10</code> returns 10 consecutive numbers from 1 to 10, so when I use <code>for $x in (1 to count($IdTokens))</code> my <code>$x</code> will contain the numbers from 1 to the count of <code>$IdTokens</code>. In the example I use <code>for $x in (2 to count($IdTokens))</code> - it&rsquo;s because I don&rsquo;t need the path with only the <code>Package</code> element. Now I have what I want: the <code>$IdPaths</code> variable will contain the sequence of the subpaths. It&rsquo;s also in the comments of the SVG file - the upper line is the <code>@Id</code> attribute of the processed container, and the lower line contains all the <code>@Id</code> attributes of the containers I search for, separated by colons.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!--Package\SEQC MAIN:Package\SEQC MAIN\SEQC 01:Package\SEQC MAIN\SEQC 01\SEQC 011:Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
+<p>Because I want to do it in the loop, I use the <code>for()</code> function. But there&rsquo;s a thing - <code>for()</code> in XPath works like <code>foreach()</code> in other languages, and if I used <code>for $x in $IdTokens</code> - each time <code>$x</code> would contain the token. But I don&rsquo;t want the token - I want the position of the token. So I use the trick <a class="link" href="http://xsltbyexample.blogspot.com/2010/05/obtain-position-from-for-expression-in.html"  target="_blank" rel="noopener"
+    >I found on the blog by Miguel de Melo</a>: count the number of the elements (<code>count($IdTokens)</code>) and use the <code>to</code> operator, to generate the sequence of the numbers. The construction <code>1 to 10</code> returns 10 consecutive numbers from 1 to 10, so when I use <code>for $x in (1 to count($IdTokens))</code> my <code>$x</code> will contain the numbers from 1 to the count of <code>$IdTokens</code>. In the example I use <code>for $x in (2 to count($IdTokens))</code> - it&rsquo;s because I don&rsquo;t need the path with only the <code>Package</code> element. Now I have what I want: the <code>$IdPaths</code> variable will contain the sequence of the subpaths. It&rsquo;s also in the comments of the SVG file - the upper line is the <code>@Id</code> attribute of the processed container, and the lower line contains all the <code>@Id</code> attributes of the containers I search for, separated by colons.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--Package\SEQC MAIN:Package\SEQC MAIN\SEQC 01:Package\SEQC MAIN\SEQC 01\SEQC 011:Package\SEQC MAIN\SEQC 01\SEQC 011\SEQC 0111--&gt;</span>
 </span></span></code></pre></div><p>OK. I have the paths of the containers (nodes) that are around the container I want to draw. The paths are the values of the <code>@Id</code> attribute of these nodes. I find them with an XPath expression and - again - use the sequence (in a variable), to store the nodes. There is the next trick: I use the sequence of paths (stored in the <code>$IdPaths</code> variable) to get only the nodes I want. And because the outer elements are later in the layout, I can specify <code>following-sibling</code> as the axis. I also set the variable as the nodes collection, hence <code>as=&quot;nodes()&quot;</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;paths&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;node()\*&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;xsl:sequence</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;following-sibling::gl:ContainerLayout[@Id=$IdPaths]&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:variable&gt;</span>
-</span></span></code></pre></div><h2 id="getting-the-offsets">Getting the offsets</h2>
-<p>Almost ready. I have the nodes, so I can start the calculations. I use four variables to determine the correct coordinates. <code>x0</code> and <code>y0</code> are the values from the <code>@TopLeft</code> attribute of currently processed <code>&lt;ContainerLayout&gt;</code> node. <code>x</code> and <code>y</code> variables are the calculated values for the upper-left corner of the container.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x0&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y0&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number(substring-after(@TopLeft, &#39;,&#39;))&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span>
-</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;sum(
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                  for $p in $paths 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                  return number(substring-before($p/@TopLeft, &#39;,&#39;))) + $x0&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span>
-</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;sum(
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                  for $p in $paths
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                  return number(substring-after($p/@TopLeft, &#39;,&#39;))
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                       + number($p/@HeaderHeight)) + $y0&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;paths&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;node()\*&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">&lt;</span><span class="nt">xsl:sequence</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;following-sibling::gl:ContainerLayout[@Id=$IdPaths]&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">xsl:variable</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="getting-the-offsets">Getting the offsets
+</h2><p>Almost ready. I have the nodes, so I can start the calculations. I use four variables to determine the correct coordinates. <code>x0</code> and <code>y0</code> are the values from the <code>@TopLeft</code> attribute of currently processed <code>&lt;ContainerLayout&gt;</code> node. <code>x</code> and <code>y</code> variables are the calculated values for the upper-left corner of the container.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;x0&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;number(substring-before(@TopLeft, &#39;,&#39;))&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;y0&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;number(substring-after(@TopLeft, &#39;,&#39;))&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;x&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="na">select</span><span class="o">=</span><span class="s">&#34;sum(
+</span></span></span><span class="line"><span class="cl"><span class="s">                  for $p in $paths 
+</span></span></span><span class="line"><span class="cl"><span class="s">                  return number(substring-before($p/@TopLeft, &#39;,&#39;))) + $x0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;y&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="na">select</span><span class="o">=</span><span class="s">&#34;sum(
+</span></span></span><span class="line"><span class="cl"><span class="s">                  for $p in $paths
+</span></span></span><span class="line"><span class="cl"><span class="s">                  return number(substring-after($p/@TopLeft, &#39;,&#39;))
+</span></span></span><span class="line"><span class="cl"><span class="s">                       + number($p/@HeaderHeight)) + $y0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">/&gt;</span>
 </span></span></code></pre></div><p>To get <code>x</code> I analyse each node I found with the algorithm described earlier, get the <code>@TopLeft</code> attribute to calculate the <code>x</code> position (just like in <code>x0</code>, but for outer containers). And I make a sum of all the values. The same for <code>y</code>, but I remember that I have to add <code>@HeaderHeight</code> for each outer container. The final values are completed with <code>x0</code> and <code>y0</code> respectively (because <code>for()</code> operates on the outer containers).</p>
 <p>And that&rsquo;s it! I get the same results as I calculated on the paper! Woah!</p>
 <p>Well, not yet.</p>
-<h2 id="containerlayout-is-only-the-beginning">&lt;ContainerLayout&gt; is only the beginning</h2>
-<p>I have to use the same calculation for each element inside the container. For now, I only know the values for the <code>&lt;ContainerLayout&gt;</code> node, and the container can have the elements inside. So I repeat the code to calculate <code>x</code> and <code>y</code> for each subsequent element - <code>&lt;NodeLayout&gt;</code>, <code>&lt;EdgeLayout&gt;</code>, <code>&lt;AnnotationLayout&gt;</code>.</p>
-<h2 id="drawing-the-objects">Drawing the objects</h2>
-<p>Now I use the <code>x</code> and <code>y</code> as the values for the <code>&lt;rect&gt;</code> and <code>&lt;text&gt;</code> objects. I put them inside the <code>number()</code> function, because sometimes I use it in the equations and I wanted to be consistent when working with <code>x</code> and <code>y</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($x)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($y)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
+<h2 id="containerlayout-is-only-the-beginning">&lt;ContainerLayout&gt; is only the beginning
+</h2><p>I have to use the same calculation for each element inside the container. For now, I only know the values for the <code>&lt;ContainerLayout&gt;</code> node, and the container can have the elements inside. So I repeat the code to calculate <code>x</code> and <code>y</code> for each subsequent element - <code>&lt;NodeLayout&gt;</code>, <code>&lt;EdgeLayout&gt;</code>, <code>&lt;AnnotationLayout&gt;</code>.</p>
+<h2 id="drawing-the-objects">Drawing the objects
+</h2><p>Now I use the <code>x</code> and <code>y</code> as the values for the <code>&lt;rect&gt;</code> and <code>&lt;text&gt;</code> objects. I put them inside the <code>number()</code> function, because sometimes I use it in the equations and I wanted to be consistent when working with <code>x</code> and <code>y</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:attribute</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;x&#34;</span><span class="p">&gt;&lt;</span><span class="nt">xsl:value-of</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;number($x)&#34;</span><span class="p">/&gt;&lt;/</span><span class="nt">xsl:attribute</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:attribute</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;y&#34;</span><span class="p">&gt;&lt;</span><span class="nt">xsl:value-of</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;number($y)&#34;</span><span class="p">/&gt;&lt;/</span><span class="nt">xsl:attribute</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>To draw the header of the container I also use the <code>&lt;rect&gt;</code>, but with the height of the <code>@HeaderHeight</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;rect&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;x&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($x)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;y&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;number($y)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rx&#34;</span><span style="color:#f92672">&gt;</span>3<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ry&#34;</span><span style="color:#f92672">&gt;</span>3<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;width&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">&gt;&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;@HeaderHeight&#34;</span><span style="color:#f92672">/&gt;&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;fill&#34;</span><span style="color:#f92672">&gt;</span>white<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke&#34;</span><span style="color:#f92672">&gt;</span>green<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stroke-width&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/rect&gt;</span>
-</span></span></code></pre></div><p>The last part is to draw the fancy element connectors, instead of just straight lines. For that, I leave the Sequences.xml and go back to the original <a href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sample2.xml">Sample2.xml</a>.</p>
-<h2 id="xsltemplate-matchgledgelayout">&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;</h2>
-<p>It looks complicated, but it isn&rsquo;t. First - the <code>@Id</code> attribute of the <code>&lt;EdgeLayout&gt;</code> includes the <code>PrecedenceConstraint</code> name, like <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint 1]</code>. I get rid of it (because it hinders finding the outer containers), and then <code>tokenize()</code> the output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;ParsedId&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;substring-before(@Id, &#39;.PrecedenceConstraints&#39;)&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;IdTokens&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;tokenize($ParsedId, &#39;\\&#39;)&#34;</span> <span style="color:#f92672">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;rect&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;x&#34;</span><span class="nt">&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&#34;number($x)&#34;</span><span class="nt">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;y&#34;</span><span class="nt">&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&#34;number($y)&#34;</span><span class="nt">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;rx&#34;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;ry&#34;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;width&#34;</span><span class="nt">&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&#34;substring-before(@Size, &#39;,&#39;)&#34;</span><span class="nt">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;height&#34;</span><span class="nt">&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&#34;@HeaderHeight&#34;</span><span class="nt">/&gt;&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;fill&#34;</span><span class="nt">&gt;</span>white<span class="nt">&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;stroke&#34;</span><span class="nt">&gt;</span>green<span class="nt">&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#34;stroke-width&#34;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/xsl:attribute&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/rect&gt;</span>
+</span></span></code></pre></div><p>The last part is to draw the fancy element connectors, instead of just straight lines. For that, I leave the Sequences.xml and go back to the original <a class="link" href="https://github.com/BartekR/blog/blob/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20II/Sample2.xml"  target="_blank" rel="noopener"
+    >Sample2.xml</a>.</p>
+<h2 id="xsltemplate-matchgledgelayout">&lt;xsl:template match=&ldquo;gl:EdgeLayout&rdquo;&gt;
+</h2><p>It looks complicated, but it isn&rsquo;t. First - the <code>@Id</code> attribute of the <code>&lt;EdgeLayout&gt;</code> includes the <code>PrecedenceConstraint</code> name, like <code>Package\SEQC MAIN\FLC Tree.PrecedenceConstraints[Constraint 1]</code>. I get rid of it (because it hinders finding the outer containers), and then <code>tokenize()</code> the output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;ParsedId&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;substring-before(@Id, &#39;.PrecedenceConstraints&#39;)&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:variable</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;IdTokens&#34;</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;tokenize($ParsedId, &#39;\\&#39;)&#34;</span> <span class="p">/&gt;</span>
 </span></span></code></pre></div><p>The edges can be stored in two ways - with <code>&lt;CubicBezierSegment&gt;</code>s, or without - we have either one <code>&lt;LineSegment&gt;</code> or three <code>&lt;LineSegment&gt;</code>s interlaced with two <code>&lt;CubicBezierSegment&gt;</code>s.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;EdgeLayout.Curve&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;mssgle:Curve&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;mssgle:Curve.Segments&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;mssgle:SegmentCollection&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/mssgle:SegmentCollection&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/mssgle:Curve.Segments&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/mssgle:Curve&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/EdgeLayout.Curve&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;EdgeLayout.Curve&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;mssgle:Curve&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;mssgle:Curve.Segments&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;mssgle:SegmentCollection&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:CubicBezierSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:CubicBezierSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mssgle:LineSegment</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/mssgle:SegmentCollection&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/mssgle:Curve.Segments&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/mssgle:Curve&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/EdgeLayout.Curve&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;EdgeLayout.Curve&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;mssgle:Curve&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;mssgle:Curve.Segments&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;mssgle:SegmentCollection&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:LineSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/mssgle:SegmentCollection&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/mssgle:Curve.Segments&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/mssgle:Curve&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/EdgeLayout.Curve&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;EdgeLayout.Curve&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;mssgle:Curve&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;mssgle:Curve.Segments&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;mssgle:SegmentCollection&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:LineSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:CubicBezierSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:LineSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:CubicBezierSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mssgle:LineSegment</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/mssgle:SegmentCollection&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/mssgle:Curve.Segments&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/mssgle:Curve&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/EdgeLayout.Curve&gt;</span>
 </span></span></code></pre></div><p>The first option is something I used in the previous post. The only change is to use calculated <code>x</code> and <code>y</code> values. The second requires a bit more work because subsequent elements are connected. I use <code>&lt;xsl:choose&gt;</code> and count the occurrences of <code>&lt;CubicBezierSegment&gt;</code>s to decide what kind of the connector I have to draw:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:choose&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;count(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment) gt 0&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- arc option --&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:when&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:otherwise&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- straight line option --&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:otherwise&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:choose&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xsl:choose</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:when</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;count(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment) gt 0&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- arc option --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">xsl:when</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:otherwise</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- straight line option --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">xsl:otherwise</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">xsl:choose</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>The arc option consists of five elements drawn one after another. First line is drawn based on the <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:LineSegment[1]</code>. Then the arc based on <code>gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]</code> and so on (<code>[2]</code> and <code>[3]</code>). To better understand the calculations take a look at the example below.</p>
-<p><a href="images/BezierCurveCalculations.png"><img src="images/BezierCurveCalculations.png" alt="Bezier curve calculations"></a></p>
-<p>The important part is: to calculate the coordinates the values are relative to the <code>@TopLeft</code> attribute of the <code>&lt;EdgeLayout&gt;</code>. The second thing - <code>&lt;Line&gt;</code>s have only <code>@End</code>, so to calculate the beginning I have to use the end of the previous element. The third thing - the layout uses <code>&lt;CubicBezierSegment&gt;</code>, but to draw it in SVG I use a <a href="http://tutorials.jenkov.com/svg/path-element.html">quadratic Bezier curve</a>. It&rsquo;s because the segment is built using three points: <code>Point1</code> is the start, <code>Point2</code> is the control point of the curve, and <code>Point3</code> is the end of the curve. In SVG, I would need four points to draw the cubic bezier curve. The example below shows how to draw the first curve. I use the <code>&lt;path&gt;</code> element, where all drawing is set within the <code>d</code> attribute. First, I move (<code>M</code>) the pen to the beginning of the curve, then I draw the <code>Q</code>uadratic Bezier curve (using <code>Q</code>, not <code>q</code> as I provide the absolute coordinates).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xslt" data-lang="xslt"><span style="display:flex;"><span><span style="color:#f92672">&lt;path&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;d&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;concat(&#39;M&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)))&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:text&gt;</span> <span style="color:#f92672">&lt;/xsl:text&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;concat(&#39;Q&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)))&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:text&gt;</span> <span style="color:#f92672">&lt;/xsl:text&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;concat(number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)))&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;xsl:attribute</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;style&#34;</span><span style="color:#f92672">&gt;</span>stroke:#006600; fill:none<span style="color:#f92672">&lt;/xsl:attribute&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/path&gt;</span>
+<p><a class="link" href="images/BezierCurveCalculations.png" >
+<img src="images/BezierCurveCalculations.png"
+	width="973"
+	height="574"
+	srcset="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu9078eb698cb317ce3f06c1d4026c632d_28687_480x0_resize_box_3.png 480w, /2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu9078eb698cb317ce3f06c1d4026c632d_28687_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Bezier curve calculations"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="406px"
+	
+>
+
+</a></p>
+<p>The important part is: to calculate the coordinates the values are relative to the <code>@TopLeft</code> attribute of the <code>&lt;EdgeLayout&gt;</code>. The second thing - <code>&lt;Line&gt;</code>s have only <code>@End</code>, so to calculate the beginning I have to use the end of the previous element. The third thing - the layout uses <code>&lt;CubicBezierSegment&gt;</code>, but to draw it in SVG I use a <a class="link" href="http://tutorials.jenkov.com/svg/path-element.html"  target="_blank" rel="noopener"
+    >quadratic Bezier curve</a>. It&rsquo;s because the segment is built using three points: <code>Point1</code> is the start, <code>Point2</code> is the control point of the curve, and <code>Point3</code> is the end of the curve. In SVG, I would need four points to draw the cubic bezier curve. The example below shows how to draw the first curve. I use the <code>&lt;path&gt;</code> element, where all drawing is set within the <code>d</code> attribute. First, I move (<code>M</code>) the pen to the beginning of the curve, then I draw the <code>Q</code>uadratic Bezier curve (using <code>Q</code>, not <code>q</code> as I provide the absolute coordinates).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xslt" data-lang="xslt"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">path</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:attribute</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;d&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:value-of</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;concat(&#39;M&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point1, &#39;,&#39;)))&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:text</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">xsl:text</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:value-of</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;concat(&#39;Q&#39;, number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point2, &#39;,&#39;)))&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:text</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">xsl:text</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:value-of</span> <span class="na">select</span><span class="o">=</span><span class="s">&#34;concat(number($x) + number(substring-before(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)), &#39;,&#39;, number($y) + number(substring-after(gl:EdgeLayout.Curve/mssgle:Curve/mssgle:Curve.Segments/mssgle:SegmentCollection/mssgle:CubicBezierSegment[1]/@Point3, &#39;,&#39;)))&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">xsl:attribute</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">xsl:attribute</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;style&#34;</span><span class="p">&gt;</span>stroke:#006600; fill:none<span class="p">&lt;/</span><span class="nt">xsl:attribute</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>Repeat the pattern for the remaining elements and voila, I have the fancy, curved connectors.</p>
-<p><a href="images/QuadraticBezierCurves.png"><img src="images/QuadraticBezierCurves.png#center" alt="Fancy, curved connections"></a></p>
+<p><a class="link" href="images/QuadraticBezierCurves.png" >
+  
+  <p style="text-align: center;">
+    <img src="images/QuadraticBezierCurves.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Fancy, curved connections"
+	
+	
+>
+  </p>
+
+</a></p>
 <p>It starts to look like an original package. It still lacks some elements (like path annotations), yet it is almost what I wanted. Further polishing will be a part three of the series.</p>
 
-      </div>
-      <footer>
-        <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/learning/">Learning</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/series/">Series</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/ssis/">SSIS</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/svg/">SVG</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/xml/">XML</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/xslt/">XSLT</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-      </footer>
-    </div>
-    
-      <script src="https://utteranc.es/client.js"
-        repo="BartekR/bartekr.github.io"
-        issue-term="url"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-    
-  </article>
-  <div class="pagination">
-    
-      <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/" class="button left"><span>Draw the SSIS Package using SVG - part III</span></a>
-    
-    
-      <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/" class="button right"><span>Draw the SSIS package using SVG - part I</span></a>
-    
-  </div>
-
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
-
-  
-    
-
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ssis/">SSIS</a>
+        
+            <a href="/tags/svg/">SVG</a>
+        
+            <a href="/tags/xml/">XML</a>
+        
+            <a href="/tags/xslt/">XSLT</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/">
+        
         
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+        <div class="article-details">
+            <h2 class="article-title">Draw the SSIS package using SVG - part I</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2017/07/26/learning-something-new-getting-information-from-ssis-packages-with-powershell/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Learning something new: getting information from SSIS packages with PowerShell</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/08/13/writing-ssisunit-test-using-api/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Writing ssisUnit test using API</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/07/10/testing-the-loops-in-ssisunit/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Testing the loops in ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+                
+<article class="">
+    <a href="/2018/07/05/setting-package-references-in-ssisunit/">
+        
+        
 
+        <div class="article-details">
+            <h2 class="article-title">Setting package references in ssisUnit</h2>
+        </div>
+    </a>
+</article>
 
+            
+        </div>
+    </div>
+</aside>
 
+     
+    
+        
+    
 
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

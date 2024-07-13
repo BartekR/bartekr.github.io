@@ -1,21 +1,72 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Sqlbits on BartekR</title>
-    <link>https://blog.bartekr.net/tags/sqlbits/</link>
-    <description>Recent content in Sqlbits on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sun, 16 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/sqlbits/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SQLBits 2017</title>
-      <link>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</link>
-      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</guid>
-      <description>This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.
-First - the content I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (b|t) about high availability with clusters and Always On Availability Groups.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Sqlbits on BartekR</title>
+        <link>https://blog.bartekr.net/tags/sqlbits/</link>
+        <description>Recent content in Sqlbits on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sun, 16 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/sqlbits/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>SQLBits 2017</title>
+        <link>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</link>
+        <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</guid>
+        <description>&lt;p&gt;This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.&lt;/p&gt;
+&lt;figure class=&#34;noborder&#34;&gt;&lt;img src=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170405_082113.png&#34; width=&#34;60%&#34;&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;first---the-content&#34;&gt;First - the content
+&lt;/h2&gt;&lt;p&gt;I wanted to learn something new, or look at the things from different angle. Touch something, break and repair. So I went for the workshop by Mark Broadbent (&lt;a class=&#34;link&#34; href=&#34;https://tenbulls.co.uk/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;b&lt;/a&gt;|&lt;a class=&#34;link&#34; href=&#34;https://twitter.com/retracement&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;t&lt;/a&gt;) about high availability with clusters and Always On Availability Groups. I did play with clusters before (using VirtualBox), this time we used Hyper-V and Windows Core servers what was new for me. Building from the ground up, configuring, fighting with internet connection, rebuilding machines (well, this was not in the workshop plan - I managed to destroy the virtual machine myself) - it was what I expected.&lt;/p&gt;
+&lt;p&gt;On the second day I went to Matt Masson&amp;rsquo;s all-day presentation about SSIS. I&amp;rsquo;m working a lot with ETL packages so I was curious if there is a room to improve. And I was glad to find out we are using best practices already, but also to learn some new interesting patterns to use. One of them - cascade use of OLEDB Destinations with additional File Destination for error reporting or double use of Lookup transformations - one with Full cache, one with Partial cache. And you know what was surprising? The session had no demos at all. Only slides. And I was awake all the time!&lt;/p&gt;
+&lt;p&gt;The next two days were full day presentations and I changed my mind few times before finally decided which session to go. Tough choice! Each time I&amp;rsquo;ve learned something new and got some inspiration. Once I took the 400 level sessions that extended my knowledge of the subject, got to know about new things (like new query optimizer features) and sometimes I went for the things I know almost nothing about - like R language - or not interested that much - like new things in reporting. And I was not disappointed.&lt;/p&gt;
+&lt;p&gt;
+&lt;img src=&#34;images/IMG_20170407_102128-1024x575.jpg&#34;
+	width=&#34;1024&#34;
+	height=&#34;575&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu68f776dc65f35e5bf09a863c4b81c605_74279_480x0_resize_q75_box.jpg 480w, https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu68f776dc65f35e5bf09a863c4b81c605_74279_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Steve Jones says Hi!&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;427px&#34;
+	
+&gt;
+
+&lt;/p&gt;
+&lt;p&gt;If I had to select one session, that made a biggest impact on me it would be &lt;a class=&#34;link&#34; href=&#34;http://sqlbits.com/Sessions/Event16/Normalization_Beyond_Third_Normal_Form&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Normalization beyond the third normal form&lt;/a&gt; by Hugo Kornellis (&lt;a class=&#34;link&#34; href=&#34;http://sqlblog.com/blogs/hugo_kornelis/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;b&lt;/a&gt;|&lt;a class=&#34;link&#34; href=&#34;https://twitter.com/Hugo_Kornelis&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;t&lt;/a&gt;). Very deep session with great examples about data design. I never thought about data the way that Hugo presented and it was awesome. I encourage everyone to watch it once it will be published. Not the easiest material, but worth your time, I promise.&lt;/p&gt;
+&lt;h2 id=&#34;second---the-people&#34;&gt;Second - the people
+&lt;/h2&gt;&lt;p&gt;Next thing that gets me to the conferences is the people. I want to see again the folks I&amp;rsquo;ve met on previous conferences, get to know new friends, colleagues. All of them are great, willing to help if you have a problem. You want to talk about the issue you are currently facing in your job? Great, lets do it. You want more details about the session? You&amp;rsquo;re welcome. Party together? No problem! Want some beer? Here you go. Talks about presentations, work matters, problems solved for clients - everything is so enriching. Have you seen this hashtag &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/hashtag/sqlfamily&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;#sqlfamily&lt;/a&gt;? It really is a big, extraordinary family.&lt;/p&gt;
+&lt;h2 id=&#34;third---the-party&#34;&gt;Third - the party
+&lt;/h2&gt;&lt;p&gt;It&amp;rsquo;s not the main reason to go for the conference, but an excelent excuse to get to know new people by a glass of beer or something stronger. But it was not just a meeting with alcohol - pub games for people gathered by the round tables was &amp;ldquo;bulls eye&amp;rdquo; for me. Sometimes I didn&amp;rsquo;t understand the questions, some of them were too specific, but almost already someone clarified what was it about. And I was amazed by the things the people knew. Maiden name of Marge Simpson? Name all the girls from &amp;ldquo;Sex ant the city&amp;rdquo;? Know the name of the disco hit and the performer after just few seconds? Come on! The next day - party with &amp;lsquo;70 - &amp;lsquo;80 disco theme. Well, although I have not seen many people dancing - the party was very relaxing. And Redgate&amp;rsquo;s photo booth was &lt;a class=&#34;link&#34; href=&#34;https://www.facebook.com/pg/SQLBits/photos/?tab=album&amp;amp;album_id=1520956957915668&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;under the siege&lt;/a&gt;.&lt;/p&gt;
+&lt;figure class=&#34;noborder&#34;&gt;&lt;img src=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_214142.jpg&#34;
+    alt=&#34;SQLDBA with a bear(d)&#34; width=&#34;60%&#34;&gt;&lt;figcaption&gt;
+      &lt;p&gt;SQLDBA with a bear(d)&lt;/p&gt;
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;fourth---the-sponsors&#34;&gt;Fourth - the sponsors
+&lt;/h2&gt;&lt;p&gt;I always visit the sponsors. Of course, their gadgets are nice, but this time I had plenty of time to see their products. On another conferences I had about 15 minutes between sessions, so not that much time to get familiar with the product, This time was different. Longer breaks, regular sessions mixed with extended and suddenly I could see full demos and have a conversation about the products I was interested in. Also for the first time I took the folders to actually read it!&lt;/p&gt;
+&lt;h2 id=&#34;fifth---the-venue&#34;&gt;Fifth - the venue
+&lt;/h2&gt;&lt;p&gt;The only thing that didn&amp;rsquo;t convince me were the Domes. Sometimes you could hear what is happening in another one. But the place in general was great Big rooms for the workshops, a lot of place for networking - what one could want more?&lt;/p&gt;
+&lt;h2 id=&#34;the-takeaway&#34;&gt;The takeaway
+&lt;/h2&gt;&lt;p&gt;Johann van den Brink &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/JohanvdBrink/status/850780326725079040&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;asked me&lt;/a&gt; what got me inspired during SQLBits. Few things. First - the tools that sponsors shown me are really useful. I will have to try SQLClone (by Redgate) and compare it to containers approach with Docker for testing purposes. Also LegiTest (by Pragmatic Works) looks promising for testing SSIS packages. Second - definitely will start using more Powershell tools. Andre Kamman (&lt;a class=&#34;link&#34; href=&#34;http://andrekamman.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;b&lt;/a&gt;|&lt;a class=&#34;link&#34; href=&#34;https://twitter.com/AndreKamman&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;t&lt;/a&gt;) demonstrated how easy is to build full test lab using few lines of code with Autolab. It will be a great simplification of the proces that we went thoroughly with Mark Broadbent during the workshop. It&amp;rsquo;s great to know how to build your cluster from scratch, but it&amp;rsquo;s also great to simplify the proces. Also some of the SSIS design patterns I saw on Matt&amp;rsquo;s presentation will start to use in development. What else? Some time ago I started to work more closely with testing, Hugo Kornelis inspired me to look closer at the design. So I would say it&amp;rsquo;s like back to basics, revisited.&lt;/p&gt;
+&lt;p&gt;To sum things up. I really ejoyed the whole conference. If possible, I will go again next year. I&amp;rsquo;m already sure I won&amp;rsquo;t be disappointed.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

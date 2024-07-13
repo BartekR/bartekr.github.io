@@ -1,21 +1,56 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>architecture on BartekR</title>
-    <link>https://blog.bartekr.net/tags/architecture/</link>
-    <description>Recent content in architecture on BartekR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Build Yourself a Web App in Azure</title>
-      <link>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</link>
-      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
-      <description>NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.
-When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a Basic Web App reference architecture, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Architecture on BartekR</title>
+        <link>https://blog.bartekr.net/tags/architecture/</link>
+        <description>Recent content in Architecture on BartekR</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/architecture/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Build Yourself a Web App in Azure</title>
+        <link>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</link>
+        <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Basic Web App reference architecture&lt;/a&gt;, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.&lt;/p&gt;
+&lt;p&gt;But then, you might start thinking. &amp;ldquo;How secure it is for the enterprise application&amp;rdquo;? &amp;ldquo;What else should I learn to check my options&amp;rdquo;? And that&amp;rsquo;s how this series started. I wanted to build a secure environment for the web application hosted in Azure. It&amp;rsquo;s also a perfect opportunity to learn a lot about Azure architecture and components.&lt;/p&gt;
+&lt;h2 id=&#34;building-a-secure-web-app-in-azure&#34;&gt;Building a secure web app in Azure
+&lt;/h2&gt;&lt;p&gt;&amp;hellip; without Application Service Environment (ASE). I will start with the basic web app reference architecture, and then I will add some elements to make it more secure. The components I want to use are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Azure App Service Web Application (in App Service Plan)&lt;/li&gt;
+&lt;li&gt;Application Gateway&lt;/li&gt;
+&lt;li&gt;Azure SQL Database&lt;/li&gt;
+&lt;li&gt;Azure Key Vault&lt;/li&gt;
+&lt;li&gt;Azure Monitor&lt;/li&gt;
+&lt;li&gt;Azure Blob Storage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I will explore the options on how to connect between them, how to use SSL, networking options (service endpoints, private endpoints, subnet delegation), managed identities, RBAC, &amp;hellip;&lt;/p&gt;
+&lt;p&gt;The architecture I want to use is almost a new &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;basic web app architecture&lt;/a&gt; (see below), plus the Application Gateway before the Web App.&lt;/p&gt;
+&lt;p&gt;
+  
+  &lt;p style=&#34;text-align: center;&#34;&gt;
+    &lt;img src=&#34;./images/basic-web-app-updated.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;The new basic web application architecture&#34;
+	
+	
+&gt;
+  &lt;/p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Quite a journey ahead.&lt;/p&gt;
+&lt;p&gt;images: &lt;em&gt;Azure Documentation - Azure Architecture Center - Basic Web Application&lt;/em&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

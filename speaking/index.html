@@ -1,174 +1,347 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-<title>Speaking - BartekR</title>
-<meta name="description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="(work in progress)\rEvent Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.">
+<title>Speaking</title>
 
-<meta name="twitter:card" content="summary_large_image">
+<link rel='canonical' href='https://blog.bartekr.net/speaking/'>
 
-<meta property="og:site_name" content="BartekR">
-<meta property="og:title" content="Speaking">
-<meta property="og:description" content="BartekR blog. Previously known as String or binary data would be truncated">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.bartekr.net/speaking/">
-  <meta property="og:image" content="https://blog.bartekr.net/img/main/Bartek_SqlSatOslo2019_100x100.png">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-
-  <meta name="generator" content="Hugo 0.111.3">
-  
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/vs2015.min.css">
-          <link rel="stylesheet" href="/css/bundle.min.3b1b5f2e683d24b1ea3b5a08c8254622e40aa935e0ead75ba6d45c0f14c2f965.css" integrity="sha256-OxtfLmg9JLHqO1oIyCVGIuQKqTXg6tdbptRcDxTC&#43;WU="><link rel="stylesheet" href="/css/add-on.css">
-</head>
-
-  <body>
-    
-
-<header id="site-header">
-  <nav id="site-nav">
-    <h1 class="nav-title">
-      <a href="/" class="nav">
-        
-          BartekR blog
-        
-      </a>
-    </h1>
-    <menu id="site-nav-menu" class="flyout-menu menu">
-      
-        
-          
-          <a href="/about" class="nav link"><i class='far fa-id-card'></i> About</a>
-        
-      
-        
-          
-          <a href="https://brinf.wordpress.com" class="nav link"><i class='fab fa-wordpress'></i> Blog [PL]</a>
-        
-      
-        
-          
-          <a href="/series" class="nav link"><i class='fas fa-newspaper'></i> Series</a>
-        
-      
-        
-          
-          <a href="/books" class="nav link"><i class='fas fa-book-reader'></i> Books</a>
-        
-      
-        
-          
-          <a href="/speaking" class="nav link"><i class='fas fa-microphone-alt'></i> Speaking</a>
-        
-      
-        
-          
-          <a href="/categories" class="nav link"><i class='fas fa-object-group'></i> Categories</a>
-        
-      
-        
-          
-          <a href="/tags" class="nav link"><i class='fas fa-tag'></i> Tags</a>
-        
-      
-      
-      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
-    </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
-    
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
-    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
-  </nav>
-  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
-  <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active"> (en)</a>
-  
-    
-      
-    
-  
-</menu>
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Speaking">
+<meta property='og:description' content="(work in progress)\rEvent Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.">
+<meta property='og:url' content='https://blog.bartekr.net/speaking/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='' />
+<meta name="twitter:title" content="Speaking">
+<meta name="twitter:description" content="(work in progress)\rEvent Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.">
+    <link rel="shortcut icon" href="/favicon.ico" />
 
   
+
+<style>
+     
+    :root {
+        --article-font-family: "Roboto", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">SQL Server. SSIS. PowerShell. Azure.<br />1 wife. 1 kid. 5 dogs. 10 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#work-in-progress">(work in progress)</a></li>
+    <li><a href="#stickers">Stickers</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/speaking/">Speaking</a>
+        </h2>
+    
+        
+
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
 </header>
 
-    <div id="wrapper">
-      <section id="site-intro" class="hidden-single-column">
-  <a href="/"><img src="/img/main/Bartek_SqlSatOslo2019_100x100.png" class="circle" width="100" alt="BartekR profile pic" /></a>
-  <header>
-    <h1>BartekR</h1>
-  </header>
-  <main>
-    <p>SQL Server. SSIS. PowerShell. Azure.<br/>1 wife. 1 kid. 5 dogs. 10 cats.</p>
-  </main>
-  
-    <footer>
-      <ul class="socnet-icons">
-        
-
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-    </footer>
-  
-</section>
-
-      <main id="site-main">
-        
-  <article class="post">
-    <header>
-      <div class="title">
-        <h1><a href="/speaking/">Speaking</a></h1>
-        
-      </div>
-    </header>
-    <div id="content">
-      <h2 id="work-in-progress">(work in progress)</h2>
-<table>
+    <section class="article-content">
+    
+    
+    <h2 id="work-in-progress">(work in progress)
+</h2><div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Event</th>
@@ -178,297 +351,487 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="images/sqlsat917_header.png" alt="SQL Saturday Vienna 2020"></td>
+<td>
+<img src="images/sqlsat917_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat917_header_hu51a5f3f1b290a06947013155b2ad4df4_2896_480x0_resize_box_3.png 480w, /speaking/images/sqlsat917_header_hu51a5f3f1b290a06947013155b2ad4df4_2896_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Vienna 2020"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>24.01.2020.</td>
 <td>First steps with SQL Server on Docker</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat914_header.png" alt="SQL Saturday Toruń 2019"></td>
+<td>
+<img src="images/sqlsat914_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat914_header_hue6c9019634dcf14ea08f88d5bee21100_2907_480x0_resize_box_3.png 480w, /speaking/images/sqlsat914_header_hue6c9019634dcf14ea08f88d5bee21100_2907_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Toruń 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>28.09.2019.</td>
 <td>How does the recursive CTE work?</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat898_header.png" alt="SQL Saturday Gothenburg 2019"></td>
+<td>
+<img src="images/sqlsat898_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat898_header_hu719e73b155de6cc038bc32e0cbe5f817_4054_480x0_resize_box_3.png 480w, /speaking/images/sqlsat898_header_hu719e73b155de6cc038bc32e0cbe5f817_4054_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Gothenburg 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>14.09.2019.</td>
 <td>First steps with SQL Server on Docker</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat854_header.png" alt="SQL Saturday Oslo 2019"></td>
+<td>
+<img src="images/sqlsat854_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat854_header_hu2218ec3b22102fe6c4b1ab15a72e1fe4_2912_480x0_resize_box_3.png 480w, /speaking/images/sqlsat854_header_hu2218ec3b22102fe6c4b1ab15a72e1fe4_2912_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Oslo 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>31.08.2019.</td>
 <td>First steps with SQL Server on Docker</td>
 </tr>
 <tr>
-<td><img src="images/SQLDay-logo.png" alt="SQLDay 2019"></td>
+<td>
+<img src="images/SQLDay-logo.png"
+	width="256"
+	height="83"
+	srcset="/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, /speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQLDay 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="308"
+		data-flex-basis="740px"
+	
+>
+
+</td>
 <td>14.05.2019.</td>
 <td>SQL Server + Docker – pierwsze kroki</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat824_header.png" alt="SQL Saturday Kraków 2019"></td>
+<td>
+<img src="images/sqlsat824_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat824_header_hub56785b4f10b670968fed1812fae8d02_2954_480x0_resize_box_3.png 480w, /speaking/images/sqlsat824_header_hub56785b4f10b670968fed1812fae8d02_2954_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Kraków 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>09.02.2019.</td>
 <td>Testuj swoje pakiety SSIS z ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat810_header.png" alt="SQL Saturday Linz 2019"></td>
+<td>
+<img src="images/sqlsat810_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat810_header_hue5f41240190b5ce08716a17625c79409_2885_480x0_resize_box_3.png 480w, /speaking/images/sqlsat810_header_hue5f41240190b5ce08716a17625c79409_2885_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Linz 2019"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>18.01.2019.</td>
 <td>Start testing your SSIS packages with ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/dataMindsConnect2018_41px.png" alt="dataMinds Connect 2018"></td>
+<td>
+<img src="images/dataMindsConnect2018_41px.png"
+	width="93"
+	height="41"
+	srcset="/speaking/images/dataMindsConnect2018_41px_hu17eabb42d14b75f4e21868b25d384530_3646_480x0_resize_box_3.png 480w, /speaking/images/dataMindsConnect2018_41px_hu17eabb42d14b75f4e21868b25d384530_3646_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="dataMinds Connect 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="544px"
+	
+>
+
+</td>
 <td>16.10.2018.</td>
 <td>Start testing your SSIS packages with ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat790_header.png" alt="SQL Saturday Holland 2018"></td>
+<td>
+<img src="images/sqlsat790_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat790_header_hu6608c6e1ca24e1b26bee0b4370e8fef2_2908_480x0_resize_box_3.png 480w, /speaking/images/sqlsat790_header_hu6608c6e1ca24e1b26bee0b4370e8fef2_2908_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Holland 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>13.10.2018.</td>
 <td>Start testing your SSIS packages with ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat765_header.png" alt="SQL Saturday Denmark 2018"></td>
+<td>
+<img src="images/sqlsat765_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat765_header_hucb66d40f06992deee322308c0289a4a1_3030_480x0_resize_box_3.png 480w, /speaking/images/sqlsat765_header_hucb66d40f06992deee322308c0289a4a1_3030_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Denmark 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>06.10.2018.</td>
 <td>Start testing your SSIS packages with ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/sqlsat746_header.png" alt="SQL Saturday Oslo 2018"></td>
+<td>
+<img src="images/sqlsat746_header.png"
+	width="262"
+	height="41"
+	srcset="/speaking/images/sqlsat746_header_hu00ec0fc7fd1674179fbbc31751c7f6b3_2894_480x0_resize_box_3.png 480w, /speaking/images/sqlsat746_header_hu00ec0fc7fd1674179fbbc31751c7f6b3_2894_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Oslo 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1533px"
+	
+>
+
+</td>
 <td>01.09.2018.</td>
 <td>Start testing your SSIS packages with ssisUnit</td>
 </tr>
 <tr>
-<td><img src="images/SQLDay-logo.png" alt="SQLDay 2018"></td>
+<td>
+<img src="images/SQLDay-logo.png"
+	width="256"
+	height="83"
+	srcset="/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, /speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQLDay 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="308"
+		data-flex-basis="740px"
+	
+>
+
+</td>
 <td>16.05.2018.</td>
 <td>Zacznij wreszcie testować swoje pakiety SSIS</td>
 </tr>
 <tr>
-<td><img src="images/sqlsaturday-logo.png" alt="SQL Saturday Denmark 2017"></td>
+<td>
+<img src="images/sqlsaturday-logo.png"
+	width="264"
+	height="39"
+	srcset="/speaking/images/sqlsaturday-logo_hu35e5225fbd6fd2501ee3ffbacb86d6c3_7745_480x0_resize_box_3.png 480w, /speaking/images/sqlsaturday-logo_hu35e5225fbd6fd2501ee3ffbacb86d6c3_7745_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Denmark 2017"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="676"
+		data-flex-basis="1624px"
+	
+>
+
+</td>
 <td>07.10.2017.</td>
 <td>Automate your SSIS deployment process</td>
 </tr>
 <tr>
-<td><img src="images/SQLDay-logo.png" alt="SQLDay 2017"></td>
+<td>
+<img src="images/SQLDay-logo.png"
+	width="256"
+	height="83"
+	srcset="/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, /speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQLDay 2017"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="308"
+		data-flex-basis="740px"
+	
+>
+
+</td>
 <td>16.05.2017.</td>
 <td>Zautomatyzuj swój proces wdrażania projektów SSIS</td>
 </tr>
 </tbody>
-</table>
-<h2 id="stickers">Stickers</h2>
-<p><img src="images/SQLDay2017_Speaking.png" alt="SQLDay 2017"></p>
-<p><img src="images/SQLSat656_Speaking_600x300_02.png" alt="SQL Saturday Denmark 2017"></p>
-<p><img src="images/SQLDay2018_ImSpeaking.jpg" alt="SQLDay 2018"></p>
+</table></div>
+<h2 id="stickers">Stickers
+</h2><p>
+<img src="images/SQLDay2017_Speaking.png"
+	width="200"
+	height="75"
+	srcset="/speaking/images/SQLDay2017_Speaking_hu81bd7d2276d5a8bd71b65c106bb7dee9_14262_480x0_resize_box_3.png 480w, /speaking/images/SQLDay2017_Speaking_hu81bd7d2276d5a8bd71b65c106bb7dee9_14262_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQLDay 2017"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="266"
+		data-flex-basis="640px"
+	
+>
 
-    </div>
-  </article>
+</p>
+<p>
+<img src="images/SQLSat656_Speaking_600x300_02.png"
+	width="600"
+	height="300"
+	srcset="/speaking/images/SQLSat656_Speaking_600x300_02_hu6f1249493ca52337a49bad063eab2d24_20904_480x0_resize_box_3.png 480w, /speaking/images/SQLSat656_Speaking_600x300_02_hu6f1249493ca52337a49bad063eab2d24_20904_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="SQL Saturday Denmark 2017"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="480px"
+	
+>
 
-      </main>
-      <section id="site-sidebar">
-  
-    <section id="recent-posts">
-      <header>
-        <h1>Recent Posts</h1>
-      </header>
-      
-      <article class="mini-post">
-          <a href="/2023/08/05/terraform-cidr-functions/" class="image" style="--bg-image: url('/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png');">
-    <img src="/2023/08/05/terraform-cidr-functions/images/terraform-cidr.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2023/08/05/terraform-cidr-functions/">Terraform CIDR Functions</a></h2>
-          <time class="published" datetime="2023-08-05 00:00:00 &#43;0000 UTC">August 5, 2023</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/" class="image" style="--bg-image: url('/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png');">
-    <img src="/2022/10/31/build-your-sql-server-vm-using-cdktf/images/cdktf.help.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2022/10/31/build-your-sql-server-vm-using-cdktf/">Build your SQL Server VM using CdkTf</a></h2>
-          <time class="published" datetime="2022-10-31 00:00:00 &#43;0000 UTC">October 31, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/" class="image" style="--bg-image: url('/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png');">
-    <img src="/2021/11/28/end-to-end-testing-with-playwright-part-ii/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/28/end-to-end-testing-with-playwright-part-ii/">End-to-End testing with Playwright, part II</a></h2>
-          <time class="published" datetime="2021-11-28 00:00:00 &#43;0000 UTC">November 28, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/" class="image" style="--bg-image: url('/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png');">
-    <img src="/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/11/13/end-to-end-testing-with-playwright-part-i/">End-to-End testing with Playwright, part I</a></h2>
-          <time class="published" datetime="2021-11-13 00:00:00 &#43;0000 UTC">November 13, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/" class="image" style="--bg-image: url('/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png');">
-    <img src="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="">
-  </a>
-        <header>
-          <h2><a href="/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/">Read Data From Azure Blob Storage to Azure SQL Database</a></h2>
-          <time class="published" datetime="2021-06-13 00:00:00 &#43;0000 UTC">June 13, 2021</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/post/" class="button">See More</a>
-        </footer>
-      
-    </section>
-  
+</p>
+<p>
+<img src="images/SQLDay2018_ImSpeaking.jpg"
+	width="300"
+	height="300"
+	srcset="/speaking/images/SQLDay2018_ImSpeaking_hub71f5fe283a6484c3fd97de85861ae4f_26987_480x0_resize_q75_box.jpg 480w, /speaking/images/SQLDay2018_ImSpeaking_hub71f5fe283a6484c3fd97de85861ae4f_26987_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="SQLDay 2018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+>
 
-  
-    
+</p>
 
-      <section id="categories">
-        <header>
-          <h1><a href="/categories">Categories</a></h1>
-        </header>
-        <ul>
-          
-          
-          <li>
-              <a href="/categories/learning/">learning<span class="count">17</span></a>
-          
-          <li>
-              <a href="/categories/series/">series<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/testing/">testing<span class="count">13</span></a>
-          
-          <li>
-              <a href="/categories/ssis-internals/">ssis-internals<span class="count">5</span></a>
-          
-          <li>
-              <a href="/categories/azure/">azure<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/sql-server/">sql-server<span class="count">3</span></a>
-          
-          <li>
-              <a href="/categories/admin/">admin<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/iac/">iac<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/internals/">internals<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/programming/">programming<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/troubleshooting/">troubleshooting<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/advent-of-code/">advent-of-code<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/conferences/">conferences<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/not-so-technical/">not-so-technical<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/tfs/">tfs<span class="count">1</span></a>
-          
-          </li>
-        </ul>
-      </section>
-    
-  
-
-  
-    <section id="mini-bio">
-      <header>
-        <h1>About</h1>
-      </header>
-      <p>Posts about SQL Server, SSIS and automation for my future self, but you might find something useful.</p>
-      <footer>
-        <a href="/about" class="button">Learn More</a>
-      </footer>
-    </section>
-  
 </section>
 
-      <footer id="site-footer">
-  
-      <ul class="socnet-icons">
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
         
+    
 
-        <li><a href="//github.com/BartekR" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//www.linkedin.com/in/bartoszratajczyk" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li><a href="//twitter.com/b_ratajczyk" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-<li><a href="https://dataplatform.social/@b_ratajczyk" target="_blank" rel="me" title="mastodon" class="fab fa-mastodon"></a></li>
-
-
-      </ul>
-  
-  <p class="copyright">
-    © 2023 BartekR
-      <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.111.3' target='_blank' rel='noopener'>Hugo</a>
-  </p>
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 BartekR
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
-      <script src="/js/highlight.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/powershell.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/csharp.min.js"></script>
-    <script>hljs.highlightAll();</script><script src="/js/bundle.min.f72976e0792ea04ce48a8d3f9c1df860088d63449f373d5815df8cea5df2bb72.js" integrity="sha256-9yl24HkuoEzkio0/nB34YAiNY0SfNz1YFd&#43;M6l3yu3I="></script>
-    <script src="/js/add-on.js"></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-109318393-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-  </body>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>
