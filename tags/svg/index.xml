@@ -12,7 +12,7 @@
         <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
-        <description>&lt;p&gt;In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="Featured image of post Draw the SSIS Package using SVG - part III" /&gt;&lt;p&gt;In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.&lt;/p&gt;
 &lt;h2 id=&#34;automating-the-layout-extraction&#34;&gt;Automating the layout extraction
 &lt;/h2&gt;&lt;p&gt;Previously I prepared the file with a layout by hand - I copied the &lt;code&gt;CDATA&lt;/code&gt; content of the&lt;code&gt;/DTS:Executable/DTS:DesignTimeProperties&lt;/code&gt; element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;New-Diagram.ps1&lt;/a&gt;. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):&lt;/p&gt;
@@ -142,7 +142,7 @@
         <pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
-        <description>&lt;p&gt;The post is a second part of the series. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png" alt="Featured image of post Draw the SSIS Package using SVG - part II" /&gt;&lt;p&gt;The post is a second part of the series. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;In the previous one&lt;/a&gt;, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SequencesExample.png&#34; &gt;
   
@@ -440,7 +440,7 @@
         <pubDate>Mon, 08 Jul 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
-        <description>&lt;p&gt;For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/tree/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png" alt="Featured image of post Draw the SSIS package using SVG - part I" /&gt;&lt;p&gt;For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/tree/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;is available on GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-setup&#34;&gt;The setup
 &lt;/h2&gt;&lt;p&gt;I start with the sample package as on the picture. It has three elements aligned vertically, with &lt;code&gt;AND&lt;/code&gt; precedence constraints, evaluated as &lt;em&gt;Success&lt;/em&gt;. It also has a small annotation on the side.&lt;/p&gt;

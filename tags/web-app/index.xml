@@ -12,7 +12,7 @@
         <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
-        <description>&lt;blockquote&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="Featured image of post Build Yourself a Web App in Azure" /&gt;&lt;blockquote&gt;
 &lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

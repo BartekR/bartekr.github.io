@@ -12,7 +12,7 @@
         <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
-        <description>&lt;p&gt;For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png" alt="Featured image of post Connect to SQL Server on Ubuntu Linux VirtualBox machine" /&gt;&lt;p&gt;For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.&lt;/p&gt;
 &lt;p&gt;I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?) and selecting almost only the default options. I don&amp;rsquo;t want to build a cluster or do sophisticated things - I just want the Linux Server to be up and running.&lt;/p&gt;
 &lt;p&gt;It takes just few minutes to install Ubuntu Linux Server (16.04) . The next step is to install SQL Server. Following &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-ubuntu&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the official&lt;/a&gt; documentation I run just 5 commands to set up and one to verify if the service works well:&lt;/p&gt;

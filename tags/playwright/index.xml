@@ -245,7 +245,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</guid>
-        <description>&lt;p&gt;I started working with &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="Featured image of post End-to-End testing with Playwright, part I" /&gt;&lt;p&gt;I started working with &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Playwright&lt;/a&gt; by accident. YouTube has shown me a recommendation - a short film by Nick Chapsas (&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/c/Elfocrash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;yt&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/nickchapsas&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;t&lt;/a&gt;) about &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=jZmdQL321kA&amp;amp;t=794s&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

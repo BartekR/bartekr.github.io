@@ -10,9 +10,10 @@
 <meta property='og:description' content="In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&rdquo; This information is written to the log no matter which logging level we choose (also with None).">
 <meta property='og:url' content='https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SSIS internals' /><meta property='article:published_time' content='2017-12-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2017-12-24T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SSIS internals' /><meta property='article:published_time' content='2017-12-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2017-12-24T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png' />
 <meta name="twitter:title" content="Upgrading SSIS projects, part I">
-<meta name="twitter:description" content="In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&rdquo; This information is written to the log no matter which logging level we choose (also with None).">
+<meta name="twitter:description" content="In the previous post, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&rdquo; This information is written to the log no matter which logging level we choose (also with None)."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -293,8 +295,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" alt="Featured image of post Upgrading SSIS projects, part I" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -516,9 +526,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" loading="lazy" data-key="" data-hash="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -542,9 +558,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png" loading="lazy" data-key="" data-hash="/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -568,9 +590,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment.png" loading="lazy" data-key="" data-hash="/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment.png"/>
+                
+            </div>
         
 
         <div class="article-details">

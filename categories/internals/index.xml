@@ -12,7 +12,7 @@
         <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
-        <description>&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" alt="Featured image of post Upgrading SSIS projects, part II" /&gt;&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Previously&lt;/a&gt; I wrote about the options to use &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.Upgrade()&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt; methods. This post is about the first of those options.&lt;/p&gt;
@@ -151,7 +151,7 @@
         <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="Featured image of post Upgrading SSIS projects, part I" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the previous post&lt;/a&gt;, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISCatalog_UpgradePackage.png&#34; &gt;
   

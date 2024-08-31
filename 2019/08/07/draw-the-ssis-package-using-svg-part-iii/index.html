@@ -10,9 +10,10 @@
 <meta property='og:description' content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.">
 <meta property='og:url' content='https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PowerShell' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-08-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-08-07T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PowerShell' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-08-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-08-07T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png' />
 <meta name="twitter:title" content="Draw the SSIS Package using SVG - part III">
-<meta name="twitter:description" content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file.">
+<meta name="twitter:description" content="In the third part of a series, I focus on drawing the constraints&rsquo; descriptions and the colours. And also a bit of PowerShell for automation. Automating the layout extraction\rPreviously I prepared the file with a layout by hand - I copied the CDATA content of the/DTS:Executable/DTS:DesignTimeProperties element to the XML file and saved it. It&rsquo;s a tedious task, so I wrote a PowerShell script New-Diagram.ps1. It has two paths as the parameters - the package to analyse, and the output file."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -292,8 +294,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/">
+                
+                    <img src="/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" loading="lazy" alt="Featured image of post Draw the SSIS Package using SVG - part III" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -525,9 +535,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png" loading="lazy" data-key="" data-hash="/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -538,9 +554,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png" loading="lazy" data-key="" data-hash="/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -564,9 +586,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/08/13/writing-ssisunit-test-using-api/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" loading="lazy" data-key="" data-hash="/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -577,9 +605,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/07/10/testing-the-loops-in-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" loading="lazy" data-key="" data-hash="/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png"/>
+                
+            </div>
         
 
         <div class="article-details">

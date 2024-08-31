@@ -12,7 +12,7 @@
         <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="Featured image of post Upgrading SSIS projects - part III" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the first part&lt;/a&gt; of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.Upgrade()&lt;/a&gt; and  &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt;. This post is about the latter.&lt;/p&gt;
@@ -91,7 +91,7 @@
         <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
-        <description>&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" alt="Featured image of post Upgrading SSIS projects, part II" /&gt;&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Previously&lt;/a&gt; I wrote about the options to use &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.Upgrade()&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt; methods. This post is about the first of those options.&lt;/p&gt;
@@ -230,7 +230,7 @@
         <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="Featured image of post Upgrading SSIS projects, part I" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the previous post&lt;/a&gt;, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISCatalog_UpgradePackage.png&#34; &gt;
   
@@ -358,7 +358,7 @@
         <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
-        <description>&lt;p&gt;Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="Featured image of post So, you want to migrate SSIS(DB)?" /&gt;&lt;p&gt;Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.&lt;/p&gt;
 &lt;p&gt;The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).&lt;/p&gt;
 &lt;p&gt;I won&amp;rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&amp;rsquo;t use &lt;a class=&#34;link&#34; href=&#34;https://dbatools.io/functions/copy-dbassiscatalog/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Copy-DbaSsisCatalog&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;http://dbatools.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

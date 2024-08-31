@@ -10,9 +10,10 @@
 <meta property='og:description' content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.">
 <meta property='og:url' content='https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SQL Server 2017' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-03-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-03-19T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SQL Server 2017' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-03-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-03-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png' />
 <meta name="twitter:title" content="Testing SSIS Projects with ssisUnit">
-<meta name="twitter:description" content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process.">
+<meta name="twitter:description" content="During the upcoming SQLDay 2018 conference (10th edition of SQLDay!) I&rsquo;ll be speaking about testing SSIS packages and projects. From my observations, I see that we don&rsquo;t like testing (I&rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &ldquo;let&rsquo;s write a test for it&rdquo;, and it&rsquo;s just a regular part of the process."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -295,8 +297,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">
+                
+                    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" loading="lazy" alt="Featured image of post Testing SSIS Projects with ssisUnit" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -546,9 +556,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" loading="lazy" data-key="" data-hash="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -572,9 +588,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" data-key="" data-hash="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -585,9 +607,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" loading="lazy" data-key="" data-hash="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -598,9 +626,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" data-key="" data-hash="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png"/>
+                
+            </div>
         
 
         <div class="article-details">

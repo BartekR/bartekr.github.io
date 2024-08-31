@@ -10,9 +10,10 @@
 <meta property='og:description' content="In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter. The documentation of the method is also a bit sparse at the moment, but is self-explanatory: public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events ); the name of the target file - that&rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events) To load the package I use the Application.">
 <meta property='og:url' content='https://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='internals' /><meta property='article:published_time' content='2018-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-02-28T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='internals' /><meta property='article:published_time' content='2018-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-02-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png' />
 <meta name="twitter:title" content="Upgrading SSIS projects - part III">
-<meta name="twitter:description" content="In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter. The documentation of the method is also a bit sparse at the moment, but is self-explanatory: public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events ); the name of the target file - that&rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events) To load the package I use the Application.">
+<meta name="twitter:description" content="In the first part of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - Application.Upgrade() and Application.SaveAndUpdateVersionToXml(). This post is about the latter. The documentation of the method is also a bit sparse at the moment, but is self-explanatory: public void SaveAndUpdateVersionToXml ( string fileName, Microsoft.SqlServer.Dts.Runtime.Package package, Microsoft.SqlServer.Dts.Runtime.DTSTargetServerVersion newVersion, Microsoft.SqlServer.Dts.Runtime.IDTSEvents events ); the name of the target file - that&rsquo;s where we save the outcome of the update operation (fileName) the package we want to convert (package) which SSIS version we have in mind (newVersion) an object for the events that happened during the process (events) To load the package I use the Application."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -259,8 +261,16 @@
     
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" alt="Featured image of post Upgrading SSIS projects - part III" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -433,9 +443,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" loading="lazy" data-key="" data-hash="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -446,9 +462,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/12/24/upgrading-ssis-projects-part-i/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" data-key="" data-hash="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -459,9 +481,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/11/06/so-you-want-to-migrate-ssisdb/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" loading="lazy" data-key="" data-hash="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -472,9 +500,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/06/25/learning-something-new-connections-in-ssis-package/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png" loading="lazy" data-key="" data-hash="/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -485,9 +519,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2017/06/11/get-the-passwords-from-ssis-environment-variables/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment.png" loading="lazy" data-key="" data-hash="/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment.png"/>
+                
+            </div>
         
 
         <div class="article-details">

@@ -12,7 +12,7 @@
         <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png" alt="Featured image of post Adding a new task in TFS (Azure DevOps) using Excel" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;In the previous post&lt;/a&gt;, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.&lt;/p&gt;
 &lt;p&gt;First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to &lt;a class=&#34;link&#34; href=&#34;https://visualstudio.microsoft.com/downloads/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://visualstudio.microsoft.com/downloads/&lt;/a&gt; and pick it from the &lt;em&gt;Other Tools and Frameworks&lt;/em&gt; section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.&lt;/p&gt;

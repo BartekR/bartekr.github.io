@@ -12,7 +12,7 @@
         <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</guid>
-        <description>&lt;p&gt;An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. &lt;a class=&#34;link&#34; href=&#34;https://youtu.be/XlhihCd6qtw?t=23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" alt="Featured image of post Adding a new Task in TFS using C#" /&gt;&lt;p&gt;An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. &lt;a class=&#34;link&#34; href=&#34;https://youtu.be/XlhihCd6qtw?t=23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;You have three months from now&lt;/a&gt;. Or a few hours.&lt;/p&gt;
 &lt;p&gt;The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).&lt;/p&gt;
 &lt;table&gt;
@@ -270,7 +270,7 @@
         <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
-        <description>&lt;p&gt;One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" alt="Featured image of post Executing ssisUnit tests in MSTest framework" /&gt;&lt;p&gt;One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).&lt;/p&gt;
 &lt;p&gt;I work a lot with TFS. It has a neat feature - you can run tests during the build or release and verify how your code is doing. The goal is: I want to run ssisUnit tests of my &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/ssisUnitLearning&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;ssisUnitLearning project&lt;/a&gt; in TFS and see the outcome in the reports.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/TFS_TestsDetails.png&#34; &gt;

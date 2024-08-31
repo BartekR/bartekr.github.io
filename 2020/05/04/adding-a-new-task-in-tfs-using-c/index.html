@@ -10,9 +10,10 @@
 <meta property='og:description' content="An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours. The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough). Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work Task Title1 Requirements Proj1\\Team1 P Name1 Description 1 10 10 Task Title2 Maintenance Proj1\\Team1 P Name2 Description 2 5 5 Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &quot;\\Current\\Sprint 3&quot;.">
 <meta property='og:url' content='https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#' /><meta property='article:tag' content='TFS' /><meta property='article:published_time' content='2020-05-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-05-04T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#' /><meta property='article:tag' content='TFS' /><meta property='article:published_time' content='2020-05-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-05-04T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png' />
 <meta name="twitter:title" content="Adding a new Task in TFS using C#">
-<meta name="twitter:description" content="An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours. The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough). Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work Task Title1 Requirements Proj1\\Team1 P Name1 Description 1 10 10 Task Title2 Maintenance Proj1\\Team1 P Name2 Description 2 5 5 Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &quot;\\Current\\Sprint 3&quot;.">
+<meta name="twitter:description" content="An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. You have three months from now. Or a few hours. The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough). Work item type Title Activity Area Path Assigned To Description Original Estimate Completed Work Task Title1 Requirements Proj1\\Team1 P Name1 Description 1 10 10 Task Title2 Maintenance Proj1\\Team1 P Name2 Description 2 5 5 Additionally, the tasks should be assigned to the designated User Story: http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345 and the Sprint &quot;\\Current\\Sprint 3&quot;."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -291,8 +293,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2020/05/04/adding-a-new-task-in-tfs-using-c/">
+                
+                    <img src="/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" loading="lazy" alt="Featured image of post Adding a new Task in TFS using C#" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -642,9 +652,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" loading="lazy" data-key="" data-hash="/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png"/>
+                
+            </div>
         
 
         <div class="article-details">

@@ -6,7 +6,15 @@
         <description>Recent content on BartekR</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
-        <lastBuildDate>Sat, 13 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 14 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Sample Archive</title>
+        <link>https://blog.bartekr.net/archives/</link>
+        <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/archives/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Sample Archive</title>
         <link>https://blog.bartekr.net/search/</link>
         <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
@@ -639,14 +647,6 @@ SQL TempDb: Use local SSD drive&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>Sample Archive</title>
-        <link>https://blog.bartekr.net/archives/</link>
-        <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://blog.bartekr.net/archives/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>End-to-End testing with Playwright, part II</title>
         <link>https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/</link>
         <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
@@ -885,7 +885,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/</guid>
-        <description>&lt;p&gt;I started working with &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2021/11/13/end-to-end-testing-with-playwright-part-i/images/Header.png" alt="Featured image of post End-to-End testing with Playwright, part I" /&gt;&lt;p&gt;I started working with &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Playwright&lt;/a&gt; by accident. YouTube has shown me a recommendation - a short film by Nick Chapsas (&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/c/Elfocrash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;yt&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/nickchapsas&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;t&lt;/a&gt;) about &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=jZmdQL321kA&amp;amp;t=794s&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1106,7 +1106,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/</guid>
-        <description>&lt;p&gt;In one of the projects, we store source files as JSON data on Azure Blob Storage. These files must be loaded into Azure SQL Database. We use a .NET code to perform this, but how could I load the files directly into Azure SQL Database?&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2021/06/13/read-data-from-azure-blob-storage-to-azure-sql-database/images/StorageAccountContent.png" alt="Featured image of post Read Data From Azure Blob Storage to Azure SQL Database" /&gt;&lt;p&gt;In one of the projects, we store source files as JSON data on Azure Blob Storage. These files must be loaded into Azure SQL Database. We use a .NET code to perform this, but how could I load the files directly into Azure SQL Database?&lt;/p&gt;
 &lt;h2 id=&#34;the-environment&#34;&gt;The environment
 &lt;/h2&gt;&lt;p&gt;Nothing extraordinary: a default storage account &lt;code&gt;bartekr01stacc&lt;/code&gt; configured with local redundancy (LRS) + SQL Database &lt;code&gt;VariousExamples&lt;/code&gt; located within &lt;code&gt;bartekr01&lt;/code&gt; Azure SQL Server. The storage account has &lt;code&gt;json-data-container&lt;/code&gt; container (set as private) and &lt;code&gt;json-data-share&lt;/code&gt; file share.&lt;/p&gt;
 &lt;p&gt;
@@ -1252,7 +1252,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
-        <description>&lt;blockquote&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="Featured image of post Build Yourself a Web App in Azure" /&gt;&lt;blockquote&gt;
 &lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1297,7 +1297,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2021/01/17/testing-utterances-comments/</guid>
-        <description>&lt;p&gt;When I switched to Hugo, I knew my new blog would not have the comments enabled. I planned it &amp;ldquo;for later&amp;rdquo;, as I didn&amp;rsquo;t want to use Disqus (available by default in Hugo).&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2021/01/17/testing-utterances-comments/images/utterances.png" alt="Featured image of post Testing Utterances Comments" /&gt;&lt;p&gt;When I switched to Hugo, I knew my new blog would not have the comments enabled. I planned it &amp;ldquo;for later&amp;rdquo;, as I didn&amp;rsquo;t want to use Disqus (available by default in Hugo).&lt;/p&gt;
 &lt;p&gt;When I chose the &lt;a class=&#34;link&#34; href=&#34;https://github.com/pacollins/hugo-future-imperfect-slim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;hugo-future-imperfect-slim&lt;/a&gt; theme, I saw I could integrate Staticman, which creates the comments as the Pull Request in GitHub. Brilliant idea, but it involves some additional setup (either authorising Staticman GitHub account or hosting an own API instance). That&amp;rsquo;s why I skipped it when I migrated to Hugo. I decided to go back to the comments once I am more prepared for it.&lt;/p&gt;
 &lt;h2 id=&#34;a-month-later&#34;&gt;A month later
@@ -1370,7 +1370,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/12/31/advent-of-code-2020/</guid>
-        <description>&lt;p&gt;This year I took part in &amp;ldquo;Advent of Code&amp;rdquo; - a challenge with the series of puzzles to solve using any programming language. I tried two years ago but resigned after the first day. This year was different, as we set the internal leaderboards, and I had a motivation to test my skills. My initial idea was to use only the PowerShell, but after some talks, I thought &amp;ldquo;maybe it&amp;rsquo;s a good moment to start learning &lt;code&gt;go&lt;/code&gt; lang&amp;rdquo;?&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2020/12/31/advent-of-code-2020/images/AoC.png" alt="Featured image of post Advent of Code 2020" /&gt;&lt;p&gt;This year I took part in &amp;ldquo;Advent of Code&amp;rdquo; - a challenge with the series of puzzles to solve using any programming language. I tried two years ago but resigned after the first day. This year was different, as we set the internal leaderboards, and I had a motivation to test my skills. My initial idea was to use only the PowerShell, but after some talks, I thought &amp;ldquo;maybe it&amp;rsquo;s a good moment to start learning &lt;code&gt;go&lt;/code&gt; lang&amp;rdquo;?&lt;/p&gt;
 &lt;p&gt;The answer was: no.&lt;/p&gt;
 &lt;p&gt;I started solving puzzles with PowerShell and learned &lt;code&gt;go&lt;/code&gt; along. But as puzzles began to be more difficult, I focused only on PowerShell. &lt;code&gt;go&lt;/code&gt; has to wait a bit.&lt;/p&gt;
 &lt;p&gt;I collected 28 stars out of 50 possible. Which I think is not that bad result. (You see 29 on the picture in the header because I started searching how others solved the problems and implemented first overdue task).&lt;/p&gt;
@@ -1657,7 +1657,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/12/28/migrating-to-github-pages-with-hugo/</guid>
-        <description>&lt;p&gt;Decision was made. And announced. And deadline set - so I will look stupid if I don&amp;rsquo;t do it. Something that was a strong decision started weakening. But setting a goal, and telling your friends about it is a strong motivator. Not to mention the WordPress annoyances during the transition period.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="Featured image of post Migrating to GitHub Pages with Hugo" /&gt;&lt;p&gt;Decision was made. And announced. And deadline set - so I will look stupid if I don&amp;rsquo;t do it. Something that was a strong decision started weakening. But setting a goal, and telling your friends about it is a strong motivator. Not to mention the WordPress annoyances during the transition period.&lt;/p&gt;
 &lt;h2 id=&#34;first-hurdles&#34;&gt;First hurdles
 &lt;/h2&gt;&lt;p&gt;I chose Hugo by accident. At first I wanted to use Jekyll - I worked with Ruby long time ago and thought it might be a good idea to return to those times and refresh knowledge a bit. So I started reading how to migrate my WordPress blog to Jekyll. And I found a comment about Hugo - that it&amp;rsquo;s a lot faster. Pff. &lt;em&gt;&amp;ldquo;It&amp;rsquo;s written in Go&amp;rdquo;&lt;/em&gt;. Say no more! Go is very high on my list &amp;ldquo;learn to use it in the next two years&amp;rdquo; - Hugo then!&lt;/p&gt;
 &lt;p&gt;I started reading how Hugo works, how the themes are used, how is it built, how to use shortcodes, how to &amp;hellip; Wow. It was a lot to read. And I thought &amp;ldquo;well, maybe it was not as great idea as I thought first&amp;rdquo;? Yeah. I see you understand. But I &lt;strong&gt;wanted&lt;/strong&gt; to do it, so I started following some tutorials, read more about the transition, chose few themes and tested it.&lt;/p&gt;
@@ -1722,7 +1722,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/11/01/migrating-to-github-pages/</guid>
-        <description>&lt;p&gt;I blog with WordPress since the 17th of February 2009. At first, I used a blog-as-a-service approach, as I wanted just to start writing and see how it goes, not building all the infrastructure. I was writing for myself, to document interesting things I found during my adventures with SQL Server.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2020/11/01/migrating-to-github-pages/images/GitHubPages.png" alt="Featured image of post Migrating to GitHub Pages" /&gt;&lt;p&gt;I blog with WordPress since the 17th of February 2009. At first, I used a blog-as-a-service approach, as I wanted just to start writing and see how it goes, not building all the infrastructure. I was writing for myself, to document interesting things I found during my adventures with SQL Server.&lt;/p&gt;
 &lt;p&gt;Then, in 2017 I decided to switch to an English blog. I wanted to do the next step, and as I was helping run other WordPress-based websites, I started my own hosted blog – again using WordPress.&lt;/p&gt;
 &lt;p&gt;After the next three years (and a half) I got fed up with it. All the interface changes, plugins updates ruining the websites, the editor that started to hamper instead of help in writing – I started looking for alternatives. The best, if it would support MarkDown, as I write almost all my documents and notes using .md files *).&lt;/p&gt;
 &lt;p&gt;And I found GitHub Pages. I’ve read some comments, tutorials about migration, using Jekyll and all that stuff, but decided to go with Hugo.&lt;/p&gt;
@@ -1739,7 +1739,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/</guid>
-        <description>&lt;p&gt;One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing &lt;code&gt;Invoke-WebRequest&lt;/code&gt; (with &lt;code&gt;try/catch&lt;/code&gt; logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2020/09/24/using-the-system-oauth-token-in-azure-devops/images/203Error.png" alt="Featured image of post Using the system OAuth token in Azure DevOps" /&gt;&lt;p&gt;One of the new YAML pipeline steps I prepared recently involved interaction with work items. I wanted to add the comments to the task (with the task ID extracted from some file). So, I created a PowerShell step that was executing &lt;code&gt;Invoke-WebRequest&lt;/code&gt; (with &lt;code&gt;try/catch&lt;/code&gt; logic, obviously), the process finished successfully, but nothing happened. I mean - the comments were not there. Uhmmmm, why?! The log analysis gave me a slight hint about what was wrong (as seen in the post header picture):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;StatusCode : 203
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;StatusDescription : NonAuthoritativeInformation
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem began because I wanted to adjust the code from the other pipeline that would fit my needs, but it didn&amp;rsquo;t want to work in my project. I googled for the answers, fiddled with tokens, authorization headers, setting pipeline options and variables - nothing helped. I got even more errors and problems. I had to take one step back to go two steps forward.&lt;/p&gt;
@@ -1846,7 +1846,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/</guid>
-        <description>&lt;p&gt;Last week finally came that day: &amp;ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&amp;rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" alt="Featured image of post Have problems with Docker Desktop for Windows Home? Yeah, me too!" /&gt;&lt;p&gt;Last week finally came that day: &amp;ldquo;I will give a shot to a Docker Desktop for Windows 10 Home&amp;rdquo;. To make it possible I run a long-postponed Windows Update to version 2004 (it allows to use WSL2). The upgrade and installation went smoothly, but the docker refused to cooperate.&lt;/p&gt;
 &lt;p&gt;Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional. Also at home, I prepared a working environment consisting of Windows 10 Home + WSL + VirtualBox. The last one for hosting an Ubuntu virtual machine, as it&amp;rsquo;s not possible to run Docker Desktop on Windows 10 Home or run a docker daemon in WSL. I configured it with a very helpful posts from Nick Janetakis (&lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&lt;/a&gt;). Now, with WSL2 I could eliminate VirtualBox from the ecosystem.&lt;/p&gt;
@@ -1905,7 +1905,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Tue, 19 May 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2020/05/19/adding-a-new-task-in-tfs-azure-devops-using-excel/images/AzureDevOps_TeamPlugin.png" alt="Featured image of post Adding a new task in TFS (Azure DevOps) using Excel" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;In the previous post&lt;/a&gt;, I added the tasks to on-premises TFS using C#. This time I will add similar data using an Excel add-in. I will also learn how to accidentally remove the link from the task to the parent element.&lt;/p&gt;
 &lt;p&gt;First things first - if you do not have Azure DevOps Office® Integration 2019 installed (you need it to work with TFS / Azure DevOps from Excel), then go to &lt;a class=&#34;link&#34; href=&#34;https://visualstudio.microsoft.com/downloads/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://visualstudio.microsoft.com/downloads/&lt;/a&gt; and pick it from the &lt;em&gt;Other Tools and Frameworks&lt;/em&gt; section at the bottom of the page. Install, and you should then see the Team plugin in the Excel menu.&lt;/p&gt;
@@ -2110,7 +2110,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/</guid>
-        <description>&lt;p&gt;An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. &lt;a class=&#34;link&#34; href=&#34;https://youtu.be/XlhihCd6qtw?t=23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2020/05/04/adding-a-new-task-in-tfs-using-c/images/tbl_Field.png" alt="Featured image of post Adding a new Task in TFS using C#" /&gt;&lt;p&gt;An assignment: using data from the Excel file (sample data below) insert them into TFS (on-premises). Automatically. Start. &lt;a class=&#34;link&#34; href=&#34;https://youtu.be/XlhihCd6qtw?t=23&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;You have three months from now&lt;/a&gt;. Or a few hours.&lt;/p&gt;
 &lt;p&gt;The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).&lt;/p&gt;
 &lt;table&gt;
@@ -2368,7 +2368,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/</guid>
-        <description>&lt;p&gt;In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/BoundingBoxRectangles.png" alt="Featured image of post Draw the SSIS Package using SVG - part III" /&gt;&lt;p&gt;In the third part of a series, I focus on drawing the constraints&amp;rsquo; descriptions and the colours. And also a bit of PowerShell for automation.&lt;/p&gt;
 &lt;h2 id=&#34;automating-the-layout-extraction&#34;&gt;Automating the layout extraction
 &lt;/h2&gt;&lt;p&gt;Previously I prepared the file with a layout by hand - I copied the &lt;code&gt;CDATA&lt;/code&gt; content of the&lt;code&gt;/DTS:Executable/DTS:DesignTimeProperties&lt;/code&gt; element to the XML file and saved it. It&amp;rsquo;s a tedious task, so I wrote a PowerShell script &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/blob/master/201908%20Draw%20SSIS%20package%20using%20SVG%20part%20III/New-Diagram.ps1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;New-Diagram.ps1&lt;/a&gt;. It has two paths as the parameters - the package to analyse, and the output file. The content is just three lines of code (it could fit in one, but I split it for readability):&lt;/p&gt;
@@ -2498,7 +2498,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/</guid>
-        <description>&lt;p&gt;The post is a second part of the series. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_Header.png" alt="Featured image of post Draw the SSIS Package using SVG - part II" /&gt;&lt;p&gt;The post is a second part of the series. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;In the previous one&lt;/a&gt;, I created an SVG image of the simple SSIS package, but when I tried to draw something advanced (upper image below) I got something far from expected (lower image below). This time I&amp;rsquo;ll fix it.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SequencesExample.png&#34; &gt;
   
@@ -2796,7 +2796,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 08 Jul 2019 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/</guid>
-        <description>&lt;p&gt;For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/tree/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png" alt="Featured image of post Draw the SSIS package using SVG - part I" /&gt;&lt;p&gt;For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/blog/tree/master/201907%20Draw%20SSIS%20package%20using%20SVG%20part%20I&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;is available on GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-setup&#34;&gt;The setup
 &lt;/h2&gt;&lt;p&gt;I start with the sample package as on the picture. It has three elements aligned vertically, with &lt;code&gt;AND&lt;/code&gt; precedence constraints, evaluated as &lt;em&gt;Success&lt;/em&gt;. It also has a small annotation on the side.&lt;/p&gt;
@@ -3217,7 +3217,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/</guid>
-        <description>&lt;p&gt;One of the ssisUnit commands is a &lt;code&gt;PropertyCommand&lt;/code&gt;. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2018/11/05/working-with-properties-in-ssisunit/images/DFTPropertyCommand.png" alt="Featured image of post Working with properties in ssisUnit" /&gt;&lt;p&gt;One of the ssisUnit commands is a &lt;code&gt;PropertyCommand&lt;/code&gt;. It allows you to read or set a property of the task, the package or the project. As of the time of writing - you can&amp;rsquo;t test the properties of the precedence constraints or data flow elements (but you can&amp;rsquo;t currently test data flow at all).&lt;/p&gt;
 &lt;p&gt;How do you use it?&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/EmptyPropertyCommand.png&#34; &gt;
   
@@ -3261,7 +3261,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/</guid>
-        <description>&lt;p&gt;ssisUnit has a stable version for SSIS 2005 - 2014. &lt;a class=&#34;link&#34; href=&#34;https://github.com/johnwelch/ssisUnit/commits?author=johnwelch&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/09/12/whats-new-in-ssisunit/images/ProjectConnectionStringSetup.png" alt="Featured image of post What&#39;s new in ssisUnit?" /&gt;&lt;p&gt;ssisUnit has a stable version for SSIS 2005 - 2014. &lt;a class=&#34;link&#34; href=&#34;https://github.com/johnwelch/ssisUnit/commits?author=johnwelch&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;It didn&amp;rsquo;t change much since August 2014&lt;/a&gt;, until August 2017. Then &lt;a class=&#34;link&#34; href=&#34;https://github.com/johnwelch/ssisUnit/pull/1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;my Pull Request&lt;/a&gt; was merged, and it added some new functionality for ssisUnit.&lt;/p&gt;
 &lt;p&gt;First - it works with SSIS 2017. You can probably use it with SSIS 2016 packages, but I didn&amp;rsquo;t test it yet. Although - you can&amp;rsquo;t check everything - there are problems when you want to use Control Flow Templates in your packages. When I tried to read the variable from the container included from the template - it hangs for a few seconds and returns an incorrect result. It&amp;rsquo;s something to investigate later.&lt;/p&gt;
@@ -3302,7 +3302,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" alt="Featured image of post Writing ssisUnit test using API" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the post about using MSTest framework to execute ssisUnit tests&lt;/a&gt;, I used parts of the ssisUnit API model. If you want, you can write all your tests using this model, and this post will guide you through the first steps. I will show you how to write one of the previously prepared XML tests using C# and (again) MSTest.&lt;/p&gt;
 &lt;p&gt;Why MSTest? Because I don&amp;rsquo;t want to write some application that will contain all the tests I want to run, display if they pass or not. When I write the MSTest tests, I can run them using the Test Explorer in VS, using a command line, or in TFS.&lt;/p&gt;
 &lt;h2 id=&#34;the-preparations&#34;&gt;The preparations
@@ -3535,7 +3535,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/</guid>
-        <description>&lt;p&gt;In the &lt;a class=&#34;link&#34; href=&#34;http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" alt="Featured image of post Testing the loops in ssisUnit" /&gt;&lt;p&gt;In the &lt;a class=&#34;link&#34; href=&#34;http://agilebi.com/jwelch/2013/04/08/qa-from-unit-tests-for-ssis-packages/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Q &amp;amp; A post&lt;/a&gt; after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;&lt;/p&gt;
@@ -3609,7 +3609,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Thu, 05 Jul 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/</guid>
-        <description>&lt;p&gt;When you set the packages&amp;rsquo; references in the ssisUnit tests you have four options for the source (&lt;em&gt;StoragePath&lt;/em&gt;) of the package:&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png" alt="Featured image of post Setting package references in ssisUnit" /&gt;&lt;p&gt;When you set the packages&amp;rsquo; references in the ssisUnit tests you have four options for the source (&lt;em&gt;StoragePath&lt;/em&gt;) of the package:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;em&gt;Filesystem&lt;/em&gt; - references the package in the filesystem - either within a project or standalone&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;MSDB&lt;/em&gt; - package stored in the &lt;code&gt;msdb&lt;/code&gt; database&lt;/li&gt;
@@ -3749,7 +3749,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Fri, 15 Jun 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/</guid>
-        <description>&lt;p&gt;One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2018/06/15/executing-ssisunit-tests-in-mstest-framework/images/TFS_TestsDetails.png" alt="Featured image of post Executing ssisUnit tests in MSTest framework" /&gt;&lt;p&gt;One of the drawbacks of ssisUnit is that it has only its own test runner. You can run the tests either using GUI or the console application, but the output is not that easy to parse and to present on the report. I&amp;rsquo;m used to working with Pester output or using NUnit/MSTest frameworks that integrates nicely with other tools. In this post, I will show you how to prepare and execute ssisUnit tests using MSTest framework, how to automate this process, and how to run those tests with TFS (or VSTS).&lt;/p&gt;
 &lt;p&gt;I work a lot with TFS. It has a neat feature - you can run tests during the build or release and verify how your code is doing. The goal is: I want to run ssisUnit tests of my &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/ssisUnitLearning&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;ssisUnitLearning project&lt;/a&gt; in TFS and see the outcome in the reports.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/TFS_TestsDetails.png&#34; &gt;
@@ -3978,8 +3978,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;li&gt;T. Kingfisher &amp;ldquo;Thornhedge&amp;rdquo; (PL: &amp;ldquo;Cierń) 21.06.2024.&lt;/li&gt;
 &lt;li&gt;A. C. Cobble &amp;ldquo;Dark Territory&amp;rdquo; (PL: &amp;ldquo;Wrogie terytorium&amp;rdquo;) 28.06.2024.&lt;/li&gt;
 &lt;li&gt;A. C. Cobble &amp;ldquo;Empty Horizon&amp;rdquo; (PL: &amp;ldquo;Pusty horyzont&amp;rdquo;) 10.07.2024.&lt;/li&gt;
-&lt;li&gt;William Zinsser &amp;ldquo;Writing to learn&amp;rdquo;&lt;/li&gt;
-&lt;li&gt;Michael J. Sullivan &amp;ldquo;Age of War&amp;rdquo; (PL: &amp;ldquo;Epoka wojny&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;Michael J. Sullivan &amp;ldquo;Age of War&amp;rdquo; (PL: &amp;ldquo;Epoka wojny&amp;rdquo;) 23.07.2024.&lt;/li&gt;
+&lt;li&gt;Becky Chambers &amp;ldquo;A Psalm for the Wild-Built&amp;rdquo; (PL: &amp;ldquo;Psalm dla zbudowanych w dziczy&amp;rdquo;) 26.07.2024.&lt;/li&gt;
+&lt;li&gt;William Zinsser &amp;ldquo;Writing to learn&amp;rdquo; 06.08.2024.&lt;/li&gt;
+&lt;li&gt;Przemysław Duda &amp;ldquo;Miecze i słowa (PL) 10.08.2024.&lt;/li&gt;
+&lt;li&gt;Janusz Stankiewicz &amp;ldquo;Gorath. Uderz pierwszy&amp;rdquo; (PL) 14.08.2024.&lt;/li&gt;
+&lt;li&gt;Janusz Stankiewicz &amp;ldquo;Gorath. Krawędź Otchłani&amp;rdquo; (PL) 21.08.2024.&lt;/li&gt;
+&lt;li&gt;Franciszek M. Piątkowski &amp;ldquo;Powiernik&amp;rdquo; (PL) 26.08.2024.&lt;/li&gt;
+&lt;li&gt;Franciszek M. Piątkowski &amp;ldquo;Widzący&amp;rdquo; (PL) 28.08.2024.&lt;/li&gt;
+&lt;li&gt;Franciszek M. Piątkowski &amp;ldquo;Obrońcy&amp;rdquo; (PL)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;In progress, in the background:&lt;/p&gt;
 &lt;ul&gt;
@@ -4366,7 +4373,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png" alt="Featured image of post Using cached datasets in ssisUnit" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;In the previous post&lt;/a&gt;, I wrote about using datasets in the ssisUnit test. By default, the dataset query is executed against the data source each time the test is run. But we also have an option to store the dataset&amp;rsquo;s result in the test file. In this post, I will show you how you can use it.&lt;/p&gt;
 &lt;p&gt;First - why would you want to store the datasets within the test file? Well, maybe you don&amp;rsquo;t want to hammer your database with hundreds of requests to prepare the expected data outcome. And/or you want to have everything in your unit test file, and you don&amp;rsquo;t want to write all that &lt;code&gt;CAST&lt;/code&gt;/&lt;code&gt;CONVERT&lt;/code&gt; information for the datatypes when preparing the dataset?&lt;/p&gt;
 &lt;p&gt;The ssisUnit GUI does not support creating the persisted dataset. If you switch the &lt;em&gt;IsResultsStored&lt;/em&gt; flag to true on the dataset&amp;rsquo;s properties, it gives a warning &amp;ldquo;&lt;em&gt;The expected dataset&amp;rsquo;s (&amp;lt;the dataset name&amp;gt;) stored results does not contain data. Populate the Results data table before executing.&lt;/em&gt;&amp;rdquo; during the test run.&lt;/p&gt;
@@ -4578,7 +4585,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/</guid>
-        <description>&lt;p&gt;One of the elements you can define in ssisUnit is a Dataset. In this post of the &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/series/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png" alt="Featured image of post Using Connections and Datasets in ssisUnit" /&gt;&lt;p&gt;One of the elements you can define in ssisUnit is a Dataset. In this post of the &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/series/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;ssisUnit series&lt;/a&gt;, I will show you how to prepare and use it later in a test.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/Dataset.png&#34; &gt;
   
@@ -4961,7 +4968,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Fri, 13 Apr 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" alt="Featured image of post Testing database connections with ssisUnit" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Previously&lt;/a&gt; we successfully prepared tests for variables and parameters using &lt;code&gt;VariableCommandand&lt;/code&gt; and &lt;code&gt;ParameterCommand&lt;/code&gt;. Now it&amp;rsquo;s time to communicate with the database, and for that, I will use connection manager defined on the project level. I know from the ssisUnit tutorials it works perfect with package connection managers, so it&amp;rsquo;s time to verify it against the projects. I will test the package &lt;code&gt;10_ProjectCM.dtsx&lt;/code&gt; - it is just getting a single value from the table in a database and storing it in a variable. All the packages and unit tests are on &lt;a class=&#34;link&#34; href=&#34;https://github.com/BartekR/ssisUnit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;my GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The package contains three SQL Tasks: the first just checks if we can communicate with the database using &lt;code&gt;SELECT 1&lt;/code&gt; statement, the second gets the information from the table, and the third repeats the second on the container level.&lt;/p&gt;
@@ -5030,7 +5037,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/03/26/writing-first-tests-with-ssisunit/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="Featured image of post Writing first tests with ssisUnit" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Previously&lt;/a&gt; I wrote about the importance of testing the SSIS packages and introduced you to ssisUnit. In this post, I will show you how to write simple tests for the variables and parameters using Test Suite Builder. As I wrote before: just start slow and small, don&amp;rsquo;t write your first tests for the most complicated part of the package.&lt;/p&gt;
 &lt;p&gt;Create a new SSIS project and use the automatically generated &lt;code&gt;Package.dtsx&lt;/code&gt;. Open it and add two parameters:&lt;/p&gt;
 &lt;ul&gt;
@@ -5387,7 +5394,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/</guid>
-        <description>&lt;p&gt;During the upcoming &lt;a class=&#34;link&#34; href=&#34;http://sqlday.pl/en/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" alt="Featured image of post Testing SSIS Projects with ssisUnit" /&gt;&lt;p&gt;During the upcoming &lt;a class=&#34;link&#34; href=&#34;http://sqlday.pl/en/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;SQLDay 2018&lt;/a&gt; conference (10th edition of SQLDay!) I&amp;rsquo;ll be &lt;a class=&#34;link&#34; href=&#34;https://sqlday.pl/en/session/start-testing-your-ssis-packages/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;speaking about testing SSIS packages and projects&lt;/a&gt;. From my observations, I see that we don&amp;rsquo;t like testing (I&amp;rsquo;m talking about database and ETL people), but when we start doing it - it becomes a natural part of our work. In my current project, we started slow, with some data quality testing for some parts of the process. Today you can hear &amp;ldquo;let&amp;rsquo;s write a test for it&amp;rdquo;, and it&amp;rsquo;s just a regular part of the process.&lt;/p&gt;
 &lt;p&gt;I want to take a testing experience a bit further. We already have data quality testing (and the number of tests grows each day), but how about SSIS testing? How can we do it? This post starts the series about testing SSIS packages and projects (mostly projects) with different tools. The first step in our ETL testing will be asking ourselves some questions about testing, then we start doing technical things getting familiar with the &lt;a class=&#34;link&#34; href=&#34;https://github.com/johnwelch/ssisUnit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -5571,7 +5578,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/02/28/upgrading-ssis-projects-part-iii/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="Featured image of post Upgrading SSIS projects - part III" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the first part&lt;/a&gt; of the series I mentioned two methods of upgrading SSIS projects (well - packages, for now) - &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.Upgrade()&lt;/a&gt; and  &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt;. This post is about the latter.&lt;/p&gt;
@@ -5650,7 +5657,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 04 Feb 2018 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/</guid>
-        <description>&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" alt="Featured image of post Upgrading SSIS projects, part II" /&gt;&lt;p&gt;The problem I want to solve is automation of the SSIS project upgrade. &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Previously&lt;/a&gt; I wrote about the options to use &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.upgrade?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.Upgrade()&lt;/a&gt; or &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.dts.runtime.application.saveandupdateversiontoxml?view=sqlserver-2017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Application.SaveAndUpdateVersionToXml()&lt;/a&gt; methods. This post is about the first of those options.&lt;/p&gt;
@@ -5789,7 +5796,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 24 Dec 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/</guid>
-        <description>&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" alt="Featured image of post Upgrading SSIS projects, part I" /&gt;&lt;p&gt;In &lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the previous post&lt;/a&gt;, I wrote about migrating SSISDB database. When we migrate the database the packages still have the version of the source SSIS catalog. When you start the execution of the migrated package, you get the information like &amp;ldquo;The package was migrated from version 6 to version 8. It must be saved to retain migration changes.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/SSISCatalog_UpgradePackage.png&#34; &gt;
   
@@ -5917,7 +5924,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/</guid>
-        <description>&lt;p&gt;&lt;em&gt;This post is a part of &lt;a class=&#34;link&#34; href=&#34;http://tsqltuesday.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/11/14/t-sql-tuesday-96-folks-who-have-made-a-difference/images/T-SQL-Tuesday-Logo1.jpg" alt="Featured image of post T-SQL Tuesday #96: Folks Who Have Made a Difference" /&gt;&lt;p&gt;&lt;em&gt;This post is a part of &lt;a class=&#34;link&#34; href=&#34;http://tsqltuesday.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;T-SQL Tuesday&lt;/a&gt; series started by Adam Machanic in 2009.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Ewald Cress (&lt;a class=&#34;link&#34; href=&#34;https://sqlonice.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;b&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://twitter.com/sqlOnIce&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -5955,7 +5962,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/</guid>
-        <description>&lt;p&gt;Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png" alt="Featured image of post So, you want to migrate SSIS(DB)?" /&gt;&lt;p&gt;Excellent! I wanted to, and after few trials and errors I finally did! And it&amp;rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&amp;rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.&lt;/p&gt;
 &lt;p&gt;The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&amp;rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).&lt;/p&gt;
 &lt;p&gt;I won&amp;rsquo;t cover all the scenarios. I found few blog posts explaining migration and official documentation is also good. But it took me some time to distil the things that suit my scenario and to understand better why do I need to do them. At the end of the post, I write why I didn&amp;rsquo;t use &lt;a class=&#34;link&#34; href=&#34;https://dbatools.io/functions/copy-dbassiscatalog/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Copy-DbaSsisCatalog&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;http://dbatools.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -6348,7 +6355,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Wed, 28 Jun 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/</guid>
-        <description>&lt;p&gt;For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/06/28/connect-to-sql-server-on-ubuntu-linux-virtualbox-machine/images/PortForwarding01.png" alt="Featured image of post Connect to SQL Server on Ubuntu Linux VirtualBox machine" /&gt;&lt;p&gt;For my everyday tests with SQL Server I use VirtualBox. SQL Server 2017 is/will be a huge thing - mostly because it will be available on Linux. If so - I should get comfortable with using it on Linux.&lt;/p&gt;
 &lt;p&gt;I start with Ubuntu Server (because of the name - I used Ubuntu Desktop in the past), Installation of VM on VirtualBox comes down to adding ISO image as the CD-ROM (DVD-ROM?) and selecting almost only the default options. I don&amp;rsquo;t want to build a cluster or do sophisticated things - I just want the Linux Server to be up and running.&lt;/p&gt;
 &lt;p&gt;It takes just few minutes to install Ubuntu Linux Server (16.04) . The next step is to install SQL Server. Following &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-ubuntu&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;the official&lt;/a&gt; documentation I run just 5 commands to set up and one to verify if the service works well:&lt;/p&gt;
@@ -6423,7 +6430,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 25 Jun 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://blog.bartekr.net/2017/06/25/learning-something-new-connections-in-ssis-package/images/DTS_ExecutablesLight.png" alt="Featured image of post Learning something new: connections in SSIS package" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.bartekr.net/2017/06/14/learn-something-new-power-bi-ssis-sql-server-2017-graphs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Starting to learn something new&lt;/a&gt; - first step. Let&amp;rsquo;s analyse the code of SSIS package. How does it store the information about the element connections? How can I get that data as graph&amp;rsquo;s edges and nodes? Step by step - building the packages from empty one to more complex I will find how they are stored.&lt;/p&gt;
 &lt;p&gt;To achieve this I will prepare the new SSIS Project and call it &lt;em&gt;SSIS_Graph&lt;/em&gt;. It will get new packages each time I will want to check something new. For start I create an empty package, then package with one Control Flow element - I will use empty Data Flow Task and the Sequence Container, then I will create two empty Data Flow Tasks and connect them with one precedence constraint (success). And so on - more precedence constraints, constraints with expressions. I won&amp;rsquo;t paste the code for all the sample packages. It&amp;rsquo;s just to help me get more familiar with DTSX XML and find the patterns. At the beginning, I will concentrate on Control Flow elements. The main goal is to visualise packages dependencies within a project and then other - dependencies between projects or dependencies between package&amp;rsquo;s elements.&lt;/p&gt;
 &lt;p&gt;When you take a look at the code of two empty Data Flow Tasks connected with precedence constraint you find those elements of interest:&lt;/p&gt;
@@ -6484,7 +6491,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 11 Jun 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/</guid>
-        <description>&lt;p&gt;SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&amp;rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment.png" alt="Featured image of post Get the passwords from SSIS Environment variables" /&gt;&lt;p&gt;SSIS has a neat feature - it encodes all the sensitive data when you set it as - well - sensitive. It&amp;rsquo;s a great thing for environment variables - you write once, use it to configure the project and then you can forget the password. Or write it down for later use. In the future. Some day. Maybe.&lt;/p&gt;
 &lt;p&gt;But what if you need to do the configuration on another server? Or you&amp;rsquo;re just curious how to decode encrypted data? SSIS has to do it somehow, right?&lt;/p&gt;
 &lt;p&gt;If you&amp;rsquo;re not curious what happens under the hood then scroll down to see that you can get all the information in few lines of T-SQL code (max 3 if you know the environment&amp;rsquo;s ID and compress &lt;code&gt;SELECT&lt;/code&gt; statement). If you want to know more - let&amp;rsquo;s start with investigating environment creation with SQL Profiler. I will create environment &lt;em&gt;ENV1&lt;/em&gt; in folder &lt;em&gt;DWH_ETL&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/CreateEnvironment.png&#34; &gt;
@@ -6687,7 +6694,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/</guid>
-        <description>&lt;p&gt;When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&amp;rsquo;s skip SMO and stuff). Both mean the same: &lt;code&gt;IsDeploymentWizard.exe&lt;/code&gt;. I was curious what happens during deployment and why mode&lt;code&gt;/Silent&lt;/code&gt; finishes deployment very quickly, so I started digging.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal.png" alt="Featured image of post What happens during SSIS deployments?" /&gt;&lt;p&gt;When you deploy SSIS project basically you have two options - right click on project name and standalone tool (let&amp;rsquo;s skip SMO and stuff). Both mean the same: &lt;code&gt;IsDeploymentWizard.exe&lt;/code&gt;. I was curious what happens during deployment and why mode&lt;code&gt;/Silent&lt;/code&gt; finishes deployment very quickly, so I started digging.&lt;/p&gt;
 &lt;p&gt;First I prepared sample SSIS project. Nothing extraordinary - just 5 packages, 6 project parameters and no connection managers (who needs them anyway?). Each package contained empty Data Flow Task - so you see that all just to compile something more than a single package. Later during tests, I added connection managers, but they were treated the same as project parameters, so I skipped them (the same with package parameters). To observe the environment I used good old SQL Profiler and &lt;a class=&#34;link&#34; href=&#34;https://technet.microsoft.com/en-us/sysinternals/processexplorer.aspx&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Process Explorer&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;First - the SQL Profiler. I prepared only two operations to capture:&lt;/p&gt;
@@ -7676,7 +7683,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2017/04/16/sqlbits-2017/</guid>
-        <description>&lt;p&gt;This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_085304-1024x575.jpg" alt="Featured image of post SQLBits 2017" /&gt;&lt;p&gt;This year I attended SQLBits for the first time. I wanted to go to the event last year, but didn&amp;rsquo;t manage, so this time it was a must. And I have to tell you - great event in all aspects.&lt;/p&gt;
 &lt;figure class=&#34;noborder&#34;&gt;&lt;img src=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170405_082113.png&#34; width=&#34;60%&#34;&gt;
 &lt;/figure&gt;
 

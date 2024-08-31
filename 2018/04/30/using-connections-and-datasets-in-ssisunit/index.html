@@ -10,9 +10,10 @@
 <meta property='og:description' content="One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test. The Dataset\rAs you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI): Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit.">
 <meta property='og:url' content='https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-04-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-04-30T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='ssisUnit' /><meta property='article:published_time' content='2018-04-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2018-04-30T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png' />
 <meta name="twitter:title" content="Using Connections and Datasets in ssisUnit">
-<meta name="twitter:description" content="One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test. The Dataset\rAs you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI): Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit.">
+<meta name="twitter:description" content="One of the elements you can define in ssisUnit is a Dataset. In this post of the ssisUnit series, I will show you how to prepare and use it later in a test. The Dataset\rAs you can see in the image above, the dataset is a named result that contains data. It has five attributes (although you can see just four of them in the GUI): Name (required) - the name of the dataset, used for referencing the dataset in a test IsResultsStored (required) - the boolean flag informing if we have the results cached (true) or we always ask the external source (false) Connection (required) - the connection reference for the dataset retrieval Query (optional) - the query for the dataset definition Results (optional) - the cached dataset (not available in the GUI) You can find all of the attributes in the SsisUnit."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -296,8 +298,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2018/04/30/using-connections-and-datasets-in-ssisunit/">
+                
+                    <img src="/2018/04/30/using-connections-and-datasets-in-ssisunit/images/Dataset.png" loading="lazy" alt="Featured image of post Using Connections and Datasets in ssisUnit" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -780,9 +790,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/04/13/testing-database-connections-with-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png" loading="lazy" data-key="" data-hash="/2018/04/13/testing-database-connections-with-ssisunit/images/PackageOutline.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -793,9 +809,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/03/26/writing-first-tests-with-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" loading="lazy" data-key="" data-hash="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -806,9 +828,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/03/19/testing-ssis-projects-with-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png" loading="lazy" data-key="" data-hash="/2018/03/19/testing-ssis-projects-with-ssisunit/images/ssisUnit_HeaderImage.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -819,9 +847,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/02/28/upgrading-ssis-projects-part-iii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png" loading="lazy" data-key="" data-hash="/2017/12/24/upgrading-ssis-projects-part-i/images/TargetServerVersion2017.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -832,9 +866,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/02/04/upgrading-ssis-projects-part-ii/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png" loading="lazy" data-key="" data-hash="/2018/02/04/upgrading-ssis-projects-part-ii/images/Debugging.png"/>
+                
+            </div>
         
 
         <div class="article-details">

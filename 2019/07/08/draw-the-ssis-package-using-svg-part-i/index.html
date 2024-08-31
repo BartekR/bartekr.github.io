@@ -10,9 +10,10 @@
 <meta property='og:description' content="For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub.">
 <meta property='og:url' content='https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/'>
 <meta property='og:site_name' content='BartekR'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-07-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-07-08T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SSIS' /><meta property='article:tag' content='SVG' /><meta property='article:tag' content='XML' /><meta property='article:tag' content='XSLT' /><meta property='article:published_time' content='2019-07-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-07-08T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png' />
 <meta name="twitter:title" content="Draw the SSIS package using SVG - part I">
-<meta name="twitter:description" content="For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub.">
+<meta name="twitter:description" content="For one of my projects, I need to draw the content of an SSIS package. It should not be a big problem, as the file contains all the required information. If you need to do something similar - I write a series of posts on how to achieve it using SVG, XSLT transformations and a bit of PowerShell (and maybe something more along the way). All the code is available on GitHub."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -20,7 +21,8 @@
 <style>
      
     :root {
-        --article-font-family: "Roboto", var(--base-font-family);
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +92,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">BartekR</a></h1>
-            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 9 cats.</p>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
         </div>
     </header><ol class="menu-social">
             
@@ -163,7 +165,7 @@
                 
                 
                 
-                <span>Blog [PL]</span>
+                <span>Old blog [PL]</span>
             </a>
         </li>
         
@@ -294,8 +296,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/2019/07/08/draw-the-ssis-package-using-svg-part-i/">
+                
+                    <img src="/2019/07/08/draw-the-ssis-package-using-svg-part-i/images/DTS_DesignTimeProperties.png" loading="lazy" alt="Featured image of post Draw the SSIS package using SVG - part I" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -829,9 +839,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/08/13/writing-ssisunit-test-using-api/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png" loading="lazy" data-key="" data-hash="/2018/08/13/writing-ssisunit-test-using-api/images/ssisUnitAPI.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -842,9 +858,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/07/10/testing-the-loops-in-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png" loading="lazy" data-key="" data-hash="/2018/07/10/testing-the-loops-in-ssisunit/images/TheForLoopTest.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -855,9 +877,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/07/05/setting-package-references-in-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png" loading="lazy" data-key="" data-hash="/2018/07/05/setting-package-references-in-ssisunit/images/StorageType_MSDB.png"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -868,9 +896,15 @@
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/2018/05/31/using-cached-datasets-in-ssisunit/">
         
+        
+            <div class="article-image">
+                
+                    <img src="/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png" loading="lazy" data-key="" data-hash="/2018/05/31/using-cached-datasets-in-ssisunit/images/PersistedDatasetInSsisUnitFile.png"/>
+                
+            </div>
         
 
         <div class="article-details">
