@@ -6,7 +6,23 @@
         <description>Recent content in Tags on BartekR</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
-        <lastBuildDate>Sat, 05 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 01 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker</title>
+        <link>https://blog.bartekr.net/tags/docker/</link>
+        <pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Wsl2</title>
+        <link>https://blog.bartekr.net/tags/wsl2/</link>
+        <pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/tags/wsl2/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Cidr</title>
         <link>https://blog.bartekr.net/tags/cidr/</link>
         <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
@@ -175,27 +191,11 @@
         <description></description>
         </item>
         <item>
-        <title>Docker</title>
-        <link>https://blog.bartekr.net/tags/docker/</link>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-        
-        <guid>https://blog.bartekr.net/tags/docker/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Docker Desktop</title>
         <link>https://blog.bartekr.net/tags/docker-desktop/</link>
         <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/tags/docker-desktop/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>WSL2</title>
-        <link>https://blog.bartekr.net/tags/wsl2/</link>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-        
-        <guid>https://blog.bartekr.net/tags/wsl2/</guid>
         <description></description>
         </item>
         <item>
