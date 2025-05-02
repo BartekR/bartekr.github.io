@@ -370,7 +370,7 @@
 &lt;img src=&#34;images/SSISEnvironment.png&#34;
 	width=&#34;758&#34;
 	height=&#34;507&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_920faa9542b85d21.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_4b737663d9757701.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SSIS environment&#34;
@@ -391,7 +391,7 @@
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableOK-1024x84.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;84&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_efa063bdb3d25dda.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_5ed5d866f7501f53.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Get-DbaSsisEnvironmentVariable&#34;
@@ -440,7 +440,7 @@
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;127&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_46ead5e5771fceae.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_511fd8c5c7f01253.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Get-DbaSsisEnvironmentVariable error&#34;
@@ -460,7 +460,7 @@
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;51&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_d60c6817b1e2952e.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_75b20488fbb8934a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Error details&#34;
@@ -474,8 +474,7 @@
 
 &lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Hmm, what should we do?&lt;/p&gt;
 &lt;h2 id=&#34;database-master-key&#34;&gt;Database Master Key
 &lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running &lt;code&gt;[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)&lt;/code&gt; procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - &lt;em&gt;Database Master Key&lt;/em&gt;. You can take a backup of that key and use it after restoring on another instance, but let&amp;rsquo;s skip this for now.&lt;/p&gt;
@@ -501,8 +500,7 @@
 &lt;p&gt;Or not. There is a nice thing &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;in the documentation&lt;/a&gt; (my &lt;strong&gt;emphasis&lt;/strong&gt;):&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and &lt;strong&gt;at least one password&lt;/strong&gt;. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it &lt;strong&gt;encrypted by each password&lt;/strong&gt; specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and &lt;strong&gt;at least one password&lt;/strong&gt;. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it &lt;strong&gt;encrypted by each password&lt;/strong&gt; specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;We can use more than one password to encrypt DMK. It&amp;rsquo;s a great help for us if we don&amp;rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.&lt;/p&gt;
 &lt;p&gt;We may also remove the encryption with Service Master Key and use only the password, but then we always have to use &lt;code&gt;OPEN MASTER KEY&lt;/code&gt; before decrypting the data. Using SMK performs this operation for us in the background.&lt;/p&gt;
 &lt;h2 id=&#34;back-to-the-migration&#34;&gt;Back to the migration

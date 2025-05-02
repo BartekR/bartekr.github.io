@@ -153,8 +153,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;SQL Data: 1024 GiB, 5000 IOPS, 200 MB/s
 SQL Log: 1024 GiB, 5000 IOPS, 200 MB/s
-SQL TempDb: Use local SSD drive&lt;/p&gt;
-&lt;/blockquote&gt;
+SQL TempDb: Use local SSD drive&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;default configuration for instance setting&lt;/li&gt;
 &lt;li&gt;automated patching (default)&lt;/li&gt;

@@ -23,8 +23,126 @@
 &lt;ol&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/&#34; &gt;Prologue: Docker setup on WSL2&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://watabou.github.io/realm.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Perilous shores&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The adventure hero &lt;strong&gt;Jaesika Kelamin&lt;/strong&gt;, and the starting stats&lt;/p&gt;
+
+
+
+
+
+
+
+&lt;div style=&#34;display: flex; align-items: flex-start;&#34;&gt;
+    
+    
+    &lt;table style=&#34;border-collapse: collapse; width: 100%;&#34;&gt;
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Strength&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;7&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Agility&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Endurance&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Perception&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Cunning&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Charisma&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;4&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+    &lt;/table&gt;
+    &lt;img src=&#34;https://blog.bartekr.net/img/rpg/Jaesika%20Kelamin%20-%20Deorum%20character.png&#34; alt=&#34;RPG Character&#34; style=&#34;max-width: 350px; height: auto;&#34;&gt;&lt;/div&gt;
+  
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Attribute&lt;/th&gt;
+          &lt;th&gt;Starting Value&lt;/th&gt;
+          &lt;th&gt;Brief Explanation&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Strength&lt;/td&gt;
+          &lt;td&gt;7&lt;/td&gt;
+          &lt;td&gt;Key for wielding a sword effectively and dealing damage.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Agility&lt;/td&gt;
+          &lt;td&gt;6&lt;/td&gt;
+          &lt;td&gt;Important for dodging, parrying, and swift footwork.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Endurance&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;Stamina and resistance to fatigue during combat.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Perception&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;Awareness of surroundings, spotting threats.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Cunning&lt;/td&gt;
+          &lt;td&gt;6&lt;/td&gt;
+          &lt;td&gt;Tactical thinking, planning, and problem-solving.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Charisma&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;Ability to influence others; useful in negotiations.&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Map created with &lt;a class=&#34;link&#34; href=&#34;https://watabou.github.io/realm.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Perilous shores&lt;/a&gt;, character: &lt;a class=&#34;link&#34; href=&#34;https://deorum.vercel.app/embed/h2z9lr1kqm873a8&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Deorum&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -48,8 +166,7 @@
 &lt;p&gt;This installs the default Ubuntu distribution, but it can sometimes cause issues (in my case - problems with &lt;code&gt;systemctl&lt;/code&gt; and running Docker as daemon), so I use the latest Ubuntu distribution by executing&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;wsl.exe --install -d Ubuntu-24.04&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;To get the distributions list, execute the command &lt;code&gt;wsl.exe --list --online&lt;/code&gt; and select the value from the left column (NAME) as a parameter. For more information - &lt;a class=&#34;link&#34; href=&#34;https://learn.microsoft.com/en-us/windows/wsl/install&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;visit the official documentation&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+    &gt;visit the official documentation&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;installing-docker-on-wsl&#34;&gt;Installing Docker on WSL
 &lt;/h2&gt;&lt;p&gt;While there are installation steps &lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/ubuntu/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;in the official documentation&lt;/a&gt;, I use the way I read a long time ago at &lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/install-docker-in-wsl-2-without-docker-desktop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -73,7 +190,92 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# this, otherwise networking inside of your containers won&amp;#39;t work.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-alternatives --config iptables
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As of May 2025, this set of commands is enough to get &lt;code&gt;docker&lt;/code&gt; and &lt;code&gt;docker-compose&lt;/code&gt; up and running. If something is not working, restart your WSL session.&lt;/p&gt;
-&lt;p&gt;Well, this was quick—like a very short game prologue. Nevertheless, you deserve 1 point to upgrade your statistics.&lt;/p&gt;
+&lt;p&gt;Well, this was quick—like a very short game prologue. Nevertheless, you earn 100 XP and deserve 1 point to upgrade your statistics. I choose Perception +1&lt;/p&gt;
+
+
+
+
+
+
+
+&lt;div style=&#34;display: flex; align-items: flex-start;&#34;&gt;
+    
+    
+    &lt;table style=&#34;border-collapse: collapse; width: 100%;&#34;&gt;
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Strength&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;7&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Agility&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Endurance&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Perception&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5 -&amp;gt; 6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Cunning&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Charisma&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;4&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Level 1&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt; XP 100 / 300&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+    &lt;/table&gt;
+    &lt;img src=&#34;https://blog.bartekr.net/img/rpg/Jaesika%20Kelamin%20-%20Deorum%20character.png&#34; alt=&#34;RPG Character&#34; style=&#34;max-width: 350px; height: auto;&#34;&gt;&lt;/div&gt;
+  
 </description>
         </item>
         <item>
@@ -103,12 +305,10 @@
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Wikipedia&lt;/a&gt; states, that&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Classless Inter-Domain Routing (CIDR /ˈsaɪdər, ˈsɪ-/) is a method for allocating IP addresses and for IP routing&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Classless Inter-Domain Routing (CIDR /ˈsaɪdər, ˈsɪ-/) is a method for allocating IP addresses and for IP routing&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;and&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;CIDR notation is a compact representation of an IP address and its associated network mask.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;CIDR notation is a compact representation of an IP address and its associated network mask.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;An example would be &lt;code&gt;10.0.0.0/16&lt;/code&gt;. This is all nice, but I struggle to remember the CIDR notation stuff, so I always have a short cheatsheet for it:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/16 == 65 536 addresses, ex. 10.0.0.0 - 10.0.255.255
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/17 == 32 768 addresses
@@ -156,8 +356,7 @@
 &lt;p&gt;The definition of &lt;code&gt;cidrsubnet&lt;/code&gt; is &lt;code&gt;cidrsubnet(prefix, newbits, netnum)&lt;/code&gt;. &lt;strong&gt;prefix&lt;/strong&gt; is the VNet address space, specified in the CIDR format. In my case: &lt;code&gt;10.244.200.0/24&lt;/code&gt;. I want &lt;code&gt;/26&lt;/code&gt; subnets, so as &lt;strong&gt;newbits&lt;/strong&gt; I pass the value 2, which means &lt;em&gt;dear Terraform, please add 2 to the &lt;code&gt;/24&lt;/code&gt; space, to obtain a few &lt;code&gt;/26&lt;/code&gt; address ranges&lt;/em&gt;. In the background, Terraform splits the &lt;code&gt;/24&lt;/code&gt; range into four equal &lt;code&gt;/26&lt;/code&gt; subranges, and enumerates them starting from 0. I imagine this as Terraform keeping internally an array of four subnets, like in the example above. If I want the first range, I set &lt;strong&gt;netnum&lt;/strong&gt; as &lt;code&gt;0&lt;/code&gt;, if I want the third, I set &lt;strong&gt;netnum&lt;/strong&gt; as &lt;code&gt;2&lt;/code&gt;, etc. And since the &lt;code&gt;/24&lt;/code&gt; range is split equally into four &lt;code&gt;/26&lt;/code&gt; ranges, I can&amp;rsquo;t assign &lt;strong&gt;newnum == 4&lt;/strong&gt;, as the range does not exist.&lt;/p&gt;
 &lt;p&gt;I can either write four separate &lt;code&gt;cidrsubnet()&lt;/code&gt; expressions to get four subnets, or I can ask Terraform to do it for me in one command using &lt;code&gt;cidrsubnets()&lt;/code&gt;. Again as a reminder:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;cidrsubnets(prefix, newbits...)&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;cidrsubnets(prefix, newbits...)&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;D&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;\temp\_terraform&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&amp;gt; terraform console&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; cidrsubnets(&lt;span class=&#34;s2&#34;&gt;&amp;#34;10.244.200.0/24&amp;#34;&lt;/span&gt;, 2, 2, 2, 2)
@@ -240,10 +439,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;locals&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;vnet1_address_space&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.244.200.0/24&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;vnet2_address_space&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.244.204.0/24&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;vnet1_address_space&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.244.200.0/24&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;vnet2_address_space&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.244.204.0/24&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;subnets&lt;/span&gt;       = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;subnets&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnetA&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnetB&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnetC&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
@@ -251,44 +450,44 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;  # for cidrsubnets() approach
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;subnet_ranges&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;cidrsubnets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;subnet_ranges&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cidrsubnets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_resource_group&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;rg&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;     = &lt;span class=&#34;s2&#34;&gt;&amp;#34;rg-shared-networking&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;location&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;West Europe&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_resource_group&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;rg&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;rg-shared-networking&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;West Europe&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# using cidrsubnet()
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_virtual_network&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet1&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                = &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet-shared1&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;address_space&lt;/span&gt;       = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;location&lt;/span&gt;            = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;resource_group_name&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet-shared1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;address_space&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;resource_group_name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_subnet&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet1&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;resource_group_name&lt;/span&gt;  = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;virtual_network_name&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;azurerm_virtual_network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;for_each&lt;/span&gt;             = &lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnets&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                 = &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;address_prefixes&lt;/span&gt;     = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cidrsubnet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_subnet&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet1&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;resource_group_name&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;virtual_network_name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_virtual_network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;for_each&lt;/span&gt;             &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnets&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;                 &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;address_prefixes&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cidrsubnet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet1_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# using cidrsubnets()
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_virtual_network&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet2&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                = &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet-shared2&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;address_space&lt;/span&gt;       = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;location&lt;/span&gt;            = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;resource_group_name&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet-shared2&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;address_space&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2_address_space&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;resource_group_name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_subnet&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet2&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;resource_group_name&lt;/span&gt;  = &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;virtual_network_name&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;azurerm_virtual_network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;for_each&lt;/span&gt;             = &lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnets&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                 = &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;na&#34;&gt;address_prefixes&lt;/span&gt;     = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnet_ranges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_subnet&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet2&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;resource_group_name&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_resource_group&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;virtual_network_name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;azurerm_virtual_network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vnet2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;for_each&lt;/span&gt;             &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnets&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;                 &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;snet-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;address_prefixes&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;subnet_ranges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When run with &lt;code&gt;terraform plan&lt;/code&gt;, the code above produces this output:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
@@ -601,8 +800,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;SQL Data: 1024 GiB, 5000 IOPS, 200 MB/s
 SQL Log: 1024 GiB, 5000 IOPS, 200 MB/s
-SQL TempDb: Use local SSD drive&lt;/p&gt;
-&lt;/blockquote&gt;
+SQL TempDb: Use local SSD drive&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;default configuration for instance setting&lt;/li&gt;
 &lt;li&gt;automated patching (default)&lt;/li&gt;
@@ -1043,8 +1241,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can write this code, but why bother?&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Side note: the Playwright&amp;rsquo;s object hierarchy is Playwright &amp;gt; Browser &amp;gt; Context &amp;gt; Page. You can inherit from all the hierarchy, but for the beginning, it&amp;rsquo;s good enough to just always start with a new empty browser page. To read more - take a look at the &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev/dotnet/docs/test-runners#base-nunit-classes-for-playwright&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;base NUnit classes documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
+    &gt;base NUnit classes documentation&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;To make the compiler aware of what the &lt;code&gt;PageTest&lt;/code&gt; is, I add the &lt;code&gt;using&lt;/code&gt; directive:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;Microsoft.Playwright.NUnit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -1323,8 +1520,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
         
         <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
         <description>&lt;img src="https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="Featured image of post Build Yourself a Web App in Azure" /&gt;&lt;blockquote&gt;
-&lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Basic Web App reference architecture&lt;/a&gt;, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.&lt;/p&gt;
 &lt;p&gt;But then, you might start thinking. &amp;ldquo;How secure it is for the enterprise application&amp;rdquo;? &amp;ldquo;What else should I learn to check my options&amp;rdquo;? And that&amp;rsquo;s how this series started. I wanted to build a secure environment for the web application hosted in Azure. It&amp;rsquo;s also a perfect opportunity to learn a lot about Azure architecture and components.&lt;/p&gt;
@@ -1942,7 +2138,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/DockerDesktopEnableTLSWithoutTLS-600x92.png&#34;
 	width=&#34;600&#34;
 	height=&#34;92&#34;
-	srcset=&#34;https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu50f7b448bf1a007e8c9db3dfd4634698_4601_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu50f7b448bf1a007e8c9db3dfd4634698_4601_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu_7d81873b92c56142.png 480w, https://blog.bartekr.net/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktopEnableTLSWithoutTLS-600x92_hu_a9c73fbf96cd732b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Enable TLS&#34;
@@ -2184,40 +2380,40 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
     &gt;You have three months from now&lt;/a&gt;. Or a few hours.&lt;/p&gt;
 &lt;p&gt;The original spreadsheet contains 16 records - the header and 15 tasks with 11 columns (skipped here, 8 is enough).&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Work item type&lt;/th&gt;
-&lt;th&gt;Title&lt;/th&gt;
-&lt;th&gt;Activity&lt;/th&gt;
-&lt;th&gt;Area Path&lt;/th&gt;
-&lt;th&gt;Assigned To&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;th&gt;Original Estimate&lt;/th&gt;
-&lt;th&gt;Completed Work&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Task&lt;/td&gt;
-&lt;td&gt;Title1&lt;/td&gt;
-&lt;td&gt;Requirements&lt;/td&gt;
-&lt;td&gt;Proj1\Team1&lt;/td&gt;
-&lt;td&gt;P Name1&lt;/td&gt;
-&lt;td&gt;Description 1&lt;/td&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Task&lt;/td&gt;
-&lt;td&gt;Title2&lt;/td&gt;
-&lt;td&gt;Maintenance&lt;/td&gt;
-&lt;td&gt;Proj1\Team1&lt;/td&gt;
-&lt;td&gt;P Name2&lt;/td&gt;
-&lt;td&gt;Description 2&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Work item type&lt;/th&gt;
+          &lt;th&gt;Title&lt;/th&gt;
+          &lt;th&gt;Activity&lt;/th&gt;
+          &lt;th&gt;Area Path&lt;/th&gt;
+          &lt;th&gt;Assigned To&lt;/th&gt;
+          &lt;th&gt;Description&lt;/th&gt;
+          &lt;th&gt;Original Estimate&lt;/th&gt;
+          &lt;th&gt;Completed Work&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Task&lt;/td&gt;
+          &lt;td&gt;Title1&lt;/td&gt;
+          &lt;td&gt;Requirements&lt;/td&gt;
+          &lt;td&gt;Proj1\Team1&lt;/td&gt;
+          &lt;td&gt;P Name1&lt;/td&gt;
+          &lt;td&gt;Description 1&lt;/td&gt;
+          &lt;td&gt;10&lt;/td&gt;
+          &lt;td&gt;10&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Task&lt;/td&gt;
+          &lt;td&gt;Title2&lt;/td&gt;
+          &lt;td&gt;Maintenance&lt;/td&gt;
+          &lt;td&gt;Proj1\Team1&lt;/td&gt;
+          &lt;td&gt;P Name2&lt;/td&gt;
+          &lt;td&gt;Description 2&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Additionally, the tasks should be assigned to the designated User Story: &lt;em&gt;http://tfsserveraddress/tfs/CollectionName/ProjectName/_workitems/edit/12345&lt;/em&gt; and the Sprint &lt;em&gt;&amp;quot;\Current\Sprint 3&amp;quot;&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;In my project, we work with TFS Server 2015. To talk with it using C# I use the &lt;a class=&#34;link&#34; href=&#34;https://www.nuget.org/packages/Microsoft.TeamFoundationServer.ExtendedClient&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -2460,7 +2656,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/PackageWithConstraints.png&#34;
 	width=&#34;1290&#34;
 	height=&#34;415&#34;
-	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu5cc28b4fecea7fda3f29c9f2bd29a446_38681_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu5cc28b4fecea7fda3f29c9f2bd29a446_38681_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu_1604a77bdb821393.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/PackageWithConstraints_hu_efec023852a6195b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Package with constraints&#34;
@@ -2522,7 +2718,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/XSLParameters.png&#34;
 	width=&#34;843&#34;
 	height=&#34;239&#34;
-	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu88363d3e687aace4caddd40ee4827fb2_14501_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu88363d3e687aace4caddd40ee4827fb2_14501_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu_c25d2ccd8282d818.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/XSLParameters_hu_76acb9c4777e5659.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;XSL parameters&#34;
@@ -2546,7 +2742,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Package.Diagram.png&#34;
 	width=&#34;1829&#34;
 	height=&#34;525&#34;
-	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hubd412de52ddbdd17671c6ec48975acb6_22843_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hubd412de52ddbdd17671c6ec48975acb6_22843_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hu_875f9f1fe8040b09.png 480w, https://blog.bartekr.net/2019/08/07/draw-the-ssis-package-using-svg-part-iii/images/Package.Diagram_hu_89c7c07705977a04.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Package diagram&#34;
@@ -2815,7 +3011,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/BezierCurveCalculations.png&#34;
 	width=&#34;973&#34;
 	height=&#34;574&#34;
-	srcset=&#34;https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu9078eb698cb317ce3f06c1d4026c632d_28687_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu9078eb698cb317ce3f06c1d4026c632d_28687_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu_441dd2273780f796.png 480w, https://blog.bartekr.net/2019/07/16/draw-the-ssis-package-using-svg-part-ii/images/BezierCurveCalculations_hu_6b5bdf461a8f238.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Bezier curve calculations&#34;
@@ -3609,8 +3805,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
     &gt;Q &amp;amp; A post&lt;/a&gt; after the webinar on ssisUnit (in 2013) John Welch answered the question about the loops:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;If possible, can you demo if a container can be executed? Especially a For loop or For Each loop?&amp;rdquo;&lt;/p&gt;
-&lt;p&gt;I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;I didn’t have time to demo this during the presentation. Good thing too, because there was an error around handling of containers. This has now been fixed in the source code version of the project.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;There is no example though, so let&amp;rsquo;s add one.&lt;/p&gt;
 &lt;h2 id=&#34;the-setup&#34;&gt;The setup
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;images/TheForLoop.png&#34; &gt;
@@ -5031,45 +5226,45 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;FROM dbo.Users;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Column&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Type (expected)&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Type (actual)&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Name&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;VARCHAR(6)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;VARCHAR(50)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Login&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;VARCHAR(7)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;CHAR(12)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;IsActive&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;INT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;BIT&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;SourceId&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;INT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;INT&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;SourceSystemId&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;INT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;TINYINT&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;IsDeleted&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;INT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;BIT&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Column&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Type (expected)&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Type (actual)&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Name&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;VARCHAR(6)&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;VARCHAR(50)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Login&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;VARCHAR(7)&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;CHAR(12)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;IsActive&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;INT&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;BIT&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;SourceId&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;INT&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;INT&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;SourceSystemId&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;INT&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;TINYINT&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;IsDeleted&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;INT&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;BIT&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Change the expected dataset to match the data types:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -6118,7 +6313,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/SSISEnvironment.png&#34;
 	width=&#34;758&#34;
 	height=&#34;507&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_920faa9542b85d21.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_4b737663d9757701.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SSIS environment&#34;
@@ -6139,7 +6334,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableOK-1024x84.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;84&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_efa063bdb3d25dda.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_5ed5d866f7501f53.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Get-DbaSsisEnvironmentVariable&#34;
@@ -6188,7 +6383,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;127&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_46ead5e5771fceae.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_511fd8c5c7f01253.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Get-DbaSsisEnvironmentVariable error&#34;
@@ -6208,7 +6403,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;51&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_d60c6817b1e2952e.png 480w, https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_75b20488fbb8934a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Error details&#34;
@@ -6222,8 +6417,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 
 &lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Hmm, what should we do?&lt;/p&gt;
 &lt;h2 id=&#34;database-master-key&#34;&gt;Database Master Key
 &lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running &lt;code&gt;[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)&lt;/code&gt; procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - &lt;em&gt;Database Master Key&lt;/em&gt;. You can take a backup of that key and use it after restoring on another instance, but let&amp;rsquo;s skip this for now.&lt;/p&gt;
@@ -6249,8 +6443,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;p&gt;Or not. There is a nice thing &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;in the documentation&lt;/a&gt; (my &lt;strong&gt;emphasis&lt;/strong&gt;):&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and &lt;strong&gt;at least one password&lt;/strong&gt;. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it &lt;strong&gt;encrypted by each password&lt;/strong&gt; specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and &lt;strong&gt;at least one password&lt;/strong&gt;. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it &lt;strong&gt;encrypted by each password&lt;/strong&gt; specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;We can use more than one password to encrypt DMK. It&amp;rsquo;s a great help for us if we don&amp;rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.&lt;/p&gt;
 &lt;p&gt;We may also remove the encryption with Service Master Key and use only the password, but then we always have to use &lt;code&gt;OPEN MASTER KEY&lt;/code&gt; before decrypting the data. Using SMK performs this operation for us in the background.&lt;/p&gt;
 &lt;h2 id=&#34;back-to-the-migration&#34;&gt;Back to the migration
@@ -6740,8 +6933,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;/ul&gt;
 &lt;p&gt;At the end, the key is closed and the value is inserted into the &lt;code&gt;internal.environment_variables&lt;/code&gt; table to the &lt;code&gt;sensitive_variable&lt;/code&gt; column.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;A side note: SMO returns variables for environment from the &lt;code&gt;catalog.environment_variables&lt;/code&gt; view, not the &lt;code&gt;internal.environment_variables&lt;/code&gt; table. The view does not provide sensitive data.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;A side note: SMO returns variables for environment from the &lt;code&gt;catalog.environment_variables&lt;/code&gt; view, not the &lt;code&gt;internal.environment_variables&lt;/code&gt; table. The view does not provide sensitive data.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Looks easy - to decrypt the variable we need to do almost the same thing as with encryption, but instead of the &lt;code&gt;EncryptByKey()&lt;/code&gt; function we have to use &lt;code&gt;DecryptByKey()&lt;/code&gt;. Also - as with encryption - we have to consider different paths for data decryption - we&amp;rsquo;ll see why in a moment.&lt;/p&gt;
 &lt;p&gt;To simplify the code I&amp;rsquo;m assuming that my &lt;code&gt;environment_id = 10&lt;/code&gt;. Then my encryption key and certificate have &lt;em&gt;_10&lt;/em&gt; suffix. First try: convert all to &lt;code&gt;NVARCHAR(1000)&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;OPEN&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SYMMETRIC&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MS_Enckey_Env_10&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -6760,7 +6952,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/EncrypteVariablesInEnvironment.png&#34;
 	width=&#34;812&#34;
 	height=&#34;336&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment_hu650a21bdd93d5d3c5e8a33289e857948_15581_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment_hu650a21bdd93d5d3c5e8a33289e857948_15581_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment_hu_5daf7a39aebbe54f.png 480w, https://blog.bartekr.net/2017/06/11/get-the-passwords-from-ssis-environment-variables/images/EncrypteVariablesInEnvironment_hu_5af21f0db0fcf332.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Encrypted variables&#34;
@@ -6851,7 +7043,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Profiler01-1024x487.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;487&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler01-1024x487_hubb7e5403bb468913ec9f5267549567d8_328668_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler01-1024x487_hubb7e5403bb468913ec9f5267549567d8_328668_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler01-1024x487_hu_847443aa27b5cd03.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler01-1024x487_hu_8a225b872cef2f23.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Profiler output&#34;
@@ -7034,158 +7226,158 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;(folders.[name]=@_msparam_0)and(((SELECT Name from @t_catalogs)=@_msparam_1)and((CAST(SERVERPROPERTY(N&amp;#39;&amp;#39;Servername&amp;#39;&amp;#39;) AS sysname)=@_msparam_2)))&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;@_msparam_0 nvarchar(4000),@_msparam_1 nvarchar(4000),@_msparam_2 nvarchar(4000)&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Test&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;WIN-LFVELR2F095&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When I run the steps 3, 4, 5 I got those results (pivoted for better readability):&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Step 3&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;SSISDB&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;EncryptionAlgorithm&lt;/td&gt;
-&lt;td&gt;AES_256&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;SchemaVersion&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;SchemaBuild&lt;/td&gt;
-&lt;td&gt;14.0.500.272&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;OperationLogRetentionTime&lt;/td&gt;
-&lt;td&gt;365&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MaxProjectVersions&lt;/td&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;OperationCleanupEnabled&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;VersionCleanupEnabled&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ServerLoggingLevel&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ServerCustomizedLoggingLevel&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Step 3&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Name&lt;/td&gt;
+          &lt;td&gt;SSISDB&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;EncryptionAlgorithm&lt;/td&gt;
+          &lt;td&gt;AES_256&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;SchemaVersion&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;SchemaBuild&lt;/td&gt;
+          &lt;td&gt;14.0.500.272&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OperationLogRetentionTime&lt;/td&gt;
+          &lt;td&gt;365&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MaxProjectVersions&lt;/td&gt;
+          &lt;td&gt;10&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OperationCleanupEnabled&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;VersionCleanupEnabled&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ServerLoggingLevel&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ServerCustomizedLoggingLevel&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Step 4&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FolderId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Test&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedBySid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedByName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedDate&lt;/td&gt;
-&lt;td&gt;2017-04-23 12:31:23.030&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Step 4&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FolderId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Name&lt;/td&gt;
+          &lt;td&gt;Test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Description&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedBySid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedByName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedDate&lt;/td&gt;
+          &lt;td&gt;2017-04-23 12:31:23.030&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Step 5&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FolderId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;TestSSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectFormatVersion&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedBySid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedByName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastDeployedTime&lt;/td&gt;
-&lt;td&gt;30.04.2017 01:30&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedTime&lt;/td&gt;
-&lt;td&gt;23.04.2017 12:32&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectVersionLsn&lt;/td&gt;
-&lt;td&gt;14&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ValidationStatus&lt;/td&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastValidationTime&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Step 5&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FolderId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Name&lt;/td&gt;
+          &lt;td&gt;TestSSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Description&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectFormatVersion&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedBySid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedByName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastDeployedTime&lt;/td&gt;
+          &lt;td&gt;30.04.2017 01:30&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedTime&lt;/td&gt;
+          &lt;td&gt;23.04.2017 12:32&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectVersionLsn&lt;/td&gt;
+          &lt;td&gt;14&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ValidationStatus&lt;/td&gt;
+          &lt;td&gt;N&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastValidationTime&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Excellent. What next? Until now the commands were issued by &lt;em&gt;SSIS Deployment Wizard&lt;/em&gt; application. Next few lines come from &lt;em&gt;SSIS ISServerExec&lt;/em&gt;. The first one is pretty simple, yet I have to think more about it:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sp_executesql&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SELECT [operation_id] FROM [catalog].[operations] WHERE [operation_id] = @operation_id AND [status] = @status&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;@operation_id bigint,@status int&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;operation_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -7196,7 +7388,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Profiler03-1024x425.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;425&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler03-1024x425_hu7a64b84027880f3056612a7d1ad27e1d_389626_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler03-1024x425_hu7a64b84027880f3056612a7d1ad27e1d_389626_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler03-1024x425_hu_653dd4e48b5fed08.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler03-1024x425_hu_93bed8cdd0ed974a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Profiler output&#34;
@@ -7223,7 +7415,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/internal.get_project_internal.png&#34;
 	width=&#34;752&#34;
 	height=&#34;383&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal_hu7e319d07eef17a2cfced5d04d593594b_28500_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal_hu7e319d07eef17a2cfced5d04d593594b_28500_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal_hu_518425a30781d296.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/internal.get_project_internal_hu_23cd3f2e09a1c3b0.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;GetProjectInternal stored procedure header&#34;
@@ -7264,7 +7456,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/Profiler02-1024x392.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;392&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler02-1024x392_hu9355b4a2fd9f99869a55cb3ef6b43234_292890_480x0_resize_box_3.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler02-1024x392_hu9355b4a2fd9f99869a55cb3ef6b43234_292890_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler02-1024x392_hu_365a3068e9635ca5.png 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/Profiler02-1024x392_hu_a471707a4d60f6c7.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Profiler output&#34;
@@ -7498,268 +7690,268 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;(projects.[name]=@_msparam_0)and((folders.[name]=@_msparam_1)and(((SELECT Name from @t_catalogs)=@_msparam_2)and((CAST(SERVERPROPERTY(N&amp;#39;&amp;#39;Servername&amp;#39;&amp;#39;) AS sysname)=@_msparam_3))))&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;@_msparam_0 nvarchar(4000),@_msparam_1 nvarchar(4000),@_msparam_2 nvarchar(4000),@_msparam_3 nvarchar(4000)&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;TestSSIS&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Test&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;SSISDB&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_msparam_3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;WIN-LFVELR2F095&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And the results are:&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Get operation details&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/Operation[@Id=&amp;lsquo;5&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Id&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;OperationType&lt;/td&gt;
-&lt;td&gt;101&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectType&lt;/td&gt;
-&lt;td&gt;20&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectName&lt;/td&gt;
-&lt;td&gt;TestSSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Status&lt;/td&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StartTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;EndTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CallerSid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CallerName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProcessId&lt;/td&gt;
-&lt;td&gt;7144&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StoppedBySid&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StoppedByName&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Get operation details&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/Operation[@Id=&amp;lsquo;5&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Id&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OperationType&lt;/td&gt;
+          &lt;td&gt;101&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectType&lt;/td&gt;
+          &lt;td&gt;20&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectName&lt;/td&gt;
+          &lt;td&gt;TestSSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Status&lt;/td&gt;
+          &lt;td&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StartTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;EndTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CallerSid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CallerName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProcessId&lt;/td&gt;
+          &lt;td&gt;7144&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StoppedBySid&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StoppedByName&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Get operation details (again)&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/Operation[@Id=&amp;lsquo;5&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Id&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;OperationType&lt;/td&gt;
-&lt;td&gt;101&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectType&lt;/td&gt;
-&lt;td&gt;20&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectName&lt;/td&gt;
-&lt;td&gt;TestSSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Status&lt;/td&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StartTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;EndTime&lt;/td&gt;
-&lt;td&gt;26.04.2017 20:49&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CallerSid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CallerName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProcessId&lt;/td&gt;
-&lt;td&gt;7144&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StoppedBySid&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;StoppedByName&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Get operation details (again)&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/Operation[@Id=&amp;lsquo;5&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Id&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OperationType&lt;/td&gt;
+          &lt;td&gt;101&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectType&lt;/td&gt;
+          &lt;td&gt;20&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectName&lt;/td&gt;
+          &lt;td&gt;TestSSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Status&lt;/td&gt;
+          &lt;td&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StartTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;EndTime&lt;/td&gt;
+          &lt;td&gt;26.04.2017 20:49&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CallerSid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CallerName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProcessId&lt;/td&gt;
+          &lt;td&gt;7144&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StoppedBySid&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;StoppedByName&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Get all projects from the folder&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FolderId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;TestSSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectFormatVersion&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedBySid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedByName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastDeployedTime&lt;/td&gt;
-&lt;td&gt;03.05.2017 09:32&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedTime&lt;/td&gt;
-&lt;td&gt;23.04.2017 12:32&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectVersionLsn&lt;/td&gt;
-&lt;td&gt;25&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ValidationStatus&lt;/td&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastValidationTime&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Get all projects from the folder&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FolderId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Name&lt;/td&gt;
+          &lt;td&gt;TestSSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Description&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectFormatVersion&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedBySid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedByName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastDeployedTime&lt;/td&gt;
+          &lt;td&gt;03.05.2017 09:32&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedTime&lt;/td&gt;
+          &lt;td&gt;23.04.2017 12:32&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectVersionLsn&lt;/td&gt;
+          &lt;td&gt;25&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ValidationStatus&lt;/td&gt;
+          &lt;td&gt;N&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastValidationTime&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Get project details&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Urn&lt;/td&gt;
-&lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FolderId&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;TestSSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ProjectFormatVersion&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedBySid&lt;/td&gt;
-&lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DeployedByName&lt;/td&gt;
-&lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastDeployedTime&lt;/td&gt;
-&lt;td&gt;03.05.2017 09:32&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CreatedTime&lt;/td&gt;
-&lt;td&gt;23.04.2017 12:32&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ObjectVersionLsn&lt;/td&gt;
-&lt;td&gt;25&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ValidationStatus&lt;/td&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LastValidationTime&lt;/td&gt;
-&lt;td&gt;NULL&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;Get project details&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Urn&lt;/td&gt;
+          &lt;td&gt;IntegrationServices[@Name=&amp;lsquo;WIN-LFVELR2F095&amp;rsquo;]/Catalog[@Name=&amp;lsquo;SSISDB&amp;rsquo;]/CatalogFolder[@Name=&amp;lsquo;Test&amp;rsquo;]/ProjectInfo[@Name=&amp;lsquo;TestSSIS&amp;rsquo;]&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FolderId&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Name&lt;/td&gt;
+          &lt;td&gt;TestSSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Description&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ProjectFormatVersion&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedBySid&lt;/td&gt;
+          &lt;td&gt;0x0105000000000005150000003418BD4E479DAA9DB7F7C36DF4010000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DeployedByName&lt;/td&gt;
+          &lt;td&gt;WIN-LFVELR2F095\Administrator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastDeployedTime&lt;/td&gt;
+          &lt;td&gt;03.05.2017 09:32&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CreatedTime&lt;/td&gt;
+          &lt;td&gt;23.04.2017 12:32&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ObjectVersionLsn&lt;/td&gt;
+          &lt;td&gt;25&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;ValidationStatus&lt;/td&gt;
+          &lt;td&gt;N&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LastValidationTime&lt;/td&gt;
+          &lt;td&gt;NULL&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;The last operation in deployment process is run by &lt;em&gt;SSIS ISServerExec Crash Handler&lt;/em&gt;. It&amp;rsquo;s almost the same command as the previous by &lt;em&gt;SSIS ISServerExec&lt;/em&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;internal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;update_project_deployment_status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end_time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;2017-04-26 20:49:32.7510757 +02:00&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;operation_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;project_version_lsn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -7776,7 +7968,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/IsDeploymentWizard-1024x440.gif&#34;
 	width=&#34;1024&#34;
 	height=&#34;440&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/IsDeploymentWizard-1024x440_hua56dd2c3b873835b512de07e05634d1d_90485_480x0_resize_box_1.gif 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/IsDeploymentWizard-1024x440_hua56dd2c3b873835b512de07e05634d1d_90485_1024x0_resize_box_1.gif 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/IsDeploymentWizard-1024x440_hu_b599cc5fc265b72.gif 480w, https://blog.bartekr.net/2017/05/03/what-happens-during-ssis-deployments/images/IsDeploymentWizard-1024x440_hu_76990b12cafa93f2.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;IsDeploymentWizard demo&#34;
@@ -7841,7 +8033,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/IMG_20170407_102128-1024x575.jpg&#34;
 	width=&#34;1024&#34;
 	height=&#34;575&#34;
-	srcset=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu68f776dc65f35e5bf09a863c4b81c605_74279_480x0_resize_q75_box.jpg 480w, https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu68f776dc65f35e5bf09a863c4b81c605_74279_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu_587df0db1db5363f.jpg 480w, https://blog.bartekr.net/2017/04/16/sqlbits-2017/images/IMG_20170407_102128-1024x575_hu_5298c91d469eb518.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Steve Jones says Hi!&#34;
@@ -7890,20 +8082,20 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
         <guid>https://blog.bartekr.net/speaking/</guid>
         <description>&lt;h2 id=&#34;work-in-progress&#34;&gt;(work in progress)
 &lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Event&lt;/th&gt;
-&lt;th&gt;Date&lt;/th&gt;
-&lt;th&gt;Session&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Event&lt;/th&gt;
+          &lt;th&gt;Date&lt;/th&gt;
+          &lt;th&gt;Session&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat917_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat917_header_hu51a5f3f1b290a06947013155b2ad4df4_2896_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat917_header_hu51a5f3f1b290a06947013155b2ad4df4_2896_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat917_header_hu_8eda6b25f2632664.png 480w, https://blog.bartekr.net/speaking/images/sqlsat917_header_hu_91136b856a73ea7.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Vienna 2020&#34;
@@ -7916,15 +8108,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;24.01.2020.&lt;/td&gt;
-&lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;24.01.2020.&lt;/td&gt;
+          &lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat914_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat914_header_hue6c9019634dcf14ea08f88d5bee21100_2907_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat914_header_hue6c9019634dcf14ea08f88d5bee21100_2907_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat914_header_hu_3deb9e3997b247ff.png 480w, https://blog.bartekr.net/speaking/images/sqlsat914_header_hu_fabd17899cf3c861.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Toruń 2019&#34;
@@ -7937,15 +8129,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;28.09.2019.&lt;/td&gt;
-&lt;td&gt;How does the recursive CTE work?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;28.09.2019.&lt;/td&gt;
+          &lt;td&gt;How does the recursive CTE work?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat898_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat898_header_hu719e73b155de6cc038bc32e0cbe5f817_4054_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat898_header_hu719e73b155de6cc038bc32e0cbe5f817_4054_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat898_header_hu_f6a449b832a784b8.png 480w, https://blog.bartekr.net/speaking/images/sqlsat898_header_hu_1583d1929cea077f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Gothenburg 2019&#34;
@@ -7958,15 +8150,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;14.09.2019.&lt;/td&gt;
-&lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;14.09.2019.&lt;/td&gt;
+          &lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat854_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat854_header_hu2218ec3b22102fe6c4b1ab15a72e1fe4_2912_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat854_header_hu2218ec3b22102fe6c4b1ab15a72e1fe4_2912_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat854_header_hu_7094e2880971f412.png 480w, https://blog.bartekr.net/speaking/images/sqlsat854_header_hu_e6ef767c29bd7ff6.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Oslo 2019&#34;
@@ -7979,15 +8171,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;31.08.2019.&lt;/td&gt;
-&lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;31.08.2019.&lt;/td&gt;
+          &lt;td&gt;First steps with SQL Server on Docker&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/SQLDay-logo.png&#34;
 	width=&#34;256&#34;
 	height=&#34;83&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQLDay 2019&#34;
@@ -8000,15 +8192,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;14.05.2019.&lt;/td&gt;
-&lt;td&gt;SQL Server + Docker – pierwsze kroki&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;14.05.2019.&lt;/td&gt;
+          &lt;td&gt;SQL Server + Docker – pierwsze kroki&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat824_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat824_header_hub56785b4f10b670968fed1812fae8d02_2954_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat824_header_hub56785b4f10b670968fed1812fae8d02_2954_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat824_header_hu_f8f6eebfbbc5f79f.png 480w, https://blog.bartekr.net/speaking/images/sqlsat824_header_hu_d843cbc67b77bf3a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Kraków 2019&#34;
@@ -8021,15 +8213,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;09.02.2019.&lt;/td&gt;
-&lt;td&gt;Testuj swoje pakiety SSIS z ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;09.02.2019.&lt;/td&gt;
+          &lt;td&gt;Testuj swoje pakiety SSIS z ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat810_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat810_header_hue5f41240190b5ce08716a17625c79409_2885_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat810_header_hue5f41240190b5ce08716a17625c79409_2885_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat810_header_hu_838c86188857a63.png 480w, https://blog.bartekr.net/speaking/images/sqlsat810_header_hu_d4a23c032ab0388b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Linz 2019&#34;
@@ -8042,15 +8234,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;18.01.2019.&lt;/td&gt;
-&lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;18.01.2019.&lt;/td&gt;
+          &lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/dataMindsConnect2018_41px.png&#34;
 	width=&#34;93&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/dataMindsConnect2018_41px_hu17eabb42d14b75f4e21868b25d384530_3646_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/dataMindsConnect2018_41px_hu17eabb42d14b75f4e21868b25d384530_3646_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/dataMindsConnect2018_41px_hu_7cb215c139c22d0b.png 480w, https://blog.bartekr.net/speaking/images/dataMindsConnect2018_41px_hu_32752a04c4172f00.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;dataMinds Connect 2018&#34;
@@ -8063,15 +8255,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;16.10.2018.&lt;/td&gt;
-&lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;16.10.2018.&lt;/td&gt;
+          &lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat790_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat790_header_hu6608c6e1ca24e1b26bee0b4370e8fef2_2908_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat790_header_hu6608c6e1ca24e1b26bee0b4370e8fef2_2908_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat790_header_hu_745ef15b81fcab49.png 480w, https://blog.bartekr.net/speaking/images/sqlsat790_header_hu_2b066927f508f2b9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Holland 2018&#34;
@@ -8084,15 +8276,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;13.10.2018.&lt;/td&gt;
-&lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;13.10.2018.&lt;/td&gt;
+          &lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat765_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat765_header_hucb66d40f06992deee322308c0289a4a1_3030_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat765_header_hucb66d40f06992deee322308c0289a4a1_3030_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat765_header_hu_fd95b0e6dd6b4d41.png 480w, https://blog.bartekr.net/speaking/images/sqlsat765_header_hu_ff33ee2f78c0ac2d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Denmark 2018&#34;
@@ -8105,15 +8297,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;06.10.2018.&lt;/td&gt;
-&lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;06.10.2018.&lt;/td&gt;
+          &lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsat746_header.png&#34;
 	width=&#34;262&#34;
 	height=&#34;41&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat746_header_hu00ec0fc7fd1674179fbbc31751c7f6b3_2894_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsat746_header_hu00ec0fc7fd1674179fbbc31751c7f6b3_2894_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsat746_header_hu_c466ea80f59e4613.png 480w, https://blog.bartekr.net/speaking/images/sqlsat746_header_hu_32a2b88252eb32e1.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Oslo 2018&#34;
@@ -8126,15 +8318,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;01.09.2018.&lt;/td&gt;
-&lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;01.09.2018.&lt;/td&gt;
+          &lt;td&gt;Start testing your SSIS packages with ssisUnit&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/SQLDay-logo.png&#34;
 	width=&#34;256&#34;
 	height=&#34;83&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQLDay 2018&#34;
@@ -8147,15 +8339,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;16.05.2018.&lt;/td&gt;
-&lt;td&gt;Zacznij wreszcie testować swoje pakiety SSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;16.05.2018.&lt;/td&gt;
+          &lt;td&gt;Zacznij wreszcie testować swoje pakiety SSIS&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/sqlsaturday-logo.png&#34;
 	width=&#34;264&#34;
 	height=&#34;39&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsaturday-logo_hu35e5225fbd6fd2501ee3ffbacb86d6c3_7745_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/sqlsaturday-logo_hu35e5225fbd6fd2501ee3ffbacb86d6c3_7745_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/sqlsaturday-logo_hu_c3aecfccf2666ef2.png 480w, https://blog.bartekr.net/speaking/images/sqlsaturday-logo_hu_a6e2dc706c8ee3f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Denmark 2017&#34;
@@ -8168,15 +8360,15 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;07.10.2017.&lt;/td&gt;
-&lt;td&gt;Automate your SSIS deployment process&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
+          &lt;td&gt;07.10.2017.&lt;/td&gt;
+          &lt;td&gt;Automate your SSIS deployment process&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;
 &lt;img src=&#34;images/SQLDay-logo.png&#34;
 	width=&#34;256&#34;
 	height=&#34;83&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu709fae71d9031a9a1344da6f6696cc33_6553_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, https://blog.bartekr.net/speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQLDay 2017&#34;
@@ -8189,17 +8381,17 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &gt;
 
 &lt;/td&gt;
-&lt;td&gt;16.05.2017.&lt;/td&gt;
-&lt;td&gt;Zautomatyzuj swój proces wdrażania projektów SSIS&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+          &lt;td&gt;16.05.2017.&lt;/td&gt;
+          &lt;td&gt;Zautomatyzuj swój proces wdrażania projektów SSIS&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;stickers&#34;&gt;Stickers
 &lt;/h2&gt;&lt;p&gt;
 &lt;img src=&#34;images/SQLDay2017_Speaking.png&#34;
 	width=&#34;200&#34;
 	height=&#34;75&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay2017_Speaking_hu81bd7d2276d5a8bd71b65c106bb7dee9_14262_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/SQLDay2017_Speaking_hu81bd7d2276d5a8bd71b65c106bb7dee9_14262_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay2017_Speaking_hu_de2fc9849059be3.png 480w, https://blog.bartekr.net/speaking/images/SQLDay2017_Speaking_hu_899c82ee74cb0fba.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQLDay 2017&#34;
@@ -8216,7 +8408,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/SQLSat656_Speaking_600x300_02.png&#34;
 	width=&#34;600&#34;
 	height=&#34;300&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLSat656_Speaking_600x300_02_hu6f1249493ca52337a49bad063eab2d24_20904_480x0_resize_box_3.png 480w, https://blog.bartekr.net/speaking/images/SQLSat656_Speaking_600x300_02_hu6f1249493ca52337a49bad063eab2d24_20904_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLSat656_Speaking_600x300_02_hu_326dd1898d286af0.png 480w, https://blog.bartekr.net/speaking/images/SQLSat656_Speaking_600x300_02_hu_e36b7fc722fa351e.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQL Saturday Denmark 2017&#34;
@@ -8233,7 +8425,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;img src=&#34;images/SQLDay2018_ImSpeaking.jpg&#34;
 	width=&#34;300&#34;
 	height=&#34;300&#34;
-	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay2018_ImSpeaking_hub71f5fe283a6484c3fd97de85861ae4f_26987_480x0_resize_q75_box.jpg 480w, https://blog.bartekr.net/speaking/images/SQLDay2018_ImSpeaking_hub71f5fe283a6484c3fd97de85861ae4f_26987_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://blog.bartekr.net/speaking/images/SQLDay2018_ImSpeaking_hu_8ceca999ae5e0a8d.jpg 480w, https://blog.bartekr.net/speaking/images/SQLDay2018_ImSpeaking_hu_cc650371db576f1f.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;SQLDay 2018&#34;

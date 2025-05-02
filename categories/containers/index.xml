@@ -27,8 +27,7 @@
 &lt;p&gt;This installs the default Ubuntu distribution, but it can sometimes cause issues (in my case - problems with &lt;code&gt;systemctl&lt;/code&gt; and running Docker as daemon), so I use the latest Ubuntu distribution by executing&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;wsl.exe --install -d Ubuntu-24.04&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;To get the distributions list, execute the command &lt;code&gt;wsl.exe --list --online&lt;/code&gt; and select the value from the left column (NAME) as a parameter. For more information - &lt;a class=&#34;link&#34; href=&#34;https://learn.microsoft.com/en-us/windows/wsl/install&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;visit the official documentation&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+    &gt;visit the official documentation&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;installing-docker-on-wsl&#34;&gt;Installing Docker on WSL
 &lt;/h2&gt;&lt;p&gt;While there are installation steps &lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/ubuntu/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;in the official documentation&lt;/a&gt;, I use the way I read a long time ago at &lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/install-docker-in-wsl-2-without-docker-desktop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -52,7 +51,92 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# this, otherwise networking inside of your containers won&amp;#39;t work.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-alternatives --config iptables
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As of May 2025, this set of commands is enough to get &lt;code&gt;docker&lt;/code&gt; and &lt;code&gt;docker-compose&lt;/code&gt; up and running. If something is not working, restart your WSL session.&lt;/p&gt;
-&lt;p&gt;Well, this was quick—like a very short game prologue. Nevertheless, you deserve 1 point to upgrade your statistics.&lt;/p&gt;
+&lt;p&gt;Well, this was quick—like a very short game prologue. Nevertheless, you earn 100 XP and deserve 1 point to upgrade your statistics. I choose Perception +1&lt;/p&gt;
+
+
+
+
+
+
+
+&lt;div style=&#34;display: flex; align-items: flex-start;&#34;&gt;
+    
+    
+    &lt;table style=&#34;border-collapse: collapse; width: 100%;&#34;&gt;
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Strength&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;7&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Agility&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Endurance&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Perception&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5 -&amp;gt; 6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Cunning&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Charisma&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;4&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Level 1&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt; XP 100 / 300&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+    &lt;/table&gt;
+    &lt;img src=&#34;https://blog.bartekr.net/img/rpg/Jaesika%20Kelamin%20-%20Deorum%20character.png&#34; alt=&#34;RPG Character&#34; style=&#34;max-width: 350px; height: auto;&#34;&gt;&lt;/div&gt;
+  
 </description>
         </item>
         

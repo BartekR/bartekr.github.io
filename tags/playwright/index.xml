@@ -333,8 +333,7 @@ The Firefox browser also helps to find the elements using the &lt;em&gt;Search&l
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can write this code, but why bother?&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Side note: the Playwright&amp;rsquo;s object hierarchy is Playwright &amp;gt; Browser &amp;gt; Context &amp;gt; Page. You can inherit from all the hierarchy, but for the beginning, it&amp;rsquo;s good enough to just always start with a new empty browser page. To read more - take a look at the &lt;a class=&#34;link&#34; href=&#34;https://playwright.dev/dotnet/docs/test-runners#base-nunit-classes-for-playwright&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;base NUnit classes documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
+    &gt;base NUnit classes documentation&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;To make the compiler aware of what the &lt;code&gt;PageTest&lt;/code&gt; is, I add the &lt;code&gt;using&lt;/code&gt; directive:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;Microsoft.Playwright.NUnit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;

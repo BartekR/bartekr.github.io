@@ -13,8 +13,7 @@
         
         <guid>https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/</guid>
         <description>&lt;img src="https://blog.bartekr.net/2021/02/28/build-yourself-a-web-app-in-azure/images/basic-web-app.png" alt="Featured image of post Build Yourself a Web App in Azure" /&gt;&lt;blockquote&gt;
-&lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;NOTE: Recently (around 19th February 2021), the basic web app architecture got updated. The new version shows more possibilities, as it uses Azure Key Vault, Azure Monitor and introduces deployment slots.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;When you want to build an Azure-hosted web application that will use Azure SQL Database - it looks easy. You take a &lt;a class=&#34;link&#34; href=&#34;https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/app-service-web-app/basic-web-app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Basic Web App reference architecture&lt;/a&gt;, and you are set. It even has the ARM Template to deploy to have a working environment in just a few clicks.&lt;/p&gt;
 &lt;p&gt;But then, you might start thinking. &amp;ldquo;How secure it is for the enterprise application&amp;rdquo;? &amp;ldquo;What else should I learn to check my options&amp;rdquo;? And that&amp;rsquo;s how this series started. I wanted to build a secure environment for the web application hosted in Azure. It&amp;rsquo;s also a perfect opportunity to learn a lot about Azure architecture and components.&lt;/p&gt;

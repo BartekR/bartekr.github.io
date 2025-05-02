@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.\nThe same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).\n">
 <title>So, you want to migrate SSIS(DB)?</title>
 
 <link rel='canonical' href='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/'>
 
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="So, you want to migrate SSIS(DB)?">
-<meta property='og:description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017.">
+<meta property='og:description' content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.\nThe same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).\n">
 <meta property='og:url' content='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/'>
 <meta property='og:site_name' content='BartekR'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='migration' /><meta property='article:tag' content='SQL Server 2017' /><meta property='article:tag' content='SSIS' /><meta property='article:published_time' content='2017-11-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2017-11-06T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png' />
 <meta name="twitter:title" content="So, you want to migrate SSIS(DB)?">
-<meta name="twitter:description" content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do. The same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017."><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Excellent! I wanted to, and after few trials and errors I finally did! And it&rsquo;s pretty easy (as with all things you know when you learn it). For a start I will warn you a bit - SSISDB isn&rsquo;t the database you just backup on one server and restore on another. There are some more steps to do.\nThe same procedure will work for migrations from version 2012 to 2017 or 2016 to 2017, I didn&rsquo;t check (yet) 2014 to 2017. I also tested the migration of 2012 to 2016 version but had some problems with this when it came to upgrading database part. Will investigate it later (probably some problems with SSMS or SQL2016 installation).\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://blog.bartekr.net/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISMigrationHeaderImg.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
-  
-
-<style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8HV67CGLR"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8HV67CGLR');
+        }
+      </script><style>
      
     :root {
          
@@ -80,7 +91,7 @@
                     
                     
                         
-                        <img src="/img/Bartek_SqlSatOslo2019_100x100_huc95037055e21b687f52ff80813407d9d_14060_300x0_resize_box_3.png" width="300"
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_a5e0b03d3d7e3f6d.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -399,7 +410,7 @@
 <img src="images/SSISEnvironment.png"
 	width="758"
 	height="507"
-	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_huada2795e2475c129ac0d52fa4abd185a_26364_1024x0_resize_box_3.png 1024w"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_920faa9542b85d21.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/SSISEnvironment_hu_4b737663d9757701.png 1024w"
 	loading="lazy"
 	
 		alt="SSIS environment"
@@ -420,7 +431,7 @@
 <img src="images/Get-DbaSsisEnvironmentVariableOK-1024x84.png"
 	width="1024"
 	height="84"
-	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu20ed784130c431cb113e786af57b001c_34363_1024x0_resize_box_3.png 1024w"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_efa063bdb3d25dda.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableOK-1024x84_hu_5ed5d866f7501f53.png 1024w"
 	loading="lazy"
 	
 		alt="Get-DbaSsisEnvironmentVariable"
@@ -469,7 +480,7 @@
 <img src="images/Get-DbaSsisEnvironmentVariableERROR-1024x127.png"
 	width="1024"
 	height="127"
-	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hue3edeb536fc20acf44db105570b17a76_54279_1024x0_resize_box_3.png 1024w"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_46ead5e5771fceae.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERROR-1024x127_hu_511fd8c5c7f01253.png 1024w"
 	loading="lazy"
 	
 		alt="Get-DbaSsisEnvironmentVariable error"
@@ -489,7 +500,7 @@
 <img src="images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51.png"
 	width="1024"
 	height="51"
-	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_480x0_resize_box_3.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu2f6824a22ea1d149e949ac5f28507dcf_55492_1024x0_resize_box_3.png 1024w"
+	srcset="/2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_d60c6817b1e2952e.png 480w, /2017/11/06/so-you-want-to-migrate-ssisdb/images/Get-DbaSsisEnvironmentVariableERRORDetails-1024x51_hu_75b20488fbb8934a.png 1024w"
 	loading="lazy"
 	
 		alt="Error details"
@@ -503,8 +514,7 @@
 
 </a></p>
 <blockquote>
-<p><em>Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.</em></p>
-</blockquote>
+<p><em>Please create a master key in the database or open the master key in the session before performing this operation. The key MS_Enckey_Env_2 is not open. Please open the key before using it.</em></p></blockquote>
 <p>Hmm, what should we do?</p>
 <h2 id="database-master-key">Database Master Key
 </h2><p>Let&rsquo;s begin with a little reminder - what happens when you create Integration Services Catalog? Besides enabling CLR integration (first checkbox) or enabling running <code>[catalog.startup](https://docs.microsoft.com/en-us/sql/integration-services/system-stored-procedures/catalog-startup)</code> procedure on instance restart to fix running processes status (second checkbox) you create the encryption key. Precisely - <em>Database Master Key</em>. You can take a backup of that key and use it after restoring on another instance, but let&rsquo;s skip this for now.</p>
@@ -530,8 +540,7 @@
 <p>Or not. There is a nice thing <a class="link" href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-master-key-transact-sql"  target="_blank" rel="noopener"
     >in the documentation</a> (my <strong>emphasis</strong>):</p>
 <blockquote>
-<p>For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and <strong>at least one password</strong>. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it <strong>encrypted by each password</strong> specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.</p>
-</blockquote>
+<p>For SQL Server and Parallel Data Warehouse, the Master Key is typically protected by the Service Master Key and <strong>at least one password</strong>. In case of the database being physically moved to a different server (log shipping, restoring backup, etc.), the database will contain a copy of the master Key encrypted by the original server Service Master Key (unless this encryption was explicitly removed using ALTER MASTER KEY DDL), and a copy of it <strong>encrypted by each password</strong> specified during either CREATE MASTER KEY or subsequent ALTER MASTER KEY DDL operations.</p></blockquote>
 <p>We can use more than one password to encrypt DMK. It&rsquo;s a great help for us if we don&rsquo;t remember the password - it makes the migration easier. There are more use cases for multiple passwords for DMK like password rotation related to retention policy.</p>
 <p>We may also remove the encryption with Service Master Key and use only the password, but then we always have to use <code>OPEN MASTER KEY</code> before decrypting the data. Using SMK performs this operation for us in the background.</p>
 <h2 id="back-to-the-migration">Back to the migration
@@ -793,7 +802,7 @@
         
             (c) Bartosz Ratajczyk <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
