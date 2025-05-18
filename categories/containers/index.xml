@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
         <lastBuildDate>Thu, 01 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/categories/containers/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Containers Land: docker setup on WSL2</title>
+        <title>Containers Land: Docker setup on WSL2</title>
         <link>https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/</link>
         <pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/</guid>
-        <description>&lt;img src="https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png" alt="Featured image of post Containers Land: docker setup on WSL2" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png" alt="Featured image of post Containers Land: Docker setup on WSL2" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The story starts slowly in a small village close to the YAML Mountains. Before you leave your house to learn about containers, you must install Docker. You are brave, you are strong, and you have a Windows operating system. And you want to use WSL2&amp;hellip;&lt;/p&gt;
 &lt;h2 id=&#34;-leaving-docker-desktop-behind&#34;&gt;&amp;hellip; leaving Docker Desktop behind
 &lt;/h2&gt;&lt;p&gt;Wait. What? Stop for a second. Why not Docker Desktop? It&amp;rsquo;s easy, intuitive, and free? Three reasons, my friend:&lt;/p&gt;

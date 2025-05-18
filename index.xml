@@ -12,7 +12,7 @@
         <pubDate>Thu, 01 May 2025 13:17:42 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/containers-land/</guid>
-        <description>&lt;figure class=&#34;noborder&#34;&gt;&lt;img src=&#34;https://blog.bartekr.net/img/main/containers_land.png#center&#34;
+        <description>&lt;figure class=&#34;noborder&#34;&gt;&lt;img src=&#34;https://blog.bartekr.net/img/main/containers_land_small.png#center&#34;
     alt=&#34;map created with Perilous Shores, by wata.watabou&#34;&gt;&lt;figcaption&gt;
       &lt;p&gt;map created with Perilous Shores, by wata.watabou&lt;/p&gt;
     &lt;/figcaption&gt;
@@ -146,12 +146,12 @@
 </description>
         </item>
         <item>
-        <title>Containers Land: docker setup on WSL2</title>
+        <title>Containers Land: Docker setup on WSL2</title>
         <link>https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/</link>
         <pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate>
         
         <guid>https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/</guid>
-        <description>&lt;img src="https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png" alt="Featured image of post Containers Land: docker setup on WSL2" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;img src="https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png" alt="Featured image of post Containers Land: Docker setup on WSL2" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The story starts slowly in a small village close to the YAML Mountains. Before you leave your house to learn about containers, you must install Docker. You are brave, you are strong, and you have a Windows operating system. And you want to use WSL2&amp;hellip;&lt;/p&gt;
 &lt;h2 id=&#34;-leaving-docker-desktop-behind&#34;&gt;&amp;hellip; leaving Docker Desktop behind
 &lt;/h2&gt;&lt;p&gt;Wait. What? Stop for a second. Why not Docker Desktop? It&amp;rsquo;s easy, intuitive, and free? Three reasons, my friend:&lt;/p&gt;
@@ -2116,7 +2116,7 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;p&gt;Well, that was unexpected. Up to now, I worked with docker mostly on Ubuntu 18.04 and sometimes Windows Server 2016 / Windows 10 Professional. Also at home, I prepared a working environment consisting of Windows 10 Home + WSL + VirtualBox. The last one for hosting an Ubuntu virtual machine, as it&amp;rsquo;s not possible to run Docker Desktop on Windows 10 Home or run a docker daemon in WSL. I configured it with a very helpful posts from Nick Janetakis (&lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://nickjanetakis.com/blog/docker-tip-73-connecting-to-a-remote-docker-daemon&lt;/a&gt;). Now, with WSL2 I could eliminate VirtualBox from the ecosystem.&lt;/p&gt;
-&lt;p&gt;After the installation and some restarts I opened the PowerShell, wrote &lt;code&gt;docker version&lt;/code&gt; and got the message: &lt;em&gt;&amp;ldquo;unable to resolve docker endpoint: open C:\Users\&lt;!-- raw HTML omitted --&gt;\.docker\machine\machines\default\ca.pem: The system cannot find the path specified&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;After the installation and some restarts I opened the PowerShell, wrote &lt;code&gt;docker version&lt;/code&gt; and got the message: &lt;em&gt;&amp;ldquo;unable to resolve docker endpoint: open C:\Users\BartekR\.docker\machine\machines\default\ca.pem: The system cannot find the path specified&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The problem might occur because I was testing a Docker Toolbox a long time ago, and the uninstaller might not delete all the settings. The solution: change the &lt;code&gt;DOCKER_CERT_PATH&lt;/code&gt; environment variable. To list all docker related variables I run this in PowerShell:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;Get-ChildItem&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Where-Object&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-like&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;DOCKER\*&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -4235,8 +4235,13 @@ The cons - tight GitHub integration, to comment, users must use a GitHub account
 &lt;li&gt;Patryk Żelazny &amp;ldquo;Między nami jest śmierć&amp;rdquo; (PL) 10.04.2025.&lt;/li&gt;
 &lt;li&gt;Konrad Hildebrand &amp;ldquo;Natychmiast to skasuj&amp;rdquo; (PL) 17.04.2025.&lt;/li&gt;
 &lt;li&gt;Katarzyna Wycisk &amp;ldquo;Krew Nowych Bogów&amp;rdquo; (PL) 25.04.2025.&lt;/li&gt;
-&lt;li&gt;Anne Toole, Ann Maulina &amp;ldquo;Horizon Zero Dawn: The Sunhawk&amp;rdquo; (PL: &amp;ldquo;Horizon Zero Dawn: Raróg&amp;rdquo;) (comics)&lt;/li&gt;
-&lt;li&gt;Katarzyna Wycisk &amp;ldquo;Gniew Nowych Bogów&amp;rdquo; (PL)&lt;/li&gt;
+&lt;li&gt;Katarzyna Wycisk &amp;ldquo;Gniew Nowych Bogów&amp;rdquo; (PL) 02.05.2025.&lt;/li&gt;
+&lt;li&gt;Agata Suchocka &amp;ldquo;Świetliki&amp;rdquo; (PL) 05.05.2025.&lt;/li&gt;
+&lt;li&gt;Olga Niziołek &amp;ldquo;Dzieci jednej pajęczycy&amp;rdquo; (PL) 08.05.2025.&lt;/li&gt;
+&lt;li&gt;Kala Flaga-Andrzejewska &amp;ldquo;Oblicza wampiryzmu&amp;rdquo; (PL) 10.05.2025.&lt;/li&gt;
+&lt;li&gt;Anne Toole, Ann Maulina &amp;ldquo;Horizon Zero Dawn: The Sunhawk&amp;rdquo; (PL: &amp;ldquo;Horizon Zero Dawn: Raróg&amp;rdquo;) (comics) 10.05.2025.&lt;/li&gt;
+&lt;li&gt;Anne Toole, Elmer Damaso, Bryan Valenza &amp;ldquo;Horizon Zero Dawn: Liberation&amp;rdquo; (PL: &amp;ldquo;Horizon Zero Dawn: Wyzwolenie&amp;rdquo;) (comics)&lt;/li&gt;
+&lt;li&gt;Jarosław Dobrowolski &amp;ldquo;Delirium&amp;rdquo; (PL)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;*) I&amp;rsquo;ve read this book one chapter a day&lt;/p&gt;
 &lt;h3 id=&#34;audiobooks&#34;&gt;Audiobooks
