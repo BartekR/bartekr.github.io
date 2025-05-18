@@ -13,7 +13,7 @@
         
         <guid>https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/</guid>
         <description>&lt;img src="https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/images/docker_cli.png" alt="Featured image of post Containers Land: Docker Basics" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The morning was quite chilly. You stood in the hut&amp;rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &amp;ldquo;Tomorrow&amp;rdquo;, you think, and grab your stuff. Time for the morning training.&lt;/p&gt;
+&lt;p&gt;The morning was quite chilly. You stood in the hut&amp;rsquo;s open doorway and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &amp;ldquo;Tomorrow&amp;rdquo;, you think, and grab your stuff. Time for the morning training.&lt;/p&gt;
 &lt;h2 id=&#34;using-basic-commands&#34;&gt;Using basic commands
 &lt;/h2&gt;&lt;p&gt;As the warm up, you run few commands to stretch your fingers: &lt;code&gt;docker ps&lt;/code&gt;, &lt;code&gt;docker run hello-world&lt;/code&gt;, &lt;code&gt;docker image rm hello-world --force&lt;/code&gt;, &lt;code&gt;docker image ls&lt;/code&gt;, &lt;code&gt;docker pull nginx&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;You stop. &amp;ldquo;Too fast&amp;rdquo;, you think. Although your fingers run as if they were doing it thousands of times, you take a breath and repeat the commands, slower. Adding more steps and context.&lt;/p&gt;
