@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="End-to-End testing with Playwright, part II">
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="End-to-End testing with Playwright, part II">
 <meta property='og:description' content="In the first part I created a sample Blazor app, installed Playwright and created first test. This post is to get more comfortable with Playwright.\nGetting more familiar\rJust to recall the test I wrote (validation of the element on a /counter web page):\nusing Microsoft.Playwright.NUnit; using System.Threading.Tasks; namespace BlazorApp.Tests; class MainPageTests : PageTest { public async Task CounterStartsWithZero() { // call to the `/counter` page await Page.GotoAsync(&#34;http://localhost:5165/counter&#34;); // search for the counter value var content = await Page.TextContentAsync(&#34;p&#34;); // assertion for the value Assert.Equals(&#34;Current count: 0&#34;, content); } } Writing subsequent tests is like copy/paste/edit - go to the page, do something, verify if it returns what you expected. As an example - check if I&rsquo;m redirected to the /counter page when I click the link on the main page looks like the following:\n">
 <meta property='og:url' content='https://blog.bartekr.net/2021/11/28/end-to-end-testing-with-playwright-part-ii/'>
 <meta property='og:site_name' content='BartekR'>
@@ -741,7 +741,7 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
         
             (c) Bartosz Ratajczyk <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -830,7 +830,7 @@ The Firefox browser also helps to find the elements using the <em>Search</em> op
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

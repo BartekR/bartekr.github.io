@@ -6,7 +6,334 @@
         <description>Recent content in Docker on BartekR</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
-        <lastBuildDate>Thu, 01 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 18 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.bartekr.net/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Containers Land: Docker Basics</title>
+        <link>https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/</link>
+        <pubDate>Sun, 18 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/</guid>
+        <description>&lt;img src="https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/images/docker_cli.png" alt="Featured image of post Containers Land: Docker Basics" /&gt;&lt;p&gt;Whole series, assumptions, and map: &lt;a class=&#34;link&#34; href=&#34;https://blog.bartekr.net/containers-land&#34; &gt;Container Lands&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The morning was quite chilly. You stood in the hut&amp;rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &amp;ldquo;Tomorrow&amp;rdquo;, you think, and grab your stuff. Time for the morning training.&lt;/p&gt;
+&lt;h2 id=&#34;using-basic-commands&#34;&gt;Using basic commands
+&lt;/h2&gt;&lt;p&gt;As the warm up, you run few commands to stretch your fingers: &lt;code&gt;docker ps&lt;/code&gt;, &lt;code&gt;docker run hello-world&lt;/code&gt;, &lt;code&gt;docker image rm hello-world --force&lt;/code&gt;, &lt;code&gt;docker image ls&lt;/code&gt;, &lt;code&gt;docker pull nginx&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You stop. &amp;ldquo;Too fast&amp;rdquo;, you think. Although your fingers run as if they were doing it thousands of times, you take a breath and repeat the commands, slower. Adding more steps and context.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# list all running containers&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker ps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# list all running containers, be more explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container ps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run the container using basic docker image; all tutorials use it, so why not - it&amp;#39;s a warm up&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run the container again, be more explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run the container again, be even more explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run hello-world:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run one more hello-world container, be as explicit as you can - even add the default repository name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run docker.io/hello-world:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# show all containers, even the ones not active&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker ps -a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# show all containers, even the ones not active, be explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container ps -a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ docker container ps -a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7f5ad6d558a6   hello-world:latest   &amp;#34;/hello&amp;#34;   2 minutes ago   Exited (0) 2 minutes ago             trusting_rhodes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 5872980752a4   hello-world:latest   &amp;#34;/hello&amp;#34;   2 minutes ago   Exited (0) 2 minutes ago             objective_feistel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# f51f0ca12cb7   hello-world          &amp;#34;/hello&amp;#34;   2 minutes ago   Exited (0) 2 minutes ago             inspiring_beaver&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove container using id&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker rm 7f5ad6d558a6
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove another container using its name, be more explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container rm inspiring_beaver
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove all remaining stopped containers, use --force, so it does not ask for confirmation&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container prune --force
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;Break&amp;rdquo;, you say. Repeating containers basics with so attention to detail is tiring. Yet, you summarise the first part:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;by default, Docker assumes you work with containers, so usually you omit the &lt;code&gt;container&lt;/code&gt; part in the commands&lt;/li&gt;
+&lt;li&gt;the default repository is Docker Hub (docker.io), no need to provide it if you need images from there&lt;/li&gt;
+&lt;li&gt;you can provide the &lt;code&gt;:latest&lt;/code&gt; tag, but it&amp;rsquo;s not required - by default you get the latest version&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;hello-world&lt;/em&gt; container prints the information on the screen and exits - we are back in the terminal after command stops running&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After a few minutes, you stretch, take a breath, and run a second round.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run hello world container again, and give it your own name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run --name hw1 hello-world:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker run fetches image from repository if it is not available locally, so this time split the operations into two steps&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# first - fetch latest nginx image&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# second - run the container using the pulled image, give it your own name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run --name nginx1 nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# unlike the previous docker run commands - this time we started the container, and we are still inside - no prompt available&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ docker container run --name nginx1 nginx:latest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /docker-entrypoint.sh: Configuration complete; ready for start up&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: using the &amp;#34;epoll&amp;#34; event method&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: nginx/1.27.5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: OS: Linux 5.15.167.4-microsoft-standard-WSL2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: start worker processes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: start worker process 29&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# (...)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:11:57 [notice] 1#1: start worker process 56&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Hit Ctrl+C to exit and stop the container&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ^C2025/05/18 10:16:54 [notice] 1#1: signal 2 (SIGINT) received, exiting&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 31#31: exiting&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 31#31: exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 29#29: exiting&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# (...)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 1#1: worker process 29 exited with code 0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 1#1: signal 17 (SIGCHLD) received from 42&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 1#1: worker process 42 exited with code 0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2025/05/18 10:16:54 [notice] 1#1: exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run the container in the background (aka &amp;#34;detached mode&amp;#34; -d/--detach)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run -d --name nginx2 nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# nice, back in the prompt, use another method to list all containers (including inactive)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container ls -a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ docker container ls -a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS     NAMES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e1c115bd021   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   About a minute ago   Up 59 seconds               80/tcp    nginx2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3d4c46d46447   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   7 minutes ago        Exited (0) 2 minutes ago              nginx1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e5d48855261   hello-world:latest   &amp;#34;/hello&amp;#34;                 12 minutes ago       Exited (0) 12 minutes ago             hw1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# container nginx2 is up and running, and nginx listens on port 80, check it&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl localhost:80
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ curl localhost:80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# curl: (7) Failed to connect to localhost port 80 after 1 ms: Couldn&amp;#39;t connect to server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# publish container&amp;#39;s ports during container creation (-p/--publish) to use them&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run --detach --name nginx3 --publish 80:80 nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS                               NAMES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 6dc82ca97b27   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   About a minute ago   Up About a minute           0.0.0.0:80-&amp;gt;80/tcp, :::80-&amp;gt;80/tcp   nginx3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e1c115bd021   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   13 minutes ago       Up 13 minutes               80/tcp                              nginx2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3d4c46d46447   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   19 minutes ago       Exited (0) 14 minutes ago                                       nginx1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e5d48855261   hello-world:latest   &amp;#34;/hello&amp;#34;                 24 minutes ago       Exited (0) 24 minutes ago                                       hw1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# test the port now&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl localhost:80
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ curl localhost:80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;title&amp;gt;Welcome to nginx!&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I don&amp;#39;t like being exposed everywhere (0.0.0.0), limit to localhost&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run --detach --name nginx4 --publish 127.0.0.1:80:80 nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# error - the port is already in use&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker: Error response from daemon: driver failed programming external connectivity on endpoint nginx4 (e1f51be7fc10ad848a30a746c40cede978b366b949eaf1286a9fab3dc3444b75): failed to bind port 127.0.0.1:80/tcp: Error starting userland proxy: listen tcp4 127.0.0.1:80: bind: address already in use.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# clean up nginx4, and use local port 81&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker rm nginx4 --force
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container run --detach --name nginx4 --publish 127.0.0.1:81:80 nginx:latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ docker container ls -a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS                               NAMES&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 35c54f5e00da   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   6 seconds ago        Up 5 seconds                127.0.0.1:81-&amp;gt;80/tcp                nginx4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 6dc82ca97b27   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   About a minute ago   Up About a minute           0.0.0.0:80-&amp;gt;80/tcp, :::80-&amp;gt;80/tcp   nginx3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e1c115bd021   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   13 minutes ago       Up 13 minutes               80/tcp                              nginx2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3d4c46d46447   nginx:latest         &amp;#34;/docker-entrypoint.…&amp;#34;   19 minutes ago       Exited (0) 14 minutes ago                                       nginx1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 7e5d48855261   hello-world:latest   &amp;#34;/hello&amp;#34;                 24 minutes ago       Exited (0) 24 minutes ago                                       hw1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# test the port again&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl localhost:81
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ curl localhost:81&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;title&amp;gt;Welcome to nginx!&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;Whoa!&amp;rdquo;. You are a little tired, but happy. Second round summary:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;containers exit on completion, but usually they are running until stopped - use &lt;em&gt;detached mode&lt;/em&gt; (&lt;code&gt;-d&lt;/code&gt; / &lt;code&gt;--detach&lt;/code&gt;) to run them in the background&lt;/li&gt;
+&lt;li&gt;if the container exposes a port, you need to &lt;code&gt;--publish&lt;/code&gt; it (or &lt;code&gt;-p&lt;/code&gt; for short) if you plan to use it&lt;/li&gt;
+&lt;li&gt;only one container can use one host&amp;rsquo;s port (like: each nginx&amp;rsquo;s container port has to be mapped to a separate host port)&lt;/li&gt;
+&lt;li&gt;when publishing ports, first part is the host (IP:port), the second part is the container&lt;/li&gt;
+&lt;li&gt;if only port is provided for host, the container&amp;rsquo;s port is exposed to &lt;code&gt;0.0.0.0&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;sidenote&lt;/em&gt;: while oftentimes using 0.0.0.0 or 127.0.0.1 makes no difference, there is one important thing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;127.0.0.1&lt;/code&gt; means localhost, and is available only from the local computer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;0.0.0.0&lt;/code&gt; means &lt;em&gt;all defined IPv4 addresses on this machine&lt;/em&gt; - so if you are connected to the network, and have assigned network IP address(es) (example: 10.0.0.4, 192.168.1.4) - all these addresses have port opened, and can be reached from another machine&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;The last, third round. You want to confirm the assumption: &amp;ldquo;I see the same content, when I run &lt;code&gt;curl localhost:80&lt;/code&gt; and &lt;code&gt;curl localhost:81&lt;/code&gt; commands. How can I be sure they are not served from one place?&amp;rdquo;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;#34;connect&amp;#34; to container&amp;#39;s shell, and modify the index.html file - write &amp;#34;Hello from &amp;lt;container name&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# after execution - pay attention, you are now in the container&amp;#39;s shell - your prompt is now root@&amp;lt;container id&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; -it nginx3 bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;in the container&amp;gt; by default, nginx uses /usr/share/nginx/html to store HTML content, edit it&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /usr/share/nginx/html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# root@6dc82ca97b27:/# ls /usr/share/nginx/html&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 50x.html  index.html&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;in the container&amp;gt; there is neither vi or nano, so overwrite the content from the prompt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;h1&amp;gt;Hello from nginx3, 6dc82ca97b27&amp;lt;/h1&amp;gt;&amp;#39;&lt;/span&gt; &amp;gt; /usr/share/nginx/html/index.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /usr/share/nginx/html/index.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# root@6dc82ca97b27:/# echo &amp;#39;&amp;lt;h1&amp;gt;Hello from nginx3, 6dc82ca97b27&amp;lt;/h1&amp;gt;&amp;#39; &amp;gt; /usr/share/nginx/html/index.html&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# root@6dc82ca97b27:/# cat /usr/share/nginx/html/index.html&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;h1&amp;gt;Hello from nginx3, 6dc82ca97b27&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;in the container&amp;gt; leave the container, and return to the command prompt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# root@6dc82ca97b27:/# exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# repeat with the second nginx container, be more explicit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; --interactive --tty nginx4 bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;in the container&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;h1&amp;gt;Hello from nginx4, 35c54f5e00da&amp;lt;/h1&amp;gt;&amp;#39;&lt;/span&gt; &amp;gt; /usr/share/nginx/html/index.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /usr/share/nginx/html/index.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# back in the host&amp;#39;s prompt, fetch again pages from both running nginx containers&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl localhost:80
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl localhost:81
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ curl localhost:80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;h1&amp;gt;Hello from nginx3, 6dc82ca97b27&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bartekr@Kelsier:~$ curl localhost:81&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;lt;h1&amp;gt;Hello from nginx4, 35c54f5e00da&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Nice. The third round showed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;executing commands in running containers&lt;/li&gt;
+&lt;li&gt;nginx containers run with the &lt;code&gt;root&lt;/code&gt; user&lt;/li&gt;
+&lt;li&gt;ports from the container need to be explicitly published to be available on the host&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Uff. Enough. Time for cleanup.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove hello-world container and the image using separate commands for clarity&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container rm hw1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker image rm hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove all nginx containers&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker container rm &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;docker container ls -qa&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; --force
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# remove nginx image&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker image rm nginx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Wait wait wait. What is the &lt;code&gt;docker container rm $(docker container ls -qa) --force&lt;/code&gt; command doing?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker container ls -a&lt;/code&gt; - show all containers, even inactive ones&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker container ls -q&lt;/code&gt; - show only identifiers of all active containers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The command forcibly (&lt;code&gt;--force&lt;/code&gt;) removes (&lt;code&gt;rm&lt;/code&gt;) all (&lt;code&gt;-a&lt;/code&gt;) containers (&lt;code&gt;container&lt;/code&gt;), taking the identifiers (&lt;code&gt;$(docker container ls -qa)&lt;/code&gt;) as input. It works on Linux, not on Windows.&lt;/p&gt;
+&lt;p&gt;Training is over. It&amp;rsquo;s already afternoon, so you take your gear, and go for lunch. Looking behind you, you see &lt;strong&gt;+200 XP&lt;/strong&gt;, and you glow for a moment. &amp;ldquo;Next level!&amp;rdquo; you smile, and as you receive another point, add it to your stats. Why not &lt;em&gt;Endurance&lt;/em&gt;?&lt;/p&gt;
+
+
+
+
+
+
+
+&lt;div style=&#34;display: flex; align-items: flex-start;&#34;&gt;
+    
+    
+    &lt;table style=&#34;border-collapse: collapse; width: 100%;&#34;&gt;
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Strength&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;7&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Agility&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Endurance&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;5 -&amp;gt; 6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Perception&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Cunning&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;6&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Charisma&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;4&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+        
+        
+            
+            
+            &lt;tr&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px; font-weight: bold;&#34;&gt;Level 2&lt;/td&gt;
+            &lt;td style=&#34;border: 1px solid #ccc; padding: 8px;&#34;&gt;XP 300 / 800&lt;/td&gt;
+            &lt;/tr&gt;
+        
+        
+    &lt;/table&gt;
+    &lt;img src=&#34;https://blog.bartekr.net/img/rpg/Jaesika%20Kelamin%20-%20Deorum%20character.png&#34; alt=&#34;RPG Character&#34; style=&#34;max-width: 350px; height: auto;&#34;&gt;&lt;/div&gt;
+  
+</description>
+        </item>
+        <item>
         <title>Containers Land: Docker setup on WSL2</title>
         <link>https://blog.bartekr.net/2025/05/01/containers-land-docker-setup-on-wsl2/</link>
         <pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate>

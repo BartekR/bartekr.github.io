@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Whole series, assumptions, and map: Container Lands\nThe morning was quite chilly. You stood in the hut&rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &ldquo;Tomorrow&rdquo;, you think, and grab your stuff. Time for the morning training.\nUsing basic commands\rAs the warm up, you run few commands to stretch your fingers: docker ps, docker run hello-world, docker image rm hello-world --force, docker image ls, docker pull nginx.\n">
+<title>Containers Land: Docker Basics</title>
+
+<link rel='canonical' href='https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/'>
+
+<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Containers Land: Docker Basics">
+<meta property='og:description' content="Whole series, assumptions, and map: Container Lands\nThe morning was quite chilly. You stood in the hut&rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &ldquo;Tomorrow&rdquo;, you think, and grab your stuff. Time for the morning training.\nUsing basic commands\rAs the warm up, you run few commands to stretch your fingers: docker ps, docker run hello-world, docker image rm hello-world --force, docker image ls, docker pull nginx.\n">
+<meta property='og:url' content='https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/'>
+<meta property='og:site_name' content='BartekR'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='wsl2' /><meta property='article:published_time' content='2025-05-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/images/docker_cli.png' />
+<meta name="twitter:title" content="Containers Land: Docker Basics">
+<meta name="twitter:description" content="Whole series, assumptions, and map: Container Lands\nThe morning was quite chilly. You stood in the hut&rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &ldquo;Tomorrow&rdquo;, you think, and grab your stuff. Time for the morning training.\nUsing basic commands\rAs the warm up, you run few commands to stretch your fingers: docker ps, docker run hello-world, docker image rm hello-world --force, docker image ls, docker pull nginx.\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.bartekr.net/2025/05/18/containers-land-docker-basics/images/docker_cli.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8HV67CGLR"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8HV67CGLR');
+        }
+      </script><style>
+     
+    :root {
+         
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_a5e0b03d3d7e3f6d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">BartekR</a></h1>
+            <p class="site-description">Azure. PowerShell. SQL. DevOps.<br />1 wife. 1 kid. 4 dogs. 5 cats.</p>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/BartekR'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/b_ratajczyk'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about' >
+                
+                
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://brinf.wordpress.com' >
+                
+                
+                
+                <span>Old blog [PL]</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series' >
+                
+                
+                
+                <span>Series</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/containers-land' >
+                
+                
+                
+                <span>Containers Land</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/books' >
+                
+                
+                
+                <span>Books</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/speaking' >
+                
+                
+                
+                <span>Speaking</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories' >
+                
+                
+                
+                <span>Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags' >
+                
+                
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search' >
+                
+                
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/2025/05/18/containers-land-docker-basics/">
+                
+                    <img src="/2025/05/18/containers-land-docker-basics/images/docker_cli.png" loading="lazy" alt="Featured image of post Containers Land: Docker Basics" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/containers/" >
+                Containers
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/2025/05/18/containers-land-docker-basics/">Containers Land: Docker Basics</a>
+        </h2>
+    
+        
+
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 18, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    9 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Whole series, assumptions, and map: <a class="link" href="/containers-land" >Container Lands</a></p>
+<p>The morning was quite chilly. You stood in the hut&rsquo;s open doorway of the hut and watched the rising sun. You know you need to leave the cosy WSL2 village soon. &ldquo;Tomorrow&rdquo;, you think, and grab your stuff. Time for the morning training.</p>
+<h2 id="using-basic-commands">Using basic commands
+</h2><p>As the warm up, you run few commands to stretch your fingers: <code>docker ps</code>, <code>docker run hello-world</code>, <code>docker image rm hello-world --force</code>, <code>docker image ls</code>, <code>docker pull nginx</code>.</p>
+<p>You stop. &ldquo;Too fast&rdquo;, you think. Although your fingers run as if they were doing it thousands of times, you take a breath and repeat the commands, slower. Adding more steps and context.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># list all running containers</span>
+</span></span><span class="line"><span class="cl">docker ps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># list all running containers, be more explicit</span>
+</span></span><span class="line"><span class="cl">docker container ps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># run the container using basic docker image; all tutorials use it, so why not - it&#39;s a warm up</span>
+</span></span><span class="line"><span class="cl">docker run hello-world
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># run the container again, be more explicit</span>
+</span></span><span class="line"><span class="cl">docker container run hello-world
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># run the container again, be even more explicit</span>
+</span></span><span class="line"><span class="cl">docker container run hello-world:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># run one more hello-world container, be as explicit as you can - even add the default repository name</span>
+</span></span><span class="line"><span class="cl">docker container run docker.io/hello-world:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># show all containers, even the ones not active</span>
+</span></span><span class="line"><span class="cl">docker ps -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># show all containers, even the ones not active, be explicit</span>
+</span></span><span class="line"><span class="cl">docker container ps -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ docker container ps -a</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7f5ad6d558a6   hello-world:latest   &#34;/hello&#34;   2 minutes ago   Exited (0) 2 minutes ago             trusting_rhodes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5872980752a4   hello-world:latest   &#34;/hello&#34;   2 minutes ago   Exited (0) 2 minutes ago             objective_feistel</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># f51f0ca12cb7   hello-world          &#34;/hello&#34;   2 minutes ago   Exited (0) 2 minutes ago             inspiring_beaver</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># remove container using id</span>
+</span></span><span class="line"><span class="cl">docker rm 7f5ad6d558a6
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># remove another container using its name, be more explicit</span>
+</span></span><span class="line"><span class="cl">docker container rm inspiring_beaver
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># remove all remaining stopped containers, use --force, so it does not ask for confirmation</span>
+</span></span><span class="line"><span class="cl">docker container prune --force
+</span></span></code></pre></div><p>&ldquo;Break&rdquo;, you say. Repeating containers basics with so attention to detail is tiring. Yet, you summarise the first part:</p>
+<ul>
+<li>by default, Docker assumes you work with containers, so usually you omit the <code>container</code> part in the commands</li>
+<li>the default repository is Docker Hub (docker.io), no need to provide it if you need images from there</li>
+<li>you can provide the <code>:latest</code> tag, but it&rsquo;s not required - by default you get the latest version</li>
+<li><em>hello-world</em> container prints the information on the screen and exits - we are back in the terminal after command stops running</li>
+</ul>
+<p>After a few minutes, you stretch, take a breath, and run a second round.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># run hello world container again, and give it your own name</span>
+</span></span><span class="line"><span class="cl">docker container run --name hw1 hello-world:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker run fetches image from repository if it is not available locally, so this time split the operations into two steps</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># first - fetch latest nginx image</span>
+</span></span><span class="line"><span class="cl">docker pull nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># second - run the container using the pulled image, give it your own name</span>
+</span></span><span class="line"><span class="cl">docker container run --name nginx1 nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># unlike the previous docker run commands - this time we started the container, and we are still inside - no prompt available</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ docker container run --name nginx1 nginx:latest</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /docker-entrypoint.sh: Configuration complete; ready for start up</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: using the &#34;epoll&#34; event method</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: nginx/1.27.5</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: OS: Linux 5.15.167.4-microsoft-standard-WSL2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: start worker processes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: start worker process 29</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (...)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:11:57 [notice] 1#1: start worker process 56</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Hit Ctrl+C to exit and stop the container</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ^C2025/05/18 10:16:54 [notice] 1#1: signal 2 (SIGINT) received, exiting</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 31#31: exiting</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 31#31: exit</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 29#29: exiting</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (...)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 1#1: worker process 29 exited with code 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 1#1: signal 17 (SIGCHLD) received from 42</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 1#1: worker process 42 exited with code 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2025/05/18 10:16:54 [notice] 1#1: exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># run the container in the background (aka &#34;detached mode&#34; -d/--detach)</span>
+</span></span><span class="line"><span class="cl">docker container run -d --name nginx2 nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># nice, back in the prompt, use another method to list all containers (including inactive)</span>
+</span></span><span class="line"><span class="cl">docker container ls -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ docker container ls -a</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS     NAMES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e1c115bd021   nginx:latest         &#34;/docker-entrypoint.…&#34;   About a minute ago   Up 59 seconds               80/tcp    nginx2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3d4c46d46447   nginx:latest         &#34;/docker-entrypoint.…&#34;   7 minutes ago        Exited (0) 2 minutes ago              nginx1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e5d48855261   hello-world:latest   &#34;/hello&#34;                 12 minutes ago       Exited (0) 12 minutes ago             hw1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># container nginx2 is up and running, and nginx listens on port 80, check it</span>
+</span></span><span class="line"><span class="cl">curl localhost:80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ curl localhost:80</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># curl: (7) Failed to connect to localhost port 80 after 1 ms: Couldn&#39;t connect to server</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># publish container&#39;s ports during container creation (-p/--publish) to use them</span>
+</span></span><span class="line"><span class="cl">docker container run --detach --name nginx3 --publish 80:80 nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS                               NAMES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 6dc82ca97b27   nginx:latest         &#34;/docker-entrypoint.…&#34;   About a minute ago   Up About a minute           0.0.0.0:80-&gt;80/tcp, :::80-&gt;80/tcp   nginx3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e1c115bd021   nginx:latest         &#34;/docker-entrypoint.…&#34;   13 minutes ago       Up 13 minutes               80/tcp                              nginx2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3d4c46d46447   nginx:latest         &#34;/docker-entrypoint.…&#34;   19 minutes ago       Exited (0) 14 minutes ago                                       nginx1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e5d48855261   hello-world:latest   &#34;/hello&#34;                 24 minutes ago       Exited (0) 24 minutes ago                                       hw1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test the port now</span>
+</span></span><span class="line"><span class="cl">curl localhost:80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ curl localhost:80</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;head&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;title&gt;Welcome to nginx!&lt;/title&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># I don&#39;t like being exposed everywhere (0.0.0.0), limit to localhost</span>
+</span></span><span class="line"><span class="cl">docker container run --detach --name nginx4 --publish 127.0.0.1:80:80 nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># error - the port is already in use</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># docker: Error response from daemon: driver failed programming external connectivity on endpoint nginx4 (e1f51be7fc10ad848a30a746c40cede978b366b949eaf1286a9fab3dc3444b75): failed to bind port 127.0.0.1:80/tcp: Error starting userland proxy: listen tcp4 127.0.0.1:80: bind: address already in use.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># clean up nginx4, and use local port 81</span>
+</span></span><span class="line"><span class="cl">docker rm nginx4 --force
+</span></span><span class="line"><span class="cl">docker container run --detach --name nginx4 --publish 127.0.0.1:81:80 nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ docker container ls -a</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS                      PORTS                               NAMES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 35c54f5e00da   nginx:latest         &#34;/docker-entrypoint.…&#34;   6 seconds ago        Up 5 seconds                127.0.0.1:81-&gt;80/tcp                nginx4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 6dc82ca97b27   nginx:latest         &#34;/docker-entrypoint.…&#34;   About a minute ago   Up About a minute           0.0.0.0:80-&gt;80/tcp, :::80-&gt;80/tcp   nginx3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e1c115bd021   nginx:latest         &#34;/docker-entrypoint.…&#34;   13 minutes ago       Up 13 minutes               80/tcp                              nginx2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3d4c46d46447   nginx:latest         &#34;/docker-entrypoint.…&#34;   19 minutes ago       Exited (0) 14 minutes ago                                       nginx1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7e5d48855261   hello-world:latest   &#34;/hello&#34;                 24 minutes ago       Exited (0) 24 minutes ago                                       hw1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test the port again</span>
+</span></span><span class="line"><span class="cl">curl localhost:81
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ curl localhost:81</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;head&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;title&gt;Welcome to nginx!&lt;/title&gt;</span>
+</span></span></code></pre></div><p>&ldquo;Whoa!&rdquo;. You are a little tired, but happy. Second round summary:</p>
+<ul>
+<li>containers exit on completion, but usually they are running until stopped - use <em>detached mode</em> (<code>-d</code> / <code>--detach</code>) to run them in the background</li>
+<li>if the container exposes a port, you need to <code>--publish</code> it (or <code>-p</code> for short) if you plan to use it</li>
+<li>only one container can use one host&rsquo;s port (like: each nginx&rsquo;s container port has to be mapped to a separate host port)</li>
+<li>when publishing ports, first part is the host (IP:port), the second part is the container</li>
+<li>if only port is provided for host, the container&rsquo;s port is exposed to <code>0.0.0.0</code></li>
+</ul>
+<blockquote>
+<p><em>sidenote</em>: while oftentimes using 0.0.0.0 or 127.0.0.1 makes no difference, there is one important thing:</p>
+<ul>
+<li><code>127.0.0.1</code> means localhost, and is available only from the local computer</li>
+<li><code>0.0.0.0</code> means <em>all defined IPv4 addresses on this machine</em> - so if you are connected to the network, and have assigned network IP address(es) (example: 10.0.0.4, 192.168.1.4) - all these addresses have port opened, and can be reached from another machine</li>
+</ul></blockquote>
+<p>The last, third round. You want to confirm the assumption: &ldquo;I see the same content, when I run <code>curl localhost:80</code> and <code>curl localhost:81</code> commands. How can I be sure they are not served from one place?&rdquo;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># &#34;connect&#34; to container&#39;s shell, and modify the index.html file - write &#34;Hello from &lt;container name&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># after execution - pay attention, you are now in the container&#39;s shell - your prompt is now root@&lt;container id&gt;</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it nginx3 bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;in the container&gt; by default, nginx uses /usr/share/nginx/html to store HTML content, edit it</span>
+</span></span><span class="line"><span class="cl">ls /usr/share/nginx/html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># root@6dc82ca97b27:/# ls /usr/share/nginx/html</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 50x.html  index.html</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;in the container&gt; there is neither vi or nano, so overwrite the content from the prompt</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;&lt;h1&gt;Hello from nginx3, 6dc82ca97b27&lt;/h1&gt;&#39;</span> &gt; /usr/share/nginx/html/index.html
+</span></span><span class="line"><span class="cl">cat /usr/share/nginx/html/index.html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># root@6dc82ca97b27:/# echo &#39;&lt;h1&gt;Hello from nginx3, 6dc82ca97b27&lt;/h1&gt;&#39; &gt; /usr/share/nginx/html/index.html</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># root@6dc82ca97b27:/# cat /usr/share/nginx/html/index.html</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;h1&gt;Hello from nginx3, 6dc82ca97b27&lt;/h1&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;in the container&gt; leave the container, and return to the command prompt</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># root@6dc82ca97b27:/# exit</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># exit</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># repeat with the second nginx container, be more explicit</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> --interactive --tty nginx4 bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;in the container&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;&lt;h1&gt;Hello from nginx4, 35c54f5e00da&lt;/h1&gt;&#39;</span> &gt; /usr/share/nginx/html/index.html
+</span></span><span class="line"><span class="cl">cat /usr/share/nginx/html/index.html
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># back in the host&#39;s prompt, fetch again pages from both running nginx containers</span>
+</span></span><span class="line"><span class="cl">curl localhost:80
+</span></span><span class="line"><span class="cl">curl localhost:81
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ curl localhost:80</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;h1&gt;Hello from nginx3, 6dc82ca97b27&lt;/h1&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bartekr@Kelsier:~$ curl localhost:81</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;h1&gt;Hello from nginx4, 35c54f5e00da&lt;/h1&gt;</span>
+</span></span></code></pre></div><p>Nice. The third round showed:</p>
+<ul>
+<li>executing commands in running containers</li>
+<li>nginx containers run with the <code>root</code> user</li>
+<li>ports from the container need to be explicitly published to be available on the host</li>
+</ul>
+<p>Uff. Enough. Time for cleanup.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># remove hello-world container and the image using separate commands for clarity</span>
+</span></span><span class="line"><span class="cl">docker container rm hw1
+</span></span><span class="line"><span class="cl">docker image rm hello-world
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># remove all nginx containers</span>
+</span></span><span class="line"><span class="cl">docker container rm <span class="k">$(</span>docker container ls -qa<span class="k">)</span> --force
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># remove nginx image</span>
+</span></span><span class="line"><span class="cl">docker image rm nginx
+</span></span></code></pre></div><p>Wait wait wait. What is the <code>docker container rm $(docker container ls -qa) --force</code> command doing?</p>
+<ul>
+<li><code>docker container ls -a</code> - show all containers, even inactive ones</li>
+<li><code>docker container ls -q</code> - show only identifiers of all active containers</li>
+</ul>
+<p>The command forcibly (<code>--force</code>) removes (<code>rm</code>) all (<code>-a</code>) containers (<code>container</code>), taking the identifiers (<code>$(docker container ls -qa)</code>) as input. It works on Linux, not on Windows.</p>
+<p>Training is over. It&rsquo;s already afternoon, so you take your gear, and go for lunch. Looking behind you, you see <strong>+200 XP</strong>, and you glow for a moment. &ldquo;Next level!&rdquo; you smile, and as you receive another point, add it to your stats. Why not <em>Endurance</em>?</p>
+
+
+
+
+
+
+
+<div style="display: flex; align-items: flex-start;">
+    
+    
+    <table style="border-collapse: collapse; width: 100%;">
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Strength</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">7</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Agility</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">6</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Endurance</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">5 -&gt; 6</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Perception</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">6</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Cunning</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">6</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Charisma</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">4</td>
+            </tr>
+        
+        
+        
+        
+            
+            
+            <tr>
+            <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Level 2</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">XP 300 / 800</td>
+            </tr>
+        
+        
+    </table>
+    <img src="/img/rpg/Jaesika%20Kelamin%20-%20Deorum%20character.png" alt="RPG Character" style="max-width: 350px; height: auto;"></div>
+  
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+            <a href="/tags/wsl2/">Wsl2</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/2025/05/01/containers-land-docker-setup-on-wsl2/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png" loading="lazy" data-key="" data-hash="/2025/05/01/containers-land-docker-setup-on-wsl2/images/containers_land_01.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Containers Land: Docker setup on WSL2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png" loading="lazy" data-key="" data-hash="/2020/09/01/have-problems-with-docker-desktop-for-windows-home-yeah-me-too/images/DockerDesktop.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Have problems with Docker Desktop for Windows Home? Yeah, me too!</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="BartekR/bartekr.github.io"
+        issue-term="url"
+        
+        label="blog-comment"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2017 - 
+        
+        2025 BartekR
+    </section>
+    
+    <section class="powerby">
+        
+            (c) Bartosz Ratajczyk <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
