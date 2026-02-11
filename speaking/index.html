@@ -6,19 +6,17 @@
 
 <link rel='canonical' href='https://blog.bartekr.net/speaking/'>
 
-<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="Speaking">
+<link rel="stylesheet" href="/scss/style.min.12cc436ab5f8511a88ba664cf1ef0912660ff4b5b07ea9078eb9fd7832b1e898.css"><meta property='og:title' content="Speaking">
 <meta property='og:description' content="(work in progress)\rEvent Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.10.2018. Start testing your SSIS packages with ssisUnit 01.09.2018. Start testing your SSIS packages with ssisUnit 16.05.2018. Zacznij wreszcie testować swoje pakiety SSIS 07.10.2017. Automate your SSIS deployment process 16.05.2017. Zautomatyzuj swój proces wdrażania projektów SSIS Stickers\r">
 <meta property='og:url' content='https://blog.bartekr.net/speaking/'>
 <meta property='og:site_name' content='BartekR'>
 <meta property='og:type' content='article'><meta property='article:section' content='' />
 <meta name="twitter:title" content="Speaking">
 <meta name="twitter:description" content="(work in progress)\rEvent Date Session 24.01.2020. First steps with SQL Server on Docker 28.09.2019. How does the recursive CTE work? 14.09.2019. First steps with SQL Server on Docker 31.08.2019. First steps with SQL Server on Docker 14.05.2019. SQL Server + Docker – pierwsze kroki 09.02.2019. Testuj swoje pakiety SSIS z ssisUnit 18.01.2019. Start testing your SSIS packages with ssisUnit 16.10.2018. Start testing your SSIS packages with ssisUnit 13.10.2018. Start testing your SSIS packages with ssisUnit 06.10.2018. Start testing your SSIS packages with ssisUnit 01.09.2018. Start testing your SSIS packages with ssisUnit 16.05.2018. Zacznij wreszcie testować swoje pakiety SSIS 07.10.2017. Automate your SSIS deployment process 16.05.2017. Zautomatyzuj swój proces wdrażania projektów SSIS Stickers\r">
-    <link rel="shortcut icon" href="/favicon.ico" />
-
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8HV67CGLR"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -31,8 +29,7 @@
       </script><style>
      
     :root {
-         
-        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), sans-serif;
     }
 </style>
 
@@ -90,7 +87,7 @@
                     
                     
                         
-                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_a5e0b03d3d7e3f6d.png" width="300"
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_cbcb5a61b61b522f.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -298,12 +295,14 @@
         <h2 class="widget-title section-title">Table of contents</h2>
         
         <div class="widget--toc">
-            <nav id="TableOfContents">
+            <nav class="toc-nav" id="TableOfContents">
+                
   <ul>
     <li><a href="#work-in-progress">(work in progress)</a></li>
     <li><a href="#stickers">Stickers</a></li>
   </ul>
-</nav>
+
+            </nav>
         </div>
     </section>
 
@@ -359,6 +358,27 @@
 
 </header>
 
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>Table of contents</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#work-in-progress">(work in progress)</a></li>
+    <li><a href="#stickers">Stickers</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
     <section class="article-content">
     
     
@@ -377,7 +397,7 @@
 <img src="images/sqlsat917_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat917_header_hu_8eda6b25f2632664.png 480w, /speaking/images/sqlsat917_header_hu_91136b856a73ea7.png 1024w"
+	srcset="/speaking/images/sqlsat917_header_hu_9eda71f98791d327.png 480w, /speaking/images/sqlsat917_header_hu_7f6eac4f66350a8b.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Vienna 2020"
@@ -398,7 +418,7 @@
 <img src="images/sqlsat914_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat914_header_hu_3deb9e3997b247ff.png 480w, /speaking/images/sqlsat914_header_hu_fabd17899cf3c861.png 1024w"
+	srcset="/speaking/images/sqlsat914_header_hu_c18ae14e6f2a41a9.png 480w, /speaking/images/sqlsat914_header_hu_5bd6676626d97de9.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Toruń 2019"
@@ -419,7 +439,7 @@
 <img src="images/sqlsat898_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat898_header_hu_f6a449b832a784b8.png 480w, /speaking/images/sqlsat898_header_hu_1583d1929cea077f.png 1024w"
+	srcset="/speaking/images/sqlsat898_header_hu_b91d24a10471a7a9.png 480w, /speaking/images/sqlsat898_header_hu_128bc162b862850f.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Gothenburg 2019"
@@ -440,7 +460,7 @@
 <img src="images/sqlsat854_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat854_header_hu_7094e2880971f412.png 480w, /speaking/images/sqlsat854_header_hu_e6ef767c29bd7ff6.png 1024w"
+	srcset="/speaking/images/sqlsat854_header_hu_5a63c9f04cdda87f.png 480w, /speaking/images/sqlsat854_header_hu_afbcc51b2c923e74.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Oslo 2019"
@@ -461,7 +481,7 @@
 <img src="images/SQLDay-logo.png"
 	width="256"
 	height="83"
-	srcset="/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, /speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w"
+	srcset="/speaking/images/SQLDay-logo_hu_6469511663e7b7e4.png 480w, /speaking/images/SQLDay-logo_hu_3eb909d84f2ad74b.png 1024w"
 	loading="lazy"
 	
 		alt="SQLDay 2019"
@@ -482,7 +502,7 @@
 <img src="images/sqlsat824_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat824_header_hu_f8f6eebfbbc5f79f.png 480w, /speaking/images/sqlsat824_header_hu_d843cbc67b77bf3a.png 1024w"
+	srcset="/speaking/images/sqlsat824_header_hu_72eec6c10a7ea63b.png 480w, /speaking/images/sqlsat824_header_hu_75fb776bcc635721.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Kraków 2019"
@@ -503,7 +523,7 @@
 <img src="images/sqlsat810_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat810_header_hu_838c86188857a63.png 480w, /speaking/images/sqlsat810_header_hu_d4a23c032ab0388b.png 1024w"
+	srcset="/speaking/images/sqlsat810_header_hu_10c11829b185cf14.png 480w, /speaking/images/sqlsat810_header_hu_c211915a302a1eec.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Linz 2019"
@@ -524,7 +544,7 @@
 <img src="images/dataMindsConnect2018_41px.png"
 	width="93"
 	height="41"
-	srcset="/speaking/images/dataMindsConnect2018_41px_hu_7cb215c139c22d0b.png 480w, /speaking/images/dataMindsConnect2018_41px_hu_32752a04c4172f00.png 1024w"
+	srcset="/speaking/images/dataMindsConnect2018_41px_hu_c4cc9c9909b40269.png 480w, /speaking/images/dataMindsConnect2018_41px_hu_65e4de6684acf9a5.png 1024w"
 	loading="lazy"
 	
 		alt="dataMinds Connect 2018"
@@ -545,7 +565,7 @@
 <img src="images/sqlsat790_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat790_header_hu_745ef15b81fcab49.png 480w, /speaking/images/sqlsat790_header_hu_2b066927f508f2b9.png 1024w"
+	srcset="/speaking/images/sqlsat790_header_hu_12de4d0d0b91c1c4.png 480w, /speaking/images/sqlsat790_header_hu_446d1342722349c6.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Holland 2018"
@@ -566,7 +586,7 @@
 <img src="images/sqlsat765_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat765_header_hu_fd95b0e6dd6b4d41.png 480w, /speaking/images/sqlsat765_header_hu_ff33ee2f78c0ac2d.png 1024w"
+	srcset="/speaking/images/sqlsat765_header_hu_82b75a2236109388.png 480w, /speaking/images/sqlsat765_header_hu_42a9bbd6c2fd00c9.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Denmark 2018"
@@ -587,7 +607,7 @@
 <img src="images/sqlsat746_header.png"
 	width="262"
 	height="41"
-	srcset="/speaking/images/sqlsat746_header_hu_c466ea80f59e4613.png 480w, /speaking/images/sqlsat746_header_hu_32a2b88252eb32e1.png 1024w"
+	srcset="/speaking/images/sqlsat746_header_hu_5adb263445b69d6e.png 480w, /speaking/images/sqlsat746_header_hu_983de3b78f6a88c.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Oslo 2018"
@@ -608,7 +628,7 @@
 <img src="images/SQLDay-logo.png"
 	width="256"
 	height="83"
-	srcset="/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, /speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w"
+	srcset="/speaking/images/SQLDay-logo_hu_6469511663e7b7e4.png 480w, /speaking/images/SQLDay-logo_hu_3eb909d84f2ad74b.png 1024w"
 	loading="lazy"
 	
 		alt="SQLDay 2018"
@@ -629,7 +649,7 @@
 <img src="images/sqlsaturday-logo.png"
 	width="264"
 	height="39"
-	srcset="/speaking/images/sqlsaturday-logo_hu_c3aecfccf2666ef2.png 480w, /speaking/images/sqlsaturday-logo_hu_a6e2dc706c8ee3f.png 1024w"
+	srcset="/speaking/images/sqlsaturday-logo_hu_660ae5e5748cc943.png 480w, /speaking/images/sqlsaturday-logo_hu_35462141adb4e2d.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Denmark 2017"
@@ -650,7 +670,7 @@
 <img src="images/SQLDay-logo.png"
 	width="256"
 	height="83"
-	srcset="/speaking/images/SQLDay-logo_hu_1e13311f31d7e6ee.png 480w, /speaking/images/SQLDay-logo_hu_46d1b94ebfa7101a.png 1024w"
+	srcset="/speaking/images/SQLDay-logo_hu_6469511663e7b7e4.png 480w, /speaking/images/SQLDay-logo_hu_3eb909d84f2ad74b.png 1024w"
 	loading="lazy"
 	
 		alt="SQLDay 2017"
@@ -673,7 +693,7 @@
 <img src="images/SQLDay2017_Speaking.png"
 	width="200"
 	height="75"
-	srcset="/speaking/images/SQLDay2017_Speaking_hu_de2fc9849059be3.png 480w, /speaking/images/SQLDay2017_Speaking_hu_899c82ee74cb0fba.png 1024w"
+	srcset="/speaking/images/SQLDay2017_Speaking_hu_cc47010a1b76f193.png 480w, /speaking/images/SQLDay2017_Speaking_hu_10111dbb7930b01a.png 1024w"
 	loading="lazy"
 	
 		alt="SQLDay 2017"
@@ -690,7 +710,7 @@
 <img src="images/SQLSat656_Speaking_600x300_02.png"
 	width="600"
 	height="300"
-	srcset="/speaking/images/SQLSat656_Speaking_600x300_02_hu_326dd1898d286af0.png 480w, /speaking/images/SQLSat656_Speaking_600x300_02_hu_e36b7fc722fa351e.png 1024w"
+	srcset="/speaking/images/SQLSat656_Speaking_600x300_02_hu_3ab6c31d857f32a2.png 480w, /speaking/images/SQLSat656_Speaking_600x300_02_hu_34a67e7b341a63ec.png 1024w"
 	loading="lazy"
 	
 		alt="SQL Saturday Denmark 2017"
@@ -707,7 +727,7 @@
 <img src="images/SQLDay2018_ImSpeaking.jpg"
 	width="300"
 	height="300"
-	srcset="/speaking/images/SQLDay2018_ImSpeaking_hu_8ceca999ae5e0a8d.jpg 480w, /speaking/images/SQLDay2018_ImSpeaking_hu_cc650371db576f1f.jpg 1024w"
+	srcset="/speaking/images/SQLDay2018_ImSpeaking_hu_4d20e1b9d699c663.jpg 480w, /speaking/images/SQLDay2018_ImSpeaking_hu_c4e20b0a223f10f3.jpg 1024w"
 	loading="lazy"
 	
 		alt="SQLDay 2018"
@@ -796,103 +816,52 @@
         
             2017 - 
         
-        2025 BartekR
+        2026 BartekR
     </section>
     
     <section class="powerby">
         
             (c) Bartosz Ratajczyk <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
     
-    <div class="pswp__bg"></div>
+    if (shouldLoad) {
+        gallery(articleContent);
 
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
     
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
 
             </main>
         </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

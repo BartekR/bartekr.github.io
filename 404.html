@@ -6,19 +6,17 @@
 
 <link rel='canonical' href='https://blog.bartekr.net/404.html'>
 
-<link rel="stylesheet" href="/scss/style.min.e8c7fca7d1c9294aa7a4f3426c225ee26540f7d94e39be0b5a4a5c8a49ca5a25.css"><meta property='og:title' content="404 Page not found">
+<link rel="stylesheet" href="/scss/style.min.12cc436ab5f8511a88ba664cf1ef0912660ff4b5b07ea9078eb9fd7832b1e898.css"><meta property='og:title' content="404 Page not found">
 <meta property='og:description' content="Azure. PowerShell. SQL. DevOps.\n1 wife. 1 kid. 4 dogs. 5 cats.">
 <meta property='og:url' content='https://blog.bartekr.net/404.html'>
 <meta property='og:site_name' content='BartekR'>
 <meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-05-18T00:00:00&#43;00:00 '/>
 <meta name="twitter:title" content="404 Page not found">
 <meta name="twitter:description" content="Azure. PowerShell. SQL. DevOps.\n1 wife. 1 kid. 4 dogs. 5 cats.">
-    <link rel="shortcut icon" href="/favicon.ico" />
-
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8HV67CGLR"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -31,8 +29,7 @@
       </script><style>
      
     :root {
-         
-        --base-font-family: "Roboto", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+        --base-font-family: "Roboto", "Lato", var(--sys-font-family), sans-serif;
     }
 </style>
 
@@ -88,7 +85,7 @@
                     
                     
                         
-                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_a5e0b03d3d7e3f6d.png" width="300"
+                        <img src="/img/Bartek_SqlSatOslo2019_100x100_hu_cbcb5a61b61b522f.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -280,32 +277,61 @@
     <div class="not-found-card">
         <h1 class="article-title">Not Found</h1>
         <h2 class="article-subtitle">This page does not exist</h2>
-    </div>
-    <footer class="site-footer">
+    </div><form action="/search/" class="search-form widget" data-json="/search/index.json">
+            <p>
+                <label>Search</label>
+                <input id="searchInput" name="keyword" required placeholder="Type something..." />
+            
+                <button title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                </button>
+            </p>
+        </form>
+
+        <div class="search-result">
+            <h3 class="search-result--title section-title"></h3>
+            <div class="search-result--list article-list--compact"></div>
+        </div>
+        
+        <script>
+            window.searchResultTitleTemplate = "#PAGES_COUNT pages (#TIME_SECONDS seconds)"
+        </script><script type="text/javascript" src="/ts/search.js" defer></script>
+
+        <script>
+            const wrongUrl = new URL(window.location.href);
+
+            
+            const searchKeyword = decodeURIComponent(wrongUrl.pathname).split(/[/|-]/).join(' ').trim();
+
+            document.getElementById('searchInput').setAttribute('value', searchKeyword);
+        </script><footer class="site-footer">
     <section class="copyright">
         &copy; 
         
             2017 - 
         
-        2025 BartekR
+        2026 BartekR
     </section>
     
     <section class="powerby">
         
             (c) Bartosz Ratajczyk <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
             </main>
         </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
